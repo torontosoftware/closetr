@@ -1,0 +1,50 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+$dark-blue: #0C2845;
+$light-blue-grey: #E6ECEF;
+$white: #FFFFFF;
+$font-main: 'Work Sans', sans-serif;
+
+body {
+  font-size: 15px;
+  font-weight: 400;
+  font-family: $font-main;
+  background-color: $light-blue-grey;
+}
+
+.widget {
+  padding: 10px;
+  color: $dark-blue;
+  background-color: $white;
+  height: 40vh;
+  margin: 10px 0 10px 0;
+  border-radius: 10px;
+}
+
+.circle {
+  height: 50px;
+  width: 50px;
+  padding: 10px;
+  border-radius: 25px;
+  background-color: $white;
+}
+
+#dashboard-container {
+  margin-top: 15px;
+}
+
+h3 {
+  font-size: 20px;
+  padding: 0;
+  margin: 0;
+  font-weight: 600;
+}
+
+/*
+small fixes
+*/
+
+.pull-right {
+  float: right;
+}
