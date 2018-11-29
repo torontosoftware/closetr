@@ -1,12 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
-
-$dark-blue: #262F30;
-$light-blue-grey: #E6ECEF;
-$white: #FFFFFF;
-$med-blue: #AFC2CE;
-$font-main: 'Work Sans', sans-serif;
-
+@import "global-variables.scss";
 /*
 screen-width breakpoints
 */
