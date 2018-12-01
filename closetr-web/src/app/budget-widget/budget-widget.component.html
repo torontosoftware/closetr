@@ -4,7 +4,7 @@
         <h3>spending</h3>
       </div>
       <div class="col-6">
-        <select class="pull-right">
+        <select class="pull-right mtb-4">
           <option value="last week">
             last week
           </option>
@@ -16,25 +16,11 @@
   </div>
   <div class="row mtb-10">
     <div class="col-12">
-      <table class="table table-sm">
-        <thead>
-          <tr>
-            <th>cost</th>
-            <th>item</th>
-          </tr>
-        </thead>
+      <table class="table table-sm table-borderless">
         <tbody>
-          <tr>
-            <td>$15</td>
-            <td>Aritzia T-shirt</td>
-          </tr>
-          <tr>
-            <td>$25</td>
-            <td>Zara Mockneck Tee</td>
-          </tr>
-          <tr>
-            <td>$55</td>
-            <td>Aritzia T-shirt</td>
+          <tr *ngFor="let n of purchaseList">
+            <td class="f-bold-blue-md">{{n.price}}</td>
+            <td class="f-light-blue-md">{{n.name}}</td>
           </tr>
         </tbody>
       </table>

@@ -138,6 +138,11 @@ h4 {
   font-weight: 300;
 }
 
+.f-light-blue-md {
+  font-size: 15px;
+  font-weight: 300;
+}
+
 .f-light-blue {
   font-size: 13px;
   font-weight: 300;
@@ -156,6 +161,11 @@ h4 {
 .f-med-blue-xs {
   font-size: 12px;
   font-weight: 400;
+}
+
+.f-bold-blue-md {
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .f-med-white {
@@ -180,6 +190,15 @@ button styles
 }
 
 /*
+input changes (default)
+*/
+select {
+  border: none;
+  height: 20px;
+  background-color: transparent;
+}
+
+/*
 small fixes
 */
 
@@ -190,6 +209,11 @@ small fixes
 .mtb-10 {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.mtb-4 {
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 
 .mt-10 {
