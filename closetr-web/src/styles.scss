@@ -63,7 +63,6 @@ body {
   padding: 15px 5px 15px 5px;
   color: $dark-blue;
   background-color: $white;
-  height: 40vh;
   min-height: 350px;
   margin: 10px 0 10px 0;
   border-radius: 10px;
@@ -142,6 +141,21 @@ h4 {
 .f-light-blue {
   font-size: 13px;
   font-weight: 300;
+}
+
+.f-light-blue-xs {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.f-med-blue {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.f-med-blue-xs {
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .f-med-white {
