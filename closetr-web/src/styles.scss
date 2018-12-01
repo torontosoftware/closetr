@@ -130,6 +130,34 @@ circle styles
   padding: 2px 10px 4px 10px;
 }
 
+.text-bubble {
+  width: 100%;
+  border: none;
+  height: 30px;
+  border-radius: 15px;
+  background-color: $med-blue;
+  margin: 5px 0 5px 0;
+}
+
+.text-bubble-btn {
+  padding-top: 3px;
+}
+
+.text-bubble-progress {
+  position: absolute;
+  width: 50%;
+  border: none;
+  height: 30px;
+  border-radius: 15px 0 0 15px;
+  padding: 3px 0 0 10px;
+  background-color: $dark-blue;
+}
+
+.text-bubble-txt {
+  position: relative;
+  top: 3px;
+  left: 10px;
+}
 /*
 font styles
 */
@@ -200,27 +228,24 @@ h4 {
 }
 
 /*
-button styles
-*/
-.btn {
-  width: 100%;
-  padding: 0 5px 0 5px;
-  margin: 10px 0 3px 0;
-  height: 30px;
-  border-radius: 15px;
-}
-
-.btn-blue {
-  background-color: $med-blue;
-}
-
-/*
 input changes (default)
 */
 select {
   border: none;
   height: 20px;
   background-color: transparent;
+}
+
+/*
+icon styles
+*/
+.icon {
+  font-size: 13px;
+}
+
+.icon-edit {
+  margin-top: 3px;
+  font-size: 17px;
 }
 
 /*
