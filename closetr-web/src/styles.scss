@@ -126,7 +126,7 @@ circle styles
   vertical-align: middle;
   background-color: $light-blue-grey;
   border-radius: 15px;
-  margin: 0 10px 0 10px;
+  margin: 0 10px 0 5px;
   padding: 2px 10px 4px 10px;
 }
 
@@ -243,4 +243,8 @@ small fixes
 
 .mt-10 {
   margin-top: 10px;
+}
+
+.mrt-5 {
+  margin-right: 5px;
 }

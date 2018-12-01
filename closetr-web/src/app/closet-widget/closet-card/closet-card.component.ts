@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-closet-card',
   templateUrl: './closet-card.component.html',
   styleUrls: ['./closet-card.component.scss']
 })
-export class ClosetCardComponent implements OnInit {
+export class ClosetCardComponent implements OnInit, Input {
 
-  constructor() { }
+  @Input() clothing: object;
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
