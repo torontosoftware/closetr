@@ -5,7 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './closet-card.component.html',
   styleUrls: ['./closet-card.component.scss']
 })
-export class ClosetCardComponent implements OnInit, Input {
+export class ClosetCardComponent implements OnInit {
 
   @Input() clothing: object;
 
