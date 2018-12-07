@@ -4,4 +4,13 @@
   border-radius: 10px;
   background-color: $med-blue;
   height: 170px;
+  width: 100%;
+  transition: $fast-ease;
+  &:hover {
+    transition: $fast-ease;
+    margin-left: -3px;
+    margin-top: 7px;
+    width: calc(100% + 5px);
+    height: 175px;
+  }
 }
