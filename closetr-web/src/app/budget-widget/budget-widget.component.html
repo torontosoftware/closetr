@@ -1,7 +1,53 @@
 <div class="container-fluid">
   <div class="row">
-      <div class="col-12">
+      <div class="col-6">
+        <h3>spending</h3>
+      </div>
+      <div class="col-6">
+        <select class="pull-right mtb-4">
+          <option value="last week">
+            last week
+          </option>
+          <option value="last month">
+            last month
+          </option>
+        </select>
+      </div>
+  </div>
+  <div class="row mtb-10">
+    <div class="col-12">
+      <table class="table table-sm table-borderless">
+        <tbody>
+          <tr *ngFor="let purchase of purchaseList">
+            <td class="f-bold-blue-md">{{purchase.price}}</td>
+            <td class="f-light-blue-md">{{purchase.name}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row mt-10">
+      <div class="col-6">
         <h3>budget</h3>
+      </div>
+      <div class="col-6">
+        <span class="icon-edit pull-right"><i class="fas fa-pen"></i></span>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-12">
+        <span class="f-light-blue">
+          you have $160 left for this month.
+        </span>
+      </div>
+      <div class="col-12">
+        <div class="text-bubble text-bubble-span">
+            <span class="text-bubble-progress">
+            </span>
+            <span class="f-med-white text-bubble-txt">
+              $200 / $360
+            </span>
+        </div>
       </div>
   </div>
 </div>

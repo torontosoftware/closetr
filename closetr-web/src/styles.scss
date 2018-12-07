@@ -1,34 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
-
-$dark-blue: #262F30;
-$light-blue-grey: #E6ECEF;
-$white: #FFFFFF;
-$med-blue: #AFC2CE;
-$font-main: 'Work Sans', sans-serif;
-
+@import "global-variables.scss";
 /*
 screen-width breakpoints
 */
-$screen-xs-sm-min: 400px;
 $screen-sm-min: 576px;
 $screen-md-min: 768px;
 $screen-lg-min: 992px;
-
-@mixin xs-sm {
-  @media (min-width: #{$screen-xs-sm-min}) {
-    @content;
-  }
-}
+$screen-xl-min: 1220px;
 
 @mixin sm {
   @media (min-width: #{$screen-sm-min}) {
-    @content;
-  }
-}
-
-@mixin sm-only {
-  @media (min-width: #{$screen-sm-min}) and (max-width: #{$screen-md-min}) {
     @content;
   }
 }
@@ -45,6 +27,12 @@ $screen-lg-min: 992px;
   }
 }
 
+@mixin xl {
+  @media (min-width: #{$screen-xl-min}) {
+    @content;
+  }
+}
+
 #dashboard-container {
   margin-top: 15px;
     @include sm {
@@ -56,6 +44,9 @@ $screen-lg-min: 992px;
     @include lg {
       width: 70vw;
     }
+    @include xl {
+      width: 60vw;
+    }
 }
 
 body {
@@ -63,16 +54,17 @@ body {
   font-weight: 400;
   font-family: $font-main;
   background-color: $light-blue-grey;
+  transition: $mid-ease;
 }
 
 .widget {
   padding: 15px 5px 15px 5px;
   color: $dark-blue;
   background-color: $white;
-  height: 40vh;
   min-height: 350px;
   margin: 10px 0 10px 0;
   border-radius: 10px;
+  transition: $mid-ease;
   @include sm {
     padding: 20px 20px 20px 20px;
   }
@@ -120,13 +112,83 @@ circle styles
   background-color: $white;
 }
 
-.weather-bubble {
-  @extend %circle-sm;
-  background-color: $light-blue-grey;
-  display: inline-block;
-  margin: 10px;
+.weather-bubble-container {
+  width: 225px;
+  margin: auto;
+
+  @include sm {
+    width: 240px;
+  }
+
+  @include md {
+    width: 210px;
+  }
+
 }
 
+.weather-bubble {
+  width: 55px;
+  height: 55px;
+  border-radius: 27.5px;
+  background-color: $light-blue-grey;
+  display: inline-block;
+  margin: 0 10px 0 10px;
+
+  @include sm {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+  }
+
+  @include md {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+  }
+
+}
+
+// text bubble for xs font styles.
+.text-bubble-xs {
+  height: 15px;
+  vertical-align: middle;
+  background-color: $light-blue-grey;
+  border-radius: 15px;
+  margin: 0 10px 0 5px;
+  padding: 2px 10px 4px 10px;
+}
+
+.text-bubble {
+  width: 100%;
+  border: none;
+  height: 30px;
+  border-radius: 15px;
+  background-color: $med-blue;
+  margin: 5px 0 5px 0;
+  &:hover {
+    background-color: $med-blue-1;
+  }
+}
+
+.text-bubble-btn {
+  padding-top: 3px;
+}
+
+.text-bubble-progress {
+  position: absolute;
+  width: 50%;
+  border: none;
+  height: 30px;
+  border-radius: 15px 0 0 15px;
+  padding: 3px 0 0 10px;
+  background-color: $dark-blue;
+}
+
+.text-bubble-txt {
+  position: relative;
+  top: 3px;
+  left: 10px;
+}
 /*
 font styles
 */
@@ -137,7 +199,7 @@ h1,h2,h3,h4,h5,h6 {
 
 h3 {
   font-size: 25px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 h4 {
@@ -145,9 +207,49 @@ h4 {
   font-weight: 300;
 }
 
+.f-light-blue-md {
+  font-size: 15px;
+  font-weight: 300;
+}
+
 .f-light-blue {
   font-size: 13px;
   font-weight: 300;
+}
+
+.f-light-blue-xs {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.f-med-blue-md {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.f-med-blue {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.f-med-blue-xs {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.f-bold-blue-md {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.f-bold-blue {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.f-bold-blue-xs {
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .f-med-white {
@@ -157,18 +259,24 @@ h4 {
 }
 
 /*
-button styles
+input changes (default)
 */
-.btn {
-  width: 100%;
-  padding: 0 5px 0 5px;
-  margin: 10px 0 3px 0;
-  height: 30px;
-  border-radius: 15px;
+select {
+  border: none;
+  height: 20px;
+  background-color: transparent;
 }
 
-.btn-blue {
-  background-color: $med-blue;
+/*
+icon styles
+*/
+.icon {
+  font-size: 13px;
+}
+
+.icon-edit {
+  margin-top: 3px;
+  font-size: 17px;
 }
 
 /*
@@ -182,4 +290,17 @@ small fixes
 .mtb-10 {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.mtb-4 {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mrt-5 {
+  margin-right: 5px;
 }

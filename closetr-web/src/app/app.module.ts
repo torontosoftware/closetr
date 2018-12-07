@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { TodayWidgetComponent } from './today-widget/today-widget.component';
 import { BudgetWidgetComponent } from './budget-widget/budget-widget.component';
 import { ClosetWidgetComponent } from './closet-widget/closet-widget.component';
+import { ClosetCardComponent } from './closet-widget/closet-card/closet-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodayWidgetComponent,
     BudgetWidgetComponent,
-    ClosetWidgetComponent
+    ClosetWidgetComponent,
+    ClosetCardComponent
   ],
   imports: [
     BrowserModule,
