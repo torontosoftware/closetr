@@ -54,6 +54,7 @@ body {
   font-weight: 400;
   font-family: $font-main;
   background-color: $light-blue-grey;
+  transition: $mid-ease;
 }
 
 .widget {
@@ -63,6 +64,7 @@ body {
   min-height: 350px;
   margin: 10px 0 10px 0;
   border-radius: 10px;
+  transition: $mid-ease;
   @include sm {
     padding: 20px 20px 20px 20px;
   }
@@ -163,6 +165,9 @@ circle styles
   border-radius: 15px;
   background-color: $med-blue;
   margin: 5px 0 5px 0;
+  &:hover {
+    background-color: $med-blue-1;
+  }
 }
 
 .text-bubble-btn {
