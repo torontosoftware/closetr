@@ -8,12 +8,24 @@
                 <h3>log outfit</h3>
               </div>
               <div class="col-6">
-                <button type="button" (click)="toggleEditMode()" class="btn btn-transparent pull-right">
+                <button type="button"
+                (click)="toggleEditMode()"
+                class="btn btn-transparent icon-btn-pos pull-right">
                   <span class="icon-edit-lg">
                     <i class="fas fa-pen"></i>
                   </span>
                 </button>
+                <button type="button"
+                class="btn text-bubble text-bubble-btn btn-fixed-width pull-right"
+                [hidden]="!editMode"
+                (click)="toggleEditMode()">
+                  <span class="f-med-white">
+                    save
+                  </span>
+                </button>
               </div>
+          </div>
+          <div class="row">
               <div class="col-12">
                 <h4>WED, NOV 6</h4>
               </div>
