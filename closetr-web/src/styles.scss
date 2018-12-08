@@ -33,7 +33,7 @@ $screen-xl-min: 1220px;
   }
 }
 
-#dashboard-container {
+.dashboard-container {
   margin-top: 15px;
     @include sm {
       width: 90vw;
@@ -68,6 +68,12 @@ body {
   @include sm {
     padding: 20px 20px 20px 20px;
   }
+}
+
+.widget-full {
+  @extend .widget;
+  min-height: 550px;
+  height: 80vh;
 }
 
 /*
@@ -261,6 +267,20 @@ h4 {
 /*
 input changes (default)
 */
+
+.input-clean {
+  border: none;
+  border-bottom: 1px solid $med-blue;
+  border-radius: 20px;
+  height: 40px;
+}
+
+.input-clean-addon-right {
+  height: 40px;
+  border-radius: 0 20px 20px 0;
+  border-bottom: 1px solid $med-blue;
+}
+
 select {
   border: none;
   height: 20px;
@@ -290,6 +310,11 @@ small fixes
 .mtb-10 {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.mtb-15 {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .mtb-4 {

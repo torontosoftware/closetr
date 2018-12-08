@@ -1,3 +1,14 @@
-<app-dashboard *ngIf="router.url == ''"></app-dashboard>
-<app-log-outfit></app-log-outfit>
+<div class='container dashboard-container'>
+  <div class='row'>
+    <div class='col-2'>
+        <div class='user-icon'>
+        </div>
+    </div>
+    <div class='col-2 offset-8'>
+        <div class='closetr-logo pull-right'>
+        </div>
+    </div>
+  </div>
+  <app-dashboard *ngIf="router.url == ''"></app-dashboard>
+</div>
 <router-outlet></router-outlet>
