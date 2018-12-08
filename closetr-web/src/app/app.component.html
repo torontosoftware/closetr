@@ -1,33 +1,3 @@
-<!--home page: dashboard-->
-<div class='container' id='dashboard-container'>
-  <div class='row'>
-    <div class='col-2'>
-        <div class='user-icon'>
-        </div>
-    </div>
-    <div class='col-2 offset-8'>
-        <div class='closetr-logo pull-right'>
-        </div>
-    </div>
-  </div>
-   <div class='row'>
-      <div class='col-xs-12 col-md-6'>
-        <div class='widget'>
-            <app-today-widget></app-today-widget>
-        </div>
-     </div>
-     <div class='col-xs-12 col-md-6'>
-      <div class='widget'>
-         <app-budget-widget></app-budget-widget>
-       </div>
-     </div>
-  </div>
-  <div class='row'>
-     <div class='col-12'>
-       <div class='widget'>
-         <app-closet-widget></app-closet-widget>
-       </div>
-    </div>
- </div>
-</div>
+<app-dashboard *ngIf="router.url == ''"></app-dashboard>
+<app-log-outfit></app-log-outfit>
 <router-outlet></router-outlet>

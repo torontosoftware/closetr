@@ -7,6 +7,8 @@ import { TodayWidgetComponent } from './today-widget/today-widget.component';
 import { BudgetWidgetComponent } from './budget-widget/budget-widget.component';
 import { ClosetWidgetComponent } from './closet-widget/closet-widget.component';
 import { ClosetCardComponent } from './closet-widget/closet-card/closet-card.component';
+import { LogOutfitComponent } from './today-widget/log-outfit/log-outfit.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { ClosetCardComponent } from './closet-widget/closet-card/closet-card.com
     TodayWidgetComponent,
     BudgetWidgetComponent,
     ClosetWidgetComponent,
-    ClosetCardComponent
+    ClosetCardComponent,
+    LogOutfitComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
