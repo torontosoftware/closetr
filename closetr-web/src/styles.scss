@@ -359,6 +359,7 @@ small fixes
 }
 
 .disabled-none {
+  transition: $fast-ease;
   &:disabled {
     display:none !important;
   }
