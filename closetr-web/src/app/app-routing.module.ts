@@ -7,9 +7,8 @@ import { AppComponent } from './app.component';
 
 const routes: Routes = [
   {path: 'log-outfit', component: LogOutfitComponent},
-  {path: '', component: DashboardComponent}
-  //{path: '', redirectTo: '/dashboard', pathMatch: 'full'},
-  //{path: 'dashboard', component: DashboardComponent},
+  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  {path: 'dashboard', component: DashboardComponent},
 ];
 
 @NgModule({

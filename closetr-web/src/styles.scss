@@ -61,7 +61,7 @@ body {
   padding: 15px 5px 15px 5px;
   color: $dark-blue;
   background-color: $white;
-  min-height: 350px;
+  min-height: 380px;
   margin: 10px 0 10px 0;
   border-radius: 10px;
   transition: $mid-ease;
@@ -73,7 +73,6 @@ body {
 .widget-full {
   @extend .widget;
   min-height: 550px;
-  height: 80vh;
 }
 
 /*
@@ -328,4 +327,42 @@ small fixes
 
 .mrt-5 {
   margin-right: 5px;
+}
+
+/*
+closet card components
+*/
+
+.closet-card {
+  border-radius: 10px;
+  background-color: $med-blue;
+  height: 170px;
+  width: 100%;
+  transition: $fast-ease;
+  &:hover {
+    transition: $fast-ease;
+    margin-left: -3px;
+    margin-top: 7px;
+    width: calc(100% + 5px);
+    height: 175px;
+  }
+}
+
+.closet-card-picture-container {
+  height: 100px;
+  background-color: $dark-blue;
+  border-radius: 10px 10px 0 0;
+}
+
+.closet-card-caption-container {
+  height: 70px;
+  line-height: 15px;
+  overflow-x: hidden;
+}
+
+.closet-card-caption {
+  margin: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

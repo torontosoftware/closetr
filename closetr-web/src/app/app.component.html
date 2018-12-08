@@ -9,6 +9,6 @@
         </div>
     </div>
   </div>
-  <app-dashboard *ngIf="router.url == ''"></app-dashboard>
+  <router-outlet></router-outlet>
+  <!--<app-dashboard *ngIf="router.url == ''"></app-dashboard>-->
 </div>
-<router-outlet></router-outlet>
