@@ -194,6 +194,13 @@ circle styles
   top: 3px;
   left: 10px;
 }
+
+.btn-transparent {
+  background-color: transparent;
+  padding: 0 3px 0 3px;
+  margin: 0;
+}
+
 /*
 font styles
 */
@@ -290,12 +297,29 @@ select {
 icon styles
 */
 .icon {
-  font-size: 13px;
-}
-
-.icon-edit {
   margin-top: 3px;
   font-size: 17px;
+  transition: $fast-ease;
+  &:hover {
+    transition: $fast-ease;
+    color: $darker-blue;
+    //text-shadow: 0 3px 3px blue;
+  }
+}
+
+.icon-white {
+  @extend .icon;
+  color: $white;
+  &:hover {
+    color: $light-blue-grey;
+    //text-shadow: 0 3px 3px blue;
+  }
+}
+
+.icon-lg {
+  @extend .icon;
+  margin-top: 0px;
+  font-size: 20px;
 }
 
 /*
@@ -329,6 +353,11 @@ small fixes
   margin-right: 5px;
 }
 
+.display-none {
+  opacity: 0;
+  transition: $fast-ease;
+}
+
 /*
 closet card components
 */
@@ -357,12 +386,28 @@ closet card components
 .closet-card-caption-container {
   height: 70px;
   line-height: 15px;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .closet-card-caption {
-  margin: 11px;
+  margin: 7px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.closet-card-icon-edit {
+  position: relative;
+  font-size: 15px;
+  top: -20px;
+  left: 92%;
+  transition: $fast-ease;
+}
+
+.closet-card-icon-close {
+  position: relative;
+  font-size: 15px;
+  top: 10px;
+  left: 92%;
+  transition: $fast-ease;
 }

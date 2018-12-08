@@ -3,14 +3,19 @@
     <div class="col-12 closet-card-picture-container">
       <div class="closet-card-picture">
       </div>
+      <span [ngClass]="{'display-none':!editMode}" class="icon-white closet-card-icon-close">
+        <i class="fas fa-times"></i>
+      </span>
     </div>
     <div class="col-12 closet-card-caption-container">
       <div class="closet-card-caption">
         <span class="f-bold-blue-xs">{{clothing.name}}</span><br>
         <span class="f-light-blue-xs">cost: {{clothing.cost}}</span><br>
         <span class="f-light-blue-xs">worn: {{clothing.worn}} times</span><br>
-        <span></span>
       </div>
+      <span [ngClass]="{'display-none':!editMode}" class="icon closet-card-icon-edit">
+        <i class="fas fa-pen"></i>
+      </span>
     </div>
   </div>
 </div>

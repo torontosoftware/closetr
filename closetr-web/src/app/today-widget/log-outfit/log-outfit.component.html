@@ -4,15 +4,22 @@
       <div class="widget-full">
         <div class="container-fluid">
           <div class="row">
-              <div class="col-12">
+              <div class="col-6">
                 <h3>log outfit</h3>
+              </div>
+              <div class="col-6">
+                <button type="button" (click)="toggleEditMode()" class="btn btn-transparent pull-right">
+                  <span class="icon-edit-lg">
+                    <i class="fas fa-pen"></i>
+                  </span>
+                </button>
               </div>
               <div class="col-12">
                 <h4>WED, NOV 6</h4>
               </div>
           </div>
-          <div class="row">
-              <div class="col-12 mtb-15">
+          <div class="row mtb-10">
+              <div class="col-12">
                 <div class="input-group">
                   <input type="text" class="form-control input-clean" placeholder="Search your closet...">
                   <span class="input-group-btn input-clean-addon-right">
@@ -23,10 +30,21 @@
                 </div>
               </div>
           </div>
+          <div class="row">
+            <div class="col-12">
+              <a routerLink="">
+              <button type="button" class="btn text-bubble text-bubble-btn">
+                <span class="f-med-white">
+                  add manually
+                </span>
+              </button>
+            </a>
+            </div>
+          </div>
           <div class="row mtb-10">
             <div class="col-6 col-sm-4 col-lg-3" *ngFor="let clothing of closetList">
               <div class="closet-card mtb-10">
-                <app-closet-card [clothing]="clothing"></app-closet-card>
+                <app-closet-card [clothing]="clothing" [editMode]="editMode"></app-closet-card>
               </div>
             </div>
           </div>

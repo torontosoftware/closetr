@@ -8,6 +8,13 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ClosetCardComponent implements OnInit {
 
   @Input() clothing: object;
+  @Input() editMode: boolean;
+  
+  editMode : boolean;
+
+  toggleEditMode(): void {
+    editMode = !editMode;
+  }
 
   constructor() {
   }

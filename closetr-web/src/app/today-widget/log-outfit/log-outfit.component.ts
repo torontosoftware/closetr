@@ -10,7 +10,14 @@ export class LogOutfitComponent implements OnInit {
 
   closetList: object;
 
+  editMode : boolean;
+
+  toggleEditMode(): void {
+    this.editMode = !this.editMode;
+  }
+
   constructor() {
+    this.editMode = false;
     this.closetList = [
       {cost:'$45',name:'Aritzia TShirt', worn: 45},
       {cost: '$35', name:'Zara Turtleneck TShirt', worn: 32},
