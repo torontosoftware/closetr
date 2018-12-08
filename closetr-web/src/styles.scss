@@ -197,7 +197,7 @@ circle styles
 
 .btn-transparent {
   background-color: transparent;
-  padding: 0 3px 0 3px;
+  padding: 0;
   margin: 0;
 }
 
@@ -358,6 +358,12 @@ small fixes
   transition: $fast-ease;
 }
 
+.disabled-none {
+  &:disabled {
+    display:none !important;
+  }
+}
+
 /*
 closet card components
 */
@@ -399,7 +405,7 @@ closet card components
 .closet-card-icon-edit {
   position: relative;
   font-size: 15px;
-  top: -20px;
+  top: -23px;
   left: 92%;
   transition: $fast-ease;
 }
@@ -407,7 +413,7 @@ closet card components
 .closet-card-icon-close {
   position: relative;
   font-size: 15px;
-  top: 10px;
+  top: 5px;
   left: 92%;
   transition: $fast-ease;
 }

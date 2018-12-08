@@ -16,6 +16,13 @@ export class LogOutfitComponent implements OnInit {
     this.editMode = !this.editMode;
   }
 
+  removeCard(clothing: clothing): void {
+    console.log("from the parent", clothing);
+    var index = this.closetList.indexOf(clothing);
+    this.closetList.splice(index, 1);
+    console.log(index);
+  }
+
   constructor() {
     this.editMode = false;
     this.closetList = [
