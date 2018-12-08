@@ -9,10 +9,9 @@ import { Router } from '@angular/router';
 
 export class AppComponent {
   title = 'closeter';
-  console.log("hi");
 
-  constructor(private _router: Router ) {
-    this.router = _router;
-    console.log(this.router.url);
+  constructor(private router: Router ) {
+    router = router;
+    console.log(router.url);
   }
 }
