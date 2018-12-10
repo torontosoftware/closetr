@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./closet-widget.component.scss']
 })
 export class ClosetWidgetComponent implements OnInit {
-  closetList: object;
+  closetList: any;
 
   constructor() {
     this.closetList = [

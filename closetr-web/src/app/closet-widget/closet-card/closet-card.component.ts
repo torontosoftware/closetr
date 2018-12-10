@@ -7,7 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class ClosetCardComponent implements OnInit {
 
-  @Input() clothing: Object;
+  @Input() clothing: any;
   @Input() editMode: boolean;
   @Output() removeCardEmit: EventEmitter<Object> = new EventEmitter<Object>();
 
@@ -15,7 +15,7 @@ export class ClosetCardComponent implements OnInit {
     this.editMode = !this.editMode;
   }
 
-  removeCard(clothing: Object): void {
+  removeCard(clothing: any): void {
     console.log("want to remove this:", clothing);
     this.removeCardEmit.emit(clothing);
   }

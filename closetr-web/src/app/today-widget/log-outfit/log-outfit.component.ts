@@ -8,14 +8,14 @@ import { Component, OnInit } from '@angular/core';
 
 export class LogOutfitComponent implements OnInit {
 
-  closetList: Array<Object>;
+  closetList: Array<any>;
   editMode : boolean;
 
   toggleEditMode(): void {
     this.editMode = !this.editMode;
   }
 
-  removeCard(clothing: Object): void {
+  removeCard(clothing: any): void {
     console.log("from the parent", clothing);
     var index = this.closetList.indexOf(clothing);
     this.closetList.splice(index, 1);
