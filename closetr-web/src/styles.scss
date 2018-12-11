@@ -212,6 +212,11 @@ circle styles
   position: relative;
   top: -4px;
   left: -10px;
+  transition: $fast-ease;
+  &:hover {
+    left: -13px;
+    transition: $fast-ease;
+  }
 }
 
 /*
