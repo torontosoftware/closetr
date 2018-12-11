@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-log-outfit',
@@ -15,6 +16,10 @@ export class LogOutfitComponent implements OnInit {
     this.editMode = !this.editMode;
   }
 
+  back(): void {
+    this._location.back();
+  }
+
   removeCard(clothing: any): void {
     console.log("from the parent", clothing);
     var index = this.closetList.indexOf(clothing);
@@ -22,7 +27,7 @@ export class LogOutfitComponent implements OnInit {
     console.log(index);
   }
 
-  constructor() {
+  constructor(private _location: Location) {
     this.editMode = false;
     this.closetList = [
       {cost:'$45',name:'Aritzia TShirt', worn: 45},
