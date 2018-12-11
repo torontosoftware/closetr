@@ -277,6 +277,11 @@ h4 {
   font-weight: 400;
 }
 
+.input-label {
+  @extend .f-med-blue;
+  margin-left: 15px;
+  margin-bottom: 5px;
+}
 /*
 input changes (default)
 */
@@ -332,6 +337,11 @@ icon styles
 /*
 small fixes
 */
+
+.row-mgn-reset {
+  margin-left: 0;
+  margin-right: 0;
+}
 
 .pull-right {
   float: right;

@@ -9,6 +9,7 @@ import { ClosetWidgetComponent } from './closet-widget/closet-widget.component';
 import { ClosetCardComponent } from './closet-widget/closet-card/closet-card.component';
 import { LogOutfitComponent } from './today-widget/log-outfit/log-outfit.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AddClothingComponent } from './add-clothing/add-clothing.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ClosetWidgetComponent,
     ClosetCardComponent,
     LogOutfitComponent,
-    DashboardComponent
+    DashboardComponent,
+    AddClothingComponent
   ],
   imports: [
     BrowserModule,
