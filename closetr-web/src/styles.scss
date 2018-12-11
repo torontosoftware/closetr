@@ -270,6 +270,11 @@ h4 {
   font-weight: 400;
 }
 
+.input-label {
+  @extend .f-med-blue;
+  margin-left: 15px;
+  margin-bottom: 5px;
+}
 /*
 input changes (default)
 */
