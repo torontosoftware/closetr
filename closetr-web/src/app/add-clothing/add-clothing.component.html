@@ -13,7 +13,7 @@
               <h3>add clothing</h3>
             </div>
             <div class="col-4">
-              <button type="button"
+              <button type="button" (click)="save()" [disabled]="!enableSubmit"
               class="btn text-bubble text-bubble-btn btn-fixed-width pull-right">
                 <span class="f-med-white">
                   save
@@ -26,7 +26,8 @@
               <span class="input-label">name</span>
             </div>
             <div class="col-12">
-              <input type="text" class="form-control input-clean" placeholder="e.g. Aritzia T-Shirt">
+              <input type="text" class="form-control input-clean" placeholder="e.g. Aritzia T-Shirt"
+              (ngModelChange)="checkSubmit()" [(ngModel)]="clothingName">
             </div>
           </div>
           <div class="row mtb-10">
@@ -34,7 +35,8 @@
               <span class="input-label">cost ($)</span>
             </div>
             <div class="col-12">
-              <input type="text" class="form-control input-clean" placeholder="e.g. $15">
+              <input type="text" class="form-control input-clean" placeholder="e.g. $15"
+              (ngModelChange)="checkSubmit()" [(ngModel)]="clothingCost">
             </div>
           </div>
           <div class="row mtb-10">
@@ -42,7 +44,8 @@
               <span class="input-label">category</span>
             </div>
             <div class="col-12">
-              <input type="text" class="form-control input-clean" placeholder="e.g. Sweater">
+              <input type="text" class="form-control input-clean" placeholder="e.g. Sweater"
+              (ngModelChange)="checkSubmit()" [(ngModel)]="clothingCategory">
             </div>
           </div>
           <div class="row mtb-10">

@@ -66,7 +66,10 @@ body {
   border-radius: 10px;
   transition: $mid-ease;
   @include sm {
-    padding: 20px 20px 20px 20px;
+    padding: 20px;
+  }
+  @include lg {
+    padding: 30px 40px 30px 40px;
   }
 }
 
