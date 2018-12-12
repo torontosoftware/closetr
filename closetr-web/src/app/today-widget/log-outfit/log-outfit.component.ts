@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common';
+import { ClosetService } from '../../services/closet.service';
 
 @Component({
   selector: 'app-log-outfit',
@@ -8,8 +9,8 @@ import { Location } from '@angular/common';
 })
 
 export class LogOutfitComponent implements OnInit {
-
   closetList: Array<any>;
+  closetService: ClosetService;
   editMode : boolean;
 
   toggleEditMode(): void {
@@ -27,16 +28,10 @@ export class LogOutfitComponent implements OnInit {
     console.log(index);
   }
 
-  constructor(private _location: Location) {
+  constructor(private _location: Location, private closetservice: ClosetService) {
     this.editMode = false;
-    this.closetList = [
-      {cost:'$45',name:'Aritzia TShirt', worn: 45},
-      {cost: '$35', name:'Zara Turtleneck TShirt', worn: 32},
-      {cost: '$99', name:'Aritzia Sweater', worn: 23},
-      {cost:'$35',name:'Uniqlo Palazzo Pants', worn: 17},
-      {cost:'$5',name:'Uniqlo Socks', worn: 16},
-      {cost:'$35',name:'Zara Cocoon Cardigan', worn: 15}
-    ];
+    this.closetService = closetservice;
+    this.closetList = this.closetService.getAllClothes();
     console.log(this.closetList);
   }
 

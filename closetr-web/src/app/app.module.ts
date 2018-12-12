@@ -12,6 +12,7 @@ import { ClosetCardComponent } from './closet-widget/closet-card/closet-card.com
 import { LogOutfitComponent } from './today-widget/log-outfit/log-outfit.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddClothingComponent } from './add-clothing/add-clothing.component';
+import { ClosetService } from './services/closet.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { AddClothingComponent } from './add-clothing/add-clothing.component';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [ClosetService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
