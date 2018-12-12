@@ -13,6 +13,7 @@ import { LogOutfitComponent } from './today-widget/log-outfit/log-outfit.compone
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddClothingComponent } from './add-clothing/add-clothing.component';
 import { ClosetService } from './services/closet.service';
+import { LogOutfitService } from './services/log-outfit.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { ClosetService } from './services/closet.service';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [ClosetService],
+  providers: [ClosetService, LogOutfitService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

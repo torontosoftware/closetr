@@ -27,12 +27,13 @@ export class ClosetService {
   Format {name, cost, category}
   */
   addClothing(clothing: any): void {
-      this.closetList.push({
-        'clothingName':clothing.clothingName,
-        'clothingCost':clothing.clothingCost,
-        'clothingCategory':clothing.clothingCategory,
-        'clothingWorn': 0
-      });
+    var newClothing = {
+      'clothingName':clothing.clothingName,
+      'clothingCost':clothing.clothingCost,
+      'clothingCategory':clothing.clothingCategory,
+      'clothingWorn': 0
+    }
+    this.closetList.push(newClothing);
   }
 
   getAllClothes(): any {

@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common';
-import { ClosetService } from '../../services/closet.service';
+import { LogOutfitService } from '../../services/log-outfit.service';
 
 @Component({
   selector: 'app-log-outfit',
@@ -9,8 +9,8 @@ import { ClosetService } from '../../services/closet.service';
 })
 
 export class LogOutfitComponent implements OnInit {
-  closetList: Array<any>;
-  closetService: ClosetService;
+  outfitClothingList: Array<any>;
+  logOutfitService: LogOutfitService;
   editMode : boolean;
 
   toggleEditMode(): void {
@@ -19,7 +19,7 @@ export class LogOutfitComponent implements OnInit {
 
   save(): void {
     this.toggleEditMode();
-    this.closetService.setAllClothes(this.closetList);
+    this.logOutfitService.setAllOutfitClothes(this.outfitClothingList);
   }
 
   back(): void {
@@ -28,16 +28,16 @@ export class LogOutfitComponent implements OnInit {
 
   removeCard(clothing: any): void {
     console.log("from the parent", clothing);
-    var index = this.closetList.indexOf(clothing);
-    this.closetList.splice(index, 1);
+    var index = this.outfitClothingList.indexOf(clothing);
+    this.outfitClothingList.splice(index, 1);
     console.log(index);
   }
 
-  constructor(private _location: Location, private closetservice: ClosetService) {
+  constructor(private _location: Location, private logoutfitservice: LogOutfitService) {
     this.editMode = false;
-    this.closetService = closetservice;
-    this.closetList = this.closetService.getAllClothes();
-    console.log(this.closetList);
+    this.logOutfitService = logoutfitservice;
+    this.outfitClothingList = this.logOutfitService.getAllOutfitClothes();
+    console.log(this.outfitClothingList);
   }
 
   ngOnInit() {
