@@ -35,6 +35,7 @@ export class AddClothingComponent implements OnInit {
         'clothingCategory':this.clothingCategory
       }
       this.closetService.addClothing(newClothing);
+      this.back();
   }
 
   checkSubmit(): void {

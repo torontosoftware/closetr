@@ -17,6 +17,11 @@ export class LogOutfitComponent implements OnInit {
     this.editMode = !this.editMode;
   }
 
+  save(): void {
+    this.toggleEditMode();
+    this.closetService.setAllClothes(this.closetList);
+  }
+
   back(): void {
     this._location.back();
   }
