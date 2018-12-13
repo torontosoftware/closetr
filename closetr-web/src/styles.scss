@@ -66,10 +66,10 @@ body {
   border-radius: 10px;
   transition: $mid-ease;
   @include sm {
-    padding: 20px;
+    padding: 15px;
   }
-  @include lg {
-    padding: 30px 40px 30px 40px;
+  @include xl {
+    padding: 25px 30px 25px 30px;
   }
 }
 
@@ -345,9 +345,17 @@ input changes (default)
 }
 
 select {
+  border-radius: 13px;
   border: none;
-  height: 20px;
-  background-color: transparent;
+  height: 25px;
+  width: 100%;
+  padding: 2px 5px 2px 5px;
+  border-bottom: 1px solid $med-blue;
+  background-color: $light-blue-grey;
+}
+
+.select-with-icon {
+  width: calc(100% - 25px);
 }
 
 /*
@@ -362,6 +370,7 @@ a {
 icon styles
 */
 .icon {
+  display: inline;
   margin-top: 3px;
   font-size: 17px;
   transition: $fast-ease;
