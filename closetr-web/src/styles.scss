@@ -35,6 +35,7 @@ $screen-xl-min: 1220px;
 
 .dashboard-container {
   margin-top: 15px;
+  max-width: 1100px;
     @include sm {
       width: 90vw;
     }
@@ -66,10 +67,10 @@ body {
   border-radius: 10px;
   transition: $mid-ease;
   @include sm {
-    padding: 15px;
+    padding: 22px 25px 22px 25px;
   }
   @include xl {
-    padding: 25px 30px 25px 30px;
+    padding: 25px 35px 25px 35px;
   }
 }
 
@@ -261,7 +262,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 h3 {
-  font-size: 25px;
+  font-size: 27px;
   font-weight: 600;
 }
 
@@ -345,6 +346,7 @@ input changes (default)
 }
 
 select {
+  @extend .f-light-blue-xs;
   border-radius: 13px;
   border: none;
   height: 25px;
