@@ -1,0 +1,46 @@
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { ClosetService } from '../services/closet.service';
+
+@Component({
+  selector: 'app-closet-manage',
+  templateUrl: './closet-manage.component.html',
+  styleUrls: ['./closet-manage.component.scss']
+})
+
+export class ClosetManageComponent implements OnInit {
+  closetList: Array<any>;
+  closetService: ClosetService;
+  editMode : boolean;
+
+  toggleEditMode(): void {
+    this.editMode = !this.editMode;
+  }
+
+  save(): void {
+    this.toggleEditMode();
+    this.closetService.setAllClothes(this.closetList);
+  }
+
+  back(): void {
+    this._location.back();
+  }
+
+  removeCard(clothing: any): void {
+    console.log("from the parent", clothing);
+    var index = this.closetList.indexOf(clothing);
+    this.closetList.splice(index, 1);
+    console.log(index);
+  }
+
+  constructor(private _location: Location, private closetservice: ClosetService) {
+    this.editMode = false;
+    this.closetService = closetservice;
+    this.closetList = this.closetService.getAllClothes();
+    console.log(this.closetList);
+  }
+
+  ngOnInit() {
+  }
+
+}

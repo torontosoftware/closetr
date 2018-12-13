@@ -1,0 +1,69 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="widget-full">
+        <div class="container-fluid">
+          <div class="row">
+              <div class="col-6">
+                <button class="btn btn-transparent btn-back" (click)="back()">
+                  <span class="icon-lg">
+                    <i class="fas fa-chevron-left"></i>
+                  </span>
+                </button>
+                <h3>closet</h3>
+              </div>
+              <div class="col-6">
+                <button type="button"
+                (click)="toggleEditMode()"
+                class="btn btn-transparent pull-right">
+                  <span class="icon-lg">
+                    <i class="fas fa-pen"></i>
+                  </span>
+                </button>
+                <button type="button"
+                class="btn text-bubble text-bubble-btn btn-fixed-width pull-right"
+                [hidden]="!editMode"
+                (click)="save()">
+                  <span class="f-med-white">
+                    save
+                  </span>
+                </button>
+              </div>
+          </div>
+          <div class="row mtb-10">
+              <div class="col-12">
+                <div class="input-group">
+                  <input type="text" class="form-control input-clean" placeholder="Search your closet...">
+                  <span class="input-group-btn input-clean-addon-right">
+                    <button class="btn btn-default" style="background-color: transparent" type="button">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </span>
+                </div>
+              </div>
+          </div>
+          <div class="row mtb-10">
+            <div class="col-12">
+              <span class="f-bold-blue mrt-5">viewing: </span>
+              <span class="icon"><i class="fas fa-filter"></i></span>
+              <span class="text-bubble-xs">
+                <span class="f-med-blue-xs">sort: none</span>
+              </span>
+              <span class="icon"><i class="fas fa-sort"></i></span>
+              <span class="text-bubble-xs">
+                <span class="f-med-blue-xs">filter: none</span>
+              </span>
+            </div>
+          </div>
+          <div class="row mtb-10">
+            <div class="col-6 col-sm-4 col-lg-3" *ngFor="let clothing of closetList">
+              <div class="closet-card mtb-10">
+                <app-closet-card [clothing]="clothing" [editMode]="editMode" (removeCardEmit)="removeCard(clothing)"></app-closet-card>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

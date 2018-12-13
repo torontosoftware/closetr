@@ -222,6 +222,16 @@ circle styles
   }
 }
 
+.btn-expand {
+  position: relative;
+  top: 0px;
+  transition: $fast-ease;
+  &:hover {
+    top: -4px;
+    transition: $fast-ease;
+  }
+}
+
 .btn-img-upload {
   cursor: pointer;
   width: 100%;
@@ -316,6 +326,7 @@ h4 {
   margin-left: 15px;
   margin-bottom: 5px;
 }
+
 /*
 input changes (default)
 */
@@ -337,6 +348,14 @@ select {
   border: none;
   height: 20px;
   background-color: transparent;
+}
+
+/*
+a changes
+*/
+
+a {
+  color: inherit;
 }
 
 /*
