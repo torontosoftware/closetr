@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { Location } from '@angular/common';
+import { RouterModule, Routes, Router } from '@angular/router';
 import { LogOutfitService } from '../../services/log-outfit.service';
 
 @Component({
@@ -10,7 +10,6 @@ import { LogOutfitService } from '../../services/log-outfit.service';
 
 export class LogOutfitComponent implements OnInit {
   outfitClothingList: any;
-  outfitClothingListDp: any;
   logOutfitService: LogOutfitService;
   editMode : boolean;
 
@@ -24,24 +23,19 @@ export class LogOutfitComponent implements OnInit {
   }
 
   back(): void {
-    this._location.back();
+    this.router.navigate(['/dashboard']);
   }
 
-  removeCard(clothing: any): void {
-    delete this.outfitClothingList[clothing.clothingID];
+  removeCard(clothingID: any): void {
+    delete this.outfitClothingList[clothingID];
   }
 
-  constructor(private _location: Location, private logoutfitservice: LogOutfitService) {
+  constructor(private router: Router, private logoutfitservice: LogOutfitService) {
     this.editMode = false;
     this.logOutfitService = logoutfitservice;
     this.outfitClothingList = this.logOutfitService.getAllOutfitClothes();
 
     //converting outfitClothingList to array
-    this.outfitClothingListDp = [];
-    for(let clothingID in this.outfitClothingList) {
-        this.outfitClothingListDp.push(this.outfitClothingList[clothingID]);
-    }
-
     console.log(this.outfitClothingList);
   }
 

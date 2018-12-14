@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { ClosetService } from '../services/closet.service';
+import { RouterModule, Routes, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-clothing',
@@ -8,31 +8,33 @@ import { ClosetService } from '../services/closet.service';
   styleUrls: ['./edit-clothing.component.scss']
 })
 export class EditClothingComponent implements OnInit {
-  clothingName: String;
-  clothingCost: String;
-  clothingID: String;
-  clothingCategory: String;
-  clothingWorn: String;
+  clothing: any;
   enableSubmit: boolean;
   closetService: ClosetService;
 
-  constructor(private closetservice: ClosetService, private _location: Location) {
+  constructor(private closetservice: ClosetService, private router: Router) {
       this.enableSubmit = false;
       this.closetService = closetservice;
+      this.clothing = this.closetService.getClothingForEdit();
+
+      if (!this.clothing) {
+        this.router.navigate(['/closet-manage']);
+      }
+
+      this.checkSubmit();
   }
 
   back(): void {
-    this._location.back();
+    this.router.navigate(['/closet-manage']);
   }
 
   save(): void {
-      //console.log(this.clothingName, this.clothingCost, this.clothingCategory);
       var editedClothing = {
-        'clothingID': this.clothingID,
-        'clothingWorn': this.clothingWorn,
-        'clothingName':this.clothingName,
-        'clothingCost':this.clothingCost,
-        'clothingCategory':this.clothingCategory
+        'clothingID': this.clothing.clothingID,
+        'clothingWorn': this.clothing.clothingWorn,
+        'clothingName':this.clothing.clothingName,
+        'clothingCost':this.clothing.clothingCost,
+        'clothingCategory':this.clothing.clothingCategory
       }
       this.closetService.editClothing(editedClothing);
       this.back();
@@ -40,7 +42,7 @@ export class EditClothingComponent implements OnInit {
 
   checkSubmit(): void {
     //console.log(this.clothingName, this.clothingCost, this.clothingCategory);
-    if (this.clothingName == '' || this.clothingCost == '' || this.clothingCategory == '') {
+    if (this.clothing.clothingName == '' || this.clothing.clothingCost == '' || this.clothing.clothingCategory == '') {
       this.enableSubmit = false;
       return;
     }

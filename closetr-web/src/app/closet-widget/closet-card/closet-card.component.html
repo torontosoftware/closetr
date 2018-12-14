@@ -4,7 +4,7 @@
       <div class="closet-card-picture">
       </div>
       <button [ngClass]="{'display-none':!editMode}"
-      (click)="removeCard(clothing)"
+      (click)="removeCard(clothing.clothingID)"
       [disabled] = "!editMode"
       class="btn btn-transparent closet-card-icon-close disabled-none">
         <span class="icon-white">
@@ -20,7 +20,8 @@
       </div>
       <button [ngClass]="{'display-none':!editMode}"
       class="btn btn-transparent closet-card-icon-edit disabled-none"
-      [disabled] = "!editMode">
+      (click)="editCard(clothing)"
+      [disabled] = "!editMode || !isClosetManage">
         <span class="icon">
           <i class="fas fa-pen"></i>
         </span>

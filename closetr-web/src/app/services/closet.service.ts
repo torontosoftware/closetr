@@ -10,6 +10,7 @@ export class ClosetService {
   */
   closetList: any;
   closetCount: number;
+  clothingForEdit: any;
 
   constructor() {
     this.closetCount = 6;
@@ -60,6 +61,14 @@ export class ClosetService {
 
   setAllClothes(closetList: any): void {
     this.closetList = closetList;
+  }
+
+  setClothingForEdit(clothing: any): void {
+    this.clothingForEdit = clothing;
+  }
+
+  getClothingForEdit(): any {
+    return this.clothingForEdit;
   }
 
 }

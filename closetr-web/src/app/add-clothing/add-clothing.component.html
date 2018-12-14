@@ -27,7 +27,7 @@
             </div>
             <div class="col-12">
               <input type="text" class="form-control input-clean" placeholder="e.g. Aritzia T-Shirt"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="clothingName">
+              (ngModelChange)="checkSubmit()" [(ngModel)]="clothing.clothingName">
             </div>
           </div>
           <div class="row mtb-10">
@@ -36,7 +36,7 @@
             </div>
             <div class="col-12">
               <input type="text" class="form-control input-clean" placeholder="e.g. $15"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="clothingCost">
+              (ngModelChange)="checkSubmit()" [(ngModel)]="clothing.clothingCost">
             </div>
           </div>
           <div class="row mtb-10">
@@ -45,7 +45,7 @@
             </div>
             <div class="col-12">
               <input type="text" class="form-control input-clean" placeholder="e.g. Sweater"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="clothingCategory">
+              (ngModelChange)="checkSubmit()" [(ngModel)]="clothing.clothingCategory">
             </div>
           </div>
           <!--

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { ClosetService } from '../services/closet.service';
+import { RouterModule, Routes, Router } from '@angular/router';
 
 @Component({
   selector: 'app-closet-manage',
@@ -12,7 +12,6 @@ export class ClosetManageComponent implements OnInit {
   closetList: any;
   closetService: ClosetService;
   editMode : boolean;
-  closetListDp: any;
 
   toggleEditMode(): void {
     this.editMode = !this.editMode;
@@ -24,23 +23,17 @@ export class ClosetManageComponent implements OnInit {
   }
 
   back(): void {
-    this._location.back();
+    this.router.navigate(['/dashboard']);
   }
 
-  removeCard(clothing: any): void {
-    delete this.closetList[clothing.clothingID];
+  removeCard(clothingID: any): void {
+    delete this.closetList[clothingID];
   }
 
-  constructor(private _location: Location, private closetservice: ClosetService) {
+  constructor(private closetservice: ClosetService, private router: Router) {
     this.editMode = false;
     this.closetService = closetservice;
     this.closetList = this.closetService.getAllClothes();
-
-    this.closetListDp = [];
-    for(let clothingID in this.closetList) {
-        this.closetListDp.push(this.closetList[clothingID]);
-    }
-
     console.log(this.closetList);
   }
 
