@@ -354,12 +354,13 @@ input changes (default)
 
 select {
   @extend .f-light-blue-xs;
-  //border-radius: 5px;
+  border-radius: 10px;
   border: none;
   //width: 100%;
   padding: 2px 5px 2px 5px;
   border-bottom: 1px solid $med-blue;
-  background-color: $white;
+  background-color: $light-blue-grey;
+  -webkit-appearance: none;
 }
 
 .select-with-icon {
@@ -404,6 +405,19 @@ icon styles
   font-size: 20px;
 }
 
+.icon-sort {
+  position: absolute;
+  top: 2px;
+  left: 24px;
+  font-size: 13px;
+}
+
+.icon-filter {
+  position: absolute;
+  top: 5px;
+  left: 22px;
+  font-size: 11px;
+}
 /*
 small fixes
 */
