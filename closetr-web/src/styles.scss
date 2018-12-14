@@ -347,13 +347,12 @@ input changes (default)
 
 select {
   @extend .f-light-blue-xs;
-  border-radius: 13px;
+  //border-radius: 5px;
   border: none;
-  height: 25px;
-  width: 100%;
+  //width: 100%;
   padding: 2px 5px 2px 5px;
   border-bottom: 1px solid $med-blue;
-  background-color: $light-blue-grey;
+  background-color: $white;
 }
 
 .select-with-icon {
