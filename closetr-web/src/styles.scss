@@ -77,6 +77,13 @@ body {
 .widget-full {
   @extend .widget;
   min-height: 550px;
+  padding: 20px;
+  @include sm {
+    padding: 22px 35px 22px 35px;
+  }
+  @include xl {
+    padding: 25px 45px 25px 45px;
+  }
 }
 
 /*
@@ -213,8 +220,8 @@ circle styles
 }
 
 .btn-back {
-  position: relative;
-  top: -4px;
+  position: absolute;
+  top: 0px;
   left: -10px;
   transition: $fast-ease;
   &:hover {
