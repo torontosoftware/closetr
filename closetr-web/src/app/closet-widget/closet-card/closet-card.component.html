@@ -19,7 +19,7 @@
         <span class="f-light-blue-xs">worn: {{clothing.clothingWorn}} times</span><br>
       </div>
       <button [ngClass]="{'display-none':!editMode}"
-      class="btn btn-transparent closet-card-icon-edit disabled-none"
+      class="btn btn-transparent closet-card-icon-edit icon-edit disabled-none"
       (click)="editCard(clothing)"
       [disabled] = "!editMode || !isClosetManage">
         <span class="icon">
