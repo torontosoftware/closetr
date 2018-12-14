@@ -9,7 +9,8 @@ import { LogOutfitService } from '../../services/log-outfit.service';
 })
 
 export class LogOutfitComponent implements OnInit {
-  outfitClothingList: Array<any>;
+  outfitClothingList: any;
+  outfitClothingListDp: any;
   logOutfitService: LogOutfitService;
   editMode : boolean;
 
@@ -27,16 +28,20 @@ export class LogOutfitComponent implements OnInit {
   }
 
   removeCard(clothing: any): void {
-    console.log("from the parent", clothing);
-    var index = this.outfitClothingList.indexOf(clothing);
-    this.outfitClothingList.splice(index, 1);
-    console.log(index);
+    delete this.outfitClothingList[clothing.clothingID];
   }
 
   constructor(private _location: Location, private logoutfitservice: LogOutfitService) {
     this.editMode = false;
     this.logOutfitService = logoutfitservice;
     this.outfitClothingList = this.logOutfitService.getAllOutfitClothes();
+
+    //converting outfitClothingList to array
+    this.outfitClothingListDp = [];
+    for(let clothingID in this.outfitClothingList) {
+        this.outfitClothingListDp.push(this.outfitClothingList[clothingID]);
+    }
+
     console.log(this.outfitClothingList);
   }
 

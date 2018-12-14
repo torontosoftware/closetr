@@ -9,9 +9,10 @@ import { ClosetService } from '../services/closet.service';
 })
 
 export class ClosetManageComponent implements OnInit {
-  closetList: Array<any>;
+  closetList: any;
   closetService: ClosetService;
   editMode : boolean;
+  closetListDp: any;
 
   toggleEditMode(): void {
     this.editMode = !this.editMode;
@@ -27,16 +28,19 @@ export class ClosetManageComponent implements OnInit {
   }
 
   removeCard(clothing: any): void {
-    console.log("from the parent", clothing);
-    var index = this.closetList.indexOf(clothing);
-    this.closetList.splice(index, 1);
-    console.log(index);
+    delete this.closetList[clothing.clothingID];
   }
 
   constructor(private _location: Location, private closetservice: ClosetService) {
     this.editMode = false;
     this.closetService = closetservice;
     this.closetList = this.closetService.getAllClothes();
+
+    this.closetListDp = [];
+    for(let clothingID in this.closetList) {
+        this.closetListDp.push(this.closetList[clothingID]);
+    }
+
     console.log(this.closetList);
   }
 

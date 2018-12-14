@@ -7,14 +7,21 @@ import { ClosetService } from './closet.service';
 
 export class LogOutfitService {
   closetService: ClosetService;
-  outfitClothingList: Array <any>;
+  outfitClothingCount: number;
+  outfitClothingList: any;
 
   constructor(private closetservice: ClosetService) {
     this.closetService = closetservice;
-    this.outfitClothingList = [
-      {clothingCost:'$45',clothingName:'Aritzia TShirt', clothingWorn: 45, clothingCategory:'TShirt'},
-      {clothingCost: '$35', clothingName:'Zara Turtleneck TShirt', clothingWorn: 32, clothingCategory:'TShirt'}
-    ];
+    this.outfitClothingCount = 2;
+    this.outfitClothingList = {
+      1: {clothingID: 1, clothingCost:'$45',clothingName:'Aritzia TShirt', clothingWorn: 45, clothingCategory:'TShirt'},
+      2: {clothingID: 2, clothingCost: '$35', clothingName:'Zara Turtleneck TShirt', clothingWorn: 32, clothingCategory:'TShirt'}
+    };
+  }
+
+  generateOutfitClothingID(): number {
+    this.outfitClothingCount++;
+    return this.outfitClothingCount;
   }
 
   /*
@@ -23,15 +30,23 @@ export class LogOutfitService {
   Format {name, cost, category}
   */
   addOutfitClothing(clothing: any): void {
-    this.outfitClothingList.push(clothing);
+    var newOutfitClothingID = this.generateOutfitClothingID();
+    var newOutfitClothing = {
+      'clothingID': newOutfitClothingID,
+      'clothingName': clothing.clothingName,
+      'clothingCost': clothing.clothingCost,
+      'clothingCategory': clothing.clothingCategory,
+      'clothingWorn': 0
+    };
+    this.outfitClothingList[newOutfitClothingID] = newOutfitClothing;
     this.closetService.addClothing(clothing);
   }
 
-  getAllOutfitClothes(): Array<any> {
+  getAllOutfitClothes(): any {
     return this.outfitClothingList;
   }
 
-  setAllOutfitClothes(outfitClothingList: Array<any>): void {
+  setAllOutfitClothes(outfitClothingList: any): void {
     this.outfitClothingList = outfitClothingList;
   }
 }

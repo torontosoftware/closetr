@@ -30,7 +30,7 @@ export class ClosetService {
   */
 
   generateClothingID(): number {
-    this.closetCount ++;
+    this.closetCount++;
     return this.closetCount;
   }
 
