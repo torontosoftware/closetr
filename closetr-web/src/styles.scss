@@ -33,6 +33,14 @@ $screen-xl-min: 1220px;
   }
 }
 
+@mixin rotate($deg, $speed) {
+  -moz-transform: rotate($deg);
+  -webkit-transform: rotate($deg);
+  -o-transform: rotate($deg);
+  transform: rotate($deg);
+  transition: $speed;
+}
+
 //scroll bar style
 
 ::-webkit-scrollbar {
@@ -86,7 +94,7 @@ body {
   background-color: $white;
   min-height: 380px;
   margin: 10px -15px 10px -15px;
-  border-radius: 10px;
+  border-radius: 12px;
   transition: $mid-ease;
   @include sm {
     padding: 22px 25px 22px 25px;
@@ -95,6 +103,18 @@ body {
   }
   @include xl {
     padding: 25px 35px 25px 35px;
+  }
+}
+
+.widget-left {
+  @include md {
+    margin-right: -5px;
+  }
+}
+
+.widget-right {
+  @include md {
+    margin-left: -5px;
   }
 }
 
@@ -110,9 +130,25 @@ body {
   }
 }
 
+.nav-row {
+  transition: $mid-ease;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  @include sm {
+    margin-top: 35px;
+    margin-bottom: 20px;
+  }
+}
+
 /*
 circle styles
 */
+
+%circle-50 {
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+}
 
 %circle-55 {
   height: 55px;
@@ -139,12 +175,26 @@ circle styles
 
 %circle-sm {
   padding: 10px;
-  @extend %circle-55;
+  @extend %circle-50;
 }
 
 .closetr-logo {
   @extend %circle-sm;
   background-color: $dark-blue;
+  @include rotate(7deg, $mid-ease);
+  &:hover {
+    cursor: pointer;
+    @include rotate(-21deg, $mid-ease);
+  }
+}
+
+.closetr-logo-content {
+  font-family: 'Quicksand', sans-serif;
+  position: relative;
+  top: -8px;
+  left: 4px;
+  font-size: 30px;
+  color: $white;
 }
 
 .user-icon {
@@ -397,6 +447,11 @@ a changes
 
 a {
   color: inherit;
+  text-decoration: inherit;
+  &:hover {
+    color: inherit;
+    text-decoration: inherit;
+  }
 }
 
 /*
@@ -443,25 +498,17 @@ icon styles
   font-size: 11px;
 }
 
-.rotate-7 {
-  -moz-transform: rotate(7deg);
-  -webkit-transform: rotate(7deg);
-  -o-transform: rotate(7deg);
-  transform: rotate(7deg);
-  transition: $fast-ease;
-}
-
 .icon-edit {
   position: relative;
   transition: $fast-ease;
   &:hover {
     cursor: pointer;
-    @extend .rotate-7;
+    @include rotate(7deg, $fast-ease);
   }
   & span {
     &:hover {
       cursor: pointer;
-      @extend .rotate-7;
+      @include rotate(7deg, $fast-ease);
     }
   }
 }
