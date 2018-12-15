@@ -181,10 +181,10 @@ circle styles
 .closetr-logo {
   @extend %circle-sm;
   background-color: $dark-blue;
-  @include rotate(7deg, $mid-ease);
+  @include rotate(-21deg, $mid-ease);
   &:hover {
     cursor: pointer;
-    @include rotate(-21deg, $mid-ease);
+    @include rotate(0deg, $mid-ease);
   }
 }
 
