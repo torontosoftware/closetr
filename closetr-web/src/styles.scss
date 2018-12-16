@@ -33,9 +33,40 @@ $screen-xl-min: 1220px;
   }
 }
 
-#dashboard-container {
+@mixin rotate($deg, $speed) {
+  -moz-transform: rotate($deg);
+  -webkit-transform: rotate($deg);
+  -o-transform: rotate($deg);
+  transform: rotate($deg);
+  transition: $speed;
+}
+
+//scroll bar style
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $med-blue;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $med-blue;
+}
+
+.dashboard-container {
   margin-top: 15px;
+  padding: 0;
+  width: 100vw;
+  max-width: 1100px;
     @include sm {
+      padding: 0 15px 0 15px;
       width: 90vw;
     }
     @include md {
@@ -61,18 +92,63 @@ body {
   padding: 15px 5px 15px 5px;
   color: $dark-blue;
   background-color: $white;
-  min-height: 350px;
-  margin: 10px 0 10px 0;
-  border-radius: 10px;
+  min-height: 380px;
+  margin: 10px -15px 10px -15px;
+  border-radius: 12px;
   transition: $mid-ease;
   @include sm {
-    padding: 20px 20px 20px 20px;
+    padding: 22px 25px 22px 25px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  @include xl {
+    padding: 25px 35px 25px 35px;
+  }
+}
+
+.widget-left {
+  @include md {
+    margin-right: -5px;
+  }
+}
+
+.widget-right {
+  @include md {
+    margin-left: -5px;
+  }
+}
+
+.widget-full {
+  @extend .widget;
+  min-height: 550px;
+  padding: 20px;
+  @include sm {
+    padding: 22px 35px 22px 35px;
+  }
+  @include xl {
+    padding: 25px 45px 25px 45px;
+  }
+}
+
+.nav-row {
+  transition: $mid-ease;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  @include sm {
+    margin-top: 35px;
+    margin-bottom: 20px;
   }
 }
 
 /*
 circle styles
 */
+
+%circle-50 {
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+}
 
 %circle-55 {
   height: 55px;
@@ -99,12 +175,26 @@ circle styles
 
 %circle-sm {
   padding: 10px;
-  @extend %circle-55;
+  @extend %circle-50;
 }
 
 .closetr-logo {
   @extend %circle-sm;
   background-color: $dark-blue;
+  @include rotate(-21deg, $mid-ease);
+  &:hover {
+    cursor: pointer;
+    @include rotate(0deg, $mid-ease);
+  }
+}
+
+.closetr-logo-content {
+  font-family: 'Quicksand', sans-serif;
+  position: relative;
+  top: -8px;
+  left: 4px;
+  font-size: 30px;
+  color: $white;
 }
 
 .user-icon {
@@ -189,16 +279,71 @@ circle styles
   top: 3px;
   left: 10px;
 }
+
+.btn-transparent {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.btn-fixed-width {
+  width: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0px 15px 0px 15px;
+}
+
+.btn-back {
+  position: absolute;
+  top: 0px;
+  left: -10px;
+  transition: $fast-ease;
+  &:hover {
+    left: -13px;
+    transition: $fast-ease;
+  }
+}
+
+.btn-expand {
+  position: relative;
+  top: 0px;
+  transition: $fast-ease;
+  &:hover {
+    top: -4px;
+    transition: $fast-ease;
+  }
+}
+
+.btn-img-upload {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  background-color: $med-blue;
+  border-radius: 15px;
+  transition: $fast-ease;
+  & span {
+    position: relative;
+    left: calc(50% - 23px);
+    top: 20%;
+    font-size: 50px;
+  }
+  &:hover {
+    background-color: $med-blue-1;
+    transition: $fast-ease;
+  }
+}
+
 /*
 font styles
 */
 h1,h2,h3,h4,h5,h6 {
   padding: 0;
   margin: 0;
+  display: inline;
 }
 
 h3 {
-  font-size: 25px;
+  font-size: 27px;
   font-weight: 600;
 }
 
@@ -258,30 +403,136 @@ h4 {
   font-weight: 400;
 }
 
+.input-label {
+  @extend .f-med-blue;
+  margin-left: 15px;
+  margin-bottom: 5px;
+}
+
 /*
 input changes (default)
 */
-select {
+
+.input-clean {
   border: none;
-  height: 20px;
-  background-color: transparent;
+  border-bottom: 1px solid $med-blue;
+  border-radius: 20px;
+  height: 40px;
+}
+
+.input-clean-addon-right {
+  height: 40px;
+  border-radius: 0 20px 20px 0;
+  border-bottom: 1px solid $med-blue;
+}
+
+select {
+  @extend .f-light-blue-xs;
+  border-radius: 10px;
+  border: none;
+  //width: 100%;
+  padding: 2px 5px 2px 5px;
+  border-bottom: 1px solid $med-blue;
+  background-color: $light-blue-grey;
+  -webkit-appearance: none;
+}
+
+.select-with-icon {
+  width: calc(100% - 25px);
+}
+
+/*
+a changes
+*/
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+  &:hover {
+    color: inherit;
+    text-decoration: inherit;
+  }
 }
 
 /*
 icon styles
 */
 .icon {
+  display: inline;
+  margin-top: 3px;
+  font-size: 17px;
+  transition: $fast-ease;
+  &:hover {
+    transition: $fast-ease;
+    color: $darker-blue;
+    //text-shadow: 0 3px 3px blue;
+  }
+}
+
+.icon-white {
+  @extend .icon;
+  color: $white;
+  &:hover {
+    color: $light-blue-grey;
+    //text-shadow: 0 3px 3px blue;
+  }
+}
+
+.icon-lg {
+  @extend .icon;
+  margin-top: 0px;
+  font-size: 20px;
+}
+
+.icon-sort {
+  position: absolute;
+  top: 2px;
+  left: 24px;
   font-size: 13px;
 }
 
-.icon-edit {
-  margin-top: 3px;
-  font-size: 17px;
+.icon-filter {
+  position: absolute;
+  top: 5px;
+  left: 22px;
+  font-size: 11px;
 }
+
+.icon-edit {
+  position: relative;
+  transition: $fast-ease;
+  &:hover {
+    cursor: pointer;
+    @include rotate(7deg, $fast-ease);
+  }
+  & span {
+    &:hover {
+      cursor: pointer;
+      @include rotate(7deg, $fast-ease);
+    }
+  }
+}
+
+.icon-add {
+  position: relative;
+  top: -4px;
+  font-size: 11px;
+  transition: $mid-ease;
+  &:hover {
+    transition: $mid-ease;
+    font-size: 12px;
+  }
+}
+
 
 /*
 small fixes
 */
+
+.row-mgn-reset {
+  margin-left: 0;
+  margin-right: 0;
+}
 
 .pull-right {
   float: right;
@@ -290,6 +541,11 @@ small fixes
 .mtb-10 {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.mtb-15 {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .mtb-4 {
@@ -303,4 +559,90 @@ small fixes
 
 .mrt-5 {
   margin-right: 5px;
+}
+
+.h-back-mgn {
+  margin-left: -15px;
+}
+
+.display-none {
+  opacity: 0;
+  transition: $fast-ease;
+}
+
+.disabled-none {
+  transition: $fast-ease;
+  &:disabled {
+    opacity:0 !important;
+  }
+}
+
+/*
+closet card components
+*/
+
+.closet-card {
+  border-radius: 10px;
+  background-color: $med-blue;
+  height: 170px;
+  width: 100%;
+  transition: $fast-ease;
+  &:hover {
+    transition: $fast-ease;
+    margin-left: -3px;
+    margin-top: 7px;
+    width: calc(100% + 5px);
+    height: 175px;
+  }
+}
+
+.closet-card-picture-container {
+  height: 100px;
+  background-color: $dark-blue;
+  border-radius: 10px 10px 0 0;
+}
+
+.closet-card-caption-container {
+  height: 70px;
+  line-height: 15px;
+  overflow: hidden;
+}
+
+.closet-card-caption {
+  margin: 7px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.closet-card-icon-edit {
+  position: relative;
+  font-size: 15px;
+  top: -23px;
+  left: 92%;
+  transition: $fast-ease;
+}
+
+.closet-card-icon-close {
+  position: relative;
+  font-size: 15px;
+  top: 5px;
+  left: 92%;
+  transition: $fast-ease;
+}
+
+//closet search result styles
+.closet-search-box {
+  background-color: $light-blue-grey;
+  transition: $mid-ease;
+  padding: 5px;
+  margin-bottom: 3px;
+  border-radius: 7px;
+  height: 33px;
+  width: 100%;
+  text-align: left;
+  &:hover {
+    background-color: $light-blue-grey-1;
+    transition: $mid-ease;
+  }
 }

@@ -10,6 +10,7 @@ export class TodayWidgetComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log('HI THERE');
   }
 
 }

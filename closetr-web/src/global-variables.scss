@@ -1,10 +1,13 @@
-$dark-blue: #262F30;
+//$dark-blue: #262F30;
+$dark-blue: #334143;
+$darker-blue: #0B1112;
 $light-blue-grey: #E6ECEF;
+$light-blue-grey-1: #D3DCE1;
 $white: #FFFFFF;
 $med-blue: #AFC2CE;
 $med-blue-1: #96A9B6;
 $font-main: 'Work Sans', sans-serif;
 
-$slow-ease: 0.7s ease-in-out;
-$mid-ease: 0.5s ease-in-out;
-$fast-ease: 0.3s ease-in-out;
+$slow-ease: 0.7s ease all;
+$mid-ease: 0.5s ease all;
+$fast-ease: 0.3s ease all;

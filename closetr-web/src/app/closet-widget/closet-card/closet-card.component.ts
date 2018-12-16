@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { RouterModule, Routes, Router } from '@angular/router';
+import { ClosetService } from '../../services/closet.service';
 
 @Component({
   selector: 'app-closet-card',
@@ -7,9 +9,31 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ClosetCardComponent implements OnInit {
 
-  @Input() clothing: object;
+  @Input() clothing: any;
+  @Input() editMode: boolean;
+  @Output() removeCardEmit: EventEmitter<Object> = new EventEmitter<Object>();
 
-  constructor() {
+  isClosetManage: boolean;
+  closetService: ClosetService;
+
+  toggleEditMode(): void {
+    this.editMode = !this.editMode;
+  }
+
+  removeCard(clothingID: any): void {
+    console.log("want to remove this:", clothingID);
+    this.removeCardEmit.emit(clothingID);
+  }
+
+  editCard(clothing: any): void {
+    console.log('editing clothing: ', clothing);
+    this.closetService.setClothingForEdit(clothing);
+    this.router.navigate(['/edit-clothing', clothing.clothingID]);
+  }
+
+  constructor(private router: Router, private closetservice: ClosetService) {
+    this.isClosetManage = (router.url == '/closet-manage');
+    this.closetService = closetservice;
   }
 
   ngOnInit() {
