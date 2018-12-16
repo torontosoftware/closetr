@@ -1,12 +1,27 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'searchFilter'
+  name: 'filter'
 })
 export class SearchFilterPipe implements PipeTransform {
 
-  transform(value: any, args?: any): any {
-    return null;
+  transform(items: any, searchText: String, property: String): any {
+    if (!searchText || searchText == '') {
+      return items;
+    }
+
+    var itemCount = 0;
+    var filteredItems = {};
+    for (let itemID in items) {
+      var item = items[itemID];
+      var itemProperty = item[property].toLowerCase();
+      var searchProperty = searchText.toLowerCase();
+      if (itemProperty.includes(searchProperty)) {
+        filteredItems[itemCount] = item;
+        itemCount++;
+      }
+    }
+    return filteredItems;
   }
 
 }

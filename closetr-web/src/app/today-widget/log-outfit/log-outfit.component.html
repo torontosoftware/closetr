@@ -38,7 +38,8 @@
           <div class="row mtb-10">
               <div class="col-12">
                 <div class="input-group">
-                  <input type="text" class="form-control input-clean" placeholder="Search your closet...">
+                  <input type="text" class="form-control input-clean" placeholder="Search your closet..."
+                  (ngModelChange)="search()" [(ngModel)]="searchText">
                   <span class="input-group-btn input-clean-addon-right">
                     <button class="btn btn-default" style="background-color: transparent" type="button">
                       <i class="fas fa-search"></i>
@@ -46,6 +47,21 @@
                   </span>
                 </div>
               </div>
+          </div>
+          <div class="row mtb-4">
+            <div class="col-12" *ngFor="let clothing of closetList | filter:searchText:'clothingName' | keyvalue" [hidden]="!searchText">
+              <button class="btn closet-search-box">
+                <span>{{clothing.value.clothingName}}
+                <span class="f-light-blue">|</span> cost: <span class="f-light-blue">{{clothing.value.clothingCost}}</span>
+                <span class="f-light-blue">|</span> worn: <span class="f-light-blue">{{clothing.value.clothingWorn}} times</span>
+                </span>
+                <button class="btn btn-transparent pull-right" (click)="addSearchReault(clothing.value)">
+                  <span class="icon icon-add">
+                    <i class="fas fa-plus"></i>
+                  </span>
+                </button>
+              </button>
+            </div>
           </div>
           <div class="row">
             <div class="col-12">

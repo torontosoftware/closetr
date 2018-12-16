@@ -1,6 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { LogOutfitService } from '../../services/log-outfit.service';
+import { ClosetService } from '../../services/closet.service';
+import { SearchFilterPipe } from '../../pipes/search-filter.pipe';
 
 @Component({
   selector: 'app-log-outfit',
@@ -11,6 +13,7 @@ import { LogOutfitService } from '../../services/log-outfit.service';
 export class LogOutfitComponent implements OnInit {
   outfitClothingList: any;
   logOutfitService: LogOutfitService;
+  closetService: ClosetService;
   editMode : boolean;
 
   toggleEditMode(): void {
@@ -22,6 +25,14 @@ export class LogOutfitComponent implements OnInit {
     this.logOutfitService.setAllOutfitClothes(this.outfitClothingList);
   }
 
+  search(): void {
+  }
+
+  addSearchReault(clothing: any): void {
+    this.logOutfitService.addOutfitClothing(clothing);
+    this.outfitClothingList = this.logOutfitService.getAllOutfitClothes();
+  }
+
   back(): void {
     this.router.navigate(['/dashboard']);
   }
@@ -30,9 +41,13 @@ export class LogOutfitComponent implements OnInit {
     delete this.outfitClothingList[clothingID];
   }
 
-  constructor(private router: Router, private logoutfitservice: LogOutfitService) {
+  constructor(private router: Router,
+              private logoutfitservice: LogOutfitService,
+              private closetservice: ClosetService) {
     this.editMode = false;
     this.logOutfitService = logoutfitservice;
+    this.closetService = closetservice;
+    this.closetList = this.closetService.getAllClothes();
     this.outfitClothingList = this.logOutfitService.getAllOutfitClothes();
 
     //converting outfitClothingList to array
