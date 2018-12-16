@@ -52,7 +52,11 @@ export class AddClothingComponent implements OnInit {
         'clothingCost':this.clothing.clothingCost,
         'clothingCategory':this.clothing.clothingCategory
       }
-      this.logOutfitService.addOutfitClothing(newClothing);
+      if (this.prevUrl == '/closet-manage') {
+        this.closetService.addClothing(newClothing);
+      } else {
+        this.logOutfitService.addOutfitClothing(newClothing);
+      }
       this.back();
   }
 
