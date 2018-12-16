@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClosetService } from '../services/closet.service';
 import { RoutesService } from '../services/routes.service';
 import { RouterModule, Routes, Router } from '@angular/router';
+import { SearchFilterPipe } from '../pipes/search-filter.pipe';
 
 @Component({
   selector: 'app-closet-manage',

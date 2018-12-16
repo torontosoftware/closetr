@@ -33,7 +33,7 @@
           <div class="row mtb-4">
               <div class="col-12">
                 <div class="input-group">
-                  <input type="text" class="form-control input-clean" placeholder="Search your closet...">
+                  <input type="text" class="form-control input-clean" [(ngModel)]="searchText" placeholder="Search your closet...">
                   <span class="input-group-btn input-clean-addon-right">
                     <button class="btn btn-default" style="background-color: transparent" type="button">
                       <i class="fas fa-search"></i>
@@ -96,7 +96,7 @@
               </div>
           </div>
           <div class="row mtb-10">
-            <div class="col-6 col-sm-4 col-lg-3" *ngFor="let clothing of closetList | keyvalue">
+            <div class="col-6 col-sm-4 col-lg-3" *ngFor="let clothing of closetList | filter:searchText:'clothingName' |keyvalue">
               <div class="closet-card mtb-10">
                 <app-closet-card [clothing]="clothing.value" [editMode]="editMode" (removeCardEmit)="removeCard(clothing.key)"></app-closet-card>
               </div>
