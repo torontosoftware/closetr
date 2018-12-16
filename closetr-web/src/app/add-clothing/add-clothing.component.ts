@@ -17,6 +17,7 @@ export class AddClothingComponent implements OnInit {
   closetService: ClosetService;
   logOutfitService: LogOutfitService;
   routesService: RoutesService;
+  prevUrl: String;
 
   constructor(private closetservice: ClosetService,
               private logoutfitservice: LogOutfitService,
