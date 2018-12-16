@@ -15,6 +15,7 @@ export class ClosetManageComponent implements OnInit {
   closetService: ClosetService;
   routesService: RoutesService;
   editMode : boolean;
+  searchText: String;
 
   toggleEditMode(): void {
     this.editMode = !this.editMode;
