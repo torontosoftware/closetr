@@ -4,7 +4,7 @@
       <div class="closet-card-picture">
       </div>
       <button [ngClass]="{'display-none':!editMode}"
-      (click)="removeCard(clothing)"
+      (click)="removeCard(clothing.clothingID)"
       [disabled] = "!editMode"
       class="btn btn-transparent closet-card-icon-close disabled-none">
         <span class="icon-white">
@@ -19,8 +19,9 @@
         <span class="f-light-blue-xs">worn: {{clothing.clothingWorn}} times</span><br>
       </div>
       <button [ngClass]="{'display-none':!editMode}"
-      class="btn btn-transparent closet-card-icon-edit disabled-none"
-      [disabled] = "!editMode">
+      class="btn btn-transparent closet-card-icon-edit icon-edit disabled-none"
+      (click)="editCard(clothing)"
+      [disabled] = "!editMode || !isClosetManage">
         <span class="icon">
           <i class="fas fa-pen"></i>
         </span>

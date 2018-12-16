@@ -4,18 +4,18 @@
       <div class="widget-full">
         <div class="container-fluid">
           <div class="row">
-              <div class="col-6">
+              <div class="col-4">
                 <button class="btn btn-transparent btn-back" (click)="back()">
                   <span class="icon-lg">
                     <i class="fas fa-chevron-left"></i>
                   </span>
                 </button>
-                <h3>log outfit</h3>
+                <h3>closet</h3>
               </div>
-              <div class="col-6">
+              <div class="col-8">
                 <button type="button"
                 (click)="toggleEditMode()"
-                class="btn btn-transparent pull-right icon-edit">
+                class="btn btn-transparent icon-edit pull-right">
                   <span class="icon-lg">
                     <i class="fas fa-pen"></i>
                   </span>
@@ -30,12 +30,7 @@
                 </button>
               </div>
           </div>
-          <div class="row">
-              <div class="col-12">
-                <h4>WED, NOV 6</h4>
-              </div>
-          </div>
-          <div class="row mtb-10">
+          <div class="row mtb-4">
               <div class="col-12">
                 <div class="input-group">
                   <input type="text" class="form-control input-clean" placeholder="Search your closet...">
@@ -49,17 +44,59 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <a routerLink="/add-clothing">
+              <a routerLink="/add-clothing" (click)="navTo()">
               <button type="button" class="btn text-bubble text-bubble-btn">
                 <span class="f-med-white">
-                  add manually
+                  add new
                 </span>
               </button>
             </a>
             </div>
           </div>
+          <div class="row mtb-4">
+              <div class="col-6 col-sm-4 col-md-3">
+                <span class="icon icon-filter"><i class="fas fa-filter"></i></span>
+                <select class="pull-right mtb-4 select-with-icon">
+                  <option>
+                    no filter
+                  </option>
+                  <option>
+                    exclude Aritzia items
+                  </option>
+                  <option>
+                    sweaters only
+                  </option>
+                  <option>
+                    pants and sweaters only
+                  </option>
+                  <option>
+                    pants only
+                  </option>
+                </select>
+              </div>
+              <div class="col-6 col-sm-4 col-md-3">
+                <span class="icon icon-sort"><i class="fas fa-sort"></i></span>
+                <select class="pull-right mtb-4 select-with-icon">
+                  <option>
+                    cost ascending
+                  </option>
+                  <option>
+                    cost descending
+                  </option>
+                  <option>
+                    most recently purchased
+                  </option>
+                  <option>
+                    least recently purchased
+                  </option>
+                  <option>
+                    most worn
+                  </option>
+                </select>
+              </div>
+          </div>
           <div class="row mtb-10">
-            <div class="col-6 col-sm-4 col-lg-3" *ngFor="let clothing of outfitClothingList | keyvalue">
+            <div class="col-6 col-sm-4 col-lg-3" *ngFor="let clothing of closetList | keyvalue">
               <div class="closet-card mtb-10">
                 <app-closet-card [clothing]="clothing.value" [editMode]="editMode" (removeCardEmit)="removeCard(clothing.key)"></app-closet-card>
               </div>

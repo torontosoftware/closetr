@@ -14,6 +14,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddClothingComponent } from './add-clothing/add-clothing.component';
 import { ClosetService } from './services/closet.service';
 import { LogOutfitService } from './services/log-outfit.service';
+import { RoutesService } from './services/routes.service';
+import { ClosetManageComponent } from './closet-manage/closet-manage.component';
+import { EditClothingComponent } from './edit-clothing/edit-clothing.component';
 
 @NgModule({
   declarations: [
@@ -24,14 +27,16 @@ import { LogOutfitService } from './services/log-outfit.service';
     ClosetCardComponent,
     LogOutfitComponent,
     DashboardComponent,
-    AddClothingComponent
+    AddClothingComponent,
+    ClosetManageComponent,
+    EditClothingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule
   ],
-  providers: [ClosetService, LogOutfitService],
+  providers: [ClosetService, LogOutfitService, RoutesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -33,9 +33,40 @@ $screen-xl-min: 1220px;
   }
 }
 
+@mixin rotate($deg, $speed) {
+  -moz-transform: rotate($deg);
+  -webkit-transform: rotate($deg);
+  -o-transform: rotate($deg);
+  transform: rotate($deg);
+  transition: $speed;
+}
+
+//scroll bar style
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $med-blue;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $med-blue;
+}
+
 .dashboard-container {
   margin-top: 15px;
+  padding: 0;
+  width: 100vw;
+  max-width: 1100px;
     @include sm {
+      padding: 0 15px 0 15px;
       width: 90vw;
     }
     @include md {
@@ -62,25 +93,62 @@ body {
   color: $dark-blue;
   background-color: $white;
   min-height: 380px;
-  margin: 10px 0 10px 0;
-  border-radius: 10px;
+  margin: 10px -15px 10px -15px;
+  border-radius: 12px;
   transition: $mid-ease;
   @include sm {
-    padding: 20px;
+    padding: 22px 25px 22px 25px;
+    margin-left: 0;
+    margin-right: 0;
   }
-  @include lg {
-    padding: 30px 40px 30px 40px;
+  @include xl {
+    padding: 25px 35px 25px 35px;
+  }
+}
+
+.widget-left {
+  @include md {
+    margin-right: -5px;
+  }
+}
+
+.widget-right {
+  @include md {
+    margin-left: -5px;
   }
 }
 
 .widget-full {
   @extend .widget;
   min-height: 550px;
+  padding: 20px;
+  @include sm {
+    padding: 22px 35px 22px 35px;
+  }
+  @include xl {
+    padding: 25px 45px 25px 45px;
+  }
+}
+
+.nav-row {
+  transition: $mid-ease;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  @include sm {
+    margin-top: 35px;
+    margin-bottom: 20px;
+  }
 }
 
 /*
 circle styles
 */
+
+%circle-50 {
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+}
 
 %circle-55 {
   height: 55px;
@@ -107,12 +175,26 @@ circle styles
 
 %circle-sm {
   padding: 10px;
-  @extend %circle-55;
+  @extend %circle-50;
 }
 
 .closetr-logo {
   @extend %circle-sm;
   background-color: $dark-blue;
+  @include rotate(-21deg, $mid-ease);
+  &:hover {
+    cursor: pointer;
+    @include rotate(0deg, $mid-ease);
+  }
+}
+
+.closetr-logo-content {
+  font-family: 'Quicksand', sans-serif;
+  position: relative;
+  top: -8px;
+  left: 4px;
+  font-size: 30px;
+  color: $white;
 }
 
 .user-icon {
@@ -212,12 +294,22 @@ circle styles
 }
 
 .btn-back {
-  position: relative;
-  top: -4px;
+  position: absolute;
+  top: 0px;
   left: -10px;
   transition: $fast-ease;
   &:hover {
     left: -13px;
+    transition: $fast-ease;
+  }
+}
+
+.btn-expand {
+  position: relative;
+  top: 0px;
+  transition: $fast-ease;
+  &:hover {
+    top: -4px;
     transition: $fast-ease;
   }
 }
@@ -251,7 +343,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 h3 {
-  font-size: 25px;
+  font-size: 27px;
   font-weight: 600;
 }
 
@@ -316,6 +408,7 @@ h4 {
   margin-left: 15px;
   margin-bottom: 5px;
 }
+
 /*
 input changes (default)
 */
@@ -334,15 +427,38 @@ input changes (default)
 }
 
 select {
+  @extend .f-light-blue-xs;
+  border-radius: 10px;
   border: none;
-  height: 20px;
-  background-color: transparent;
+  //width: 100%;
+  padding: 2px 5px 2px 5px;
+  border-bottom: 1px solid $med-blue;
+  background-color: $light-blue-grey;
+  -webkit-appearance: none;
+}
+
+.select-with-icon {
+  width: calc(100% - 25px);
+}
+
+/*
+a changes
+*/
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+  &:hover {
+    color: inherit;
+    text-decoration: inherit;
+  }
 }
 
 /*
 icon styles
 */
 .icon {
+  display: inline;
   margin-top: 3px;
   font-size: 17px;
   transition: $fast-ease;
@@ -366,6 +482,35 @@ icon styles
   @extend .icon;
   margin-top: 0px;
   font-size: 20px;
+}
+
+.icon-sort {
+  position: absolute;
+  top: 2px;
+  left: 24px;
+  font-size: 13px;
+}
+
+.icon-filter {
+  position: absolute;
+  top: 5px;
+  left: 22px;
+  font-size: 11px;
+}
+
+.icon-edit {
+  position: relative;
+  transition: $fast-ease;
+  &:hover {
+    cursor: pointer;
+    @include rotate(7deg, $fast-ease);
+  }
+  & span {
+    &:hover {
+      cursor: pointer;
+      @include rotate(7deg, $fast-ease);
+    }
+  }
 }
 
 /*
