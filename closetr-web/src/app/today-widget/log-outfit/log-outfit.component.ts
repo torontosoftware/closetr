@@ -13,6 +13,7 @@ import { SearchFilterPipe } from '../../pipes/search-filter.pipe';
 export class LogOutfitComponent implements OnInit {
   outfitClothingList: any;
   logOutfitService: LogOutfitService;
+  closetList: any;
   closetService: ClosetService;
   editMode : boolean;
 
