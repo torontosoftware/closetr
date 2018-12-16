@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { ClosetService } from '../services/closet.service';
+import { RoutesService } from '../services/routes.service';
 import { LogOutfitService } from '../services/log-outfit.service';
 import { RouterModule, Routes, Router } from '@angular/router';
 
@@ -14,8 +16,13 @@ export class AddClothingComponent implements OnInit {
   enableSubmit: boolean;
   closetService: ClosetService;
   logOutfitService: LogOutfitService;
+  routesService: RoutesService;
 
-  constructor(private closetservice: ClosetService, private logoutfitservice: LogOutfitService, private router: Router) {
+  constructor(private closetservice: ClosetService,
+              private logoutfitservice: LogOutfitService,
+              private routesservice: RoutesService,
+              private router: Router,
+              private location: Location) {
       this.clothing = {
         clothingName: '',
         clothingCost: '',
@@ -24,10 +31,18 @@ export class AddClothingComponent implements OnInit {
       this.enableSubmit = false;
       this.closetService = closetservice;
       this.logOutfitService = logoutfitservice;
+      this.routesService = routesservice;
+      this.prevUrl = this.routesService.getPrevUrl();
+      this.routesService.setPrevUrl('');
+      console.log(this.routesService.getPrevUrl());
   }
 
   back(): void {
-    this.router.navigate(['/log-outfit']);
+    if (!this.prevUrl) {
+      this.router.navigate(['/closet-manage']);
+    } else {
+      this.router.navigate([this.prevUrl]);
+    }
   }
 
   save(): void {

@@ -4,7 +4,7 @@
       <div class="widget-full">
         <div class="container-fluid">
           <div class="row">
-              <div class="col-6">
+              <div class="col-4">
                 <button class="btn btn-transparent btn-back" (click)="back()">
                   <span class="icon-lg">
                     <i class="fas fa-chevron-left"></i>
@@ -12,7 +12,7 @@
                 </button>
                 <h3>closet</h3>
               </div>
-              <div class="col-6">
+              <div class="col-8">
                 <button type="button"
                 (click)="toggleEditMode()"
                 class="btn btn-transparent icon-edit pull-right">
@@ -20,6 +20,12 @@
                     <i class="fas fa-pen"></i>
                   </span>
                 </button>
+                <a class="text-bubble text-bubble-btn btn-fixed-width pull-right"
+                routerLink="/add-clothing" (click)="navTo()">
+                  <span class="f-med-white">
+                    add new
+                  </span>
+                </a>
                 <button type="button"
                 class="btn text-bubble text-bubble-btn btn-fixed-width pull-right"
                 [hidden]="!editMode"
