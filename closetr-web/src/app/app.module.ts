@@ -17,6 +17,7 @@ import { LogOutfitService } from './services/log-outfit.service';
 import { RoutesService } from './services/routes.service';
 import { ClosetManageComponent } from './closet-manage/closet-manage.component';
 import { EditClothingComponent } from './edit-clothing/edit-clothing.component';
+import { SearchFilterPipe } from './pipes/search-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { EditClothingComponent } from './edit-clothing/edit-clothing.component';
     DashboardComponent,
     AddClothingComponent,
     ClosetManageComponent,
-    EditClothingComponent
+    EditClothingComponent,
+    SearchFilterPipe
   ],
   imports: [
     BrowserModule,
