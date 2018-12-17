@@ -47,3 +47,23 @@ which was the principle we went by in designing the initial screens for our
 web application.
 
 Without explaining too much, here are the mockups we've generated for Closetr:
+
+#### Dashboard 
+
+Including Today Widget, Spending Widget, and Closet Widget.
+
+<img src="https://github.com/wafffly/closetr/blob/master/mockups/closetr_mockups_web-dashboard.png?raw=true" width="600px">
+
+#### Log Outfit
+
+<img src="https://github.com/wafffly/closetr/blob/master/mockups/closetr_mockups_web-log-outfit-screen.png?raw=true" width="600px">
+
+<img src="https://github.com/wafffly/closetr/blob/master/mockups/closetr_mockups_web-log-outfit-search-screen.png?raw=true" width="600px">
+
+#### Closet View
+
+<img src="https://github.com/wafffly/closetr/blob/master/mockups/closetr_mockups_web-closet-search-screen.png?raw=true" width="600px">
+
+#### Add Clothing
+
+<img src="https://github.com/wafffly/closetr/blob/master/mockups/closetr_mockups_web-add-clothing-screen.png?raw=true" width="600px">
