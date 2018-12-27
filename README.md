@@ -48,7 +48,7 @@ web application.
 
 Without explaining too much, here are the mockups we've generated for Closetr:
 
-#### Dashboard 
+#### Dashboard
 
 Including Today Widget, Spending Widget, and Closet Widget.
 
@@ -67,3 +67,23 @@ Including Today Widget, Spending Widget, and Closet Widget.
 #### Add Clothing
 
 <img src="https://github.com/wafffly/closetr/blob/master/mockups/closetr_mockups_web-add-clothing-screen.png?raw=true" width="600px">
+
+These were the initial designs we made for Closetr. We know that nothing is set
+in stone at this point. In the future, we would like to make it a project to
+create a cohesive design for Closetr. We're inspired by Material Design; putting
+intention behind design, and would like to apply that to Closetr as we develop
+it.
+
+### Our Progress
+
+Our team thought of this idea around October 2018. We spent our first month and
+some in the ideation stage. We came up with our requirements through creating
+personas and user stories, and grounded those out into projects and tasks.
+
+During this process of ideation and requirement gathering, we chose our
+technology (Angular, Django, and MongoDB). We also designed our UIs for the
+web-app, as we are first targeting to release Closetr on the web. We also plan
+on making Closetr available for iOS. For now, this is a distant project for us,
+but we're designing web-app to be mobile-first to help keep us in check.
+
+Check back here to follow our progress on Closetr!
