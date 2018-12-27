@@ -89,6 +89,7 @@ body {
 }
 
 .widget {
+  animation: $a-fade-from-down;
   padding: 15px 5px 15px 5px;
   color: $dark-blue;
   background-color: $white;
@@ -131,6 +132,7 @@ body {
 }
 
 .nav-row {
+  animation: $a-fade-from-up;
   transition: $mid-ease;
   margin-top: 20px;
   margin-bottom: 15px;
