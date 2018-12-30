@@ -81,7 +81,7 @@ some in the ideation stage. We came up with our requirements through creating
 personas and user stories, and grounded those out into projects and tasks.
 
 During this process of ideation and requirement gathering, we chose our
-technology (Angular, Django, and MongoDB). We also designed our UIs for the
+technology (Angular, Node, Express, and MongoDB). We also designed our UIs for the
 web-app, as we are first targeting to release Closetr on the web. We also plan
 on making Closetr available for iOS. For now, this is a distant project for us,
 but we're designing web-app to be mobile-first to help keep us in check.
