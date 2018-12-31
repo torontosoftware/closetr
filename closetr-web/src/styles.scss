@@ -648,3 +648,11 @@ closet card components
     transition: $mid-ease;
   }
 }
+
+.closet-search-box-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: calc(100% - 20px);
+  display: inline-block;
+}

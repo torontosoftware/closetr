@@ -56,7 +56,7 @@ export class AddClothingComponent implements OnInit {
       if (this.prevUrl == '/closet-manage') {
         this.closetService.addClothing(newClothing);
       } else {
-        this.logOutfitService.addOutfitClothing(newClothing);
+        this.logOutfitService.addOutfitClothing(newClothing, 'manual');
       }
       this.back();
   }

@@ -29,7 +29,7 @@ export class LogOutfitService {
   Adds clothing to outfit clothing list, and to the closet as well.
   Format {name, cost, category}
   */
-  addOutfitClothing(clothing: any): void {
+  addOutfitClothing(clothing: any, mode: String): void {
     var newOutfitClothingID = this.generateOutfitClothingID();
     var newOutfitClothing = {
       'clothingID': newOutfitClothingID,
@@ -39,7 +39,15 @@ export class LogOutfitService {
       'clothingWorn': 0
     };
     this.outfitClothingList[newOutfitClothingID] = newOutfitClothing;
-    this.closetService.addClothing(clothing);
+
+    // further actions depending on mode
+    switch (mode) {
+      case 'search':
+        break;
+      case 'manual':
+        this.closetService.addClothing(clothing);
+        break;
+    }
   }
 
   getAllOutfitClothes(): any {

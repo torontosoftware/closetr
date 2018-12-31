@@ -30,8 +30,8 @@ export class LogOutfitComponent implements OnInit {
   search(): void {
   }
 
-  addSearchReault(clothing: any): void {
-    this.logOutfitService.addOutfitClothing(clothing);
+  addSearchResult(clothing: any): void {
+    this.logOutfitService.addOutfitClothing(clothing, 'search');
     this.outfitClothingList = this.logOutfitService.getAllOutfitClothes();
   }
 
