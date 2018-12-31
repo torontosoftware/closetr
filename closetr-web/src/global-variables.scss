@@ -31,11 +31,11 @@ $fast-ease: 0.3s ease all;
 
 @keyframes fade-from-up {
   0% {
-    transform: translateY(-3%);
+    transform: translateY(0);
     opacity: 0;
   }
   100% {
-    transform: translateY(0);
+    transform: translateY(-3%);
     opacity: 1;
   }
 }
