@@ -9,7 +9,7 @@ import { BaseGeneralComponent } from '../base-general/base-general.component';
 @Component({
   selector: 'app-add-clothing',
   templateUrl: './add-clothing.component.html',
-  styleUrls: ['./add-clothing.component.scss']
+  styleUrls: ['./add-clothing.component.scss'],
 })
 
 export class AddClothingComponent extends BaseGeneralComponent implements OnInit {

@@ -3,7 +3,7 @@ import { trigger, style, transition, animate, group } from '@angular/animations'
 
 @Component({
   selector: 'app-base-general',
-  template : '',
+  template : '<ng-content></ng-content>',
   styleUrls: ['./base-general.component.scss'],
   animations: [
   trigger('itemAnim', [
