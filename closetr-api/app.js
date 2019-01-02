@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 
 // routers from route folder
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var clothesRouter = require('./routes/clothes');
 
 // the express app
 var app = express();
@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // connect app to routes
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/clothes', clothesRouter);
 
 // Configure bodyparser to handle post requests
 app.use(bodyParser.urlencoded({
