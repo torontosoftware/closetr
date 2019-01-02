@@ -6,6 +6,8 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+var cors = require('cors');
+
 // routers from route folder
 var indexRouter = require('./routes/index');
 var clothesRouter = require('./routes/clothes');
@@ -18,6 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors({credentials: true, origin: true}));
 
 // connect app to routes
 app.use('/', indexRouter);
@@ -30,7 +33,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // Connect to Mongoose and set connection variable
-mongoose.connect('mongodb://localhost/mongo-closetr');
+mongoose.connect('mongodb://localhost/mongo-closetr', { useNewUrlParser: true });
 
 var db = mongoose.connection;
 
