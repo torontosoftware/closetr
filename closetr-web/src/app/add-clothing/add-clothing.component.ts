@@ -4,7 +4,6 @@ import { ClosetService } from '../services/closet.service';
 import { RoutesService } from '../services/routes.service';
 import { LogOutfitService } from '../services/log-outfit.service';
 import { RouterModule, Routes, Router } from '@angular/router';
-import { BaseGeneralComponent } from '../base-general/base-general.component';
 
 @Component({
   selector: 'app-add-clothing',
@@ -12,7 +11,7 @@ import { BaseGeneralComponent } from '../base-general/base-general.component';
   styleUrls: ['./add-clothing.component.scss']
 })
 
-export class AddClothingComponent extends BaseGeneralComponent implements OnInit {
+export class AddClothingComponent implements OnInit {
   clothing: any;
   enableSubmit: boolean;
   closetService: ClosetService;
@@ -25,7 +24,6 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
               private routesservice: RoutesService,
               private router: Router,
               private location: Location) {
-      super();
       this.clothing = {
         clothingName: '',
         clothingCost: '',
