@@ -14,8 +14,8 @@ export class LogOutfitService {
     this.closetService = closetservice;
     this.outfitClothingCount = 2;
     this.outfitClothingList = {
-      1: {clothingID: 1, clothingCost:'$45',clothingName:'Aritzia TShirt', clothingWorn: 45, clothingCategory:'TShirt'},
-      2: {clothingID: 2, clothingCost: '$35', clothingName:'Zara Turtleneck TShirt', clothingWorn: 32, clothingCategory:'TShirt'}
+      1: {outfitClothingID: 1, clothingID: 1, clothingCost:'$45',clothingName:'Aritzia TShirt', clothingWorn: 45, clothingCategory:'TShirt'},
+      2: {outfitClothingID: 2, clothingID: 2, clothingCost: '$35', clothingName:'Zara Turtleneck TShirt', clothingWorn: 32, clothingCategory:'TShirt'}
     };
   }
 
@@ -32,7 +32,8 @@ export class LogOutfitService {
   addOutfitClothing(clothing: any, mode: String): void {
     var newOutfitClothingID = this.generateOutfitClothingID();
     var newOutfitClothing = {
-      'clothingID': newOutfitClothingID,
+      'outfitClothingID': newOutfitClothingID,
+      'clothingID': clothing.clothingID,
       'clothingName': clothing.clothingName,
       'clothingCost': clothing.clothingCost,
       'clothingCategory': clothing.clothingCategory,
