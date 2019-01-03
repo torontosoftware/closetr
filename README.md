@@ -74,6 +74,21 @@ create a cohesive design for Closetr. We're inspired by Material Design; putting
 intention behind design, and would like to apply that to Closetr as we develop
 it.
 
+### Technology Stack
+
+As mentioned before, we started this project for the primary purpose of learning.
+Thus, we're using a technology stack that we have limited experience in, but are 
+also relevant in the industry, to make sure that we're building with the best that
+is out there. Currently we are building with MEAN Stack.
+
+The front-end of Closetr is built on Angular (7), which is one of the leading web
+frameworks. We chose Angular because of its prominence in the web development
+community, and because our front-end developer has prior experience with AngularJS.
+
+The back-end is currently being build with Node and Express, because it works naturally
+with Angular. Lastly, our database will be managed with MongoDB, because our database
+needs are leaning towards NoSQL.
+
 ### Our Progress
 
 Our team thought of this idea around October 2018. We spent our first month and
