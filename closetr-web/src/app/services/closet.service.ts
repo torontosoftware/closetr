@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,16 @@ export class ClosetService {
   closetCount: number;
   clothingForEdit: any;
 
-  constructor() {
+  constructor(private http: HttpClient) {
+    var ret = this.http.get('http://localhost:8080/clothes').subscribe(
+      (data: any) => {
+        console.log(data);
+      }, // success path
+      error => {
+        console.log(error);
+      }
+    );
+    console.log(ret);
     this.closetCount = 6;
     this.closetList = {
       1: {clothingID: 1, clothingCost:'$45',clothingName:'Aritzia TShirt', clothingWorn: 45, clothingCategory:'TShirt'},

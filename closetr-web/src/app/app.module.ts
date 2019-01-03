@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 import { NgModule } from '@angular/core';
 import { Location } from '@angular/common';
@@ -39,7 +40,8 @@ import { SearchFilterPipe } from './pipes/search-filter.pipe';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [ClosetService, LogOutfitService, RoutesService],
   bootstrap: [AppComponent]

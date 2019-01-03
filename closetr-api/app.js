@@ -33,9 +33,9 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // Connect to Mongoose and set connection variable
-mongoose.connect('mongodb://localhost/mongo-closetr', { useNewUrlParser: true });
+// mongoose.connect('mongodb://localhost/mongo-closetr', { useNewUrlParser: true });
 
-var db = mongoose.connection;
+//var db = mongoose.connection;
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
