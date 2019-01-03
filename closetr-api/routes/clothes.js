@@ -20,6 +20,7 @@ router.get('/', function(req, res, next) {
        status: 'failed',
        message: err.message
      }
+     res.json(result_json)
    })
 });
 
