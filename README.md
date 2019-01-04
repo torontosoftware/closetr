@@ -1,6 +1,6 @@
 # Closetr
 
-[LIVE PROJECT](https://fideslinga.com/closeter/)
+[LIVE PROJECT](http://fideslinga.com/closeter/)
 
 ### What it is
 Closetr is a closet tracker that helps you have a better sense of your style,
