@@ -5,6 +5,7 @@ import { ClosetManageComponent } from './closet-manage/closet-manage.component';
 import { AddClothingComponent } from './add-clothing/add-clothing.component';
 import { EditClothingComponent } from './edit-clothing/edit-clothing.component';
 import { LogOutfitComponent } from './today-widget/log-outfit/log-outfit.component';
+import { SpendingManageComponent } from './spending-manage/spending-manage.component';
 import { AppComponent } from './app.component';
 
 
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
   {path: 'add-clothing', component: AddClothingComponent},
   {path: 'closet-manage', component: ClosetManageComponent},
-  {path: 'edit-clothing/:id', component: EditClothingComponent}
+  {path: 'edit-clothing/:id', component: EditClothingComponent},
+  {path: 'spending-manage', component: SpendingManageComponent}
 ];
 
 @NgModule({
