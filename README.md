@@ -1,5 +1,7 @@
 # Closetr
 
+[LIVE PROJECT](https://fideslinga.com/closeter/)
+
 ### What it is
 Closetr is a closet tracker that helps you have a better sense of your style,
 and spending. We want to make it easier to know what to wear next, and to give
@@ -77,7 +79,7 @@ it.
 ### Technology Stack
 
 As mentioned before, we started this project for the primary purpose of learning.
-Thus, we're using a technology stack that we have limited experience in, but are 
+Thus, we're using a technology stack that we have limited experience in, but are
 also relevant in the industry, to make sure that we're building with the best that
 is out there. Currently we are building with MEAN Stack.
 
