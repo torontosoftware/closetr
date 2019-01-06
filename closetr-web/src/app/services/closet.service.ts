@@ -12,18 +12,23 @@ export class ClosetService {
   closetList: any;
   closetCount: number;
   clothingForEdit: any;
+  data: any;
 
   constructor(private http: HttpClient) {
-    var ret = this.http.get('http://localhost:8080/api/clothes/all').subscribe(
+    this.http.get('http://localhost:8080/api/clothes/all').subscribe(
       (data: any) => {
-        console.log(data);
+        this.data = data;
+        this.closetList = this.data.data;
+        this.closetCount = this.closetList.length;
+        console.log(this.closetList, this.closetCount);
       }, // success path
       error => {
         console.log(error);
       }
     );
-    console.log(ret);
-    this.closetCount = 0;
+    //console.log(this.data);
+    //this.closetCount = 0;
+    /*
     this.closetList = {
       1: {clothingID: 1, clothingCost:'$45',clothingName:'Aritzia TShirt', clothingWorn: 45, clothingCategory:'TShirt'},
       2: {clothingID: 2, clothingCost: '$35', clothingName:'Zara Turtleneck TShirt', clothingWorn: 32, clothingCategory:'TShirt'},
@@ -31,7 +36,7 @@ export class ClosetService {
       4: {clothingID: 4, clothingCost:'$35',clothingName:'Uniqlo Palazzo Pants', clothingWorn: 17, clothingCategory:'Pants'},
       5: {clothingID: 5, clothingCost:'$5',clothingName:'Uniqlo Socks', clothingWorn: 16, clothingCategory:'Socks'},
       6: {clothingID: 6, clothingCost:'$35',clothingName:'Zara Cocoon Cardigan', clothingWorn: 15, clothingCategory:'Cardigan'}
-    };
+    };*/
   }
 
   /*
@@ -58,7 +63,7 @@ export class ClosetService {
     var params = {
       clothing: newClothing
     };
-    var ret = this.http.post('http://localhost:8080/api/clothes/clothing', params).subscribe(
+    this.http.post('http://localhost:8080/api/clothes/clothing', params).subscribe(
       (data: any) => {
         console.log(data);
       }, // success path
@@ -77,6 +82,10 @@ export class ClosetService {
   }
 
   getAllClothes(): any {
+    setTimeout(3000, function(){
+      console.log(this.closetList);
+      return this.closetList;
+    });
     return this.closetList;
   }
 
