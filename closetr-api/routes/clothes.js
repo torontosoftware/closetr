@@ -4,8 +4,8 @@ const router = express.Router();
 // clothes schema
 const clothes = require('../models/clothes.model');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
+/* API returns all user clothes */
+router.get('/gac', function(req, res, next) {
   // query all clothes in the database
   clothes.find()
   .then(clothes => {
@@ -23,5 +23,7 @@ router.get('/', function(req, res, next) {
      res.json(result_json)
    })
 });
+
+/* API appends one piece of clothing */
 
 module.exports = router;
