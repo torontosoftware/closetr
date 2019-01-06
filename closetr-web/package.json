@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "webpack-dev-server": ">=3.1.11",
     "@angular/animations": "~7.0.0",
     "@angular/common": "~7.0.0",
     "@angular/compiler": "~7.0.0",
@@ -27,6 +28,7 @@
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
+    "webpack-dev-server": ">=3.1.11",
     "@angular-devkit/build-angular": "~0.10.0",
     "@angular/cli": "~7.0.4",
     "@angular/compiler-cli": "~7.0.0",
