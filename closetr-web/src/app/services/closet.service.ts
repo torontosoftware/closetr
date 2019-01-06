@@ -82,10 +82,6 @@ export class ClosetService {
   }
 
   getAllClothes(): any {
-    setTimeout(3000, function(){
-      console.log(this.closetList);
-      return this.closetList;
-    });
     return this.closetList;
   }
 
