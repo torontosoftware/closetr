@@ -21,9 +21,9 @@ router.post('/clothing', function(req, res, next) {
   clothes.create(newItem)
   .then(data => {
     const result_json = {
-      status = 'success',
+      status: 'success',
       data: data
-    }
+    };
     res.json(result_json);
   })
    .catch(err => {
