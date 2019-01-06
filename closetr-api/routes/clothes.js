@@ -4,25 +4,51 @@ const router = express.Router();
 // clothes schema
 const clothes = require('../models/clothes.model');
 
+/* API sets one new user clothing */
+router.post('/clothing', function(req, res, next) {
+  // query all clothes in the database
+  var newItem = {
+    //_id: req.body.clothing.clothingID,
+    clothingID: req.body.clothing.clothingID,
+    clothingName: req.body.clothing.clothingName,
+    clothingCost: req.body.clothing.clothingCost,
+    clothingCategory: req.body.clothing.clothingCategory,
+    clothingWorn: req.body.clothing.clothingWorn
+  };
+  console.log(newItem);
+  clothes.create(newItem)
+  .then(data => {
+    res.json({data: data});
+  })
+   .catch(err => {
+     const result_json = {
+       status: 'failed',
+       message: err.message
+     };
+     res.json(result_json);
+   })
+});
+
 /* API returns all user clothes */
-router.get('/gac', function(req, res, next) {
+router.get('/all', function(req, res, next) {
   // query all clothes in the database
   clothes.find()
-  .then(clothes => {
+  .then(data => {
    const result_json = {
        status: 'success',
-       data: clothes
-     }
-     res.json(result_json)
+       data: data
+     };
+     res.json(result_json);
    })
    .catch(err => {
      const result_json = {
        status: 'failed',
        message: err.message
-     }
-     res.json(result_json)
+     };
+     res.json(result_json);
    })
 });
+
 
 /* API appends one piece of clothing */
 

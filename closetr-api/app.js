@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // Connect to Mongoose and set connection variable
-mongoose.connect('mongodb://fides:closetr1@ds263619.mlab.com:63619/closetr', { useNewUrlParser: true });
+mongoose.connect('mongodb://admin:password1@ds263619.mlab.com:63619/closetr', { useNewUrlParser: true });
 var db = mongoose.connection;
 
 // catch 404 and forward to error handler
@@ -49,7 +49,10 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({
+    message: err.message,
+    error: err
+    });
 });
 
 // Setup server port

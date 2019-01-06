@@ -14,7 +14,7 @@ export class ClosetService {
   clothingForEdit: any;
 
   constructor(private http: HttpClient) {
-    var ret = this.http.get('http://localhost:8080/clothes').subscribe(
+    var ret = this.http.get('http://localhost:8080/api/clothes/all').subscribe(
       (data: any) => {
         console.log(data);
       }, // success path
@@ -23,7 +23,7 @@ export class ClosetService {
       }
     );
     console.log(ret);
-    this.closetCount = 6;
+    this.closetCount = 0;
     this.closetList = {
       1: {clothingID: 1, clothingCost:'$45',clothingName:'Aritzia TShirt', clothingWorn: 45, clothingCategory:'TShirt'},
       2: {clothingID: 2, clothingCost: '$35', clothingName:'Zara Turtleneck TShirt', clothingWorn: 32, clothingCategory:'TShirt'},
@@ -55,6 +55,17 @@ export class ClosetService {
       'clothingWorn': 0
     }
     this.closetList[newClothingID] = newClothing;
+    var params = {
+      clothing: newClothing
+    };
+    var ret = this.http.post('http://localhost:8080/api/clothes/clothing', params).subscribe(
+      (data: any) => {
+        console.log(data);
+      }, // success path
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   removeClothing(clothingID: any): void {
