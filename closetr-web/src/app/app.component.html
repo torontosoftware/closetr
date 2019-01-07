@@ -10,6 +10,8 @@
         </a>
     </div>
   </div>
-  <router-outlet></router-outlet>
+  <div [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+    <router-outlet #o="outlet"></router-outlet>
+  </div>
   <!--<app-dashboard *ngIf="router.url == ''"></app-dashboard>-->
 </div>
