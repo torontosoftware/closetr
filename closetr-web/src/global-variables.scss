@@ -11,3 +11,66 @@ $font-main: 'Work Sans', sans-serif;
 $slow-ease: 0.7s ease all;
 $mid-ease: 0.5s ease all;
 $fast-ease: 0.3s ease all;
+
+// animations
+@keyframes fade-in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fade-from-down {
+  0% {
+    transform: translateY(3%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-from-up {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-3%);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-from-right {
+  0% {
+    transform: translateX(3%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.fade-from-up-start {
+  transform: translateY(0);
+  opacity: 0;
+}
+
+.fade-from-up-end {
+  transform: translateY(-3%);
+  opacity: 1;
+}
+
+.fade-from-down-start {
+  transform: translateY(3%);
+  opacity: 0;
+}
+
+.fade-from-down-end {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+$a-fade-from-down: 0.5s ease-out 0s 1 fade-from-down;
+$a-fade-from-right: 0.5s ease-out 0s 1 fade-from-right;
+$a-fade-from-up: 0.5s ease-out 0s 1 fade-from-up;
