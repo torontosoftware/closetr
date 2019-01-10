@@ -443,6 +443,16 @@ select {
   width: calc(100% - 25px);
 }
 
+// select with to-from
+.select-with-tf {
+  width: calc(100% - 40px);
+}
+
+.select-label {
+  @extend .f-med-blue;
+  margin-right: 5px;
+}
+
 /*
 a changes
 */

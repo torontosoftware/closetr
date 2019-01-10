@@ -16,7 +16,7 @@ export class SpendingManageComponent implements OnInit {
       {price: '13', name:'UO Blouse'},
       {price:'$35',name:'Uniqlo Sweater'},
       {price:'$5',name:'Uniqlo Socks'},
-      {price:'$15',name:'Aritzia TShirt'}
+      {price:'$15',name:'Aritzia TShirt'},
       {price:'$35',name:'Uniqlo Sweater'}
     ];
     console.log(this.purchaseList);
