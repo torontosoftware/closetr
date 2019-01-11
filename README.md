@@ -1,7 +1,5 @@
 # Closetr
 
-[LIVE PROJECT](http://fideslinga.com/closeter/)
-
 ### What it is
 Closetr is a closet tracker that helps you have a better sense of your style,
 and spending. We want to make it easier to know what to wear next, and to give
@@ -79,27 +77,17 @@ it.
 ### Technology Stack
 
 As mentioned before, we started this project for the primary purpose of learning.
-Thus, we're using a technology stack that we have limited experience in, but are
+Thus, we're using a technology stack that we have limited experience in, but are 
 also relevant in the industry, to make sure that we're building with the best that
 is out there. Currently we are building with MEAN Stack.
 
 The front-end of Closetr is built on Angular (7), which is one of the leading web
 frameworks. We chose Angular because of its prominence in the web development
 community, and because our front-end developer has prior experience with AngularJS.
-To assist with UI, we are also using Boostrap (4).
 
 The back-end is currently being build with Node and Express, because it works naturally
 with Angular. Lastly, our database will be managed with MongoDB, because our database
 needs are leaning towards NoSQL.
-
-### Contribute
-
-If you're interested in contributing, first: get in touch with
-[Fides](mailto:fides.linga@mail.utoronto.ca), and with what ideas you have to
-offer for Closetr.
-
-Later on, we will provide instructions on how we integrate new features that
-you may have.
 
 ### Our Progress
 
