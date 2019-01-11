@@ -8,6 +8,7 @@ import { RouterModule, Routes, Router } from '@angular/router';
 })
 export class SpendingManageComponent implements OnInit {
   purchaseList: object;
+  isDateRange: boolean;
 
   constructor(private router: Router) {
     this.purchaseList = [
@@ -25,7 +26,7 @@ export class SpendingManageComponent implements OnInit {
   back(): void {
     this.router.navigate(['/dashboard']);
   }
-
+  
   ngOnInit() {
   }
 

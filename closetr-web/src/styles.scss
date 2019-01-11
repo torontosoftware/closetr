@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "global-variables.scss";
+@import "custom.scss";
 /*
 screen-width breakpoints
 */
@@ -453,6 +454,18 @@ select {
   margin-right: 5px;
 }
 
+.toggle-label {
+  @extend .f-med-blue;
+  margin-right: 5px;
+  position: relative;
+  top: 3px;
+}
+
+.toggle {
+  position: relative;
+  top: 5px;
+}
+
 /*
 a changes
 */
@@ -544,6 +557,14 @@ small fixes
 .row-mgn-reset {
   margin-left: 0;
   margin-right: 0;
+}
+
+.pad-left-0 {
+  padding-left: 0;
+}
+
+.pad-right-0 {
+  padding-right: 0;
 }
 
 .pull-right {
