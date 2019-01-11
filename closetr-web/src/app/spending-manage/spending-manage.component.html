@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="row mtb-4">
-            <div class="col-6 col-sm-4">
+            <div class="col-6 col-sm-4 pad-right-0">
               <span class="select-label">from:</span>
               <select class="mtb-4 select-with-tf">
                 <option>
@@ -45,7 +45,7 @@
                 </option>
               </select>
             </div>
-            <div class="col-6 col-sm-4 pad-left-0" [hidden]="!isDateRange">
+            <div class="col-6 col-sm-4" [hidden]="!isDateRange">
               <span class="select-label">to:</span>
               <select class="mtb-4 select-with-tf">
                 <option>
@@ -53,7 +53,7 @@
                 </option>
               </select>
             </div>
-            <div class="col-6 col-sm-4" [ngClass]="{'col-sm-8':!isDateRange}">
+            <div [ngClass]="{'col-6 col-sm-8':!isDateRange, 'col-12 col-sm-4':isDateRange}">
               <input type="checkbox" id="switch" [(ngModel)]="isDateRange"/><label for="switch" class="toggle pull-right">Toggle</label>
               <span class="toggle-label pull-right">date range</span>
             </div>
