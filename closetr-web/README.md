@@ -94,11 +94,12 @@ Outfit.
 Run the web-app for yourself!
 
 Before anything, ensure that you've installed the required dependencies running
-`npm-install` in the root folder (closetr-web).
+`npm-install` in the root folder (closetr-web). You will need to install Node
+if you haven't done so yet. See how to do that [here](https://www.npmjs.com/get-npm).
 
 Run `ng serve` in the root folder (closetr-web) for a development server.
 Navigate to `http://localhost:4200/` to see the app! You may also want to run the
-back-end server (go to closetr-api to see how this works) locally. 
+back-end server (go to closetr-api to see how this works) locally.
 
 The app will automatically reload if you change any of the source files.
 
