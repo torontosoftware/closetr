@@ -7,7 +7,7 @@ import { SearchFilterPipe } from '../../pipes/search-filter.pipe';
 @Component({
   selector: 'app-log-outfit',
   templateUrl: './log-outfit.component.html',
-  styleUrls: ['./log-outfit.component.scss']
+  styleUrls: ['./log-outfit.component.scss'],
 })
 
 export class LogOutfitComponent implements OnInit {

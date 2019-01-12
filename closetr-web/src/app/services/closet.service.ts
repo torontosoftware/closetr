@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,23 @@ export class ClosetService {
   closetList: any;
   closetCount: number;
   clothingForEdit: any;
+  data: any;
 
-  constructor() {
-    this.closetCount = 6;
+  constructor(private http: HttpClient) {
+    this.http.get('http://localhost:8080/api/clothes/all').subscribe(
+      (data: any) => {
+        this.data = data;
+        this.closetList = this.data.data;
+        this.closetCount = this.closetList.length;
+        console.log(this.closetList, this.closetCount);
+      }, // success path
+      error => {
+        console.log(error);
+      }
+    );
+    //console.log(this.data);
+    //this.closetCount = 0;
+    /*
     this.closetList = {
       1: {clothingID: 1, clothingCost:'$45',clothingName:'Aritzia TShirt', clothingWorn: 45, clothingCategory:'TShirt'},
       2: {clothingID: 2, clothingCost: '$35', clothingName:'Zara Turtleneck TShirt', clothingWorn: 32, clothingCategory:'TShirt'},
@@ -21,7 +36,7 @@ export class ClosetService {
       4: {clothingID: 4, clothingCost:'$35',clothingName:'Uniqlo Palazzo Pants', clothingWorn: 17, clothingCategory:'Pants'},
       5: {clothingID: 5, clothingCost:'$5',clothingName:'Uniqlo Socks', clothingWorn: 16, clothingCategory:'Socks'},
       6: {clothingID: 6, clothingCost:'$35',clothingName:'Zara Cocoon Cardigan', clothingWorn: 15, clothingCategory:'Cardigan'}
-    };
+    };*/
   }
 
   /*
@@ -45,6 +60,17 @@ export class ClosetService {
       'clothingWorn': 0
     }
     this.closetList[newClothingID] = newClothing;
+    var params = {
+      clothing: newClothing
+    };
+    this.http.post('http://localhost:8080/api/clothes/clothing', params).subscribe(
+      (data: any) => {
+        console.log(data);
+      }, // success path
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   removeClothing(clothingID: any): void {
