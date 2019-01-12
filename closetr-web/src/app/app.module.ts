@@ -1,4 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+
 import { NgModule } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -18,6 +21,7 @@ import { RoutesService } from './services/routes.service';
 import { ClosetManageComponent } from './closet-manage/closet-manage.component';
 import { EditClothingComponent } from './edit-clothing/edit-clothing.component';
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
+import { BaseGeneralComponent } from './base-general/base-general.component';
 
 @NgModule({
   declarations: [
@@ -31,12 +35,15 @@ import { SearchFilterPipe } from './pipes/search-filter.pipe';
     AddClothingComponent,
     ClosetManageComponent,
     EditClothingComponent,
-    SearchFilterPipe
+    SearchFilterPipe,
+    BaseGeneralComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [ClosetService, LogOutfitService, RoutesService],
   bootstrap: [AppComponent]

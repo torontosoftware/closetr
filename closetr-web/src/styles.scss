@@ -60,24 +60,30 @@ $screen-xl-min: 1220px;
   background: $med-blue;
 }
 
+.dashboard-container-width {
+  width: 100vw;
+  @include sm {
+    width: 90vw;
+  }
+  @include md {
+    width: 80vw;
+  }
+  @include lg {
+    width: 70vw;
+  }
+  @include xl {
+    width: 60vw;
+  }
+}
+
 .dashboard-container {
+  @extend .dashboard-container-width;
   margin-top: 15px;
   padding: 0;
-  width: 100vw;
   max-width: 1100px;
-    @include sm {
-      padding: 0 15px 0 15px;
-      width: 90vw;
-    }
-    @include md {
-      width: 80vw;
-    }
-    @include lg {
-      width: 70vw;
-    }
-    @include xl {
-      width: 60vw;
-    }
+  @include sm {
+    padding: 0 15px 0 15px;
+  }
 }
 
 body {
@@ -655,4 +661,22 @@ closet card components
   text-overflow: ellipsis;
   width: calc(100% - 20px);
   display: inline-block;
+
+}
+
+router-outlet ~ * {
+  position: absolute;
+  width: calc(100vw);
+  @include sm {
+    width: calc(90vw - 30px);
+  }
+  @include md {
+    width: calc(80vw - 30px);
+  }
+  @include lg {
+    width: calc(70vw - 30px);
+  }
+  @include xl {
+    width: calc(60vw - 30px);
+  }
 }
