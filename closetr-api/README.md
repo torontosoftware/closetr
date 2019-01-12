@@ -1,4 +1,4 @@
-# closetr-api
+# Closetr-Api
 
 This is the back-end project for Closetr. It uses Node and Express to complement
 our Angular front-end, by providing RESTful APIs. We use MongoDB as our database,
