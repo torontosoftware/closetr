@@ -16,7 +16,7 @@ export class SearchFilterPipe implements PipeTransform {
       var item = items[itemID];
       var itemProperty = item[property].toLowerCase();
       var searchProperty = searchText.toLowerCase();
-      if (itemProperty.includes(searchProperty)) {
+      if (itemProperty.startsWith(searchProperty)) {
         filteredItems[itemCount] = item;
         itemCount++;
       }
