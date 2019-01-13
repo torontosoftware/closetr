@@ -523,7 +523,7 @@ icon styles
 
 .icon-add {
   position: relative;
-  top: -4px;
+  top: -5px;
   font-size: 11px;
   transition: $mid-ease;
   &:hover {
@@ -646,13 +646,22 @@ closet card components
   padding: 5px;
   margin-bottom: 3px;
   border-radius: 7px;
-  height: 33px;
+  height: 31px;
   width: 100%;
   text-align: left;
   &:hover {
     background-color: $light-blue-grey-1;
     transition: $mid-ease;
   }
+}
+
+.closet-search-box-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: calc(100% - 20px);
+  display: inline-block;
+
 }
 
 router-outlet ~ * {

@@ -30,9 +30,31 @@ export class LogOutfitComponent implements OnInit {
   search(): void {
   }
 
-  addSearchReault(clothing: any): void {
-    this.logOutfitService.addOutfitClothing(clothing);
-    this.outfitClothingList = this.logOutfitService.getAllOutfitClothes();
+  /*
+  Checks if the given clothing's ID is contained in the current outfit
+  clothing list. Returns true if it is present.
+  */
+  outfitClothingListContains(clothing: any): boolean {
+    var clothingID = clothing.clothingID;
+    var contains = false;
+    for (let i in this.outfitClothingList) {
+      if (this.outfitClothingList[i].clothingID == clothingID) {
+        contains = true;
+        break;
+      }
+    }
+    return contains;
+  }
+
+  /*
+  Adds clothing selected from search results to the outfit clothing list.
+  */
+  addSearchResult(clothing: any): void {
+    // check if clothing to be added is already in outfit clothing list
+    if (!this.outfitClothingListContains(clothing)) {
+      this.logOutfitService.addOutfitClothing(clothing, 'search');
+      this.outfitClothingList = this.logOutfitService.getAllOutfitClothes();
+    }
   }
 
   back(): void {
