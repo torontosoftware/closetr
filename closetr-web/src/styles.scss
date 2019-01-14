@@ -87,6 +87,7 @@ body {
   font-family: $font-main;
   background-color: $light-blue-grey;
   transition: $mid-ease;
+  position: overlay;
 }
 
 .widget {
@@ -691,6 +692,8 @@ closet card components
 
 .purchase-list-table {
   @extend .mtb-15;
+  overflow-y: scroll;
+  height: 40vh;
   /*
   & tr {
     &:nth-child(odd) {

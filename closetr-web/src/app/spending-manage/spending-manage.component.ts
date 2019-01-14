@@ -18,7 +18,12 @@ export class SpendingManageComponent implements OnInit {
       {price:'$35',name:'Uniqlo Sweater'},
       {price:'$5',name:'Uniqlo Socks'},
       {price:'$15',name:'Aritzia TShirt'},
-      {price:'$35',name:'Uniqlo Sweater'}
+      {price:'$35',name:'Uniqlo Sweater'},
+      {price: '$399', name:'The Stowe Bag'},
+      {price: '13', name:'UO Blouse'},
+      {price:'$35',name:'Uniqlo Sweater'},
+      {price:'$5',name:'Uniqlo Socks'},
+      {price:'$15',name:'Aritzia TShirt'}
     ];
     console.log(this.purchaseList);
   }
@@ -26,7 +31,7 @@ export class SpendingManageComponent implements OnInit {
   back(): void {
     this.router.navigate(['/dashboard']);
   }
-  
+
   ngOnInit() {
   }
 
