@@ -42,8 +42,7 @@ export class ClosetManageComponent implements OnInit {
     this.routesService = routesservice;
     this.closetService.getAllClothes().subscribe(
       (data: any) => {
-        this.data = data;
-        this.closetList = this.data.data;
+        this.closetList = data.data;
       },
       error => {
         console.log(error);
