@@ -60,11 +60,11 @@
           </div>
           <div class="row mtb-10">
             <div class="col-12">
-              <table class="table table-sm table-borderless">
+              <table class="table table-sm table-borderless purchase-list-table">
                 <tbody>
                   <tr *ngFor="let purchase of purchaseList">
-                    <td class="f-bold-blue-md">{{purchase.price}}</td>
-                    <td class="f-light-blue-md">{{purchase.name}}</td>
+                    <td class="purchase-list-cost">{{purchase.price}}</td>
+                    <td class="purchase-list-clothing">{{purchase.name}}</td>
                   </tr>
                 </tbody>
               </table>
