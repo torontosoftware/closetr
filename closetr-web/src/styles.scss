@@ -445,8 +445,12 @@ select {
 }
 
 // select with to-from
-.select-with-tf {
+.select-with-from {
   width: calc(100% - 40px);
+}
+
+.select-with-to {
+  width: calc(100% - 23px);
 }
 
 .select-label {
