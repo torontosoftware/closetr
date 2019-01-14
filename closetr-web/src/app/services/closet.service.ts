@@ -15,17 +15,6 @@ export class ClosetService {
   data: any;
 
   constructor(private http: HttpClient) {
-    this.http.get('http://localhost:8080/api/clothes/all').subscribe(
-      (data: any) => {
-        this.data = data;
-        this.closetList = this.data.data;
-        this.closetCount = this.closetList.length;
-        console.log(this.closetList, this.closetCount);
-      }, // success path
-      error => {
-        console.log(error);
-      }
-    );
     //console.log(this.data);
     //this.closetCount = 0;
     /*
@@ -82,7 +71,7 @@ export class ClosetService {
   }
 
   getAllClothes(): any {
-    return this.closetList;
+    return this.http.get('http://localhost:8080/api/clothes/all');
   }
 
   setAllClothes(closetList: any): void {
