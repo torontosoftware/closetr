@@ -50,12 +50,12 @@
           </div>
           <div class="row mtb-4">
             <div class="col-12" *ngFor="let clothing of closetList | filter:searchText:'clothingName' | keyvalue" [hidden]="!searchText">
-              <button class="btn closet-search-box">
-                <span>{{clothing.value.clothingName}}
-                <span class="f-light-blue">|</span> cost: <span class="f-light-blue">{{clothing.value.clothingCost}}</span>
-                <span class="f-light-blue">|</span> worn: <span class="f-light-blue">{{clothing.value.clothingWorn}} times</span>
+              <button class="btn closet-search-box" (click)="addSearchResult(clothing.value)">
+                <span class="closet-search-box-text f-med-blue-xs">{{clothing.value.clothingName}}
+                <span class="f-light-blue-xs"> | </span> cost: <span class="f-light-blue-xs">{{clothing.value.clothingCost}}</span>
+                <span class="f-light-blue-xs"> | </span> worn: <span class="f-light-blue-xs">{{clothing.value.clothingWorn}} times</span>
                 </span>
-                <button class="btn btn-transparent pull-right" (click)="addSearchReault(clothing.value)">
+                <button class="btn btn-transparent pull-right" (click)="addSearchResult(clothing.value)">
                   <span class="icon icon-add">
                     <i class="fas fa-plus"></i>
                   </span>
