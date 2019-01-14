@@ -258,6 +258,7 @@ circle styles
   border-radius: 15px;
   background-color: $med-blue;
   margin: 5px 0 5px 0;
+  overflow: hidden;
   &:hover {
     background-color: $med-blue-1;
   }
@@ -268,7 +269,8 @@ circle styles
 }
 
 .text-bubble-progress {
-  position: absolute;
+  position: relative;
+  display: block;
   width: 50%;
   border: none;
   height: 30px;
@@ -278,9 +280,9 @@ circle styles
 }
 
 .text-bubble-txt {
-  position: relative;
-  top: 3px;
-  left: 10px;
+  position: absolute;
+  top: 9px;
+  left: 30px;
 }
 
 .btn-transparent {
