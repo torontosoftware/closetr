@@ -9,6 +9,8 @@ import { RouterModule, Routes, Router } from '@angular/router';
 export class SpendingManageComponent implements OnInit {
   purchaseList: object;
   isDateRange: boolean;
+  searchCriteria: object;
+  availableDateRange: any;
 
   constructor(private router: Router) {
     this.purchaseList = [
@@ -25,7 +27,28 @@ export class SpendingManageComponent implements OnInit {
       {price:'$5',name:'Uniqlo Socks'},
       {price:'$15',name:'Aritzia TShirt'}
     ];
+
+    this.searchCriteria = {
+      dateRange: "last month",
+      dateFrom: new Date(),
+      dateTo: new Date()
+    };
+
+    this.isDateRange = false;
+
+    this.availableDateRange = [
+      'last week',
+      'last two weeks',
+      'last month',
+      'last 6 months',
+      'last year'
+    ];
+
     console.log(this.purchaseList);
+  }
+
+  searchCriteriaChange(): void {
+    console.log(this.searchCriteria);
   }
 
   back(): void {
