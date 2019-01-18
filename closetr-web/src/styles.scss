@@ -46,6 +46,7 @@ $screen-xl-min: 1220px;
 
 ::-webkit-scrollbar {
   width: 6px;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-track {
@@ -87,7 +88,8 @@ body {
   font-family: $font-main;
   background-color: $light-blue-grey;
   transition: $mid-ease;
-  position: overlay;
+  overflow-y: overlay;
+  overflow-x: hidden;
 }
 
 .widget {
@@ -721,6 +723,7 @@ closet card components
 .purchase-list-table {
   @extend .mtb-15;
   overflow-y: scroll;
+  --webkit-overflow-scrolling: touch;
   height: 40vh;
   /*
   & tr {
