@@ -7,7 +7,7 @@ import { SearchFilterPipe } from '../pipes/search-filter.pipe';
 @Component({
   selector: 'app-closet-manage',
   templateUrl: './closet-manage.component.html',
-  styleUrls: ['./closet-manage.component.scss']
+  styleUrls: ['./closet-manage.component.scss'],
 })
 
 export class ClosetManageComponent implements OnInit {
