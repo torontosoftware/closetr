@@ -28,7 +28,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       super();
       this.clothing = {
         clothingName: '',
-        clothingCost: '',
+        clothingCost: null,
         clothingCategory: ''
       }
       this.enableSubmit = false;
