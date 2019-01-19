@@ -13,8 +13,8 @@ export class BudgetWidgetComponent implements OnInit {
       {price:'$15',name:'Aritzia TShirt'},
       {price: '$399', name:'The Stowe Bag'},
       {price: '13', name:'UO Blouse'},
-      {price:'$35',name:'Uniqlo Sweater'},
-      {price:'$5',name:'Uniqlo Socks'}
+      {price:'$35',name:'Uniqlo Sweater'}
+      //{price:'$5',name:'Uniqlo Socks'}
     ];
     console.log(this.purchaseList);
   }

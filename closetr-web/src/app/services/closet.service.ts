@@ -45,21 +45,13 @@ export class ClosetService {
   Format {name, cost, category}
   */
 
-  generateClothingID(): number {
-    this.closetCount++;
-    return this.closetCount;
-  }
-
   addClothing(clothing: any): void {
-    var newClothingID = this.generateClothingID();
     var newClothing = {
-      'clothingID': newClothingID,
       'clothingName':clothing.clothingName,
       'clothingCost':clothing.clothingCost,
       'clothingCategory':clothing.clothingCategory,
       'clothingWorn': 0
     }
-    this.closetList[newClothingID] = newClothing;
     var params = {
       clothing: newClothing
     };

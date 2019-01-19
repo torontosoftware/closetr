@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "global-variables.scss";
+@import "custom.scss";
 /*
 screen-width breakpoints
 */
@@ -45,6 +46,7 @@ $screen-xl-min: 1220px;
 
 ::-webkit-scrollbar {
   width: 6px;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-track {
@@ -92,6 +94,8 @@ body {
   font-family: $font-main;
   background-color: $light-blue-grey;
   transition: $mid-ease;
+  overflow-y: overlay;
+  overflow-x: hidden;
 }
 
 .widget {
@@ -263,6 +267,7 @@ circle styles
   border-radius: 15px;
   background-color: $med-blue;
   margin: 5px 0 5px 0;
+  overflow: hidden;
   &:hover {
     background-color: $med-blue-1;
   }
@@ -273,7 +278,8 @@ circle styles
 }
 
 .text-bubble-progress {
-  position: absolute;
+  position: relative;
+  display: block;
   width: 50%;
   border: none;
   height: 30px;
@@ -283,9 +289,9 @@ circle styles
 }
 
 .text-bubble-txt {
-  position: relative;
-  top: 3px;
-  left: 10px;
+  position: absolute;
+  top: 9px;
+  left: 30px;
 }
 
 .btn-transparent {
@@ -449,6 +455,60 @@ select {
   width: calc(100% - 25px);
 }
 
+// select with to-from
+.select-with-from {
+  width: calc(100% - 40px);
+}
+
+.select-with-to {
+  width: calc(100% - 23px);
+}
+
+.select-label {
+  @extend .f-med-blue;
+  margin-right: 5px;
+}
+
+.toggle-label {
+  @extend .f-med-blue;
+  margin-right: 5px;
+  position: relative;
+  top: 3px;
+}
+
+.toggle {
+  position: relative;
+  top: 5px;
+}
+
+.date-picker {
+  @extend .f-light-blue;
+  padding-left: 5px;
+  background-color: $light-blue-grey;
+  border: none;
+  border-radius: 23px;
+  height: 23px;
+}
+
+.date-picker-from {
+  @extend .date-picker;
+  width: calc(100% - 40px);
+}
+
+.date-picker-to {
+  @extend .date-picker;
+  width: calc(100% - 23px);
+}
+
+
+::-webkit-inner-spin-button {
+  display: none;
+}
+
+::-webkit-calendar-picker-indicator {
+  background: none;
+}
+
 /*
 a changes
 */
@@ -540,6 +600,14 @@ small fixes
 .row-mgn-reset {
   margin-left: 0;
   margin-right: 0;
+}
+
+.pad-left-0 {
+  padding-left: 0;
+}
+
+.pad-right-0 {
+  padding-right: 0;
 }
 
 .pull-right {
@@ -653,6 +721,30 @@ closet card components
     background-color: $light-blue-grey-1;
     transition: $mid-ease;
   }
+}
+
+// spending manage view
+
+
+.purchase-list-table {
+  @extend .mtb-15;
+  overflow-y: scroll;
+  --webkit-overflow-scrolling: touch;
+  height: 40vh;
+  /*
+  & tr {
+    &:nth-child(odd) {
+      background-color: $light-blue-grey;
+    }
+  }*/
+}
+
+.purchase-list-cost {
+  @extend .f-bold-blue-md;
+}
+
+.purchase-list-clothing {
+  @extend .f-light-blue-md;
 }
 
 .closet-search-box-text {
