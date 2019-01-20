@@ -53,7 +53,8 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       var newClothing = {
         'clothingName':this.clothing.clothingName,
         'clothingCost':this.clothing.clothingCost,
-        'clothingCategory':this.clothing.clothingCategory
+        'clothingCategory':this.clothing.clothingCategory,
+        'clothingWorn':this.clothing.clothingWorn
       }
       if (this.prevUrl == '/closet-manage') {
         this.closetService.addClothing(newClothing);
@@ -65,7 +66,10 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
 
   checkSubmit(): void {
     //console.log(this.clothingName, this.clothingCost, this.clothingCategory);
-    if (this.clothing.clothingName == '' || this.clothing.clothingCost == '' || this.clothing.clothingCategory == '') {
+    if (this.clothing.clothingName == ''
+    || this.clothing.clothingCost == ''
+    || this.clothing.clothingCategory == ''
+    || this.clothing.clothingWorn == '') {
       this.enableSubmit = false;
       return;
     }

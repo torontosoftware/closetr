@@ -35,7 +35,7 @@
               <span class="input-label">cost ($)</span>
             </div>
             <div class="col-12">
-              <input id="clothing-cost" type="number" step="4" class="form-control input-clean" placeholder="e.g. 15"
+              <input id="clothing-cost" type="number" step="0.01" class="form-control input-clean" placeholder="e.g. 15"
               (ngModelChange)="checkSubmit()" [(ngModel)]="clothing.clothingCost">
             </div>
           </div>
@@ -46,6 +46,15 @@
             <div class="col-12">
               <input id="clothing-category" type="text" class="form-control input-clean" placeholder="e.g. Sweater"
               (ngModelChange)="checkSubmit()" [(ngModel)]="clothing.clothingCategory">
+            </div>
+          </div>
+          <div class="row mtb-10">
+            <div class="col-12">
+              <span class="input-label">worn</span>
+            </div>
+            <div class="col-12">
+              <input id="clothing-worn" type="number" class="form-control input-clean" placeholder="e.g. 4"
+              (ngModelChange)="checkSubmit()" [(ngModel)]="clothing.clothingWorn">
             </div>
           </div>
           <!--

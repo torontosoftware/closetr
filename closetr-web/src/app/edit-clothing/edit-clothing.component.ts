@@ -42,7 +42,10 @@ export class EditClothingComponent implements OnInit {
 
   checkSubmit(): void {
     //console.log(this.clothingName, this.clothingCost, this.clothingCategory);
-    if (this.clothing.clothingName == '' || this.clothing.clothingCost == '' || this.clothing.clothingCategory == '') {
+    if (this.clothing.clothingName == ''
+    || this.clothing.clothingCost == ''
+    || this.clothing.clothingCategory == ''
+    || this.clothing.clothingWorn == '') {
       this.enableSubmit = false;
       return;
     }
