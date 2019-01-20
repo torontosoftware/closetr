@@ -44,8 +44,15 @@
               <span class="input-label">category</span>
             </div>
             <div class="col-12">
+              <!--
               <input id="clothing-category" type="text" class="form-control input-clean" placeholder="e.g. Sweater"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="clothing.clothingCategory">
+              (ngModelChange)="checkSubmit()" [(ngModel)]="clothing.clothingCategory">-->
+              <select id="clothing-category"
+              class="form-control input-clean"
+              (ngModelChange)="checkSubmit()"
+              [(ngModel)]="clothing.clothingCategory">
+                <option *ngFor="let clothingCategory of clothingCategories" value="{{clothingCategory}}">{{clothingCategory}}</option>
+              </select>
             </div>
           </div>
           <div class="row mtb-10">

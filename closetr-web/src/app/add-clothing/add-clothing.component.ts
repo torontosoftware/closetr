@@ -19,6 +19,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   logOutfitService: LogOutfitService;
   routesService: RoutesService;
   prevUrl: String;
+  clothingCategories: Array<string>;
 
   constructor(private closetservice: ClosetService,
               private logoutfitservice: LogOutfitService,
@@ -26,15 +27,31 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
               private router: Router,
               private location: Location) {
       super();
+
+      // items
       this.clothing = {
         clothingName: '',
         clothingCost: null,
-        clothingCategory: ''
+        clothingCategory: 'Top'
       }
       this.enableSubmit = false;
+      this.clothingCategories = [
+        "Top",
+        "Blouse",
+        "Sweater",
+        "Jacket/Coat",
+        "Bottom",
+        "Pants",
+        "Skirt",
+        "Accesory"
+      ];
+
+      // services
       this.closetService = closetservice;
       this.logOutfitService = logoutfitservice;
       this.routesService = routesservice;
+
+      // routes
       this.prevUrl = this.routesService.getPrevUrl();
       this.routesService.setPrevUrl('');
       console.log(this.routesService.getPrevUrl());
