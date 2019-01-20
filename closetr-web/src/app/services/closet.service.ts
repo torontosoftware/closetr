@@ -22,25 +22,14 @@ export class ClosetService {
   Adds the clothing parameter and all of it's properties in the closetList.
   Format {name, cost, category}
   */
-  generateClothingID(): number {
-    this.closetCount++;
-    return this.closetCount;
-  }
 
-  /*
-  Input: clothing object.
-  Creates a new clothing object that is inserted into the database.
-  */
   addClothing(clothing: any): void {
-    var newClothingID = this.generateClothingID();
     var newClothing = {
-      'clothingID': newClothingID,
       'clothingName':clothing.clothingName,
       'clothingCost':clothing.clothingCost,
       'clothingCategory':clothing.clothingCategory,
       'clothingWorn': 0
     }
-    this.closetList[newClothingID] = newClothing;
     var params = {
       clothing: newClothing
     };

@@ -21,6 +21,7 @@ import { RoutesService } from './services/routes.service';
 import { ClosetManageComponent } from './closet-manage/closet-manage.component';
 import { EditClothingComponent } from './edit-clothing/edit-clothing.component';
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
+import { SpendingManageComponent } from './spending-manage/spending-manage.component';
 import { BaseGeneralComponent } from './base-general/base-general.component';
 
 @NgModule({
@@ -36,6 +37,7 @@ import { BaseGeneralComponent } from './base-general/base-general.component';
     ClosetManageComponent,
     EditClothingComponent,
     SearchFilterPipe,
+    SpendingManageComponent,
     BaseGeneralComponent
   ],
   imports: [

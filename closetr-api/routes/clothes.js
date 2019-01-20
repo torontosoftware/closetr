@@ -8,7 +8,6 @@ const clothes = require('../models/clothes.model');
 router.post('/clothing', function(req, res, next) {
   // gather attributes from request
   const newItem = {
-    clothingID: req.body.clothing.clothingID,
     clothingName: req.body.clothing.clothingName,
     clothingCost: req.body.clothing.clothingCost,
     clothingCategory: req.body.clothing.clothingCategory,

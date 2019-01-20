@@ -1,0 +1,117 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="widget-full">
+        <div class="container-fluid">
+          <div class="row">
+              <div class="col-12">
+                <button class="btn btn-transparent btn-back" (click)="back()">
+                  <span class="icon-lg">
+                    <i class="fas fa-chevron-left"></i>
+                  </span>
+                </button>
+                <h3>spending</h3>
+              </div>
+          </div>
+          <div class="row mtb-4">
+              <div class="col-12">
+                <div class="input-group">
+                  <input type="text" class="form-control input-clean" [(ngModel)]="searchText" placeholder="Search your logs...">
+                  <span class="input-group-btn input-clean-addon-right">
+                    <button class="btn btn-default" style="background-color: transparent" type="button">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </span>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <a routerLink="/">
+              <button type="button" class="btn text-bubble text-bubble-btn">
+                <span class="f-med-white">
+                  add new
+                </span>
+              </button>
+            </a>
+            </div>
+          </div>
+          <div class="row mtb-4">
+            <div class="col-6 col-md-4 pad-right-0" [hidden]="isDateRange">
+              <span class="select-label">from:</span>
+              <select class="mtb-4 select-with-from"
+              [(ngModel)]="searchCriteria.dateRange"
+              (change)="searchCriteriaChange()">
+                <option *ngFor="let dateRange of availableDateRange" value="{{dateRange}}">{{dateRange}}</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-4" [hidden]="!isDateRange">
+              <span class="select-label">from:</span>
+              <input class="mtb-4 date-picker-from" type="date"
+              [(ngModel)]="searchCriteria.dateFrom"
+              (change)="searchCriteriaChange()">
+            </div>
+            <div class="col-6 col-md-4" [hidden]="!isDateRange">
+              <span class="select-label">to:</span>
+              <input class="mtb-4 date-picker-to" type="date"
+              [(ngModel)]="searchCriteria.dateFrom"
+              (change)="searchCriteriaChange()">
+            </div>
+            <div [ngClass]="{'col-6 col-md-8':!isDateRange, 'col-12 col-md-4':isDateRange}">
+              <input type="checkbox" id="switch" [(ngModel)]="isDateRange"/><label for="switch" class="toggle pull-right">Toggle</label>
+              <span class="toggle-label pull-right">date range</span>
+            </div>
+          </div>
+          <div class="row mtb-10">
+            <div class="col-12">
+              <div class="purchase-list-table">
+                <table class="table table-sm table-borderless">
+                  <tbody>
+                    <tr *ngFor="let purchase of purchaseList">
+                      <td class="purchase-list-cost">{{purchase.price}}</td>
+                      <td class="purchase-list-clothing">{{purchase.name}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row mtb-10">
+            <div class="col-12">
+              <span class="f-light-blue">
+                December 1, 2018 - December 31, 2018
+              </span>
+            </div>
+            <div class="col-12">
+              <div class="text-bubble text-bubble-span">
+                  <span class="text-bubble-progress">
+                  </span>
+                  <span class="f-med-white text-bubble-txt">
+                    $340 / $400
+                  </span>
+              </div>
+            </div>
+            <div class="col-12">
+              <span class="f-med-blue">
+                You have spent a total of $340 between December 1, 2018, and
+                December 31, 2018. This is under your budget for that month of
+                $400, by $60. Great work!
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <a routerLink="/">
+              <button type="button" class="btn text-bubble text-bubble-btn">
+                <span class="f-med-white">
+                  manage budget
+                </span>
+              </button>
+            </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
