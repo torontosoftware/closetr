@@ -15,28 +15,6 @@ export class ClosetService {
   data: any;
 
   constructor(private http: HttpClient) {
-    this.http.get('http://localhost:8080/api/clothes/all').subscribe(
-      (data: any) => {
-        this.data = data;
-        this.closetList = this.data.data;
-        this.closetCount = this.closetList.length;
-        console.log(this.closetList, this.closetCount);
-      }, // success path
-      error => {
-        console.log(error);
-      }
-    );
-    //console.log(this.data);
-    //this.closetCount = 0;
-    /*
-    this.closetList = {
-      1: {clothingID: 1, clothingCost:'$45',clothingName:'Aritzia TShirt', clothingWorn: 45, clothingCategory:'TShirt'},
-      2: {clothingID: 2, clothingCost: '$35', clothingName:'Zara Turtleneck TShirt', clothingWorn: 32, clothingCategory:'TShirt'},
-      3: {clothingID: 3, clothingCost: '$99', clothingName:'Aritzia Sweater', clothingWorn: 23, clothingCategory:'Sweater'},
-      4: {clothingID: 4, clothingCost:'$35',clothingName:'Uniqlo Palazzo Pants', clothingWorn: 17, clothingCategory:'Pants'},
-      5: {clothingID: 5, clothingCost:'$5',clothingName:'Uniqlo Socks', clothingWorn: 16, clothingCategory:'Socks'},
-      6: {clothingID: 6, clothingCost:'$35',clothingName:'Zara Cocoon Cardigan', clothingWorn: 15, clothingCategory:'Cardigan'}
-    };*/
   }
 
   /*
@@ -65,26 +43,59 @@ export class ClosetService {
     );
   }
 
+  /*
+  Removes clothing object with specified clothingId from the closetList.
+  Future: RESTful API for deleting a single clothing object is called, and then
+  the updated closetList is recieved via another API call to get all clothes.
+  */
   removeClothing(clothingID: any): void {
     delete this.closetList[clothingID];
   }
 
+  /*
+  Sets a clothing object with some clothingID to replace a clothing object
+  with the same clothingID in the closetList.
+  Future: RESTful API for updating (put) a single clothing object is called.
+  Then the updated closetList is recieved via another API call to get all
+  clothes.
+  */
   editClothing(editedClothing: any): void {
     this.closetList[editedClothing.clothingID] = editedClothing;
   }
 
+  /*
+  Returns an obvervable of an http service that returns all clothing.
+  The observer will be able to recieve the data (which is a json of all
+  clothing in the closet).
+  */
   getAllClothes(): any {
-    return this.closetList;
+    return this.http.get('http://localhost:8080/api/clothes/all');
   }
 
+  /*
+  Input: Object array of clothing items. closetList contains parameters:
+  clothingCost, clothingWorn, clothingName, and clothingCategory. This is a
+  temporary function. In the future, only edited/new/deleted clothing are
+  modified in the database.
+  */
   setAllClothes(closetList: any): void {
     this.closetList = closetList;
   }
 
+  /*
+  Input: clothing object.
+  Sets a piece of clothing for editing, as chosen by the user in the Closet
+  Manage view. This clothing object is retrieved in the Edit Closet page, where
+  the user may edit the clothing.
+  */
   setClothingForEdit(clothing: any): void {
     this.clothingForEdit = clothing;
   }
 
+  /*
+  Returns the clothing object chosen by the user for display in the Edit
+  Clothing page.
+  */
   getClothingForEdit(): any {
     return this.clothingForEdit;
   }
