@@ -12,8 +12,15 @@ export class ClosetWidgetComponent implements OnInit {
 
   constructor(private closetservice: ClosetService) {
     this.closetService = closetservice;
-    this.closetList = this.closetService.getAllClothes();
-
+    //this.closetList = this.closetService.getAllClothes();
+    this.closetService.getAllClothes().subscribe(
+      (data: any) => {
+        this.closetList = data.data;
+      },
+      error => {
+        console.log(error);
+      }
+    );
     console.log(this.closetList);
   }
 
