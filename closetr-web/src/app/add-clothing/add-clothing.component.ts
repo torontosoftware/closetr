@@ -19,6 +19,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   logOutfitService: LogOutfitService;
   routesService: RoutesService;
   prevUrl: String;
+  clothingCategories: Array<string>;
 
   constructor(private closetservice: ClosetService,
               private logoutfitservice: LogOutfitService,
@@ -26,15 +27,31 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
               private router: Router,
               private location: Location) {
       super();
+
+      // items
       this.clothing = {
         clothingName: '',
-        clothingCost: '',
-        clothingCategory: ''
+        clothingCost: null,
+        clothingCategory: 'Top'
       }
       this.enableSubmit = false;
+      this.clothingCategories = [
+        "Top",
+        "Blouse",
+        "Sweater",
+        "Jacket/Coat",
+        "Bottom",
+        "Pants",
+        "Skirt",
+        "Accesory"
+      ];
+
+      // services
       this.closetService = closetservice;
       this.logOutfitService = logoutfitservice;
       this.routesService = routesservice;
+
+      // routes
       this.prevUrl = this.routesService.getPrevUrl();
       this.routesService.setPrevUrl('');
       console.log(this.routesService.getPrevUrl());
@@ -53,7 +70,8 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       var newClothing = {
         'clothingName':this.clothing.clothingName,
         'clothingCost':this.clothing.clothingCost,
-        'clothingCategory':this.clothing.clothingCategory
+        'clothingCategory':this.clothing.clothingCategory,
+        'clothingWorn':this.clothing.clothingWorn
       }
       if (this.prevUrl == '/closet-manage') {
         this.closetService.addClothing(newClothing);
@@ -65,7 +83,10 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
 
   checkSubmit(): void {
     //console.log(this.clothingName, this.clothingCost, this.clothingCategory);
-    if (this.clothing.clothingName == '' || this.clothing.clothingCost == '' || this.clothing.clothingCategory == '') {
+    if (this.clothing.clothingName == ''
+    || this.clothing.clothingCost == ''
+    || this.clothing.clothingCategory == ''
+    || this.clothing.clothingWorn == '') {
       this.enableSubmit = false;
       return;
     }

@@ -11,11 +11,23 @@ export class EditClothingComponent implements OnInit {
   clothing: any;
   enableSubmit: boolean;
   closetService: ClosetService;
+  clothingCategories: Array<string>;
 
   constructor(private closetservice: ClosetService, private router: Router) {
       this.enableSubmit = false;
       this.closetService = closetservice;
       this.clothing = this.closetService.getClothingForEdit();
+
+      this.clothingCategories = [
+        "Top",
+        "Blouse",
+        "Sweater",
+        "Jacket/Coat",
+        "Bottom",
+        "Pants",
+        "Skirt",
+        "Accesory"
+      ];
 
       if (!this.clothing) {
         this.router.navigate(['/closet-manage']);
@@ -42,7 +54,10 @@ export class EditClothingComponent implements OnInit {
 
   checkSubmit(): void {
     //console.log(this.clothingName, this.clothingCost, this.clothingCategory);
-    if (this.clothing.clothingName == '' || this.clothing.clothingCost == '' || this.clothing.clothingCategory == '') {
+    if (this.clothing.clothingName == ''
+    || this.clothing.clothingCost == ''
+    || this.clothing.clothingCategory == ''
+    || this.clothing.clothingWorn == '') {
       this.enableSubmit = false;
       return;
     }

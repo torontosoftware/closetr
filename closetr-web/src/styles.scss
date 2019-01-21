@@ -428,6 +428,7 @@ input changes (default)
 */
 
 .input-clean {
+  @extend .f-med-blue-md;
   border: none;
   border-bottom: 1px solid $med-blue;
   border-radius: 20px;
