@@ -73,6 +73,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
         'clothingCategory':this.clothing.clothingCategory,
         'clothingWorn':this.clothing.clothingWorn
       }
+      console.log(newClothing);
       if (this.prevUrl == '/closet-manage') {
         this.closetService.addClothing(newClothing);
       } else {

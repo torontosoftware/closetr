@@ -60,7 +60,19 @@ export class ClosetService {
   clothes.
   */
   editClothing(editedClothing: any): void {
-    this.closetList[editedClothing.clothingID] = editedClothing;
+    var params = {
+      clothing: editedClothing
+    };
+    this.http.post('http://localhost:8080/api/clothes/clothing', params).subscribe(
+      (data: any) => {
+        console.log("edited clothing...");
+        console.log(data);
+      }, // success path
+      error => {
+        console.log(error);
+      }
+    );
+    //this.closetList[editedClothing.clothingID] = editedClothing;
   }
 
   /*
