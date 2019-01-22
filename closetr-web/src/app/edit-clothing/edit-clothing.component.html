@@ -63,6 +63,15 @@
               (ngModelChange)="checkSubmit()" [(ngModel)]="clothing.clothingWorn">
             </div>
           </div>
+          <div class="row mtb-10">
+            <div class="col-12">
+              <span class="input-label">date purchased</span>
+            </div>
+            <div class="col-12">
+              <input id="clothing-purchase-date" type="date" class="form-control input-clean"
+              (ngModelChange)="checkSubmit()" [(ngModel)]="clothing.clothingPurchaseDate">
+            </div>
+          </div>
       </div>
     </div>
   </div>

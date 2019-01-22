@@ -51,9 +51,10 @@ export class EditClothingComponent implements OnInit {
       var editedClothing = {
         'clothingID': this.clothing.clothingID,
         'clothingWorn': this.clothing.clothingWorn,
-        'clothingName':this.clothing.clothingName,
-        'clothingCost':this.clothing.clothingCost,
-        'clothingCategory':this.clothing.clothingCategory
+        'clothingName': this.clothing.clothingName,
+        'clothingCost': this.clothing.clothingCost,
+        'clothingCategory': this.clothing.clothingCategory,
+        'clothingPurchaseDate': this.clothing.clothingPurchaseDate
       }
       this.closetService.editClothing(editedClothing);
       this.back();
@@ -67,7 +68,8 @@ export class EditClothingComponent implements OnInit {
     if (this.clothing.clothingName == ''
     || this.clothing.clothingCost == ''
     || this.clothing.clothingCategory == ''
-    || this.clothing.clothingWorn == '') {
+    || this.clothing.clothingWorn == ''
+    || this.clothing.clothingPurchaseDate == '') {
       this.enableSubmit = false;
       return;
     }

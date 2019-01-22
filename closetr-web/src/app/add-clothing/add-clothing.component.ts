@@ -32,7 +32,8 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       this.clothing = {
         clothingName: '',
         clothingCost: null,
-        clothingCategory: 'Top'
+        clothingCategory: 'Top',
+        clothingPurchaseDate: new Date()
       }
       this.enableSubmit = false;
       this.clothingCategories = [
@@ -77,7 +78,8 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
         'clothingName':this.clothing.clothingName,
         'clothingCost':this.clothing.clothingCost,
         'clothingCategory':this.clothing.clothingCategory,
-        'clothingWorn':this.clothing.clothingWorn
+        'clothingWorn':this.clothing.clothingWorn,
+        'clothingPurchaseDate':this.clothing.clothingPurchaseDate
       }
       if (this.prevUrl == '/closet-manage') {
         this.closetService.addClothing(newClothing);
@@ -95,7 +97,8 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
     if (this.clothing.clothingName == ''
     || this.clothing.clothingCost == ''
     || this.clothing.clothingCategory == ''
-    || this.clothing.clothingWorn == '') {
+    || this.clothing.clothingWorn == ''
+    || this.clothing.clothingPurchaseDate == '') {
       this.enableSubmit = false;
       return;
     }
