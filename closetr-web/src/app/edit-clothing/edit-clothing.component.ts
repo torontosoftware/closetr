@@ -36,10 +36,17 @@ export class EditClothingComponent implements OnInit {
       this.checkSubmit();
   }
 
+  /*
+  Go back to the previous page.
+  */
   back(): void {
     this.router.navigate(['/closet-manage']);
   }
 
+  /*
+  Save the edit clothing item via POST request (future). On successful update of
+  clothing item, navigate back to the previous page.
+  */
   save(): void {
       var editedClothing = {
         'clothingID': this.clothing.clothingID,
@@ -52,8 +59,11 @@ export class EditClothingComponent implements OnInit {
       this.back();
   }
 
+  /*
+  Called every time user changes any one of the input fields. Ensures that
+  none of the fields are empty.
+  */
   checkSubmit(): void {
-    //console.log(this.clothingName, this.clothingCost, this.clothingCategory);
     if (this.clothing.clothingName == ''
     || this.clothing.clothingCost == ''
     || this.clothing.clothingCategory == ''

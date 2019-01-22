@@ -57,6 +57,9 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       console.log(this.routesService.getPrevUrl());
   }
 
+  /*
+  Go back to the previous page.
+  */
   back(): void {
     if (!this.prevUrl) {
       this.router.navigate(['/closet-manage']);
@@ -65,8 +68,11 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
     }
   }
 
+  /*
+  Save the new clothing item via POST request. On successful addition of
+  clothing item, navigate back to the previous page.
+  */
   save(): void {
-      //console.log(this.clothingName, this.clothingCost, this.clothingCategory);
       var newClothing = {
         'clothingName':this.clothing.clothingName,
         'clothingCost':this.clothing.clothingCost,
@@ -81,8 +87,11 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       this.back();
   }
 
+  /*
+  Called every time user changes any one of the input fields. Ensures that
+  none of the fields are empty.
+  */
   checkSubmit(): void {
-    //console.log(this.clothingName, this.clothingCost, this.clothingCategory);
     if (this.clothing.clothingName == ''
     || this.clothing.clothingCost == ''
     || this.clothing.clothingCategory == ''
