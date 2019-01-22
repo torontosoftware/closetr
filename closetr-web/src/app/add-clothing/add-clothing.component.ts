@@ -75,11 +75,17 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       }
       console.log(newClothing);
       if (this.prevUrl == '/closet-manage') {
-        this.closetService.addClothing(newClothing);
+        this.closetService.addClothing(newClothing).subscribe(
+          (data: any) => {
+            this.back();
+          }, // success path
+          error => {
+            console.log(error);
+          }
+        );
       } else {
         this.logOutfitService.addOutfitClothing(newClothing, 'manual');
       }
-      this.back();
   }
 
   checkSubmit(): void {
