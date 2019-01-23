@@ -23,24 +23,11 @@ export class ClosetService {
   Format {name, cost, category}
   */
 
-  addClothing(clothing: any): void {
-    var newClothing = {
-      'clothingName':clothing.clothingName,
-      'clothingCost':clothing.clothingCost,
-      'clothingCategory':clothing.clothingCategory,
-      'clothingWorn': 0
-    }
+  addClothing(clothing: any): any {
     var params = {
-      clothing: newClothing
+      clothing: clothing
     };
-    this.http.post('http://localhost:8080/api/clothes/clothing', params).subscribe(
-      (data: any) => {
-        console.log(data);
-      }, // success path
-      error => {
-        console.log(error);
-      }
-    );
+    return this.http.post('http://localhost:8080/api/clothes/clothing', params);
   }
 
   /*
@@ -59,8 +46,12 @@ export class ClosetService {
   Then the updated closetList is recieved via another API call to get all
   clothes.
   */
-  editClothing(editedClothing: any): void {
-    this.closetList[editedClothing.clothingID] = editedClothing;
+  editClothing(editedClothing: any): any {
+    var params = {
+      clothing: editedClothing
+    };
+    return this.http.post('http://localhost:8080/api/clothes/clothing', params);
+    //this.closetList[editedClothing.clothingID] = editedClothing;
   }
 
   /*
@@ -88,7 +79,7 @@ export class ClosetService {
   Manage view. This clothing object is retrieved in the Edit Closet page, where
   the user may edit the clothing.
   */
-  setClothingForEdit(clothing: any): void {
+  setClothingForEdit(clothing: any): any {
     this.clothingForEdit = clothing;
   }
 
