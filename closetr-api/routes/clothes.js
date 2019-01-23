@@ -80,18 +80,17 @@ router.get('/all', function(req, res, next) {
 });
 
 /* API deletes one clothing item by id. */
-router.delete('/clothing', function(req, res, next) {
+router.delete('/clothing/:clothing_id', function(req, res, next) {
   // gather attributes from request
-  var clothing = req.body.clothing;
-
+  var clothingID = req.params.clothing_id;
   // create new clothing from clothes schema
   clothes.remove(
-    {_id: clothing.clothingID},
+    {_id: clothingID},
     function (err, doc) {
       if (err) {
         const result_json = {
           status: 'failed',
-          message: err.message
+          message: err.message,
         };
         res.json(result_json);
       } else {

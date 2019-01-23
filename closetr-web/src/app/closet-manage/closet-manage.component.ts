@@ -31,7 +31,15 @@ export class ClosetManageComponent implements OnInit {
   }
 
   removeCard(clothingID: any): void {
-    delete this.closetList[clothingID];
+    console.log("removing clothing controller", clothingID);
+    this.closetService.removeClothing(clothingID).subscribe(
+      (data: any) => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   constructor(private closetservice: ClosetService,
