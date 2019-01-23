@@ -56,8 +56,16 @@ export class EditClothingComponent implements OnInit {
         'clothingCategory': this.clothing.clothingCategory,
         'clothingPurchaseDate': this.clothing.clothingPurchaseDate
       }
-      this.closetService.editClothing(editedClothing);
-      this.back();
+      this.closetService.editClothing(editedClothing).subscribe(
+        (data: any) => {
+          console.log("edited clothing...");
+          console.log(data);
+          this.back();
+        }, // success path
+        error => {
+          console.log(error);
+        }
+      );
   }
 
   /*
