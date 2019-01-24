@@ -14,15 +14,37 @@
             </div>
           </div>
           <div class="row mtb-10">
-            <div class="col-6">
-              <span class="input-label">amount</span>
-              <input type="text" class="form-control input-clean" placeholder="ex. 200">
+            <div class="col-12">
+              <span class="f-light-blue-md">
+                Add another budget span
+              </span>
+              <div class="input-group">
+                <select class="form-control input-clean">
+                  <option *ngFor="let dateRange of availableDateRange" value="{{dateRange}}">{{dateRange}}</option>
+                </select>
+                <span class="input-group-btn input-clean-addon-right">
+                  <button class="btn btn-default" style="background-color: transparent" type="button">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </span>
+              </div>
             </div>
-            <div class="col-6">
-              <span class="input-label">per</span>
-              <select class="form-control input-clean">
-                <option *ngFor="let dateRange of availableDateRange" value="{{dateRange}}">{{dateRange}}</option>
-              </select>
+          </div>
+          <div class="row mtb-10">
+            <div class="col-12">
+              <span class="f-light-blue-md">
+                My budget spans:
+              </span>
+            </div>
+          </div>
+          <div class="row mtb-10">
+            <div class="col-12">
+              <div class="input-group">
+                <input type="text" class="form-control input-clean" placeholder="ex. 200">
+                <span class="input-group-btn input-clean-addon-right">
+                  <span class="input-clean-addon-span">per month</span>
+                </span>
+              </div>
             </div>
           </div>
           <div class="row mtb-10">
