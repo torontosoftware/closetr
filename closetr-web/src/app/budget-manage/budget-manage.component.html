@@ -56,12 +56,14 @@
               </span>
             </div>
           </div>
-          <div class="row mtb-10" *ngFor="let budgetSpan of selectedBudgetSpans">
+          <div class="row mtb-10" *ngFor="let budgetSpan of selectedBudgetSpans | keyvalue">
             <div class="col-12">
               <div class="input-group">
-                <input type="text" class="form-control input-clean" placeholder="ex. 200" [disabled]="!editMode">
+                <input type="text" class="form-control input-clean" placeholder="ex. 200"
+                [disabled]="!editMode"
+                [(ngModel)]="budgetSpan.value.amount">
                 <span class="input-group-btn input-clean-addon-right">
-                  <span class="input-clean-addon-span">per {{budgetSpan}}</span>
+                  <span class="input-clean-addon-span">per {{budgetSpan.key}}</span>
                 </span>
               </div>
             </div>
