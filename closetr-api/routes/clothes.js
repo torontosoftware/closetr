@@ -46,23 +46,6 @@ router.post('/clothing', function(req, res, next) {
       }
     }
   );
-
-  /*
-  clothes.create(newItem)
-  .then(data => {
-    const result_json = {
-      status: 'success',
-      data: data
-    };
-    res.json(result_json);
-  })
-   .catch(err => {
-     const result_json = {
-       status: 'failed',
-       message: err.message
-     };
-     res.json(result_json);
-   })*/
 });
 
 
