@@ -19,11 +19,13 @@
                 Add another budget span
               </span>
               <div class="input-group">
-                <select class="form-control input-clean">
-                  <option *ngFor="let dateRange of availableDateRange" value="{{dateRange}}">{{dateRange}}</option>
+                <select class="form-control input-clean" [(ngModel)]="selectedBudgetSpan">
+                  <option *ngFor="let budgetSpan of availableBudgetSpans" value="{{budgetSpan}}">{{budgetSpan}}</option>
                 </select>
                 <span class="input-group-btn input-clean-addon-right">
-                  <button class="btn btn-default" style="background-color: transparent" type="button">
+                  <button class="btn btn-default" style="background-color: transparent" type="button"
+                  (click)="addBudgetSpan(selectedBudgetSpan)"
+                  [disabled]="selectedBudgetSpan == 'select'">
                     <i class="fas fa-plus"></i>
                   </button>
                 </span>
@@ -37,12 +39,12 @@
               </span>
             </div>
           </div>
-          <div class="row mtb-10">
+          <div class="row mtb-10" *ngFor="let budgetSpan of selectedBudgetSpans">
             <div class="col-12">
               <div class="input-group">
                 <input type="text" class="form-control input-clean" placeholder="ex. 200">
                 <span class="input-group-btn input-clean-addon-right">
-                  <span class="input-clean-addon-span">per month</span>
+                  <span class="input-clean-addon-span">per {{budgetSpan}}</span>
                 </span>
               </div>
             </div>
