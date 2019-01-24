@@ -12,6 +12,7 @@ export class BudgetManageComponent implements OnInit {
   selectedBudgetSpans: Array<string>;
   selectedBudgetSpan: string;
   budgetSettings: any;
+  editMode: boolean;
 
   constructor(private router: Router) {
     this.allBudgetSpans = [
@@ -28,6 +29,7 @@ export class BudgetManageComponent implements OnInit {
     ];
 
     this.selectedBudgetSpan = 'select';
+    this.editMode = false;
   }
 
   ngOnInit() {
@@ -45,6 +47,10 @@ export class BudgetManageComponent implements OnInit {
       budgetSpan => !this.selectedBudgetSpans.includes(budgetSpan)
     );
     this.selectedBudgetSpan = 'select';
+  }
+
+  toggleEditMode(): void {
+    this.editMode = !this.editMode;
   }
 
   back(): void {

@@ -4,7 +4,7 @@
       <div class="widget-full">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-12">
+            <div class="col-6">
               <button class="btn btn-transparent btn-back" (click)="back()">
                 <span class="icon-lg">
                   <i class="fas fa-chevron-left"></i>
@@ -12,8 +12,25 @@
               </button>
               <h3>budget manage</h3>
             </div>
+            <div class="col-6">
+              <button type="button"
+              (click)="toggleEditMode()"
+              class="btn btn-transparent pull-right icon-edit">
+                <span class="icon-lg">
+                  <i class="fas fa-pen"></i>
+                </span>
+              </button>
+              <button type="button"
+              class="btn text-bubble text-bubble-btn btn-fixed-width pull-right"
+              [hidden]="!editMode"
+              (click)="toggleEditMode()">
+                <span class="f-med-white">
+                  save
+                </span>
+              </button>
+            </div>
           </div>
-          <div class="row mtb-10">
+          <div class="row mtb-10" [hidden]="!editMode">
             <div class="col-12">
               <span class="f-light-blue-md">
                 Add another budget span
@@ -42,7 +59,7 @@
           <div class="row mtb-10" *ngFor="let budgetSpan of selectedBudgetSpans">
             <div class="col-12">
               <div class="input-group">
-                <input type="text" class="form-control input-clean" placeholder="ex. 200">
+                <input type="text" class="form-control input-clean" placeholder="ex. 200" [disabled]="!editMode">
                 <span class="input-group-btn input-clean-addon-right">
                   <span class="input-clean-addon-span">per {{budgetSpan}}</span>
                 </span>

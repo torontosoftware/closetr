@@ -433,6 +433,9 @@ input changes (default)
   border-bottom: 1px solid $med-blue;
   border-radius: 20px;
   height: 40px;
+  &:disabled {
+    background-color: $white;
+  }
 }
 
 .input-clean-btn-size {
