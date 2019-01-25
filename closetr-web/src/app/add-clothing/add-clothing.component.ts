@@ -14,7 +14,6 @@ import { BaseGeneralComponent } from '../base-general/base-general.component';
 
 export class AddClothingComponent extends BaseGeneralComponent implements OnInit {
   clothing: any;
-  enableSubmit: boolean;
   closetService: ClosetService;
   logOutfitService: LogOutfitService;
   routesService: RoutesService;
@@ -37,7 +36,6 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
         clothingPurchaseDate: new Date()
       }
       console.log(this.clothing);
-      this.enableSubmit = false;
       this.clothingCategories = [
         "Top",
         "Blouse",
@@ -58,6 +56,9 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       this.prevUrl = this.routesService.getPrevUrl();
       this.routesService.setPrevUrl('');
       console.log(this.routesService.getPrevUrl());
+  }
+
+  ngOnInit() {
   }
 
   /*
@@ -102,19 +103,15 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   Called every time user changes any one of the input fields. Ensures that
   none of the fields are empty.
   */
-  checkSubmit(): void {
-    if (this.clothing.clothingName == ''
-    || this.clothing.clothingCost == ''
-    || this.clothing.clothingCategory == ''
-    || this.clothing.clothingWorn == ''
-    || this.clothing.clothingPurchaseDate == '') {
-      this.enableSubmit = false;
-      return;
+  checkSubmit(): boolean {
+    if (this.clothing.clothingName.length === 0
+    || !this.clothing.clothingCost === null
+    || this.clothing.clothingCategory.length === 0
+    || !this.clothing.clothingWorn === null
+    || this.clothing.clothingPurchaseDate.length === 0) {
+      return false;
     }
-    this.enableSubmit = true;
-  }
-
-  ngOnInit() {
+    return true;
   }
 
 }
