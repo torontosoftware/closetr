@@ -31,10 +31,12 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       // items
       this.clothing = {
         clothingName: '',
+        clothingWorn: 0,
         clothingCost: null,
         clothingCategory: 'Top',
         clothingPurchaseDate: new Date()
       }
+      console.log(this.clothing);
       this.enableSubmit = false;
       this.clothingCategories = [
         "Top",

@@ -7,7 +7,7 @@ const clothes = new Schema({
   clothingCost: {type: Number, default:0},
   clothingWorn: {type: Number, default:0},
   clothingCategory: {type: String, default:'', trim:true},
-  clothingPurchasedDate: {type: Date, deafult: Date.now}
+  clothingPurchaseDate: {type: String, default:'', trim:true}
 })
 
 module.exports = mongoose.model('clothes', clothes);

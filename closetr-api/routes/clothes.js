@@ -13,7 +13,8 @@ router.post('/clothing', function(req, res, next) {
     clothingName: clothing.clothingName,
     clothingCost: clothing.clothingCost,
     clothingCategory: clothing.clothingCategory,
-    clothingWorn: clothing.clothingWorn
+    clothingWorn: clothing.clothingWorn,
+    clothingPurchaseDate: clothing.clothingPurchaseDate
   };
 
 
@@ -69,7 +70,8 @@ router.get('/all', function(req, res, next) {
             clothingName: clothing.clothingName,
             clothingCategory: clothing.clothingCategory,
             clothingWorn: clothing.clothingWorn,
-            clothingCost: clothing.clothingCost
+            clothingCost: clothing.clothingCost,
+            clothingPurchaseDate: clothing.clothingPurchaseDate
           }
           result.push(clothingResult);
         });
