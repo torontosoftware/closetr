@@ -7,7 +7,6 @@ const clothes = require('../models/clothes.model');
 /* API sets one new user clothing */
 router.post('/clothing', function(req, res, next) {
   // gather attributes from request
-
   var clothing = req.body.clothing;
   const newItem = {
     clothingName: clothing.clothingName,
@@ -17,14 +16,11 @@ router.post('/clothing', function(req, res, next) {
     clothingPurchaseDate: clothing.clothingPurchaseDate
   };
 
-
   if (clothing.clothingID == null) {
     newItem['_id'] = mongoose.Types.ObjectId();
   } else {
     newItem['_id'] = clothing.clothingID;
   }
-
-  console.log('creating a new clothing item');
 
   // create new clothing from clothes schema
   clothes.findOneAndUpdate(
@@ -83,10 +79,31 @@ router.get('/all', function(req, res, next) {
       }
     }
   );
-
 });
 
-
-/* API appends one piece of clothing */
+/* API deletes one clothing item by id. */
+router.delete('/clothing/:clothing_id', function(req, res, next) {
+  // gather attributes from request
+  var clothingID = req.params.clothing_id;
+  // create new clothing from clothes schema
+  clothes.remove(
+    {_id: clothingID},
+    function (err, doc) {
+      if (err) {
+        const result_json = {
+          status: 'failed',
+          message: err.message,
+        };
+        res.json(result_json);
+      } else {
+        const result_json = {
+          status: 'success',
+          data: doc
+        };
+        res.json(result_json);
+      }
+    }
+  );
+});
 
 module.exports = router;

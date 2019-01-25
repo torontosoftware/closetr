@@ -35,8 +35,9 @@ export class ClosetService {
   Future: RESTful API for deleting a single clothing object is called, and then
   the updated closetList is recieved via another API call to get all clothes.
   */
-  removeClothing(clothingID: any): void {
-    delete this.closetList[clothingID];
+  removeClothing(clothingID: any): any {
+    var url = 'http://localhost:8080/api/clothes/clothing/' + clothingID;
+    return this.http.delete(url);
   }
 
   /*
