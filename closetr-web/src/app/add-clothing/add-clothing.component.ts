@@ -14,7 +14,6 @@ import { BaseGeneralComponent } from '../base-general/base-general.component';
 
 export class AddClothingComponent extends BaseGeneralComponent implements OnInit {
   clothing: any;
-  enableSubmit: boolean;
   closetService: ClosetService;
   logOutfitService: LogOutfitService;
   routesService: RoutesService;
@@ -31,10 +30,12 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       // items
       this.clothing = {
         clothingName: '',
+        clothingWorn: 0,
         clothingCost: null,
-        clothingCategory: 'Top'
+        clothingCategory: 'Top',
+        clothingPurchaseDate: new Date()
       }
-      this.enableSubmit = false;
+      console.log(this.clothing);
       this.clothingCategories = [
         "Top",
         "Blouse",
@@ -57,6 +58,12 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       console.log(this.routesService.getPrevUrl());
   }
 
+  ngOnInit() {
+  }
+
+  /*
+  Go back to the previous page.
+  */
   back(): void {
     if (!this.prevUrl) {
       this.router.navigate(['/closet-manage']);
@@ -65,13 +72,17 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
     }
   }
 
+  /*
+  Save the new clothing item via POST request. On successful addition of
+  clothing item, navigate back to the previous page.
+  */
   save(): void {
-      //console.log(this.clothingName, this.clothingCost, this.clothingCategory);
       var newClothing = {
         'clothingName':this.clothing.clothingName,
         'clothingCost':this.clothing.clothingCost,
         'clothingCategory':this.clothing.clothingCategory,
-        'clothingWorn':this.clothing.clothingWorn
+        'clothingWorn':this.clothing.clothingWorn,
+        'clothingPurchaseDate':this.clothing.clothingPurchaseDate
       }
       console.log(newClothing);
       if (this.prevUrl == '/closet-manage') {
@@ -88,19 +99,19 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       }
   }
 
-  checkSubmit(): void {
-    //console.log(this.clothingName, this.clothingCost, this.clothingCategory);
-    if (this.clothing.clothingName == ''
-    || this.clothing.clothingCost == ''
-    || this.clothing.clothingCategory == ''
-    || this.clothing.clothingWorn == '') {
-      this.enableSubmit = false;
-      return;
+  /*
+  Called every time user changes any one of the input fields. Ensures that
+  none of the fields are empty.
+  */
+  checkSubmit(): boolean {
+    if (this.clothing.clothingName.length === 0
+    || !this.clothing.clothingCost === null
+    || this.clothing.clothingCategory.length === 0
+    || !this.clothing.clothingWorn === null
+    || this.clothing.clothingPurchaseDate.length === 0) {
+      return false;
     }
-    this.enableSubmit = true;
-  }
-
-  ngOnInit() {
+    return true;
   }
 
 }

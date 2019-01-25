@@ -9,12 +9,10 @@ import { RouterModule, Routes, Router } from '@angular/router';
 })
 export class EditClothingComponent implements OnInit {
   clothing: any;
-  enableSubmit: boolean;
   closetService: ClosetService;
   clothingCategories: Array<string>;
 
   constructor(private closetservice: ClosetService, private router: Router) {
-      this.enableSubmit = false;
       this.closetService = closetservice;
       this.clothing = this.closetService.getClothingForEdit();
 
@@ -32,21 +30,30 @@ export class EditClothingComponent implements OnInit {
       if (!this.clothing) {
         this.router.navigate(['/closet-manage']);
       }
-
-      this.checkSubmit();
   }
 
+  ngOnInit() {
+  }
+
+  /*
+  Go back to the previous page.
+  */
   back(): void {
     this.router.navigate(['/closet-manage']);
   }
 
+  /*
+  Save the edit clothing item via POST request (future). On successful update of
+  clothing item, navigate back to the previous page.
+  */
   save(): void {
       var editedClothing = {
         'clothingID': this.clothing.clothingID,
         'clothingWorn': this.clothing.clothingWorn,
-        'clothingName':this.clothing.clothingName,
-        'clothingCost':this.clothing.clothingCost,
-        'clothingCategory':this.clothing.clothingCategory
+        'clothingName': this.clothing.clothingName,
+        'clothingCost': this.clothing.clothingCost,
+        'clothingCategory': this.clothing.clothingCategory,
+        'clothingPurchaseDate': this.clothing.clothingPurchaseDate
       }
       this.closetService.editClothing(editedClothing).subscribe(
         (data: any) => {
@@ -60,20 +67,19 @@ export class EditClothingComponent implements OnInit {
       );
   }
 
-  checkSubmit(): void {
-    //console.log(this.clothingName, this.clothingCost, this.clothingCategory);
-    if (this.clothing.clothingName == ''
-    || this.clothing.clothingCost == ''
-    || this.clothing.clothingCategory == ''
-    || this.clothing.clothingWorn == '') {
-      this.enableSubmit = false;
-      return;
+  /*
+  Called every time user changes any one of the input fields. Ensures that
+  none of the fields are empty.
+  */
+  checkSubmit(): boolean {
+    if (this.clothing.clothingName.length === 0
+    || this.clothing.clothingCost === null
+    || this.clothing.clothingCategory.length === 0
+    || this.clothing.clothingWorn === null
+    || this.clothing.clothingPurchaseDate.length === 0) {
+      return false;
     }
-    this.enableSubmit = true;
-  }
-
-
-  ngOnInit() {
+    return true;
   }
 
 }
