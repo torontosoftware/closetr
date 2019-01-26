@@ -67,9 +67,9 @@
               <div class="purchase-list-table">
                 <table class="table table-sm table-borderless">
                   <tbody>
-                    <tr *ngFor="let purchase of purchaseList">
-                      <td class="purchase-list-cost">{{purchase.price}}</td>
-                      <td class="purchase-list-clothing">{{purchase.name}}</td>
+                    <tr *ngFor="let clothing of closetList | keyvalue">
+                      <td class="purchase-list-cost">{{clothing.value.clothingCost}}</td>
+                      <td class="purchase-list-clothing">{{clothing.value.clothingName}}</td>
                     </tr>
                   </tbody>
                 </table>

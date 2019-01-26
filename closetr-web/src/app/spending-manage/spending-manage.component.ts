@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
+import { ClosetService } from '../services/closet.service';
 
 @Component({
   selector: 'app-spending-manage',
@@ -7,26 +8,18 @@ import { RouterModule, Routes, Router } from '@angular/router';
   styleUrls: ['./spending-manage.component.scss']
 })
 export class SpendingManageComponent implements OnInit {
-  purchaseList: object;
+  closetList: object;
   isDateRange: boolean;
   searchCriteria: object;
   availableDateRange: any;
+  closetService: ClosetService;
 
-  constructor(private router: Router) {
-    this.purchaseList = [
-      {price:'$15',name:'Aritzia TShirt'},
-      {price: '$399', name:'The Stowe Bag'},
-      {price: '13', name:'UO Blouse'},
-      {price:'$35',name:'Uniqlo Sweater'},
-      {price:'$5',name:'Uniqlo Socks'},
-      {price:'$15',name:'Aritzia TShirt'},
-      {price:'$35',name:'Uniqlo Sweater'},
-      {price: '$399', name:'The Stowe Bag'},
-      {price: '13', name:'UO Blouse'},
-      {price:'$35',name:'Uniqlo Sweater'},
-      {price:'$5',name:'Uniqlo Socks'},
-      {price:'$15',name:'Aritzia TShirt'}
-    ];
+  constructor(private router: Router,
+              private closetservice: ClosetService) {
+
+    this.closetService = closetservice;
+
+    this.getAllClothes();
 
     this.searchCriteria = {
       dateRange: "last month",
@@ -44,7 +37,9 @@ export class SpendingManageComponent implements OnInit {
       'last year'
     ];
 
-    console.log(this.purchaseList);
+  }
+
+  ngOnInit() {
   }
 
   searchCriteriaChange(): void {
@@ -55,7 +50,16 @@ export class SpendingManageComponent implements OnInit {
     this.router.navigate(['/dashboard']);
   }
 
-  ngOnInit() {
+  /*
+  Helper function to get all clothes from database and update local
+  closetList.
+  */
+  getAllClothes(): void {
+    this.closetService.getAllClothes().subscribe(
+      (data: any) => {
+        this.closetList = data.data;
+      }, error => {}
+    );
   }
 
 }
