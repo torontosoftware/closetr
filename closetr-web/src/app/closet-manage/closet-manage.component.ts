@@ -17,6 +17,23 @@ export class ClosetManageComponent implements OnInit {
   editMode : boolean;
   searchText: String;
 
+  constructor(private closetservice: ClosetService,
+              private router: Router,
+              private routesservice: RoutesService) {
+    this.editMode = false;
+    this.closetService = closetservice;
+    this.routesService = routesservice;
+    this.getAllClothes();
+    console.log(this.closetList);
+  }
+
+  ngOnInit() {
+  }
+
+  navTo(): void {
+    this.routesService.setPrevUrl(this.router.url);
+  }
+
   toggleEditMode(): void {
     this.editMode = !this.editMode;
   }
@@ -30,32 +47,26 @@ export class ClosetManageComponent implements OnInit {
     this.router.navigate(['/dashboard']);
   }
 
-  removeCard(clothingID: any): void {
-    delete this.closetList[clothingID];
-  }
-
-  constructor(private closetservice: ClosetService,
-              private router: Router,
-              private routesservice: RoutesService) {
-    this.editMode = false;
-    this.closetService = closetservice;
-    this.routesService = routesservice;
+  /*
+  Helper function to get all clothes from database and update local
+  closetList.
+  */
+  getAllClothes(): void {
     this.closetService.getAllClothes().subscribe(
       (data: any) => {
         this.closetList = data.data;
-      },
-      error => {
-        console.log(error);
-      }
+      }, error => {}
     );
-    console.log(this.closetList);
   }
 
-  navTo(): void {
-    this.routesService.setPrevUrl(this.router.url);
+  /*
+  Remove clothing item.
+  */
+  removeClothing(clothingID: any): void {
+    this.closetService.removeClothing(clothingID).subscribe(
+      (data: any) => {
+        this.getAllClothes();
+      }, error => {}
+    );
   }
-
-  ngOnInit() {
-  }
-
 }
