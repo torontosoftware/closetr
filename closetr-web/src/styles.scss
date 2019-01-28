@@ -433,12 +433,27 @@ input changes (default)
   border-bottom: 1px solid $med-blue;
   border-radius: 20px;
   height: 40px;
+  &:disabled {
+    background-color: $white;
+  }
+}
+
+.input-clean-btn-size {
+  @extend .input-clean;
+  height: 30px;
 }
 
 .input-clean-addon-right {
   height: 40px;
+  width: auto;
   border-radius: 0 20px 20px 0;
   border-bottom: 1px solid $med-blue;
+}
+
+.input-clean-addon-span {
+  line-height: 40px;
+  margin-right: 15px;
+  margin-left: 15px;
 }
 
 select {
