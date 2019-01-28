@@ -25,6 +25,7 @@ import { SpendingManageComponent } from './spending-manage/spending-manage.compo
 import { BaseGeneralComponent } from './base-general/base-general.component';
 import { BudgetManageComponent } from './budget-manage/budget-manage.component';
 import { LoginComponent } from './login/login.component';
+import { HeaderComponent } from './shared/header/header.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { LoginComponent } from './login/login.component';
     SpendingManageComponent,
     BaseGeneralComponent,
     BudgetManageComponent,
-    LoginComponent
+    LoginComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
