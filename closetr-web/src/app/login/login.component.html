@@ -1,15 +1,30 @@
 <div class='container-fluid'>
-<div class='row'>
-   <div class='col-12'>
-     <div class='widget' id='closet-widget'>
-       <a routerLink="/dashboard">
-         <button type="button" class="btn text-bubble text-bubble-btn">
-           <span class="f-med-white">
-             log in
-           </span>
-         </button>
-       </a>
-     </div>
+  <div class='row'>
+     <div class='col-12'>
+       <div class='widget login-container container' id='login-widget'>
+         <div class='row'>
+           <div class='col-12 mtb-10'>
+             <h3>log in</h3>
+           </div>
+           <div class='col-12'>
+             <input type="username" class="form-control input-clean mtb-10" placeholder="Username"
+             (ngModelChange)="checkSubmit()" [(ngModel)]="username">
+           </div>
+           <div class='col-12'>
+             <input type="password" class="form-control input-clean mtb-10" placeholder="Password"
+             (ngModelChange)="checkSubmit()" [(ngModel)]="password">
+           </div>
+           <div class='col-12'>
+             <a routerLink="/dashboard">
+               <button type="button" class="btn text-bubble text-bubble-btn mtb-10">
+                 <span class="f-med-white">
+                   log in
+                 </span>
+               </button>
+             </a>
+           </div>
+         </div>
+       </div>
+    </div>
   </div>
-</div>
 </div>
