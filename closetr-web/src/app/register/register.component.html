@@ -9,7 +9,7 @@
            </div>
            <div class='col-12'>
              <input type="username" class="form-control input-clean mtb-10" placeholder="Name"
-             [(ngModel)]="username">
+             [(ngModel)]="name">
            </div>
            <div class='col-12'>
              <input type="username" class="form-control input-clean mtb-10" placeholder="Username"
@@ -21,11 +21,11 @@
            </div>
            <div class='col-12'>
              <input type="password" class="form-control input-clean mtb-10" placeholder="Confirm Password"
-             [(ngModel)]="password">
+             [(ngModel)]="passwordConfirm">
            </div>
            <div class='col-12'>
              <a routerLink="/dashboard">
-               <button type="button" class="btn text-bubble text-bubble-btn mtb-10" [disabled]="!checkEnableLogin()">
+               <button type="button" class="btn text-bubble text-bubble-btn mtb-10" [disabled]="!checkEnableRegister()">
                  <span class="f-med-white">
                    sign up
                  </span>
