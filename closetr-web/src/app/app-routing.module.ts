@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ClosetManageComponent } from './closet-manage/closet-manage.component';
 import { AddClothingComponent } from './add-clothing/add-clothing.component';
@@ -14,6 +15,7 @@ import { AppComponent } from './app.component';
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
   {path: 'log-outfit', component: LogOutfitComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'add-clothing', component: AddClothingComponent},

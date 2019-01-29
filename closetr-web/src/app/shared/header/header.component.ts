@@ -23,7 +23,9 @@ export class HeaderComponent implements OnInit {
 
   checkHidden(): void {
     this.isHidden = false;
-    if (this.currUrl == '/login') {
+    if (this.currUrl == '/login'
+        || this.currUrl == '/register'
+      ) {
       this.isHidden = true;
     }
   }
