@@ -212,6 +212,14 @@ circle styles
 .user-icon {
   @extend %circle-sm;
   background-color: $white;
+  float: left;
+  &:hover {
+    cursor: pointer;
+  }
+  & img {
+    width: 100%;
+    border-radius: 100%;
+  }
 }
 
 .weather-bubble-container {
