@@ -762,6 +762,13 @@ closet card components
   height: 70vh;
 }
 
+.login-title {
+  display: inherit;
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 40px;
+}
+
 // rest
 .closet-search-box-text {
   white-space: nowrap;
