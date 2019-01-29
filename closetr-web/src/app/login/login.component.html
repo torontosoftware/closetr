@@ -8,15 +8,15 @@
            </div>
            <div class='col-12'>
              <input type="username" class="form-control input-clean mtb-10" placeholder="Username"
-             (ngModelChange)="checkSubmit()" [(ngModel)]="username">
+             [(ngModel)]="username">
            </div>
            <div class='col-12'>
              <input type="password" class="form-control input-clean mtb-10" placeholder="Password"
-             (ngModelChange)="checkSubmit()" [(ngModel)]="password">
+             [(ngModel)]="password">
            </div>
            <div class='col-12'>
              <a routerLink="/dashboard">
-               <button type="button" class="btn text-bubble text-bubble-btn mtb-10">
+               <button type="button" class="btn text-bubble text-bubble-btn mtb-10" [disabled]="!checkEnableLogin()">
                  <span class="f-med-white">
                    log in
                  </span>

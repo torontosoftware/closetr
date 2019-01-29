@@ -6,8 +6,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  username: string;
+  password: string;
+  enableLogin: boolean;
 
-  constructor() { }
+  constructor() {
+    this.username = "";
+    this.password = "";
+  }
+
+  checkEnableLogin(): void {
+    if (this.username.length == 0 || this.password.length == 0) {
+      return false;
+    }
+    return true;
+  }
 
   ngOnInit() {
   }
