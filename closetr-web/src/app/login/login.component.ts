@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     this.password = "";
   }
 
-  checkEnableLogin(): void {
+  checkEnableLogin(): boolean {
     if (this.username.length == 0 || this.password.length == 0) {
       return false;
     }

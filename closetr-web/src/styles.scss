@@ -759,7 +759,7 @@ closet card components
 .login-container {
   position: relative;
   top: calc(15vh - 30px);
-  height: 70vh;
+  min-height: 70vh;
 }
 
 .login-title {
