@@ -26,6 +26,7 @@ import { BaseGeneralComponent } from './base-general/base-general.component';
 import { BudgetManageComponent } from './budget-manage/budget-manage.component';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './shared/header/header.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { HeaderComponent } from './shared/header/header.component';
     BaseGeneralComponent,
     BudgetManageComponent,
     LoginComponent,
-    HeaderComponent
+    HeaderComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
