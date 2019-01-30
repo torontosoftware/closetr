@@ -15,26 +15,25 @@
              [(ngModel)]="password">
            </div>
            <div class='col-12'>
-             <a routerLink="/dashboard">
-               <button type="button" class="btn text-bubble text-bubble-btn mtb-10" [disabled]="!checkEnableLogin()">
-                 <span class="f-med-white">
-                   log in
-                 </span>
+             <button type="button" class="btn text-bubble text-bubble-btn mtb-10"
+             [disabled]="!checkEnableLogin()"
+             (click)="login()">
+               <span class="f-med-white">
+                 log in
+               </span>
                </button>
-             </a>
            </div>
            <div class='col-12'>
              <hr>
              <span class='f-light-blue'>
                Don't have an account yet? It's free!
              </span>
-             <a routerLink="/dashboard">
-               <button type="button" class="btn text-bubble text-bubble-btn mtb-10">
-                 <span class="f-med-white">
-                   sign up
-                 </span>
-               </button>
-             </a>
+             <button type="button" class="btn text-bubble text-bubble-btn mtb-10"
+             (click)="toSignUp()">
+               <span class="f-med-white">
+                 sign up
+               </span>
+             </button>
            </div>
          </div>
        </div>

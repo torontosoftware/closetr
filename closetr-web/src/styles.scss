@@ -389,6 +389,21 @@ h4 {
   font-weight: 300;
 }
 
+.f-reg-blue-md {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.f-reg-blue {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.f-reg-blue-xs {
+  font-size: 12px;
+  font-weight: 400;
+}
+
 .f-med-blue-md {
   font-size: 15px;
   font-weight: 500;
@@ -431,6 +446,11 @@ h4 {
   margin-bottom: 5px;
 }
 
+.text-center {
+  display: inherit;
+  text-align: center;
+}
+
 /*
 input changes (default)
 */
@@ -444,6 +464,19 @@ input changes (default)
   &:disabled {
     background-color: $white;
   }
+}
+
+.input-clean-error {
+  border: 2px solid $red;
+}
+
+.input-clean-error-label {
+  @extend .f-reg-blue-xs;
+  position: absolute;
+  top: calc(100% - 14px);
+  left: 30px;
+  color: $red;
+  animation: $a-fade-from-up;
 }
 
 .input-clean-btn-size {
@@ -646,6 +679,11 @@ small fixes
 .mtb-15 {
   margin-top: 15px;
   margin-bottom: 15px;
+}
+
+.mtb-10-13 {
+  margin-top: 10px;
+  margin-bottom: 13px;
 }
 
 .mtb-4 {
