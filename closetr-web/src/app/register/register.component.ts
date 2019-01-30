@@ -30,6 +30,43 @@ export class RegisterComponent implements OnInit {
     return true;
   }
 
+  checkError(field): boolean {
+    switch(field) {
+      case 'passwordConfirm':
+        if (this.password.length != 0
+            && this.passwordConfirm.length != 0
+            && this.password != this.passwordConfirm) {
+              return true;
+            }
+        return false;
+        break;
+      case 'password':
+        if (this.password.length == 0
+            && this.passwordConfirm.length != 0) {
+              return true;
+            }
+        return false;
+        break;
+      case 'username':
+        if ((this.password.length != 0
+            || this.passwordConfirm.length != 0)
+            && this.username.length == 0) {
+              return true;
+            }
+        return false;
+        break;
+      case 'name':
+        if ((this.username.length != 0
+             || this.password.length != 0
+             || this.passwordConfirm.length != 0)
+            && (this.name.length == 0)) {
+              return true;
+            }
+        return false;
+        break;
+    }
+  }
+
   ngOnInit() {
   }
 

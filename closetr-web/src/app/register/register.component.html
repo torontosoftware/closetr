@@ -9,19 +9,43 @@
            </div>
            <div class='col-12'>
              <input type="username" class="form-control input-clean mtb-10" placeholder="Name"
-             [(ngModel)]="name">
+             [(ngModel)]="name"
+             [ngClass]= "{
+               'input-clean-error' : checkError('name')
+             }">
+             <span class="input-clean-error-label" [hidden]="!checkError('name')">
+                name is required.
+             </span>
            </div>
            <div class='col-12'>
              <input type="username" class="form-control input-clean mtb-10" placeholder="Username"
-             [(ngModel)]="username">
+             [(ngModel)]="username"
+             [ngClass]= "{
+               'input-clean-error' : checkError('username')
+             }">
+             <span class="input-clean-error-label" [hidden]="!checkError('username')">
+                username is required.
+             </span>
            </div>
            <div class='col-12'>
              <input type="password" class="form-control input-clean mtb-10" placeholder="Password"
-             [(ngModel)]="password">
+             [(ngModel)]="password"
+             [ngClass]= "{
+               'input-clean-error' : checkError('password')
+             }">
+             <span class="input-clean-error-label" [hidden]="!checkError('password')">
+                password is required.
+             </span>
            </div>
            <div class='col-12'>
              <input type="password" class="form-control input-clean mtb-10" placeholder="Confirm Password"
-             [(ngModel)]="passwordConfirm">
+             [(ngModel)]="passwordConfirm"
+             [ngClass]= "{
+               'input-clean-error' : checkError('passwordConfirm')
+             }">
+             <span class="input-clean-error-label" [hidden]="!checkError('passwordConfirm')">
+                passwords are not the same.
+             </span>
            </div>
            <div class='col-12'>
              <a routerLink="/dashboard">

@@ -389,6 +389,21 @@ h4 {
   font-weight: 300;
 }
 
+.f-reg-blue-md {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.f-reg-blue {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.f-reg-blue-xs {
+  font-size: 12px;
+  font-weight: 400;
+}
+
 .f-med-blue-md {
   font-size: 15px;
   font-weight: 500;
@@ -449,6 +464,18 @@ input changes (default)
   &:disabled {
     background-color: $white;
   }
+}
+
+.input-clean-error {
+  border: 2px solid $red;
+}
+
+.input-clean-error-label {
+  @extend .f-reg-blue-xs;
+  position: relative;
+  top: -10px;
+  left: 15px;
+  color: $red;
 }
 
 .input-clean-btn-size {
