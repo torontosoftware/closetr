@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterModule, Routes, Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,7 @@ export class RegisterComponent implements OnInit {
   passwordConfirm: string;
   enableLogin: boolean;
 
-  constructor() {
+  constructor(private router: Router) {
     this.name = "";
     this.username = "";
     this.password = "";
@@ -65,6 +66,14 @@ export class RegisterComponent implements OnInit {
         return false;
         break;
     }
+  }
+
+  toSignIn(): void {
+    this.router.navigate(['/login']);
+  }
+
+  register(): void {
+    this.router.navigate(['/dashboard']);
   }
 
   ngOnInit() {

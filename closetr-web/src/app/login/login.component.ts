@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterModule, Routes, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,9 +11,12 @@ export class LoginComponent implements OnInit {
   password: string;
   enableLogin: boolean;
 
-  constructor() {
+  constructor(private router: Router) {
     this.username = "";
     this.password = "";
+  }
+
+  ngOnInit() {
   }
 
   checkEnableLogin(): boolean {
@@ -22,7 +26,12 @@ export class LoginComponent implements OnInit {
     return true;
   }
 
-  ngOnInit() {
+  toSignUp(): void {
+    this.router.navigate(['/register']);
+  }
+
+  login(): void {
+    this.router.navigate(['/dashboard']);
   }
 
 }

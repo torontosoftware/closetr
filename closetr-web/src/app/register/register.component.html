@@ -48,26 +48,25 @@
              </span>
            </div>
            <div class='col-12'>
-             <a routerLink="/dashboard">
-               <button type="button" class="btn text-bubble text-bubble-btn mtb-10" [disabled]="!checkEnableRegister()">
-                 <span class="f-med-white">
-                   sign up
-                 </span>
-               </button>
-             </a>
+             <button type="button" class="btn text-bubble text-bubble-btn mtb-10"
+             [disabled]="!checkEnableRegister()"
+             (click)="register()">
+               <span class="f-med-white">
+                 sign up
+               </span>
+             </button>
            </div>
            <div class='col-12'>
              <hr>
              <span class='f-light-blue'>
                Have an account already?
              </span>
-             <a routerLink="/login">
-               <button type="button" class="btn text-bubble text-bubble-btn mtb-10">
-                 <span class="f-med-white">
-                   sign in
-                 </span>
-               </button>
-             </a>
+             <button type="button" class="btn text-bubble text-bubble-btn mtb-10"
+             (click)="toSignIn()">
+               <span class="f-med-white">
+                 sign in
+               </span>
+             </button>
            </div>
          </div>
        </div>
