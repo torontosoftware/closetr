@@ -1,0 +1,43 @@
+<div class='container-fluid'>
+  <div class='row'>
+     <div class='offset-md-2 col-md-8 col-12'>
+       <div class='widget widget-full login-container' id='login-widget'>
+         <div class='row'>
+           <div class='col-12 mtb-10'>
+             <h3 class='login-title'>closetr</h3>
+           </div>
+           <div class='col-12'>
+             <input type="username" class="form-control input-clean mtb-10" placeholder="Username"
+             [(ngModel)]="username">
+           </div>
+           <div class='col-12'>
+             <input type="password" class="form-control input-clean mtb-10" placeholder="Password"
+             [(ngModel)]="password">
+           </div>
+           <div class='col-12'>
+             <a routerLink="/dashboard">
+               <button type="button" class="btn text-bubble text-bubble-btn mtb-10" [disabled]="!checkEnableLogin()">
+                 <span class="f-med-white">
+                   log in
+                 </span>
+               </button>
+             </a>
+           </div>
+           <div class='col-12'>
+             <hr>
+             <span class='f-light-blue'>
+               Don't have an account yet? It's free!
+             </span>
+             <a routerLink="/dashboard">
+               <button type="button" class="btn text-bubble text-bubble-btn mtb-10">
+                 <span class="f-med-white">
+                   sign up
+                 </span>
+               </button>
+             </a>
+           </div>
+         </div>
+       </div>
+    </div>
+  </div>
+</div>

@@ -212,6 +212,14 @@ circle styles
 .user-icon {
   @extend %circle-sm;
   background-color: $white;
+  float: left;
+  &:hover {
+    cursor: pointer;
+  }
+  & img {
+    width: 100%;
+    border-radius: 100%;
+  }
 }
 
 .weather-bubble-container {
@@ -740,19 +748,11 @@ closet card components
 }
 
 // spending manage view
-
-
 .purchase-list-table {
   @extend .mtb-15;
   overflow-y: scroll;
   --webkit-overflow-scrolling: touch;
   height: 40vh;
-  /*
-  & tr {
-    &:nth-child(odd) {
-      background-color: $light-blue-grey;
-    }
-  }*/
 }
 
 .purchase-list-cost {
@@ -763,13 +763,27 @@ closet card components
   @extend .f-light-blue-md;
 }
 
+// log in
+.login-container {
+  position: relative;
+  top: calc(15vh - 30px);
+  min-height: 70vh;
+}
+
+.login-title {
+  display: inherit;
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 40px;
+}
+
+// rest
 .closet-search-box-text {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   width: calc(100% - 20px);
   display: inline-block;
-
 }
 
 router-outlet ~ * {
