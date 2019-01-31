@@ -37,11 +37,20 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     var loginData = {
-      username: this.username,
-      password: this.password
+      userID: this.username,
+      userPassword: this.password
     };
-    this.authenticationService.login(loginData);
-    this.router.navigate(['/dashboard']);
+
+    this.authenticationService.login(loginData).subscribe(
+      (data: any) => {
+        var canLogin = data.data;
+        console.log(canLogin);
+        if (canLogin) {
+          this.router.navigate(['/dashboard']);
+        }
+      }, error => { }
+    );
+
   }
 
 }

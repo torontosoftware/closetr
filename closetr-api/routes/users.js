@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const users = require('../models/users.model');
 
 /* API sets one new user clothing */
-router.post('/user', function(req, res, next) {
+router.post('/register', function(req, res, next) {
   // gather attributes from request
   var user = req.body.user;
   console.log(req);
@@ -43,10 +43,10 @@ router.post('/user', function(req, res, next) {
 
 /* API returns true if passed user and password
 matches a pair in the database. */
-router.get('/user', function(req, res, next) {
+router.post('/login', function(req, res, next) {
   var user = req.body.user;
   // query all clothes in the database
-  clothes.find(
+  users.find(
     {userID: user.userID},
     function (err, doc) {
       if (err) {
@@ -59,7 +59,7 @@ router.get('/user', function(req, res, next) {
         var result = false;
         if (doc != {}) {
           doc.forEach(function(dbUser) {
-            var result = (
+            result = (
               (dbUser.userID == user.userID)
               && (dbUser.userPassword == user.userPassword)
             );

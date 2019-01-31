@@ -15,7 +15,7 @@ export class UserService {
       user: user
     };
     console.log(params);
-    return this.http.post(this.baseUrl + 'api/users/user', params);
+    return this.http.post(this.baseUrl + 'api/users/register', params);
   }
 
 }

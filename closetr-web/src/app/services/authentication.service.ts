@@ -14,9 +14,8 @@ export class AuthenticationService {
 
   login(loginData: any) {
     var params = {
-      username: loginData.username,
-      password: loginData.password
+      user: loginData
     };
-    return this.http.post(this.baseUrl + 'api/users/user', params);
+    return this.http.post(this.baseUrl + 'api/users/login', params);
   }
 }
