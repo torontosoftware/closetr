@@ -8,36 +8,63 @@ const users = require('../models/users.model');
 router.post('/register', function(req, res, next) {
   // gather attributes from request
   var user = req.body.user;
-  console.log(req);
   const newItem = {
     userID: user.userID,
     userName: user.userName,
     userPassword: user.userPassword
   };
+  var error = '', status = '';
 
-  newItem['_id'] = mongoose.Types.ObjectId();
-
-  // create new clothing from clothes schema
-  users.findOneAndUpdate(
-    {_id: newItem._id},
-    newItem,
-    {upsert: true, new: true, runValidators: true},
+  users.find(
+    {userID: user.userID},
     function (err, doc) {
       if (err) {
         const result_json = {
           status: 'failed',
-          message: err.message
+          message: error
         };
         res.json(result_json);
       } else {
-        const result_json = {
-          status: 'success',
-          data: doc
-        };
-        res.json(result_json);
+        if (doc.length != 0) {
+          const result_json = {
+            status: 'failed',
+            message: 'user already exists.'
+          };
+          res.json(result_json);
+        } else {
+          createNewUser();
+        }
       }
     }
   );
+
+  function createNewUser () {
+    // new user path
+    newItem['_id'] = mongoose.Types.ObjectId();
+
+    // create new clothing from clothes schema
+    users.findOneAndUpdate(
+      {_id: newItem._id},
+      newItem,
+      {upsert: true, new: true, runValidators: true},
+      function (err, doc) {
+        if (err) {
+          const result_json = {
+            status: 'failed',
+            message: err.message
+          };
+          res.json(result_json);
+        } else {
+          const result_json = {
+            status: 'success',
+            data: doc
+          };
+          res.json(result_json);
+        }
+      }
+    );
+  }
+
 });
 
 
