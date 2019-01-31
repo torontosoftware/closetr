@@ -8,6 +8,7 @@ const users = require('../models/users.model');
 router.post('/user', function(req, res, next) {
   // gather attributes from request
   var user = req.body.user;
+  console.log(req);
   const newItem = {
     userID: user.userID,
     userName: user.userName,
@@ -64,7 +65,6 @@ router.get('/user', function(req, res, next) {
             );
           });
         }
-        });
         const result_json = {
           status: 'success',
           data: result
