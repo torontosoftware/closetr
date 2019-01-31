@@ -34,6 +34,7 @@ import { ClosetService } from './services/closet.service';
 import { LogOutfitService } from './services/log-outfit.service';
 import { RoutesService } from './services/routes.service';
 import { UserService } from './services/user.service';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { UserService } from './services/user.service';
     ClosetService,
     LogOutfitService,
     RoutesService,
-    UserService
+    UserService,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })
