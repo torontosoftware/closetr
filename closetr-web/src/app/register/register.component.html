@@ -1,0 +1,79 @@
+<div class='container-fluid'>
+  <div class='row'>
+     <div class='offset-md-2 col-md-8 col-12'>
+       <div class='widget widget-full login-container' id='login-widget'>
+         <div class='row'>
+           <div class='col-12 mtb-10'>
+             <h3 class='login-title'>closetr</h3>
+             <span class='f-light-blue-md text-center'>sign up for free today!</span>
+           </div>
+           <div class='col-12'>
+             <input type="username" class="form-control input-clean mtb-10-13" placeholder="Name"
+             [(ngModel)]="name"
+             (change) = "registerChangeHandler()"
+             [ngClass]= "{
+               'input-clean-error' : checkError('name')
+             }">
+             <span class="input-clean-error-label" [hidden]="!checkError('name')">
+                {{errorMessage.name}}
+             </span>
+           </div>
+           <div class='col-12'>
+             <input type="username" class="form-control input-clean mtb-10-13" placeholder="Username"
+             [(ngModel)]="username"
+             (change) = "registerChangeHandler()"
+             [ngClass]= "{
+               'input-clean-error' : checkError('username')
+             }">
+             <span class="input-clean-error-label" [hidden]="!checkError('username')">
+                {{errorMessage.username}}
+             </span>
+           </div>
+           <div class='col-12'>
+             <input type="password" class="form-control input-clean mtb-10-13" placeholder="Password"
+             [(ngModel)]="password"
+             (change) = "registerChangeHandler()"
+             [ngClass]= "{
+               'input-clean-error' : checkError('password')
+             }">
+             <span class="input-clean-error-label" [hidden]="!checkError('password')">
+                {{errorMessage.password}}
+             </span>
+           </div>
+           <div class='col-12'>
+             <input type="password" class="form-control input-clean mtb-10-13" placeholder="Confirm Password"
+             [(ngModel)]="passwordConfirm"
+             (change) = "registerChangeHandler()"
+             [ngClass]= "{
+               'input-clean-error' : checkError('passwordConfirm')
+             }">
+             <span class="input-clean-error-label" [hidden]="!checkError('passwordConfirm')">
+                {{errorMessage.passwordConfirm}}
+             </span>
+           </div>
+           <div class='col-12'>
+             <button type="button" class="btn text-bubble text-bubble-btn mtb-10"
+             [disabled]="!checkEnableRegister()"
+             (click)="register()">
+               <span class="f-med-white">
+                 sign up
+               </span>
+             </button>
+           </div>
+           <div class='col-12'>
+             <hr>
+             <span class='f-light-blue'>
+               Have an account already?
+             </span>
+             <button type="button" class="btn text-bubble text-bubble-btn mtb-10"
+             (click)="toSignIn()">
+               <span class="f-med-white">
+                 sign in
+               </span>
+             </button>
+           </div>
+         </div>
+       </div>
+    </div>
+  </div>
+</div>

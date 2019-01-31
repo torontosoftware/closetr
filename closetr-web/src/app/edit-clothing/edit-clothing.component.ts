@@ -57,13 +57,8 @@ export class EditClothingComponent implements OnInit {
       }
       this.closetService.editClothing(editedClothing).subscribe(
         (data: any) => {
-          console.log("edited clothing...");
-          console.log(data);
           this.back();
-        }, // success path
-        error => {
-          console.log(error);
-        }
+        }, error => { }
       );
   }
 

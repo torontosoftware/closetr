@@ -1,17 +1,6 @@
 <div class='container dashboard-container'>
-  <div class='row row-mgn-reset nav-row'>
-    <div class='col-2'>
-        <div class='user-icon'>
-        </div>
-    </div>
-    <div class='col-2 offset-8'>
-        <a class='closetr-logo pull-right' routerLink="/dashboard">
-          <span class="closetr-logo-content">C</span>
-        </a>
-    </div>
-  </div>
+  <app-header></app-header>
   <div [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
     <router-outlet #o="outlet"></router-outlet>
   </div>
-  <!--<app-dashboard *ngIf="router.url == ''"></app-dashboard>-->
 </div>

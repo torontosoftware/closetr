@@ -35,7 +35,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
         clothingCategory: 'Top',
         clothingPurchaseDate: new Date()
       }
-      console.log(this.clothing);
+
       this.clothingCategories = [
         "Top",
         "Blouse",
@@ -55,7 +55,6 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       // routes
       this.prevUrl = this.routesService.getPrevUrl();
       this.routesService.setPrevUrl('');
-      console.log(this.routesService.getPrevUrl());
   }
 
   ngOnInit() {
@@ -84,15 +83,13 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
         'clothingWorn':this.clothing.clothingWorn,
         'clothingPurchaseDate':this.clothing.clothingPurchaseDate
       }
-      console.log(newClothing);
+
       if (this.prevUrl == '/closet-manage') {
         this.closetService.addClothing(newClothing).subscribe(
           (data: any) => {
             this.back();
-          }, // success path
-          error => {
-            console.log(error);
-          }
+          },
+          error => { }
         );
       } else {
         this.logOutfitService.addOutfitClothing(newClothing, 'manual');

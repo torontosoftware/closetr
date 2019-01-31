@@ -43,7 +43,6 @@ export class SpendingManageComponent implements OnInit {
   }
 
   searchCriteriaChange(): void {
-    console.log(this.searchCriteria);
   }
 
   back(): void {

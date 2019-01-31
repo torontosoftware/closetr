@@ -74,8 +74,6 @@ export class LogOutfitComponent implements OnInit {
     this.closetList = this.closetService.getAllClothes();
     this.outfitClothingList = this.logOutfitService.getAllOutfitClothes();
 
-    //converting outfitClothingList to array
-    console.log(this.outfitClothingList);
   }
 
   ngOnInit() {

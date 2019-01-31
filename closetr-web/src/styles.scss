@@ -212,6 +212,14 @@ circle styles
 .user-icon {
   @extend %circle-sm;
   background-color: $white;
+  float: left;
+  &:hover {
+    cursor: pointer;
+  }
+  & img {
+    width: 100%;
+    border-radius: 100%;
+  }
 }
 
 .weather-bubble-container {
@@ -381,6 +389,21 @@ h4 {
   font-weight: 300;
 }
 
+.f-reg-blue-md {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.f-reg-blue {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.f-reg-blue-xs {
+  font-size: 12px;
+  font-weight: 400;
+}
+
 .f-med-blue-md {
   font-size: 15px;
   font-weight: 500;
@@ -423,6 +446,11 @@ h4 {
   margin-bottom: 5px;
 }
 
+.text-center {
+  display: inherit;
+  text-align: center;
+}
+
 /*
 input changes (default)
 */
@@ -433,12 +461,40 @@ input changes (default)
   border-bottom: 1px solid $med-blue;
   border-radius: 20px;
   height: 40px;
+  &:disabled {
+    background-color: $white;
+  }
+}
+
+.input-clean-error {
+  border: 2px solid $red;
+}
+
+.input-clean-error-label {
+  @extend .f-reg-blue-xs;
+  position: absolute;
+  top: calc(100% - 14px);
+  left: 30px;
+  color: $red;
+  animation: $a-fade-from-up;
+}
+
+.input-clean-btn-size {
+  @extend .input-clean;
+  height: 30px;
 }
 
 .input-clean-addon-right {
   height: 40px;
+  width: auto;
   border-radius: 0 20px 20px 0;
   border-bottom: 1px solid $med-blue;
+}
+
+.input-clean-addon-span {
+  line-height: 40px;
+  margin-right: 15px;
+  margin-left: 15px;
 }
 
 select {
@@ -625,6 +681,11 @@ small fixes
   margin-bottom: 15px;
 }
 
+.mtb-10-13 {
+  margin-top: 10px;
+  margin-bottom: 13px;
+}
+
 .mtb-4 {
   margin-top: 4px;
   margin-bottom: 4px;
@@ -725,8 +786,6 @@ closet card components
 }
 
 // spending manage view
-
-
 .purchase-list-table {
   @extend .mtb-15;
   overflow-y: scroll;
@@ -748,13 +807,27 @@ closet card components
   @extend .f-light-blue-md;
 }
 
+// log in
+.login-container {
+  position: relative;
+  top: calc(15vh - 30px);
+  min-height: 70vh;
+}
+
+.login-title {
+  display: inherit;
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 40px;
+}
+
+// rest
 .closet-search-box-text {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   width: calc(100% - 20px);
   display: inline-block;
-
 }
 
 router-outlet ~ * {
