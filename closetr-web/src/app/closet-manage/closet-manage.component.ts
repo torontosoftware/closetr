@@ -24,7 +24,6 @@ export class ClosetManageComponent implements OnInit {
     this.closetService = closetservice;
     this.routesService = routesservice;
     this.getAllClothes();
-    console.log(this.closetList);
   }
 
   ngOnInit() {

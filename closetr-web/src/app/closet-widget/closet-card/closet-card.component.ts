@@ -21,12 +21,10 @@ export class ClosetCardComponent implements OnInit {
   }
 
   removeCard(clothingID: any): void {
-    console.log("want to remove this:", clothingID);
     this.removeCardEmit.emit(clothingID);
   }
 
   editCard(clothing: any): void {
-    console.log('editing clothing: ', clothing);
     this.closetService.setClothingForEdit(clothing);
     this.router.navigate(['/edit-clothing', clothing.clothingID]);
   }

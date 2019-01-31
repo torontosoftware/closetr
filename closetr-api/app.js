@@ -11,6 +11,7 @@ var cors = require('cors');
 // routers from route folder
 var indexRouter = require('./routes/index');
 var clothesRouter = require('./routes/clothes');
+var usersRouter = require('./routes/users');
 
 // the express app
 var app = express();
@@ -25,6 +26,7 @@ app.use(cors({credentials: true, origin: true}));
 // connect app to routes
 app.use('/', indexRouter);
 app.use('/api/clothes/', clothesRouter);
+app.use('/api/users/', usersRouter);
 
 // Configure bodyparser to handle post requests
 app.use(bodyParser.urlencoded({

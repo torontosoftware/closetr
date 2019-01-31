@@ -17,7 +17,6 @@ export class HeaderComponent implements OnInit {
       router.events.subscribe((val) => {
         this.currUrl = this.location.path();
         this.checkHidden();
-        console.log(this.currUrl);
       });
   }
 
