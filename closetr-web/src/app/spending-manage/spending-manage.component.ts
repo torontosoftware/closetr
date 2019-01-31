@@ -43,12 +43,9 @@ export class SpendingManageComponent implements OnInit {
       'last 6 months',
       'last year'
     ];
-
-    console.log(this.purchaseList);
   }
 
   searchCriteriaChange(): void {
-    console.log(this.searchCriteria);
   }
 
   back(): void {

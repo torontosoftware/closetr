@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(loginData).subscribe(
       (data: any) => {
         var canLogin = data.data;
-        console.log(canLogin);
         if (canLogin) {
           this.router.navigate(['/dashboard']);
         }

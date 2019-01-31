@@ -49,7 +49,6 @@ export class BudgetManageComponent implements OnInit {
   }
 
   addBudgetSpan(budgetSpan: string): void {
-    console.log(budgetSpan);
     this.selectedBudgetSpansArr.push(budgetSpan);
 
     this.availableBudgetSpans = this.allBudgetSpans.filter(
