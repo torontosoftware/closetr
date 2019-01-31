@@ -7,15 +7,26 @@
              <h3 class='login-title'>closetr</h3>
            </div>
            <div class='col-12'>
-             <input type="username" class="form-control input-clean mtb-10" placeholder="Username"
-             [(ngModel)]="username">
+             <input type="username" class="form-control input-clean mtb-10-13" placeholder="Username"
+             [(ngModel)]="username"
+             (change) = "loginChangeHandler()"
+             [ngClass]= "{
+               'input-clean-error' : showLoginError
+             }">
            </div>
            <div class='col-12'>
-             <input type="password" class="form-control input-clean mtb-10" placeholder="Password"
-             [(ngModel)]="password">
+             <input type="password" class="form-control input-clean mtb-10-13" placeholder="Password"
+             [(ngModel)]="password"
+             (change) = "loginChangeHandler()"
+             [ngClass]= "{
+               'input-clean-error' : showLoginError
+             }">
+             <span class="input-clean-error-label" [hidden]="!showLoginError">
+                username or password doesn't match our records.
+             </span>
            </div>
            <div class='col-12'>
-             <button type="button" class="btn text-bubble text-bubble-btn mtb-10"
+             <button type="button" class="btn text-bubble text-bubble-btn mtb-15"
              [disabled]="!checkEnableLogin()"
              (click)="login()">
                <span class="f-med-white">
