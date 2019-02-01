@@ -10,7 +10,7 @@ import { ClosetService } from '../services/closet.service';
 export class SpendingManageComponent implements OnInit {
   closetList: object;
   isDateRange: boolean;
-  searchCriteria: object;
+  searchCriteria: any
   availableDateRange: any;
   closetService: ClosetService;
 
@@ -66,6 +66,7 @@ export class SpendingManageComponent implements OnInit {
     this.closetService.getAllClothes().subscribe(
       (data: any) => {
         this.closetList = data.data;
+        console.log(this.closetList);
       }, error => {}
     );
   }
@@ -94,7 +95,7 @@ export class SpendingManageComponent implements OnInit {
   */
   formatStringDate(date: string): Date {
     var year = parseInt(date.substring(0,4));
-    var month = parseInt(date.substring(5,7) - 1);
+    var month = parseInt(date.substring(5,7)) - 1;
     var day = parseInt(date.substring(8,10));
     return (new Date(year, month, day));
   }
