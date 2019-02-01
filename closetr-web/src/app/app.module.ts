@@ -28,6 +28,7 @@ import { RegisterComponent } from './register/register.component';
 
 //pipes
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
+import { DateRangeFilterPipe } from './pipes/date-range-filter.pipe';
 
 //services
 import { ClosetService } from './services/closet.service';
@@ -54,7 +55,8 @@ import { AuthenticationService } from './services/authentication.service';
     BudgetManageComponent,
     LoginComponent,
     HeaderComponent,
-    RegisterComponent
+    RegisterComponent,
+    DateRangeFilterPipe
   ],
   imports: [
     BrowserModule,
