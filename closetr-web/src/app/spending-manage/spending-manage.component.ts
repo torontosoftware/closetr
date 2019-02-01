@@ -22,9 +22,11 @@ export class SpendingManageComponent implements OnInit {
     this.getAllClothes();
 
     this.searchCriteria = {
-      dateRange: "last month",
+      dateRangeFor: "last month",
       dateFrom: new Date(),
-      dateTo: new Date()
+      dateTo: new Date(),
+      dateFromFormatted: this.formatDateString(new Date()),
+      dateToFormatted: this.formatDateString(new Date())
     };
 
     this.isDateRange = false;
@@ -42,7 +44,11 @@ export class SpendingManageComponent implements OnInit {
   ngOnInit() {
   }
 
-  searchCriteriaChange(): void {
+  searchCriteriaChangeHandler(): void {
+    if (this.isDateRange) {
+      this.searchCriteria.dateFrom = this.formatStringDate(this.searchCriteria.dateFromFormatted);
+      this.searchCriteria.dateTo = this.formatStringDate(this.searchCriteria.dateToFormatted);
+    } 
   }
 
   back(): void {
@@ -61,4 +67,33 @@ export class SpendingManageComponent implements OnInit {
     );
   }
 
+  /*
+  format date to string
+  */
+  formatDateString(date: Date): string {
+    let d = new Date(date);
+    let month = '' + (d.getMonth() + 1);
+    let day = '' + d.getDate();
+    let year = d.getFullYear();
+
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+
+    return [year, month, day].join('-');
+  }
+
+  /*
+  format string to date, from ISO format.
+  */
+  formatStringDate(date: string): Date {
+    var year = parseInt(date.substring(0,4));
+    var month = parseInt(date.substring(5,7) - 1);
+    var day = parseInt(date.substring(8,10));
+    console.log(year,month,day);
+    return (new Date(year, month, day));
+  }
 }
