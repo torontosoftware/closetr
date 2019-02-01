@@ -48,6 +48,9 @@ export class SpendingManageComponent implements OnInit {
     if (this.isDateRange) {
       this.searchCriteria.dateFrom = this.formatStringDate(this.searchCriteria.dateFromFormatted);
       this.searchCriteria.dateTo = this.formatStringDate(this.searchCriteria.dateToFormatted);
+    } else {
+      this.searchCriteria.dateFrom = this.dateRangeForFrom(this.searchCriteria.dateRangeFor);
+      this.searchCriteria.dateTo = new Date();
     }
   }
 
@@ -93,7 +96,6 @@ export class SpendingManageComponent implements OnInit {
     var year = parseInt(date.substring(0,4));
     var month = parseInt(date.substring(5,7) - 1);
     var day = parseInt(date.substring(8,10));
-    console.log(year,month,day);
     return (new Date(year, month, day));
   }
 
@@ -101,19 +103,39 @@ export class SpendingManageComponent implements OnInit {
   date range for calculator (to). Calculates from
   date based on dateRangeFor.
   */
-  dateRangeForTo(dateRangeFor: string): Date {
+  dateRangeForFrom(dateRangeFor): Date {
     let today = new Date();
     switch (dateRangeFor) {
-      case 'last week':
-        break;
+        case 'last week':
+        return new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate() - 7
+        );
       case 'last two weeks':
-        break;
+        return new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate() - 14
+        );
       case 'last month':
-        break;
+        return new Date(
+          today.getFullYear(),
+          today.getMonth() - 1,
+          today.getDate()
+        );
       case 'last 6 months':
-        break;
+        return new Date(
+          today.getFullYear(),
+          today.getMonth() - 6,
+          today.getDate()
+        );
       case 'last year':
-        break;
+        return new Date(
+          today.getFullYear() - 1,
+          today.getMonth(),
+          today.getDate()
+        );
     }
   }
 }
