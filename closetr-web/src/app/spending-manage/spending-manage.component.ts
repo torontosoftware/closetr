@@ -48,7 +48,7 @@ export class SpendingManageComponent implements OnInit {
     if (this.isDateRange) {
       this.searchCriteria.dateFrom = this.formatStringDate(this.searchCriteria.dateFromFormatted);
       this.searchCriteria.dateTo = this.formatStringDate(this.searchCriteria.dateToFormatted);
-    } 
+    }
   }
 
   back(): void {
@@ -95,5 +95,25 @@ export class SpendingManageComponent implements OnInit {
     var day = parseInt(date.substring(8,10));
     console.log(year,month,day);
     return (new Date(year, month, day));
+  }
+
+  /*
+  date range for calculator (to). Calculates from
+  date based on dateRangeFor.
+  */
+  dateRangeForTo(dateRangeFor: string): Date {
+    let today = new Date();
+    switch (dateRangeFor) {
+      case 'last week':
+        break;
+      case 'last two weeks':
+        break;
+      case 'last month':
+        break;
+      case 'last 6 months':
+        break;
+      case 'last year':
+        break;
+    }
   }
 }
