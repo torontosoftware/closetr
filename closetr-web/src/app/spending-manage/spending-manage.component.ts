@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { ClosetService } from '../services/closet.service';
+import { DateRangeFilterPipe } from '../pipes/date-range-filter.pipe';
 
 @Component({
   selector: 'app-spending-manage',
@@ -22,6 +23,7 @@ export class SpendingManageComponent implements OnInit {
     this.getAllClothes();
 
     this.searchCriteria = {
+      property: "clothingPurchaseDate",
       dateRangeFor: "last month",
       dateFrom: new Date(),
       dateTo: new Date(),
@@ -30,6 +32,7 @@ export class SpendingManageComponent implements OnInit {
     };
 
     this.isDateRange = false;
+    this.searchCriteriaChangeHandler();
 
     this.availableDateRange = [
       'last week',
@@ -66,7 +69,6 @@ export class SpendingManageComponent implements OnInit {
     this.closetService.getAllClothes().subscribe(
       (data: any) => {
         this.closetList = data.data;
-        console.log(this.closetList);
       }, error => {}
     );
   }

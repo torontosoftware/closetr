@@ -67,7 +67,7 @@
               <div class="purchase-list-table">
                 <table class="table table-sm table-borderless">
                   <tbody>
-                    <tr *ngFor="let clothing of closetList | keyvalue">
+                    <tr *ngFor="let clothing of closetList | dateRangeFilter:searchCriteria.dateFrom:searchCriteria.dateTo:'clothingPurchaseDate' | keyvalue">
                       <td class="purchase-list-cost">{{clothing.value.clothingCost}}</td>
                       <td class="purchase-list-clothing">{{clothing.value.clothingName}}</td>
                     </tr>
