@@ -49,11 +49,17 @@ export class SpendingManageComponent implements OnInit {
 
   searchCriteriaChangeHandler(): void {
     if (this.isDateRange) {
+      // choosing date range: turn string format to date object.
       this.searchCriteria.dateFrom = this.formatStringDate(this.searchCriteria.dateFromFormatted);
       this.searchCriteria.dateTo = this.formatStringDate(this.searchCriteria.dateToFormatted);
     } else {
+      // choosing date range up to today:
+      // set date objects, then set string format from date objects.
       this.searchCriteria.dateFrom = this.dateRangeForFrom(this.searchCriteria.dateRangeFor);
       this.searchCriteria.dateTo = new Date();
+
+      this.searchCriteria.dateFromFormatted = this.formatDateString(this.searchCriteria.dateFrom);
+      this.searchCriteria.dateToFormatted = this.formatDateString(this.searchCriteria.dateTo);
     }
   }
 
