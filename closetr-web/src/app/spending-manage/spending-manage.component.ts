@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { ClosetService } from '../services/closet.service';
+import { DateFormatService } from '../services/utils/date-format.service';
 import { DateRangeFilterPipe } from '../pipes/date-range-filter.pipe';
 
 @Component({
@@ -14,11 +15,14 @@ export class SpendingManageComponent implements OnInit {
   searchCriteria: any
   availableDateRange: any;
   closetService: ClosetService;
+  dateFormatService: DateFormatService;
 
   constructor(private router: Router,
-              private closetservice: ClosetService) {
+              private closetservice: ClosetService,
+              private dateformatservice: DateFormatService) {
 
     this.closetService = closetservice;
+    this.dateFormatService = dateformatservice;
 
     this.getAllClothes();
 
@@ -27,8 +31,8 @@ export class SpendingManageComponent implements OnInit {
       dateRangeFor: "last month",
       dateFrom: new Date(),
       dateTo: new Date(),
-      dateFromFormatted: this.formatDateString(new Date()),
-      dateToFormatted: this.formatDateString(new Date())
+      dateFromFormatted: this.dateFormatService.formatDateString(new Date()),
+      dateToFormatted: this.dateFormatService.formatDateString(new Date())
     };
 
     this.isDateRange = false;
@@ -50,16 +54,16 @@ export class SpendingManageComponent implements OnInit {
   searchCriteriaChangeHandler(): void {
     if (this.isDateRange) {
       // choosing date range: turn string format to date object.
-      this.searchCriteria.dateFrom = this.formatStringDate(this.searchCriteria.dateFromFormatted);
-      this.searchCriteria.dateTo = this.formatStringDate(this.searchCriteria.dateToFormatted);
+      this.searchCriteria.dateFrom = this.dateFormatService.formatStringDate(this.searchCriteria.dateFromFormatted);
+      this.searchCriteria.dateTo = this.dateFormatService.formatStringDate(this.searchCriteria.dateToFormatted);
     } else {
       // choosing date range up to today:
       // set date objects, then set string format from date objects.
-      this.searchCriteria.dateFrom = this.dateRangeForFrom(this.searchCriteria.dateRangeFor);
+      this.searchCriteria.dateFrom = this.dateFormatService.dateRangeForFrom(this.searchCriteria.dateRangeFor);
       this.searchCriteria.dateTo = new Date();
 
-      this.searchCriteria.dateFromFormatted = this.formatDateString(this.searchCriteria.dateFrom);
-      this.searchCriteria.dateToFormatted = this.formatDateString(this.searchCriteria.dateTo);
+      this.searchCriteria.dateFromFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateFrom);
+      this.searchCriteria.dateToFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateTo);
     }
   }
 
@@ -79,72 +83,4 @@ export class SpendingManageComponent implements OnInit {
     );
   }
 
-  /*
-  format date to string
-  */
-  formatDateString(date: Date): string {
-    let d = new Date(date);
-    let month = '' + (d.getMonth() + 1);
-    let day = '' + d.getDate();
-    let year = d.getFullYear();
-
-    if (month.length < 2) {
-      month = '0' + month;
-    }
-    if (day.length < 2) {
-      day = '0' + day;
-    }
-
-    return [year, month, day].join('-');
-  }
-
-  /*
-  format string to date, from ISO format.
-  */
-  formatStringDate(date: string): Date {
-    var year = parseInt(date.substring(0,4));
-    var month = parseInt(date.substring(5,7)) - 1;
-    var day = parseInt(date.substring(8,10));
-    return (new Date(year, month, day));
-  }
-
-  /*
-  date range for calculator (to). Calculates from
-  date based on dateRangeFor.
-  */
-  dateRangeForFrom(dateRangeFor): Date {
-    let today = new Date();
-    switch (dateRangeFor) {
-        case 'last week':
-        return new Date(
-          today.getFullYear(),
-          today.getMonth(),
-          today.getDate() - 7
-        );
-      case 'last two weeks':
-        return new Date(
-          today.getFullYear(),
-          today.getMonth(),
-          today.getDate() - 14
-        );
-      case 'last month':
-        return new Date(
-          today.getFullYear(),
-          today.getMonth() - 1,
-          today.getDate()
-        );
-      case 'last 6 months':
-        return new Date(
-          today.getFullYear(),
-          today.getMonth() - 6,
-          today.getDate()
-        );
-      case 'last year':
-        return new Date(
-          today.getFullYear() - 1,
-          today.getMonth(),
-          today.getDate()
-        );
-    }
-  }
 }

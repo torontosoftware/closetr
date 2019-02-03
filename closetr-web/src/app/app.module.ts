@@ -36,6 +36,7 @@ import { LogOutfitService } from './services/log-outfit.service';
 import { RoutesService } from './services/routes.service';
 import { UserService } from './services/user.service';
 import { AuthenticationService } from './services/authentication.service';
+import { DateFormatService } from './services/utils/date-format.service';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { AuthenticationService } from './services/authentication.service';
     LogOutfitService,
     RoutesService,
     UserService,
-    AuthenticationService
+    AuthenticationService,
+    DateFormatService
   ],
   bootstrap: [AppComponent]
 })
