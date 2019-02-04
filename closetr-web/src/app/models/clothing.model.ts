@@ -6,6 +6,24 @@ export class Clothing {
   clothingCategory: string;
   clothingPurchaseDate: string;
 
+  constructor(clothing: Clothing = {} as Clothing) {
+    let {
+      clothingID = null,
+      clothingName = '',
+      clothingWorn = 0,
+      clothingCost = 0,
+      clothingCategory = 'Top',
+      clothingPurchaseDate = new Date()
+    } = clothing;
+
+    this.clothingID = clothingID;
+    this.clothingName = clothingName;
+    this.clothingWorn = clothingWorn;
+    this.clothingCost = clothingCost;
+    this.clothingCategory = clothingCategory;
+    this.clothingPurchaseDate = clothingPurchaseDate;
+  }
+
   /*
   get clothingID
   */
