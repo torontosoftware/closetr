@@ -30,9 +30,6 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
 
       // items
       this.clothing = new Clothing();
-
-      console.log(this.clothing);
-
       this.clothingCategories = [
         "Top",
         "Blouse",
@@ -73,24 +70,16 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   clothing item, navigate back to the previous page.
   */
   save(): void {
-      var newClothing = {
-        'clothingName':this.clothing.clothingName,
-        'clothingCost':this.clothing.clothingCost,
-        'clothingCategory':this.clothing.clothingCategory,
-        'clothingWorn':this.clothing.clothingWorn,
-        'clothingPurchaseDate':this.clothing.clothingPurchaseDate
-      }
-
-      if (this.prevUrl == '/closet-manage') {
-        this.closetService.addClothing(newClothing).subscribe(
-          (data: any) => {
-            this.back();
-          },
-          error => { }
-        );
-      } else {
-        this.logOutfitService.addOutfitClothing(newClothing, 'manual');
-      }
+    if (this.prevUrl == '/closet-manage') {
+      this.closetService.addClothing(this.clothing).subscribe(
+        (data: any) => {
+          this.back();
+        },
+        error => { }
+      );
+    } else {
+      this.logOutfitService.addOutfitClothing(this.clothing, 'manual');
+    }
   }
 
   /*
@@ -98,14 +87,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   none of the fields are empty.
   */
   checkSubmit(): boolean {
-    if (this.clothing.clothingName.length === 0
-    || !this.clothing.clothingCost === null
-    || this.clothing.clothingCategory.length === 0
-    || !this.clothing.clothingWorn === null
-    || this.clothing.clothingPurchaseDate.length === 0) {
-      return false;
-    }
-    return true;
+    return this.clothing.enableClothingSave();
   }
 
 }

@@ -108,4 +108,12 @@ export class Clothing {
     this.clothingPurchaseDate = clothingPurchaseDate;
   }
 
+  enableClothingSave(): boolean {
+    return !(this.clothingName.length === 0
+        || !this.clothingCost === null
+        || this.clothingCategory.length === 0
+        || !this.clothingWorn === null
+        || this.clothingPurchaseDate.length === 0);
+  }
+
 }
