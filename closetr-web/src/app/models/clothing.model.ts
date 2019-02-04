@@ -6,6 +6,17 @@ export class Clothing {
   clothingCategory: string;
   clothingPurchaseDate: string;
 
+  static clothingCategories = [
+    "Top",
+    "Blouse",
+    "Sweater",
+    "Jacket/Coat",
+    "Bottom",
+    "Pants",
+    "Skirt",
+    "Accesory"
+  ];
+
   constructor(clothing: Clothing = {} as Clothing) {
     let {
       clothingID = null,
@@ -108,6 +119,16 @@ export class Clothing {
     this.clothingPurchaseDate = clothingPurchaseDate;
   }
 
+  /*
+  return clothing categories
+  */
+  static getClothingCategories(): Array<string> {
+    return this.clothingCategories;
+  }
+
+  /*
+  Returns true if clothing object should be able to be saved.
+  */
   enableClothingSave(): boolean {
     return !(this.clothingName.length === 0
         || !this.clothingCost === null

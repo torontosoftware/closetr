@@ -30,17 +30,8 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
 
       // items
       this.clothing = new Clothing();
-      this.clothingCategories = [
-        "Top",
-        "Blouse",
-        "Sweater",
-        "Jacket/Coat",
-        "Bottom",
-        "Pants",
-        "Skirt",
-        "Accesory"
-      ];
-
+      this.clothingCategories = Clothing.getClothingCategories();
+      
       // services
       this.closetService = closetservice;
       this.logOutfitService = logoutfitservice;
