@@ -31,35 +31,35 @@ export class Clothing {
   set clothingName
   */
   setClothingName(clothingName: string): void{
-    return this.clothingName;
+    this.clothingName = clothingName;
   }
 
   /*
   get clothingWorn (number of times clothing item has been worn)
   */
-  getClothingWorn(): string {
+  getClothingWorn(): number {
     return this.clothingWorn;
   }
 
   /*
   set clothingWorn (number of times clothing item has been worn)
   */
-  setClothingWorn(clothingWorn: string): void{
-    return this.clothingWorn;
+  setClothingWorn(clothingWorn: number): void{
+    this.clothingWorn = clothingWorn;
   }
 
   /*
   get clothingCost
   */
-  getClothingCost(): string {
+  getClothingCost(): number {
     return this.clothingCost;
   }
 
   /*
   set clothingCost
   */
-  setClothingCost(clothingCost: string): void{
-    return this.clothingCost;
+  setClothingCost(clothingCost: number): void{
+    this.clothingCost = clothingCost;
   }
 
   /*
@@ -73,21 +73,21 @@ export class Clothing {
   set clothingCategory
   */
   setClothingCategory(clothingCategory: string): void{
-    return this.clothingCategory;
+    this.clothingCategory = clothingCategory;
   }
 
   /*
   get clothingPurchaseDate
   */
-  getClothingPurchaseDate(): string {
+  getClothingPurchaseDate(): Date {
     return this.clothingPurchaseDate;
   }
 
   /*
   set clothingPurchaseDate
   */
-  setClothingPurchaseDate(clothingPurchaseDate: string): void{
-    return this.clothingPurchaseDate;
+  setClothingPurchaseDate(clothingPurchaseDate: Date): void{
+    this.clothingPurchaseDate = clothingPurchaseDate;
   }
 
 }
