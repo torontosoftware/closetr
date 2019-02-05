@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClosetService } from '../services/closet.service';
 import { RouterModule, Routes, Router } from '@angular/router';
+import { Clothing } from '../models/clothing.model';
 
 @Component({
   selector: 'app-edit-clothing',
@@ -8,24 +9,15 @@ import { RouterModule, Routes, Router } from '@angular/router';
   styleUrls: ['./edit-clothing.component.scss']
 })
 export class EditClothingComponent implements OnInit {
-  clothing: any;
+  clothing: Clothing;
   closetService: ClosetService;
   clothingCategories: Array<string>;
 
-  constructor(private closetservice: ClosetService, private router: Router) {
+  constructor(private closetservice: ClosetService,
+              private router: Router) {
       this.closetService = closetservice;
       this.clothing = this.closetService.getClothingForEdit();
-
-      this.clothingCategories = [
-        "Top",
-        "Blouse",
-        "Sweater",
-        "Jacket/Coat",
-        "Bottom",
-        "Pants",
-        "Skirt",
-        "Accesory"
-      ];
+      this.clothingCategories = Clothing.getClothingCategories();
 
       if (!this.clothing) {
         this.router.navigate(['/closet-manage']);
@@ -47,15 +39,7 @@ export class EditClothingComponent implements OnInit {
   clothing item, navigate back to the previous page.
   */
   save(): void {
-      var editedClothing = {
-        'clothingID': this.clothing.clothingID,
-        'clothingWorn': this.clothing.clothingWorn,
-        'clothingName': this.clothing.clothingName,
-        'clothingCost': this.clothing.clothingCost,
-        'clothingCategory': this.clothing.clothingCategory,
-        'clothingPurchaseDate': this.clothing.clothingPurchaseDate
-      }
-      this.closetService.editClothing(editedClothing).subscribe(
+      this.closetService.editClothing(this.clothing).subscribe(
         (data: any) => {
           this.back();
         }, error => { }
@@ -67,14 +51,7 @@ export class EditClothingComponent implements OnInit {
   none of the fields are empty.
   */
   checkSubmit(): boolean {
-    if (this.clothing.clothingName.length === 0
-    || this.clothing.clothingCost === null
-    || this.clothing.clothingCategory.length === 0
-    || this.clothing.clothingWorn === null
-    || this.clothing.clothingPurchaseDate.length === 0) {
-      return false;
-    }
-    return true;
+    return this.clothing.enableClothingSave();
   }
 
 }

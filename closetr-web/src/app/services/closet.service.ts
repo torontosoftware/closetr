@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Clothing } from '../models/clothing.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,8 @@ export class ClosetService {
   Generic closet service containing methods that help in updating and maintaining
   closet items accross all componenets.
   */
-  closetList: any;
-  closetCount: number;
-  clothingForEdit: any;
-  data: any;
+  closetList: Array<Clothing>;
+  clothingForEdit: Clothing;
 
   constructor(private http: HttpClient) {
   }
@@ -23,7 +22,7 @@ export class ClosetService {
   Format {name, cost, category}
   */
 
-  addClothing(clothing: any): any {
+  addClothing(clothing: Clothing): any {
     var params = {
       clothing: clothing
     };
@@ -47,7 +46,7 @@ export class ClosetService {
   Then the updated closetList is recieved via another API call to get all
   clothes.
   */
-  editClothing(editedClothing: any): any {
+  editClothing(editedClothing: Clothing): any {
     var params = {
       clothing: editedClothing
     };
@@ -80,7 +79,7 @@ export class ClosetService {
   Manage view. This clothing object is retrieved in the Edit Closet page, where
   the user may edit the clothing.
   */
-  setClothingForEdit(clothing: any): any {
+  setClothingForEdit(clothing: Clothing): any {
     this.clothingForEdit = clothing;
   }
 
@@ -88,7 +87,7 @@ export class ClosetService {
   Returns the clothing object chosen by the user for display in the Edit
   Clothing page.
   */
-  getClothingForEdit(): any {
+  getClothingForEdit(): Clothing {
     return this.clothingForEdit;
   }
 

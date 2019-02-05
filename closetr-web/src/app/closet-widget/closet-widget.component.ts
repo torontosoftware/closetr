@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClosetService } from '../services/closet.service';
+import { Clothing } from '../models/clothing.model';
 
 @Component({
   selector: 'app-closet-widget',
@@ -7,7 +8,7 @@ import { ClosetService } from '../services/closet.service';
   styleUrls: ['./closet-widget.component.scss']
 })
 export class ClosetWidgetComponent implements OnInit {
-  closetList: any;
+  closetList: Array<Clothing>;
   closetService: ClosetService;
 
   constructor(private closetservice: ClosetService) {
@@ -15,6 +16,9 @@ export class ClosetWidgetComponent implements OnInit {
     this.closetService.getAllClothes().subscribe(
       (data: any) => {
         this.closetList = data.data;
+        for (let i in this.closetList) {
+          this.closetList[i] = new Clothing(this.closetList[i]);
+        }
       },
       error => { }
     );

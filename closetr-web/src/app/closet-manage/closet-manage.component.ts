@@ -3,6 +3,7 @@ import { ClosetService } from '../services/closet.service';
 import { RoutesService } from '../services/routes.service';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { SearchFilterPipe } from '../pipes/search-filter.pipe';
+import { Clothing } from '../models/clothing.model';
 
 @Component({
   selector: 'app-closet-manage',
@@ -11,7 +12,7 @@ import { SearchFilterPipe } from '../pipes/search-filter.pipe';
 })
 
 export class ClosetManageComponent implements OnInit {
-  closetList: any;
+  closetList: Array<Clothing>;
   closetService: ClosetService;
   routesService: RoutesService;
   editMode : boolean;
@@ -54,6 +55,9 @@ export class ClosetManageComponent implements OnInit {
     this.closetService.getAllClothes().subscribe(
       (data: any) => {
         this.closetList = data.data;
+        for (let i in this.closetList) {
+          this.closetList[i] = new Clothing(this.closetList[i]);
+        }
       }, error => {}
     );
   }

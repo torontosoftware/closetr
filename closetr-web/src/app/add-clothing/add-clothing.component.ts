@@ -5,6 +5,7 @@ import { RoutesService } from '../services/routes.service';
 import { LogOutfitService } from '../services/log-outfit.service';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { BaseGeneralComponent } from '../base-general/base-general.component';
+import { Clothing } from '../models/clothing.model';
 
 @Component({
   selector: 'app-add-clothing',
@@ -13,7 +14,7 @@ import { BaseGeneralComponent } from '../base-general/base-general.component';
 })
 
 export class AddClothingComponent extends BaseGeneralComponent implements OnInit {
-  clothing: any;
+  clothing: Clothing;
   closetService: ClosetService;
   logOutfitService: LogOutfitService;
   routesService: RoutesService;
@@ -28,24 +29,8 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       super();
 
       // items
-      this.clothing = {
-        clothingName: '',
-        clothingWorn: 0,
-        clothingCost: null,
-        clothingCategory: 'Top',
-        clothingPurchaseDate: new Date()
-      }
-
-      this.clothingCategories = [
-        "Top",
-        "Blouse",
-        "Sweater",
-        "Jacket/Coat",
-        "Bottom",
-        "Pants",
-        "Skirt",
-        "Accesory"
-      ];
+      this.clothing = new Clothing();
+      this.clothingCategories = Clothing.getClothingCategories();
 
       // services
       this.closetService = closetservice;
@@ -76,24 +61,16 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   clothing item, navigate back to the previous page.
   */
   save(): void {
-      var newClothing = {
-        'clothingName':this.clothing.clothingName,
-        'clothingCost':this.clothing.clothingCost,
-        'clothingCategory':this.clothing.clothingCategory,
-        'clothingWorn':this.clothing.clothingWorn,
-        'clothingPurchaseDate':this.clothing.clothingPurchaseDate
-      }
-
-      if (this.prevUrl == '/closet-manage') {
-        this.closetService.addClothing(newClothing).subscribe(
-          (data: any) => {
-            this.back();
-          },
-          error => { }
-        );
-      } else {
-        this.logOutfitService.addOutfitClothing(newClothing, 'manual');
-      }
+    if (this.prevUrl == '/closet-manage') {
+      this.closetService.addClothing(this.clothing).subscribe(
+        (data: any) => {
+          this.back();
+        },
+        error => { }
+      );
+    } else {
+      this.logOutfitService.addOutfitClothing(this.clothing, 'manual');
+    }
   }
 
   /*
@@ -101,14 +78,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   none of the fields are empty.
   */
   checkSubmit(): boolean {
-    if (this.clothing.clothingName.length === 0
-    || !this.clothing.clothingCost === null
-    || this.clothing.clothingCategory.length === 0
-    || !this.clothing.clothingWorn === null
-    || this.clothing.clothingPurchaseDate.length === 0) {
-      return false;
-    }
-    return true;
+    return this.clothing.enableClothingSave();
   }
 
 }
