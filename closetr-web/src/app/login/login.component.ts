@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     this.showLoginError = false;
     this.authenticationService = authenticationservice;
 
-    if (this.authenticationService.currentUserValue) {
+    if (this.authenticationService.currentUser) {
       this.router.navigate(['/dashboard']);
     }
   }

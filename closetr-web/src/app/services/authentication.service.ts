@@ -18,13 +18,17 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
+
   login(loginData: any) {
     var params = {
       user: loginData
     };
     var currUser;
 
-    return this.http.post<User>(this.baseUrl + 'api/users/login', params)
+    return this.http.post<any>(this.baseUrl + 'api/users/login', params)
       .pipe(map(user => {
           var currUser = new User(user.data);
           if (currUser && currUser.token) {
@@ -34,4 +38,10 @@ export class AuthenticationService {
           return currUser;
       }));
   }
+
+  logout() {
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
+  }
+
 }
