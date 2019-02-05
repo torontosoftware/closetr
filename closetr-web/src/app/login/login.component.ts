@@ -57,11 +57,13 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigate(['/dashboard']);
+          if (data) {
+            this.router.navigate(['/dashboard']);
+          } else {
+            this.showLoginError = true;
+          }
         },
-        error => {
-          console.log(error);
-        }
+        error => { }
       );
 
   }

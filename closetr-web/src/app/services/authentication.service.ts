@@ -30,12 +30,14 @@ export class AuthenticationService {
 
     return this.http.post<any>(this.baseUrl + 'api/users/login', params)
       .pipe(map(user => {
-          var currUser = new User(user.data);
-          if (currUser && currUser.token) {
+          if (user && user.token) {
+            currUser = new User(user.data);
             localStorage.setItem('currentUser', JSON.stringify(currUser));
             this.currentUserSubject.next(currUser);
+            return currUser;
+          } else {
+            return false;
           }
-          return currUser;
       }));
   }
 
