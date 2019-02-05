@@ -8,7 +8,7 @@ import { Clothing } from '../models/clothing.model';
   styleUrls: ['./closet-widget.component.scss']
 })
 export class ClosetWidgetComponent implements OnInit {
-  closetList: any;
+  closetList: Array<Clothing>;
   closetService: ClosetService;
 
   constructor(private closetservice: ClosetService) {

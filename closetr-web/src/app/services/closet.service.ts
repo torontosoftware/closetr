@@ -10,10 +10,8 @@ export class ClosetService {
   Generic closet service containing methods that help in updating and maintaining
   closet items accross all componenets.
   */
-  closetList: any;
-  closetCount: number;
-  clothingForEdit: any;
-  data: any;
+  closetList: Array<Clothing>;
+  clothingForEdit: Clothing;
 
   constructor(private http: HttpClient) {
   }

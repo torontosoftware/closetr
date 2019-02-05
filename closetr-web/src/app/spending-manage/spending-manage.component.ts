@@ -3,6 +3,7 @@ import { RouterModule, Routes, Router } from '@angular/router';
 import { ClosetService } from '../services/closet.service';
 import { DateFormatService } from '../services/utils/date-format.service';
 import { DateRangeFilterPipe } from '../pipes/date-range-filter.pipe';
+import { Clothing } from '../models/clothing.model';
 
 @Component({
   selector: 'app-spending-manage',
@@ -10,7 +11,7 @@ import { DateRangeFilterPipe } from '../pipes/date-range-filter.pipe';
   styleUrls: ['./spending-manage.component.scss']
 })
 export class SpendingManageComponent implements OnInit {
-  closetList: object;
+  closetList: Array<Clothing>;
   isDateRange: boolean;
   searchCriteria: any
   availableDateRange: any;
@@ -79,6 +80,9 @@ export class SpendingManageComponent implements OnInit {
     this.closetService.getAllClothes().subscribe(
       (data: any) => {
         this.closetList = data.data;
+        for (let i in this.closetList) {
+          this.closetList[i] = new Clothing(this.closetList[i]);
+        }
       }, error => {}
     );
   }
