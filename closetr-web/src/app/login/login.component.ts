@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
 
     this.authenticationService.login(loginData).subscribe(
       (data: any) => {
-        var canLogin = data.data;
+        var canLogin = data.auth && data.token;
         if (canLogin) {
           this.router.navigate(['/dashboard']);
         } else {

@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const config = require('../config');
 
 // users schema
 const users = require('../models/users.model');
@@ -16,8 +15,9 @@ router.post('/register', function(req, res, next) {
   const newItem = {
     userID: user.userID,
     userName: user.userName,
-    userPassword: user.userPassword
+    userPassword: bcrypt.hashSync(user.userPassword, 8)
   };
+
   var error = '', status = '';
 
   users.find(
@@ -46,7 +46,6 @@ router.post('/register', function(req, res, next) {
   function createNewUser () {
     // new user path
     newItem['_id'] = mongoose.Types.ObjectId();
-
     // create new clothing from clothes schema
     users.findOneAndUpdate(
       {_id: newItem._id},
@@ -60,9 +59,13 @@ router.post('/register', function(req, res, next) {
           };
           res.json(result_json);
         } else {
+          const token = jwt.sign({id: doc._id}, 'secret', {
+            expiresIn: 86400
+          });
           const result_json = {
             status: 'success',
-            data: doc
+            auth: true,
+            token: token
           };
           res.json(result_json);
         }
@@ -83,7 +86,7 @@ router.post('/login', function(req, res, next) {
     function (err, doc) {
       if (err) {
         const result_json = {
-          status: 'failed',
+          status: 500,
           message: err.message
         };
         res.json(result_json);
@@ -91,17 +94,30 @@ router.post('/login', function(req, res, next) {
         var result = false;
         if (doc != {}) {
           doc.forEach(function(dbUser) {
-            result = (
-              (dbUser.userID == user.userID)
-              && (dbUser.userPassword == user.userPassword)
-            );
+            if (dbUser.userID == user.userID) {
+              var passwordValidate = bcrypt.compareSync(user.userPassword, dbUser.userPassword);
+              result = passwordValidate;
+            }
           });
         }
-        const result_json = {
-          status: 'success',
-          data: result
-        };
-        res.json(result_json);
+        if (result) { // successful login
+          const token = jwt.sign({id: doc._id}, 'secret', {
+            expiresIn: 86400
+          });
+          const result_json = {
+            status: 200,
+            auth: true,
+            token: token
+          };
+          res.json(result_json);
+        } else {
+          const result_json = {
+            status: 401,
+            auth: false,
+            token: null
+          }
+          res.json(result_json);
+        }
       }
     }
   );
