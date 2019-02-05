@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { ClosetService } from '../../services/closet.service';
+import { Clothing } from '../../models/clothing.model';
 
 @Component({
   selector: 'app-closet-card',
@@ -9,7 +10,7 @@ import { ClosetService } from '../../services/closet.service';
 })
 export class ClosetCardComponent implements OnInit {
 
-  @Input() clothing: any;
+  @Input() clothing: Clothing;
   @Input() editMode: boolean;
   @Output() removeCardEmit: EventEmitter<Object> = new EventEmitter<Object>();
 
@@ -24,7 +25,7 @@ export class ClosetCardComponent implements OnInit {
     this.removeCardEmit.emit(clothingID);
   }
 
-  editCard(clothing: any): void {
+  editCard(clothing: Clothing): void {
     this.closetService.setClothingForEdit(clothing);
     this.router.navigate(['/edit-clothing', clothing.clothingID]);
   }

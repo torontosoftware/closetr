@@ -24,7 +24,7 @@ export class Clothing {
       clothingWorn = 0,
       clothingCost = 0,
       clothingCategory = 'Top',
-      clothingPurchaseDate = new Date()
+      clothingPurchaseDate = ''
     } = clothing;
 
     this.clothingID = clothingID;
@@ -108,14 +108,14 @@ export class Clothing {
   /*
   get clothingPurchaseDate
   */
-  getClothingPurchaseDate(): Date {
+  getClothingPurchaseDate(): string {
     return this.clothingPurchaseDate;
   }
 
   /*
   set clothingPurchaseDate
   */
-  setClothingPurchaseDate(clothingPurchaseDate: Date): void{
+  setClothingPurchaseDate(clothingPurchaseDate: string): void{
     this.clothingPurchaseDate = clothingPurchaseDate;
   }
 

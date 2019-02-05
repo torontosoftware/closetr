@@ -31,7 +31,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       // items
       this.clothing = new Clothing();
       this.clothingCategories = Clothing.getClothingCategories();
-      
+
       // services
       this.closetService = closetservice;
       this.logOutfitService = logoutfitservice;
@@ -78,6 +78,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   none of the fields are empty.
   */
   checkSubmit(): boolean {
+    console.log(this.clothing);
     return this.clothing.enableClothingSave();
   }
 
