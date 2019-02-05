@@ -78,7 +78,6 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   none of the fields are empty.
   */
   checkSubmit(): boolean {
-    console.log(this.clothing);
     return this.clothing.enableClothingSave();
   }
 
