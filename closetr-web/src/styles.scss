@@ -213,6 +213,7 @@ circle styles
   @extend %circle-sm;
   background-color: $white;
   float: left;
+  border: none;
   &:hover {
     cursor: pointer;
   }

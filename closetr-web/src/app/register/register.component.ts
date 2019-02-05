@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
       'passwordConfirm':''
     }
 
-    if (this.authenticationService.currentUser) {
+    if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/dashboard']);
     }
   }

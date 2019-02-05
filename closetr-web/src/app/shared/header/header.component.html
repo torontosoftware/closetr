@@ -1,8 +1,8 @@
 <div class='row row-mgn-reset nav-row' [hidden]='isHidden'>
   <div class='col-2'>
-      <a class='user-icon' routerLink='/login'>
+      <button class='user-icon' (click)="logout()">
         <img src='./assets/images/girl.png' class='user-img'/>
-      </a>
+      </button>
   </div>
   <div class='col-2 offset-8'>
       <a class='closetr-logo pull-right' routerLink='/dashboard'>
