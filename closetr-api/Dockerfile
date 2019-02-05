@@ -2,16 +2,16 @@
 FROM node:8
 
 # Create app directory
-WORKDIR /app
+WORKDIR /app/
 
 # Install app dependencies
-COPY package*.json /app
+COPY package*.json /app/
 
 # install node modules
 RUN npm install
 
 # Bundle app course
-COPY . /app
+COPY . /app/
 
 # App connects internally to container port 8080
 EXPOSE 8080
