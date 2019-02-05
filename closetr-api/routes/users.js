@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const config = require('../config');
+
 // users schema
 const users = require('../models/users.model');
 
