@@ -62,7 +62,14 @@ router.post('/register', function(req, res, next) {
           const token = jwt.sign({id: doc._id}, 'secret', {
             expiresIn: 86400
           });
+          const user = {
+            userID: doc.userID,
+            userName: doc.userName,
+            id: doc._id,
+            token: token
+          }
           const result_json = {
+            data: user,
             status: 'success',
             auth: true,
             token: token
@@ -104,7 +111,14 @@ router.post('/login', function(req, res, next) {
           const token = jwt.sign({id: doc._id}, 'secret', {
             expiresIn: 86400
           });
+          const user = {
+            userID: doc[0].userID,
+            userName: doc[0].userName,
+            id: doc[0]._id,
+            token: token
+          }
           const result_json = {
+            data: user,
             status: 200,
             auth: true,
             token: token

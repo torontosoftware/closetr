@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
+import { User } from '../models/user.model';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +22,10 @@ export class LoginComponent implements OnInit {
     this.password = "";
     this.showLoginError = false;
     this.authenticationService = authenticationservice;
+
+    if (this.authenticationService.currentUserValue) {
+      this.router.navigate(['/dashboard']);
+    }
   }
 
   ngOnInit() {
@@ -47,16 +53,16 @@ export class LoginComponent implements OnInit {
       userPassword: this.password
     };
 
-    this.authenticationService.login(loginData).subscribe(
-      (data: any) => {
-        var canLogin = data.auth && data.token;
-        if (canLogin) {
+    this.authenticationService.login(loginData)
+      .pipe(first())
+      .subscribe(
+        data => {
           this.router.navigate(['/dashboard']);
-        } else {
-          this.showLoginError = true;
+        },
+        error => {
+          console.log(error);
         }
-      }, error => { }
-    );
+      );
 
   }
 
