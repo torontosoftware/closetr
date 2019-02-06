@@ -10,19 +10,21 @@ import { LogOutfitComponent } from './today-widget/log-outfit/log-outfit.compone
 import { SpendingManageComponent } from './spending-manage/spending-manage.component';
 import { BudgetManageComponent } from './budget-manage/budget-manage.component';
 import { AppComponent } from './app.component';
-
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: '', canActivate:[AuthGuard], children: [
+    {path: '', redirectTo: '/login', pathMatch: 'full'},
+    {path: 'log-outfit', component: LogOutfitComponent},
+    {path: 'dashboard', component: DashboardComponent},
+    {path: 'add-clothing', component: AddClothingComponent},
+    {path: 'closet-manage', component: ClosetManageComponent},
+    {path: 'edit-clothing/:id', component: EditClothingComponent},
+    {path: 'spending-manage', component: SpendingManageComponent},
+    {path: 'budget-manage', component: BudgetManageComponent}
+  ]},
   {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'log-outfit', component: LogOutfitComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'add-clothing', component: AddClothingComponent},
-  {path: 'closet-manage', component: ClosetManageComponent},
-  {path: 'edit-clothing/:id', component: EditClothingComponent},
-  {path: 'spending-manage', component: SpendingManageComponent},
-  {path: 'budget-manage', component: BudgetManageComponent}
+  {path: 'register', component: RegisterComponent}
 ];
 
 @NgModule({

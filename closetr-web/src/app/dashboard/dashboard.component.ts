@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 export class DashboardComponent implements OnInit {
   currentUserSubscription: Subscription;
   currentUser: User;
-  
+
   constructor(private authenticationService: AuthenticationService) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
       user => {
