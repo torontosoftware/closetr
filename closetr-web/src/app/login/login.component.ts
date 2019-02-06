@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   enableLogin: boolean;
   showLoginError: boolean;
   authenticationService: AuthenticationService;
+  show : boolean;
 
   constructor(private router: Router,
               private authenticationservice: AuthenticationService) {
@@ -22,9 +23,11 @@ export class LoginComponent implements OnInit {
     this.password = "";
     this.showLoginError = false;
     this.authenticationService = authenticationservice;
-
+    this.show = false;
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/dashboard']);
+    } else {
+      this.show = true;
     }
   }
 

@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
   errorMessage: any;
   userService: UserService;
   authenticationService: AuthenticationService;
+  show: boolean;
 
   constructor(private router: Router,
               private userservice: UserService,
@@ -29,6 +30,7 @@ export class RegisterComponent implements OnInit {
     this.userExists = false;
     this.userService = userservice;
     this.authenticationService = authenticationservice;
+    this.show = false;
 
     this.errorMessage = {
       'name':'',
@@ -39,6 +41,8 @@ export class RegisterComponent implements OnInit {
 
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/dashboard']);
+    } else {
+      this.show = true;
     }
   }
 
