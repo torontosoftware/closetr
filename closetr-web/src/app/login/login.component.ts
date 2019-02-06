@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
+import { User } from '../models/user.model';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +15,7 @@ export class LoginComponent implements OnInit {
   enableLogin: boolean;
   showLoginError: boolean;
   authenticationService: AuthenticationService;
+  show : boolean;
 
   constructor(private router: Router,
               private authenticationservice: AuthenticationService) {
@@ -20,6 +23,12 @@ export class LoginComponent implements OnInit {
     this.password = "";
     this.showLoginError = false;
     this.authenticationService = authenticationservice;
+    this.show = false;
+    if (this.authenticationService.currentUserValue) {
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.show = true;
+    }
   }
 
   ngOnInit() {
@@ -47,16 +56,18 @@ export class LoginComponent implements OnInit {
       userPassword: this.password
     };
 
-    this.authenticationService.login(loginData).subscribe(
-      (data: any) => {
-        var canLogin = data.data;
-        if (canLogin) {
-          this.router.navigate(['/dashboard']);
-        } else {
-          this.showLoginError = true;
-        }
-      }, error => { }
-    );
+    this.authenticationService.login(loginData)
+      .pipe(first())
+      .subscribe(
+        data => {
+          if (data) {
+            this.router.navigate(['/dashboard']);
+          } else {
+            this.showLoginError = true;
+          }
+        },
+        error => { }
+      );
 
   }
 

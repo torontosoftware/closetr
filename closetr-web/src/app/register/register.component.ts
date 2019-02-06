@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -16,21 +17,32 @@ export class RegisterComponent implements OnInit {
   userExists: boolean;
   errorMessage: any;
   userService: UserService;
+  authenticationService: AuthenticationService;
+  show: boolean;
 
   constructor(private router: Router,
-              private userservice: UserService) {
+              private userservice: UserService,
+              private authenticationservice: AuthenticationService) {
     this.name = "";
     this.username = "";
     this.password = "";
     this.passwordConfirm = "";
     this.userExists = false;
     this.userService = userservice;
+    this.authenticationService = authenticationservice;
+    this.show = false;
 
     this.errorMessage = {
       'name':'',
       'username':'',
       'password':'',
       'passwordConfirm':''
+    }
+
+    if (this.authenticationService.currentUserValue) {
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.show = true;
     }
   }
 
@@ -111,7 +123,8 @@ export class RegisterComponent implements OnInit {
     }
     this.userService.register(params).subscribe(
       (data: any) => {
-        var isRegistered = data.data;
+        console.log(data);
+        var isRegistered = data.auth;
         if (isRegistered) {
           this.router.navigate(['/dashboard']);
         } else {
