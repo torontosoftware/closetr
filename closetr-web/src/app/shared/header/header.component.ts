@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -11,13 +10,10 @@ import { AuthenticationService } from '../../services/authentication.service';
 export class HeaderComponent implements OnInit {
   currUrl: string;
   isHidden: boolean;
-  authenticationService: AuthenticationService;
   showMenu: boolean;
 
   constructor(private router: Router,
-              private location: Location,
-              private authenticationservice: AuthenticationService) {
-      this.authenticationService = authenticationservice;
+              private location: Location) {
       router.events.subscribe((val) => {
         this.currUrl = this.location.path();
         this.checkHidden();
@@ -36,11 +32,6 @@ export class HeaderComponent implements OnInit {
 
   toggleMenu(): void {
     this.showMenu = !this.showMenu;
-  }
-
-  logout(): void {
-    this.authenticationService.logout();
-    this.router.navigate(['/login']);
   }
 
   ngOnInit() {

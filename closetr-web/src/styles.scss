@@ -883,7 +883,9 @@ router-outlet ~ * {
     left: calc(17% + 8px);
   }
   & .menu-item {
-    @extend .f-light-blue-md;
+    & button {
+      @extend .f-light-blue-md;
+    }
     list-style: none;
     position: relative;
     top: 5px;
