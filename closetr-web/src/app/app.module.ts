@@ -37,6 +37,7 @@ import { RoutesService } from './services/routes.service';
 import { UserService } from './services/user.service';
 import { AuthenticationService } from './services/authentication.service';
 import { DateFormatService } from './services/utils/date-format.service';
+import { UserMenuComponent } from './shared/user-menu/user-menu.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { DateFormatService } from './services/utils/date-format.service';
     LoginComponent,
     HeaderComponent,
     RegisterComponent,
-    DateRangeFilterPipe
+    DateRangeFilterPipe,
+    UserMenuComponent
   ],
   imports: [
     BrowserModule,
