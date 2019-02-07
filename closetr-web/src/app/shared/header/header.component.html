@@ -10,4 +10,4 @@
       </a>
   </div>
 </div>
-<app-user-menu *ngIf="showMenu"></app-user-menu>
+<app-user-menu *ngIf="showMenu" (closeUserMenuEmit)="toggleMenu()"></app-user-menu>
