@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
   currUrl: string;
   isHidden: boolean;
   authenticationService: AuthenticationService;
+  showMenu: boolean;
 
   constructor(private router: Router,
               private location: Location,
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
         this.currUrl = this.location.path();
         this.checkHidden();
       });
+      this.showMenu = false;
   }
 
   checkHidden(): void {
@@ -30,6 +32,10 @@ export class HeaderComponent implements OnInit {
       ) {
       this.isHidden = true;
     }
+  }
+
+  toggleMenu(): void {
+    this.showMenu = !this.showMenu;
   }
 
   logout(): void {
