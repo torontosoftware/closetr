@@ -9,6 +9,7 @@ import { EditClothingComponent } from './edit-clothing/edit-clothing.component';
 import { LogOutfitComponent } from './today-widget/log-outfit/log-outfit.component';
 import { SpendingManageComponent } from './spending-manage/spending-manage.component';
 import { BudgetManageComponent } from './budget-manage/budget-manage.component';
+import { ProfileComponent } from './profile/profile.component';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth.guard';
 
@@ -21,7 +22,8 @@ const routes: Routes = [
     {path: 'closet-manage', component: ClosetManageComponent},
     {path: 'edit-clothing/:id', component: EditClothingComponent},
     {path: 'spending-manage', component: SpendingManageComponent},
-    {path: 'budget-manage', component: BudgetManageComponent}
+    {path: 'budget-manage', component: BudgetManageComponent},
+    {path: 'profile', component: ProfileComponent}
   ]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent}

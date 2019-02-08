@@ -26,9 +26,9 @@ export class UserMenuComponent implements OnInit {
   navClick(url: string): void {
     switch (url) {
       case '/profile':
-      case '/settings':
-        //this.router.navigate([url]);
-        //this.close();
+      //case '/settings':
+        this.close();
+        this.router.navigate([url]);
         break;
       case '/sign-out':
         this.logout();
