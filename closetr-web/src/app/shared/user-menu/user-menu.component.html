@@ -1,0 +1,19 @@
+<div class="nav-popup-container" (click)="close()">
+</div>
+<div class="container-fluid nav-popup" id="user-menu">
+  <div class="row">
+    <div class="col-12">
+      <ul>
+        <li class="menu-item">
+          <button class="btn btn-transparent" (click)="navClick('/profile')">My Profile</button>
+        </li>
+        <li class="menu-item">
+          <button class="btn btn-transparent" (click)="navClick('/settings')">Settings</button>
+        </li>
+        <li class="menu-item">
+          <button class="btn btn-transparent" (click)="navClick('/sign-out')">Sign Out</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

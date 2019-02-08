@@ -1,6 +1,6 @@
 <div class='row row-mgn-reset nav-row' [hidden]='isHidden'>
   <div class='col-2'>
-      <button class='user-icon' (click)="logout()">
+      <button class='user-icon' (click)="toggleMenu()">
         <img src='./assets/images/girl.png' class='user-img'/>
       </button>
   </div>
@@ -10,3 +10,4 @@
       </a>
   </div>
 </div>
+<app-user-menu *ngIf="showMenu" (closeUserMenuEmit)="toggleMenu()"></app-user-menu>

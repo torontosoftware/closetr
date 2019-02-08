@@ -13,6 +13,12 @@ $slow-ease: 0.7s ease all;
 $mid-ease: 0.5s ease all;
 $fast-ease: 0.3s ease all;
 
+//z-index
+$z-nav-popup-container: 1;
+$z-nav-row: 2;
+$z-nav-popup: 3;
+
+
 // animations
 @keyframes fade-in {
   0%   { opacity: 0; }
@@ -32,11 +38,11 @@ $fast-ease: 0.3s ease all;
 
 @keyframes fade-from-up {
   0% {
-    transform: translateY(0);
+    transform: translateY(-3%);
     opacity: 0;
   }
   100% {
-    transform: translateY(-3%);
+    transform: translateY(0%);
     opacity: 1;
   }
 }
