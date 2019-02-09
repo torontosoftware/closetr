@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
+import { ClosetService } from '../services/closet.service';
+import { DateFormatService } from '../services/utils/date-format.service';
+import { DateRangeFilterPipe } from '../pipes/date-range-filter.pipe';
 
 @Component({
   selector: 'app-spending-manage',
@@ -7,34 +10,33 @@ import { RouterModule, Routes, Router } from '@angular/router';
   styleUrls: ['./spending-manage.component.scss']
 })
 export class SpendingManageComponent implements OnInit {
-  purchaseList: object;
+  closetList: object;
   isDateRange: boolean;
-  searchCriteria: object;
+  searchCriteria: any
   availableDateRange: any;
+  closetService: ClosetService;
+  dateFormatService: DateFormatService;
 
-  constructor(private router: Router) {
-    this.purchaseList = [
-      {price:'$15',name:'Aritzia TShirt'},
-      {price: '$399', name:'The Stowe Bag'},
-      {price: '13', name:'UO Blouse'},
-      {price:'$35',name:'Uniqlo Sweater'},
-      {price:'$5',name:'Uniqlo Socks'},
-      {price:'$15',name:'Aritzia TShirt'},
-      {price:'$35',name:'Uniqlo Sweater'},
-      {price: '$399', name:'The Stowe Bag'},
-      {price: '13', name:'UO Blouse'},
-      {price:'$35',name:'Uniqlo Sweater'},
-      {price:'$5',name:'Uniqlo Socks'},
-      {price:'$15',name:'Aritzia TShirt'}
-    ];
+  constructor(private router: Router,
+              private closetservice: ClosetService,
+              private dateformatservice: DateFormatService) {
+
+    this.closetService = closetservice;
+    this.dateFormatService = dateformatservice;
+
+    this.getAllClothes();
 
     this.searchCriteria = {
-      dateRange: "last month",
+      property: "clothingPurchaseDate",
+      dateRangeFor: "last month",
       dateFrom: new Date(),
-      dateTo: new Date()
+      dateTo: new Date(),
+      dateFromFormatted: this.dateFormatService.formatDateString(new Date()),
+      dateToFormatted: this.dateFormatService.formatDateString(new Date())
     };
 
     this.isDateRange = false;
+    this.searchCriteriaChangeHandler();
 
     this.availableDateRange = [
       'last week',
@@ -43,16 +45,42 @@ export class SpendingManageComponent implements OnInit {
       'last 6 months',
       'last year'
     ];
+
   }
 
-  searchCriteriaChange(): void {
+  ngOnInit() {
+  }
+
+  searchCriteriaChangeHandler(): void {
+    if (this.isDateRange) {
+      // choosing date range: turn string format to date object.
+      this.searchCriteria.dateFrom = this.dateFormatService.formatStringDate(this.searchCriteria.dateFromFormatted);
+      this.searchCriteria.dateTo = this.dateFormatService.formatStringDate(this.searchCriteria.dateToFormatted);
+    } else {
+      // choosing date range up to today:
+      // set date objects, then set string format from date objects.
+      this.searchCriteria.dateFrom = this.dateFormatService.dateRangeForFrom(this.searchCriteria.dateRangeFor);
+      this.searchCriteria.dateTo = new Date();
+
+      this.searchCriteria.dateFromFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateFrom);
+      this.searchCriteria.dateToFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateTo);
+    }
   }
 
   back(): void {
     this.router.navigate(['/dashboard']);
   }
 
-  ngOnInit() {
+  /*
+  Helper function to get all clothes from database and update local
+  closetList.
+  */
+  getAllClothes(): void {
+    this.closetService.getAllClothes().subscribe(
+      (data: any) => {
+        this.closetList = data.data;
+      }, error => {}
+    );
   }
 
 }

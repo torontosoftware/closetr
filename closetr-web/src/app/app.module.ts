@@ -28,6 +28,7 @@ import { RegisterComponent } from './register/register.component';
 
 //pipes
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
+import { DateRangeFilterPipe } from './pipes/date-range-filter.pipe';
 
 //services
 import { ClosetService } from './services/closet.service';
@@ -35,6 +36,7 @@ import { LogOutfitService } from './services/log-outfit.service';
 import { RoutesService } from './services/routes.service';
 import { UserService } from './services/user.service';
 import { AuthenticationService } from './services/authentication.service';
+import { DateFormatService } from './services/utils/date-format.service';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,8 @@ import { AuthenticationService } from './services/authentication.service';
     BudgetManageComponent,
     LoginComponent,
     HeaderComponent,
-    RegisterComponent
+    RegisterComponent,
+    DateRangeFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -68,7 +71,8 @@ import { AuthenticationService } from './services/authentication.service';
     LogOutfitService,
     RoutesService,
     UserService,
-    AuthenticationService
+    AuthenticationService,
+    DateFormatService
   ],
   bootstrap: [AppComponent]
 })

@@ -790,7 +790,13 @@ closet card components
   @extend .mtb-15;
   overflow-y: scroll;
   --webkit-overflow-scrolling: touch;
-  height: 40vh;
+  max-height: 40vh;
+  /*
+  & tr {
+    &:nth-child(odd) {
+      background-color: $light-blue-grey;
+    }
+  }*/
 }
 
 .purchase-list-cost {
