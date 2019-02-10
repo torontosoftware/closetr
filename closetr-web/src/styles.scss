@@ -882,6 +882,9 @@ router-outlet ~ * {
   @include lg {
     left: calc(17% + 8px);
   }
+  @include xl {
+    left: calc(22% + 3px);
+  }
   & .menu-item {
     & button {
       @extend .f-light-blue-md;
