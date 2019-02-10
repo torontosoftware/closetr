@@ -8,7 +8,7 @@ import { RouterModule, Routes, Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   user: any;
-  constructor() {
+  constructor(private router: Router) {
     this.user = {
       'userID':'fideslinga',
       'userName': 'Fides Linga',
