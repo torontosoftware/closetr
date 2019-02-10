@@ -1,25 +1,9 @@
-# build from node image (version 8)
-FROM node:8
+# Build off NGINX image (alphine version makes it lightweight)
+FROM nginx:alpine
 
-# Create app directory
-RUN mkdir /app/
-WORKDIR /app/
+# Copy config file
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# add .bin in node modules folder to path
-ENV PATH /app/node_modules/.bin:$PATH
-
-# Install app dependencies
-COPY package*.json /app/
-
-# install node modules and angular
-RUN npm install
-RUN npm install -g @angular/cli@7.0.4
-
-# copy files to container
-COPY . /app/
-
-# App connects internally to container port 4200
-EXPOSE 4200
-
-# Start the app in the container
-CMD [ "npm", "start" ]
+# Set working directory and copy PROD build of the angular project
+WORKDIR /usr/share/nginx/html/
+COPY dist/ /usr/share/nginx/html/
