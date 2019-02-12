@@ -5,6 +5,7 @@ export class Clothing {
   clothingCost: number;
   clothingCategory: string;
   clothingPurchaseDate: string;
+  userID: string;
 
   static clothingCategories = [
     "Top",
@@ -17,14 +18,15 @@ export class Clothing {
     "Accesory"
   ];
 
-  constructor(clothing: Clothing = {} as Clothing) {
+  constructor(clothing: any = {} as any) {
     let {
       clothingID = null,
       clothingName = '',
       clothingWorn = 0,
       clothingCost = 0,
       clothingCategory = 'Top',
-      clothingPurchaseDate = ''
+      clothingPurchaseDate = '',
+      userID = ''
     } = clothing;
 
     this.clothingID = clothingID;
@@ -33,6 +35,7 @@ export class Clothing {
     this.clothingCost = clothingCost;
     this.clothingCategory = clothingCategory;
     this.clothingPurchaseDate = clothingPurchaseDate;
+    this.userID = userID;
   }
 
   /*
@@ -59,7 +62,7 @@ export class Clothing {
   /*
   set clothingName
   */
-  setClothingName(clothingName: string): void{
+  setClothingName(clothingName: string): void {
     this.clothingName = clothingName;
   }
 
@@ -73,7 +76,7 @@ export class Clothing {
   /*
   set clothingWorn (number of times clothing item has been worn)
   */
-  setClothingWorn(clothingWorn: number): void{
+  setClothingWorn(clothingWorn: number): void {
     this.clothingWorn = clothingWorn;
   }
 
@@ -87,7 +90,7 @@ export class Clothing {
   /*
   set clothingCost
   */
-  setClothingCost(clothingCost: number): void{
+  setClothingCost(clothingCost: number): void {
     this.clothingCost = clothingCost;
   }
 
@@ -101,7 +104,7 @@ export class Clothing {
   /*
   set clothingCategory
   */
-  setClothingCategory(clothingCategory: string): void{
+  setClothingCategory(clothingCategory: string): void {
     this.clothingCategory = clothingCategory;
   }
 
@@ -115,8 +118,22 @@ export class Clothing {
   /*
   set clothingPurchaseDate
   */
-  setClothingPurchaseDate(clothingPurchaseDate: string): void{
+  setClothingPurchaseDate(clothingPurchaseDate: string): void {
     this.clothingPurchaseDate = clothingPurchaseDate;
+  }
+
+  /*
+  set userID
+  */
+  setUserID(userID: string): void {
+    this.userID = userID;
+  }
+
+  /*
+  get userID
+  */
+  getUserID(): string {
+    return this.userID;
   }
 
   /*
@@ -125,6 +142,7 @@ export class Clothing {
   static getClothingCategories(): Array<string> {
     return this.clothingCategories;
   }
+
 
   /*
   Returns true if clothing object should be able to be saved.

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { ClosetService } from '../services/closet.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { DateFormatService } from '../services/utils/date-format.service';
 import { DateRangeFilterPipe } from '../pipes/date-range-filter.pipe';
 import { Clothing } from '../models/clothing.model';
+import { User } from '../models/user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-spending-manage',
@@ -15,17 +18,13 @@ export class SpendingManageComponent implements OnInit {
   isDateRange: boolean;
   searchCriteria: any
   availableDateRange: any;
-  closetService: ClosetService;
-  dateFormatService: DateFormatService;
+  currentUserSubscription: Subscription;
+  currentUser: User;
 
   constructor(private router: Router,
-              private closetservice: ClosetService,
-              private dateformatservice: DateFormatService) {
-
-    this.closetService = closetservice;
-    this.dateFormatService = dateformatservice;
-
-    this.getAllClothes();
+              private closetService: ClosetService,
+              private dateFormatService: DateFormatService,
+              private authenticationService: AuthenticationService) {
 
     this.searchCriteria = {
       property: "clothingPurchaseDate",
@@ -50,6 +49,12 @@ export class SpendingManageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
+      user => {
+        this.currentUser = user;
+        this.getAllClothes();
+      }
+    )
   }
 
   searchCriteriaChangeHandler(): void {
@@ -77,7 +82,7 @@ export class SpendingManageComponent implements OnInit {
   closetList.
   */
   getAllClothes(): void {
-    this.closetService.getAllClothes().subscribe(
+    this.closetService.getAllClothes(this.currentUser).subscribe(
       (data: any) => {
         this.closetList = data.data;
         for (let i in this.closetList) {
