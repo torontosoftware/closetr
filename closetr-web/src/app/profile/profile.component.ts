@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
+import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
 import { Subscription } from 'rxjs';
 
@@ -15,7 +16,8 @@ export class ProfileComponent implements OnInit {
   currentUser: User;
 
   constructor(private router: Router,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private userService: UserService) {
     this.editMode = false;
     this.currentUser = new User();
   }
@@ -38,6 +40,13 @@ export class ProfileComponent implements OnInit {
   */
   back(): void {
     this.router.navigate(['/dashboard']);
+  }
+
+  /*
+  Saves updated user into database.
+  */
+  save(): void {
+    this.userService.update(this.currentUser);
   }
 
   /*
