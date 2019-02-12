@@ -71,7 +71,7 @@ export class LogOutfitComponent implements OnInit {
     this.editMode = false;
     this.logOutfitService = logoutfitservice;
     this.closetService = closetservice;
-    this.closetList = this.closetService.getAllClothes();
+    this.closetList = this.closetService.getAllClothes('newfides');
     this.outfitClothingList = this.logOutfitService.getAllOutfitClothes();
 
   }

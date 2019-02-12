@@ -52,7 +52,7 @@ export class ClosetManageComponent implements OnInit {
   closetList.
   */
   getAllClothes(): void {
-    this.closetService.getAllClothes().subscribe(
+    this.closetService.getAllClothes('newfides').subscribe(
       (data: any) => {
         this.closetList = data.data;
         for (let i in this.closetList) {

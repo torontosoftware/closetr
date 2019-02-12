@@ -13,7 +13,7 @@ export class ClosetWidgetComponent implements OnInit {
 
   constructor(private closetservice: ClosetService) {
     this.closetService = closetservice;
-    this.closetService.getAllClothes().subscribe(
+    this.closetService.getAllClothes('newfides').subscribe(
       (data: any) => {
         this.closetList = data.data;
         for (let i in this.closetList) {
