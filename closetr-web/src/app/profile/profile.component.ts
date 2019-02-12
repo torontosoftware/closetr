@@ -8,6 +8,8 @@ import { RouterModule, Routes, Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   user: any;
+  editMode: boolean;
+
   constructor(private router: Router) {
     this.user = {
       'userID':'fideslinga',
@@ -15,6 +17,7 @@ export class ProfileComponent implements OnInit {
       'userPassword': 'password',
       'userDesc': 'A girl that is addicted to clothes.'
     };
+    this.editMode = false;
   }
 
   checkSubmit(): boolean {
@@ -26,6 +29,13 @@ export class ProfileComponent implements OnInit {
   */
   back(): void {
     this.router.navigate(['/dashboard']);
+  }
+
+  /*
+  Toggle edit mode
+  */
+  toggleEditMode(): void {
+    this.editMode = !this.editMode;
   }
 
   ngOnInit() {

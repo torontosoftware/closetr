@@ -36,7 +36,8 @@
             </div>
             <div class="col-12">
               <input type="text" class="form-control input-clean"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="user.userID">
+              (ngModelChange)="checkSubmit()" [(ngModel)]="user.userID"
+              [disabled]="!editMode">
             </div>
           </div>
           <div class="row mtb-10">
@@ -45,7 +46,8 @@
             </div>
             <div class="col-12">
               <input type="text" class="form-control input-clean"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="user.userName">
+              (ngModelChange)="checkSubmit()" [(ngModel)]="user.userName"
+              [disabled]="!editMode">
             </div>
           </div>
           <div class="row mtb-10">
@@ -54,7 +56,8 @@
             </div>
             <div class="col-12">
               <textarea rows="5" class="form-control input-clean"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="user.userDesc">
+              (ngModelChange)="checkSubmit()" [(ngModel)]="user.userDesc"
+              [disabled]="!editMode">
               </textarea>
             </div>
           </div>
@@ -64,7 +67,8 @@
             </div>
             <div class="col-12">
               <input type="password" step="0.01" class="form-control input-clean"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="user.userPassword">
+              (ngModelChange)="checkSubmit()" [(ngModel)]="user.userPassword"
+              [disabled]="!editMode">
             </div>
           </div>
         </div>
