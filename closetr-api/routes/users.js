@@ -8,6 +8,41 @@ const bcrypt = require('bcryptjs');
 // users schema
 const users = require('../models/users.model');
 
+
+/* API updates one user */
+router.post('/update', function(req, res, next) {
+  // gather attributes from request
+  var user = req.body.user;
+  const newItem = {
+    'userID': user.userID,
+    'userName':user.userName,
+    'userDesc':user.userDesc
+  };
+
+  // create new clothing from clothes schema
+  clothes.findOneAndUpdate(
+    {_id: newItem._id},
+    newItem,
+    {upsert: true, new: true, runValidators: true},
+    function (err, doc) {
+      if (err) {
+        const result_json = {
+          status: 'failed',
+          message: err.message
+        };
+        res.json(result_json);
+      } else {
+        const result_json = {
+          status: 'success',
+          data: doc
+        };
+        res.json(result_json);
+      }
+    }
+  );
+});
+
+
 /* API sets one new user clothing */
 router.post('/register', function(req, res, next) {
   // gather attributes from request
