@@ -2,7 +2,11 @@ import { Component, OnInit} from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { LogOutfitService } from '../../services/log-outfit.service';
 import { ClosetService } from '../../services/closet.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { SearchFilterPipe } from '../../pipes/search-filter.pipe';
+import { Clothing } from '../../models/clothing.model';
+import { User } from '../../models/user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-log-outfit',
@@ -12,11 +16,28 @@ import { SearchFilterPipe } from '../../pipes/search-filter.pipe';
 
 export class LogOutfitComponent implements OnInit {
   outfitClothingList: any;
-  logOutfitService: LogOutfitService;
   closetList: any;
-  closetService: ClosetService;
   editMode : boolean;
   searchText: String;
+  currentUserSubscription: Subscription;
+  currentUser: User;
+
+  constructor(private router: Router,
+              private logOutfitService: LogOutfitService,
+              private closetService: ClosetService,
+              private authenticationService: AuthenticationService) {
+    this.editMode = false;
+  }
+
+  ngOnInit() {
+    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
+      user => {
+        this.currentUser = user;
+        this.getAllClothes();
+      }
+    )
+    this.outfitClothingList = this.logOutfitService.getAllOutfitClothes();
+  }
 
   toggleEditMode(): void {
     this.editMode = !this.editMode;
@@ -65,18 +86,16 @@ export class LogOutfitComponent implements OnInit {
     delete this.outfitClothingList[clothingID];
   }
 
-  constructor(private router: Router,
-              private logoutfitservice: LogOutfitService,
-              private closetservice: ClosetService) {
-    this.editMode = false;
-    this.logOutfitService = logoutfitservice;
-    this.closetService = closetservice;
-    this.closetList = this.closetService.getAllClothes('newfides');
-    this.outfitClothingList = this.logOutfitService.getAllOutfitClothes();
-
-  }
-
-  ngOnInit() {
+  getAllClothes(): void {
+    this.closetService.getAllClothes(this.currentUser).subscribe(
+      (data: any) => {
+        this.closetList = data.data;
+        for (let i in this.closetList) {
+          this.closetList[i] = new Clothing(this.closetList[i]);
+        }
+      },
+      error => { }
+    );
   }
 
 }
