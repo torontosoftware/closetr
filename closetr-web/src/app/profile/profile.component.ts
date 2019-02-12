@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
+import { User } from '../models/user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -7,17 +10,25 @@ import { RouterModule, Routes, Router } from '@angular/router';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  user: any;
   editMode: boolean;
+  currentUserSubscription: Subscription;
+  currentUser: User;
 
-  constructor(private router: Router) {
-    this.user = {
-      'userID':'fideslinga',
-      'userName': 'Fides Linga',
-      'userPassword': 'password',
-      'userDesc': 'A girl that is addicted to clothes.'
-    };
+  constructor(private router: Router,
+              private authenticationService: AuthenticationService) {
     this.editMode = false;
+    console.log("this.currentUser f");
+    //this.currentUser = 'new User()';
+  }
+
+  ngOnInit() {
+    console.log("this.currentUser");
+    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
+      user => {
+        this.currentUser = user;
+        console.log(this.currentUser);
+      }
+    )
   }
 
   checkSubmit(): boolean {
@@ -35,10 +46,9 @@ export class ProfileComponent implements OnInit {
   Toggle edit mode
   */
   toggleEditMode(): void {
+    console.log(this.currentUser);
     this.editMode = !this.editMode;
   }
 
-  ngOnInit() {
-  }
 
 }

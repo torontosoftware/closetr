@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12">
       <div class="widget-full">
-        <div class="container-fluid">
+        <div class="container-fluid" *ngIf="currentUser">
           <div class="row">
             <div class="col-6">
               <button class="btn btn-transparent btn-back" (click)="back()">
@@ -36,8 +36,8 @@
             </div>
             <div class="col-12">
               <input type="text" class="form-control input-clean"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="user.userID"
-              [disabled]="!editMode">
+              (ngModelChange)="checkSubmit()" [(ngModel)]="currentUser.userID"
+              [disabled]="true">
             </div>
           </div>
           <div class="row mtb-10">
@@ -46,7 +46,7 @@
             </div>
             <div class="col-12">
               <input type="text" class="form-control input-clean"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="user.userName"
+              (ngModelChange)="checkSubmit()" [(ngModel)]="currentUser.userName"
               [disabled]="!editMode">
             </div>
           </div>
@@ -56,7 +56,7 @@
             </div>
             <div class="col-12">
               <textarea rows="5" class="form-control input-clean"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="user.userDesc"
+              (ngModelChange)="checkSubmit()" [(ngModel)]="currentUser.userDesc"
               [disabled]="!editMode">
               </textarea>
             </div>
@@ -67,8 +67,8 @@
             </div>
             <div class="col-12">
               <input type="password" step="0.01" class="form-control input-clean"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="user.userPassword"
-              [disabled]="!editMode">
+              (ngModelChange)="checkSubmit()" [(ngModel)]="currentUser.userPassword"
+              [disabled]="true">
             </div>
           </div>
         </div>

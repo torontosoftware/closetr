@@ -3,6 +3,7 @@ export class User {
   userID: string;
   userName: string;
   userPassword: string;
+  userDesc: string;
   token: string;
 
   constructor(user: User = {} as User) {
@@ -11,6 +12,7 @@ export class User {
       userID = '',
       userName = '',
       userPassword = '',
+      userDesc = '',
       token = ''
     } = user;
 
@@ -18,6 +20,7 @@ export class User {
     this.userID = userID;
     this.userName = userName;
     this.userPassword = userPassword;
+    this.userDesc = userDesc;
     this.token = token;
   }
 }
