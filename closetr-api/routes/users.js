@@ -13,33 +13,52 @@ const users = require('../models/users.model');
 router.post('/update', function(req, res, next) {
   // gather attributes from request
   var user = req.body.user;
+  var error = false;
+
   const newItem = {
     'userID': user.userID,
     'userName':user.userName,
     'userDesc':user.userDesc
   };
 
-  // create new clothing from clothes schema
-  clothes.findOneAndUpdate(
-    {_id: newItem._id},
-    newItem,
-    {upsert: true, new: true, runValidators: true},
-    function (err, doc) {
-      if (err) {
-        const result_json = {
-          status: 'failed',
-          message: err.message
-        };
-        res.json(result_json);
-      } else {
-        const result_json = {
-          status: 'success',
-          data: doc
-        };
-        res.json(result_json);
-      }
+  jwt.verify(user.token, 'secret', function(err, decoded) {
+    if (err) {
+      const result_json = {
+        status: 'failed',
+        message: 'Failed to authenticate token.'
+      };
+      res.json(result_json);
+      error = true;
+    } else {
+      req.decoded = decoded;
+      next();
+      updateUser();
     }
-  );
+  });
+
+  // create new clothing from clothes schema
+  function updateUser() {
+    users.findOneAndUpdate(
+      {_id: newItem._id},
+      newItem,
+      {upsert: true, new: true, runValidators: true},
+      function (err, doc) {
+        if (err) {
+          const result_json = {
+            status: 'failed',
+            message: err.message
+          };
+          res.json(result_json);
+        } else {
+          const result_json = {
+            status: 'success',
+            data: doc
+          };
+          res.json(result_json);
+        }
+      }
+    );
+  }
 });
 
 

@@ -46,7 +46,15 @@ export class ProfileComponent implements OnInit {
   Saves updated user into database.
   */
   save(): void {
-    this.userService.update(this.currentUser);
+    this.userService.update(this.currentUser).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.currentUser = data;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   /*
