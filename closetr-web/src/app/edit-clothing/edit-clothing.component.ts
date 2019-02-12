@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ClosetService } from '../services/closet.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { Clothing } from '../models/clothing.model';
+import { User } from '../models/user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit-clothing',
@@ -10,21 +13,29 @@ import { Clothing } from '../models/clothing.model';
 })
 export class EditClothingComponent implements OnInit {
   clothing: Clothing;
-  closetService: ClosetService;
   clothingCategories: Array<string>;
+  currentUserSubscription: Subscription;
+  currentUser: User;
 
-  constructor(private closetservice: ClosetService,
-              private router: Router) {
-      this.closetService = closetservice;
-      this.clothing = this.closetService.getClothingForEdit();
-      this.clothingCategories = Clothing.getClothingCategories();
+  constructor(private closetService: ClosetService,
+              private router: Router,
+              private authenticationService: AuthenticationService) {
 
-      if (!this.clothing) {
-        this.router.navigate(['/closet-manage']);
-      }
   }
 
   ngOnInit() {
+    this.clothing = this.closetService.getClothingForEdit();
+    this.clothingCategories = Clothing.getClothingCategories();
+
+    if (!this.clothing) {
+      this.router.navigate(['/closet-manage']);
+    }
+
+    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
+      user => {
+        this.currentUser = user;
+      }
+    )
   }
 
   /*

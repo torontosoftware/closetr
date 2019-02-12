@@ -61,9 +61,11 @@ export class ClosetService {
   clothing in the closet).
   */
   getAllClothes(user: User): any {
+    let userID = '';
+    if (user) userID = user.userID;
     const params = new HttpParams({
       fromObject: {
-        'userID': user.userID
+        'userID': userID
       }
     });
     return this.http.get('http://localhost:8080/api/clothes/all', {params});
