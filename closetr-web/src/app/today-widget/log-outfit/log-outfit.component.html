@@ -20,14 +20,13 @@
                     <i class="fas fa-pen"></i>
                   </span>
                 </button>
-                <button type="button"
-                class="btn text-bubble text-bubble-btn btn-fixed-width pull-right"
-                [hidden]="!editMode"
-                (click)="save()">
-                  <span class="f-med-white">
-                    save
-                  </span>
-                </button>
+                <ui-text-button
+                  [labelText]="'save'"
+                  [type]="'top-right'"
+                  [hidden]="!editMode"
+                  (click)="save()"
+                >
+                </ui-text-button>
               </div>
           </div>
           <div class="row">
@@ -65,13 +64,12 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <a routerLink="/add-clothing">
-              <button type="button" class="btn text-bubble text-bubble-btn">
-                <span class="f-med-white">
-                  add manually
-                </span>
-              </button>
-            </a>
+              <ui-text-button
+                [labelText]="'add manually'"
+                [type]="'full-width'"
+                [buttonLink]="'/add-clothing'"
+              >
+              </ui-text-button>
             </div>
           </div>
           <div class="row mtb-10">

@@ -52,13 +52,14 @@
              </span>
            </div>
            <div class='col-12'>
-             <button type="button" class="btn text-bubble text-bubble-btn mtb-10"
-             [disabled]="!checkEnableRegister()"
-             (click)="register()">
-               <span class="f-med-white">
-                 sign up
-               </span>
-             </button>
+             <ui-text-button
+               [labelText]="'sign up'"
+               [type]="'full-width'"
+               [disabled]="!checkEnableRegister()"
+               (click)="register()"
+               class="mtb-10"
+             >
+             </ui-text-button>
            </div>
            <div class='col-12'>
              <hr>

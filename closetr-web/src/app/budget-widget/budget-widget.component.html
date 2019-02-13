@@ -26,13 +26,12 @@
       </table>
     </div>
     <div class="col-12">
-      <a routerLink="/spending-manage">
-      <button type="button" class="btn text-bubble text-bubble-btn">
-        <span class="f-med-white">
-          manage spending
-        </span>
-      </button>
-    </a>
+      <ui-text-button
+        [labelText]="'manage spending'"
+        [type]="'full-width'"
+        [buttonLink]="'/spending-manage'"
+      >
+      </ui-text-button>
     </div>
   </div>
   <div class="row">

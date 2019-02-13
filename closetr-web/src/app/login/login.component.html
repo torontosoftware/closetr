@@ -26,25 +26,27 @@
              </span>
            </div>
            <div class='col-12'>
-             <button type="button" class="btn text-bubble text-bubble-btn mtb-15"
-             [disabled]="!checkEnableLogin()"
-             (click)="login()">
-               <span class="f-med-white">
-                 log in
-               </span>
-               </button>
+             <ui-text-button
+               [labelText]="'log in'"
+               [type]="'full-width'"
+               [disabled]="!checkEnableLogin()"
+               (click)="login()"
+               class="mtb-15"
+             >
+             </ui-text-button>
            </div>
            <div class='col-12'>
              <hr>
              <span class='f-light-blue'>
                Don't have an account yet? It's free!
              </span>
-             <button type="button" class="btn text-bubble text-bubble-btn mtb-10"
-             (click)="toSignUp()">
-               <span class="f-med-white">
-                 sign up
-               </span>
-             </button>
+             <ui-text-button
+              [labelText]="'sign up'"
+              [type]="'full-width'"
+              [buttonLink]="'/register'"
+              class="mtb-10"
+             >
+             </ui-text-button>
            </div>
          </div>
        </div>
