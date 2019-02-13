@@ -41,6 +41,7 @@ import { UserMenuComponent } from './shared/user-menu/user-menu.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UiInputComponent } from './shared/ui-input/ui-input.component';
 import { UiTextButtonComponent } from './shared/ui-text-button/ui-text-button.component';
+import { UiInputSelectComponent } from './shared/ui-input-select/ui-input-select.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { UiTextButtonComponent } from './shared/ui-text-button/ui-text-button.co
     UserMenuComponent,
     ProfileComponent,
     UiInputComponent,
-    UiTextButtonComponent
+    UiTextButtonComponent,
+    UiInputSelectComponent
   ],
   imports: [
     BrowserModule,
