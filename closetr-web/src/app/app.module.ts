@@ -40,6 +40,7 @@ import { DateFormatService } from './services/utils/date-format.service';
 import { UserMenuComponent } from './shared/user-menu/user-menu.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UiInputComponent } from './shared/ui-input/ui-input.component';
+import { UiTextButtonComponent } from './shared/ui-text-button/ui-text-button.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { UiInputComponent } from './shared/ui-input/ui-input.component';
     DateRangeFilterPipe,
     UserMenuComponent,
     ProfileComponent,
-    UiInputComponent
+    UiInputComponent,
+    UiTextButtonComponent
   ],
   imports: [
     BrowserModule,
