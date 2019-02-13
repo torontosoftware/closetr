@@ -35,19 +35,12 @@
             [placeholder]="'e.g. 15'"
             (inputModelChange)="checkSubmit()"
           ></ui-input>
-          <div class="row mtb-10">
-            <div class="col-12">
-              <span class="input-label">category</span>
-            </div>
-            <div class="col-12">
-              <select id="clothing-category"
-              class="form-control input-clean"
-              (ngModelChange)="checkSubmit()"
-              [(ngModel)]="clothing.clothingCategory">
-                <option *ngFor="let clothingCategory of clothingCategories" value="{{clothingCategory}}">{{clothingCategory}}</option>
-              </select>
-            </div>
-          </div>
+          <ui-input-select
+            [labelText]="'category'"
+            [(inputModel)]="clothing.clothingCategory"
+            (inputModelChange)="checkSubmit()"
+            [items]="clothingCategories"
+          ></ui-input-select>
           <ui-input
             [labelText]="'worn'"
             [type]="'number'"
