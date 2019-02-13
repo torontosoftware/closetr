@@ -1,3 +1,9 @@
-<p>
-  ui-input works!
-</p>
+<div class="row mtb-10">
+  <div class="col-12">
+    <span class="input-label">{{label}}</span>
+  </div>
+  <div class="col-12">
+    <input  type="text" class="form-control input-clean" placeholder="{{placeholder}}"
+    (ngModelChange)="modelChange()" [(ngModel)]="inputModel">
+  </div>
+</div>
