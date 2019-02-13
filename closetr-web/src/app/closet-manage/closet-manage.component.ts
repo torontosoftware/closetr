@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ClosetService } from '../services/closet.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { RoutesService } from '../services/routes.service';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { SearchFilterPipe } from '../pipes/search-filter.pipe';
 import { Clothing } from '../models/clothing.model';
+import { User } from '../models/user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-closet-manage',
@@ -13,21 +16,25 @@ import { Clothing } from '../models/clothing.model';
 
 export class ClosetManageComponent implements OnInit {
   closetList: Array<Clothing>;
-  closetService: ClosetService;
-  routesService: RoutesService;
   editMode : boolean;
   searchText: String;
+  currentUserSubscription: Subscription;
+  currentUser: User;
 
-  constructor(private closetservice: ClosetService,
+  constructor(private closetService: ClosetService,
               private router: Router,
-              private routesservice: RoutesService) {
+              private routesService: RoutesService,
+              private authenticationService: AuthenticationService) {
     this.editMode = false;
-    this.closetService = closetservice;
-    this.routesService = routesservice;
-    this.getAllClothes();
   }
 
   ngOnInit() {
+    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
+      user => {
+        this.currentUser = user;
+        this.getAllClothes();
+      }
+    )
   }
 
   navTo(): void {
@@ -52,7 +59,7 @@ export class ClosetManageComponent implements OnInit {
   closetList.
   */
   getAllClothes(): void {
-    this.closetService.getAllClothes().subscribe(
+    this.closetService.getAllClothes(this.currentUser).subscribe(
       (data: any) => {
         this.closetList = data.data;
         for (let i in this.closetList) {

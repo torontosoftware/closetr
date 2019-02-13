@@ -13,7 +13,8 @@ router.post('/clothing', function(req, res, next) {
     clothingCost: clothing.clothingCost,
     clothingCategory: clothing.clothingCategory,
     clothingWorn: clothing.clothingWorn,
-    clothingPurchaseDate: clothing.clothingPurchaseDate
+    clothingPurchaseDate: clothing.clothingPurchaseDate,
+    userID: clothing.userID
   };
 
   if (clothing.clothingID == null) {
@@ -49,8 +50,9 @@ router.post('/clothing', function(req, res, next) {
 /* API returns all user clothes */
 router.get('/all', function(req, res, next) {
   // query all clothes in the database
+  var userID = req.query.userID;
   clothes.find(
-    {},
+    {userID: userID},
     function (err, doc) {
       if (err) {
         const result_json = {

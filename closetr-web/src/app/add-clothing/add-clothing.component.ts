@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ClosetService } from '../services/closet.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { RoutesService } from '../services/routes.service';
 import { LogOutfitService } from '../services/log-outfit.service';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { BaseGeneralComponent } from '../base-general/base-general.component';
 import { Clothing } from '../models/clothing.model';
+import { User } from '../models/user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-clothing',
@@ -15,34 +18,38 @@ import { Clothing } from '../models/clothing.model';
 
 export class AddClothingComponent extends BaseGeneralComponent implements OnInit {
   clothing: Clothing;
-  closetService: ClosetService;
-  logOutfitService: LogOutfitService;
-  routesService: RoutesService;
   prevUrl: String;
   clothingCategories: Array<string>;
+  currentUserSubscription: Subscription;
+  currentUser: User;
 
-  constructor(private closetservice: ClosetService,
-              private logoutfitservice: LogOutfitService,
-              private routesservice: RoutesService,
+  constructor(private closetService: ClosetService,
+              private logOutfitService: LogOutfitService,
+              private routesService: RoutesService,
+              private authenticationService: AuthenticationService,
               private router: Router,
               private location: Location) {
       super();
-
-      // items
-      this.clothing = new Clothing();
-      this.clothingCategories = Clothing.getClothingCategories();
-
-      // services
-      this.closetService = closetservice;
-      this.logOutfitService = logoutfitservice;
-      this.routesService = routesservice;
-
-      // routes
-      this.prevUrl = this.routesService.getPrevUrl();
-      this.routesService.setPrevUrl('');
   }
 
   ngOnInit() {
+    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
+      user => {
+        this.currentUser = user;
+        this.clothing = new Clothing({
+          userID: this.currentUser.userID
+        });
+      }
+    )
+
+    // items
+    this.clothingCategories = Clothing.getClothingCategories();
+
+    // routes
+    this.prevUrl = this.routesService.getPrevUrl();
+    this.routesService.setPrevUrl('');
+
+
   }
 
   /*
@@ -61,6 +68,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   clothing item, navigate back to the previous page.
   */
   save(): void {
+    console.log(this.clothing);
     if (this.prevUrl == '/closet-manage') {
       this.closetService.addClothing(this.clothing).subscribe(
         (data: any) => {

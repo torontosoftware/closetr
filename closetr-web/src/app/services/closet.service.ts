@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Clothing } from '../models/clothing.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -59,8 +60,15 @@ export class ClosetService {
   The observer will be able to recieve the data (which is a json of all
   clothing in the closet).
   */
-  getAllClothes(): any {
-    return this.http.get('http://localhost:8080/api/clothes/all');
+  getAllClothes(user: User): any {
+    let userID = '';
+    if (user) userID = user.userID;
+    const params = new HttpParams({
+      fromObject: {
+        'userID': userID
+      }
+    });
+    return this.http.get('http://localhost:8080/api/clothes/all', {params});
   }
 
   /*
