@@ -6,7 +6,7 @@ export class User {
   userDesc: string;
   token: string;
 
-  constructor(user: User = {} as User) {
+  constructor(user: any = {} as User) {
     let {
       id = null,
       userID = '',

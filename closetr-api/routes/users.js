@@ -13,7 +13,6 @@ const users = require('../models/users.model');
 router.post('/update', function(req, res, next) {
   // gather attributes from request
   var user = req.body.user;
-  var error = false;
 
   const newItem = {
     'userID': user.userID,
@@ -27,11 +26,12 @@ router.post('/update', function(req, res, next) {
         status: 'failed',
         message: 'Failed to authenticate token.'
       };
+      console.log("failed authenticate token");
       res.json(result_json);
-      error = true;
     } else {
       req.decoded = decoded;
-      next();
+      console.log("path to call update user", newItem);
+      //next();
       updateUser();
     }
   });
@@ -39,8 +39,13 @@ router.post('/update', function(req, res, next) {
   // create new clothing from clothes schema
   function updateUser() {
     users.findOneAndUpdate(
-      {_id: newItem._id},
-      newItem,
+      {userID: newItem.userID},
+      { $set:
+        {
+          userName: newItem.userName,
+          userDesc: newItem.userDesc
+        }
+      },
       {upsert: true, new: true, runValidators: true},
       function (err, doc) {
         if (err) {
@@ -48,12 +53,18 @@ router.post('/update', function(req, res, next) {
             status: 'failed',
             message: err.message
           };
+          console.log("failed to find user");
           res.json(result_json);
         } else {
+          const user = {
+            userName: doc.userName,
+            userDesc: doc.userDesc
+          }
           const result_json = {
             status: 'success',
-            data: doc
+            data: user
           };
+          console.log("found a user");
           res.json(result_json);
         }
       }
@@ -168,6 +179,7 @@ router.post('/login', function(req, res, next) {
           const user = {
             userID: doc[0].userID,
             userName: doc[0].userName,
+            userDesc: doc[0].userDesc,
             id: doc[0]._id,
             token: token
           }

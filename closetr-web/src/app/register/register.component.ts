@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { User } from '../models/user.model';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
@@ -121,7 +122,7 @@ export class RegisterComponent implements OnInit {
       userID: this.username,
       userPassword: this.password
     }
-    this.userService.register(params).subscribe(
+    this.userService.register(new User(params)).subscribe(
       (data: any) => {
         console.log(data);
         var isRegistered = data.auth;

@@ -18,7 +18,7 @@ export class Clothing {
     "Accesory"
   ];
 
-  constructor(clothing: any = {} as any) {
+  constructor(clothing: any = {} as Clothing) {
     let {
       clothingID = null,
       clothingName = '',
