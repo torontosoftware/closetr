@@ -21,32 +21,25 @@
               </button>
             </div>
           </div>
-          <div class="row mtb-10">
-            <div class="col-12">
-              <span class="input-label">name</span>
-            </div>
-            <div class="col-12">
-              <input id="clothing-name" type="text" class="form-control input-clean" placeholder="e.g. Aritzia T-Shirt"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="clothing.clothingName">
-            </div>
-          </div>
-          <div class="row mtb-10">
-            <div class="col-12">
-              <span class="input-label">cost ($)</span>
-            </div>
-            <div class="col-12">
-              <input id="clothing-cost" type="number" step="0.01" class="form-control input-clean" placeholder="e.g. 15"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="clothing.clothingCost">
-            </div>
-          </div>
+          <ui-input
+            [labelText]="'name'"
+            [type]="'text'"
+            [(inputModel)]="clothing.clothingName"
+            [placeholder]="'e.g. Aritzia T-Shirt'"
+            (inputModelChange)="checkSubmit()"
+          ></ui-input>
+          <ui-input
+            [labelText]="'cost ($)'"
+            [type]="'number'"
+            [(inputModel)]="clothing.clothingCost"
+            [placeholder]="'e.g. 15'"
+            (inputModelChange)="checkSubmit()"
+          ></ui-input>
           <div class="row mtb-10">
             <div class="col-12">
               <span class="input-label">category</span>
             </div>
             <div class="col-12">
-              <!--
-              <input id="clothing-category" type="text" class="form-control input-clean" placeholder="e.g. Sweater"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="clothing.clothingCategory">-->
               <select id="clothing-category"
               class="form-control input-clean"
               (ngModelChange)="checkSubmit()"
@@ -55,24 +48,19 @@
               </select>
             </div>
           </div>
-          <div class="row mtb-10">
-            <div class="col-12">
-              <span class="input-label">worn</span>
-            </div>
-            <div class="col-12">
-              <input id="clothing-worn" type="number" class="form-control input-clean" placeholder="e.g. 4"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="clothing.clothingWorn">
-            </div>
-          </div>
-          <div class="row mtb-10">
-            <div class="col-12">
-              <span class="input-label">date purchased</span>
-            </div>
-            <div class="col-12">
-              <input id="clothing-purchase-date" type="date" class="form-control input-clean"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="clothing.clothingPurchaseDate">
-            </div>
-          </div>
+          <ui-input
+            [labelText]="'worn'"
+            [type]="'number'"
+            [(inputModel)]="clothing.clothingWorn"
+            [placeholder]="'e.g. 4'"
+            (inputModelChange)="checkSubmit()"
+          ></ui-input>
+          <ui-input
+            [labelText]="'date purchased'"
+            [type]="'date'"
+            [(inputModel)]="clothing.clothingPurchaseDate"
+            (inputModelChange)="checkSubmit()"
+          ></ui-input>
           <!--
           <div class="row mtb-10">
             <div class="col-12">
