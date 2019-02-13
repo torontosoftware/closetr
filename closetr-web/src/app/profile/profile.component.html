@@ -1,0 +1,78 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="widget-full">
+        <div class="container-fluid" *ngIf="currentUser">
+          <div class="row">
+            <div class="col-6">
+              <button class="btn btn-transparent btn-back" (click)="back()">
+                <span class="icon-lg">
+                  <i class="fas fa-chevron-left"></i>
+                </span>
+              </button>
+              <h3>my profile</h3>
+            </div>
+            <div class="col-6">
+              <button type="button"
+              (click)="toggleEditMode()"
+              class="btn btn-transparent pull-right icon-edit">
+                <span class="icon-lg">
+                  <i class="fas fa-pen"></i>
+                </span>
+              </button>
+              <button type="button"
+              class="btn text-bubble text-bubble-btn btn-fixed-width pull-right"
+              [hidden]="!editMode"
+              (click)="save()">
+                <span class="f-med-white">
+                  save
+                </span>
+              </button>
+            </div>
+          </div>
+          <div class="row mtb-10">
+            <div class="col-12">
+              <span class="input-label">username</span>
+            </div>
+            <div class="col-12">
+              <input type="text" class="form-control input-clean"
+              (ngModelChange)="checkSubmit()" [(ngModel)]="currentUser.userID"
+              [disabled]="true">
+            </div>
+          </div>
+          <div class="row mtb-10">
+            <div class="col-12">
+              <span class="input-label">name</span>
+            </div>
+            <div class="col-12">
+              <input type="text" class="form-control input-clean"
+              (ngModelChange)="checkSubmit()" [(ngModel)]="currentUser.userName"
+              [disabled]="!editMode">
+            </div>
+          </div>
+          <div class="row mtb-10">
+            <div class="col-12">
+              <span class="input-label">description</span>
+            </div>
+            <div class="col-12">
+              <textarea rows="5" class="form-control input-clean"
+              (ngModelChange)="checkSubmit()" [(ngModel)]="currentUser.userDesc"
+              [disabled]="!editMode">
+              </textarea>
+            </div>
+          </div>
+          <div class="row mtb-10">
+            <div class="col-12">
+              <span class="input-label">password</span>
+            </div>
+            <div class="col-12">
+              <input type="password" step="0.01" class="form-control input-clean"
+              (ngModelChange)="checkSubmit()" [(ngModel)]="currentUser.userPassword"
+              [disabled]="true">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

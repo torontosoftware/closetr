@@ -32,6 +32,7 @@ export class ClosetManageComponent implements OnInit {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
+        console.log(this.currentUser);
         this.getAllClothes();
       }
     )

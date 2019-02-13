@@ -8,6 +8,71 @@ const bcrypt = require('bcryptjs');
 // users schema
 const users = require('../models/users.model');
 
+
+/* API updates one user */
+router.post('/update', function(req, res, next) {
+  // gather attributes from request
+  var user = req.body.user;
+
+  const newItem = {
+    'userID': user.userID,
+    'userName':user.userName,
+    'userDesc':user.userDesc
+  };
+
+  jwt.verify(user.token, 'secret', function(err, decoded) {
+    if (err) {
+      const result_json = {
+        status: 'failed',
+        message: 'Failed to authenticate token.'
+      };
+      console.log("failed authenticate token");
+      res.json(result_json);
+    } else {
+      req.decoded = decoded;
+      console.log("path to call update user", newItem);
+      //next();
+      updateUser();
+    }
+  });
+
+  // create new clothing from clothes schema
+  function updateUser() {
+    users.findOneAndUpdate(
+      {userID: newItem.userID},
+      { $set:
+        {
+          userName: newItem.userName,
+          userDesc: newItem.userDesc
+        }
+      },
+      {upsert: true, new: true, runValidators: true},
+      function (err, doc) {
+        if (err) {
+          const result_json = {
+            status: 'failed',
+            message: err.message
+          };
+          console.log("failed to find user");
+          res.json(result_json);
+        } else {
+          const user = {
+            userName: doc.userName,
+            userDesc: doc.userDesc
+          }
+          const result_json = {
+            status: 'success',
+            data: user
+          };
+          console.log("found a user");
+          res.json(result_json);
+        }
+      }
+    );
+  }
+});
+
+
 /* API sets one new user clothing */
 router.post('/register', function(req, res, next) {
   // gather attributes from request
@@ -114,6 +179,7 @@ router.post('/login', function(req, res, next) {
           const user = {
             userID: doc[0].userID,
             userName: doc[0].userName,
+            userDesc: doc[0].userDesc,
             id: doc[0]._id,
             token: token
           }
