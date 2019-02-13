@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { RouterModule, Routes, Router } from '@angular/router';
 
 @Component({
   selector: 'ui-text-button',
@@ -9,15 +10,19 @@ export class UiTextButtonComponent implements OnInit {
   @Input() type: string;
   @Input() labelText: string;
   @Input() buttonLink: string;
+  @Input() disabled: boolean;
   @Output() click: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
   buttonClick(): void {
     this.click.emit();
+    if (this.type == 'full-width') {
+      this.router.navigate([this.buttonLink]);
+    }
   }
 
 }
