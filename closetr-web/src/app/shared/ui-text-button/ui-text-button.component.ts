@@ -11,6 +11,7 @@ export class UiTextButtonComponent implements OnInit {
   @Input() labelText: string;
   @Input() buttonLink: string;
   @Input() disabled: boolean;
+  @Input() hidden: boolean;
   @Output() click: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private router: Router) { }
