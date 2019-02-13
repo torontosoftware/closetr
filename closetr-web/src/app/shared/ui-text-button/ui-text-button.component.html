@@ -1,3 +1,7 @@
-<p>
-  ui-text-button works!
-</p>
+<a routerLink="{{buttonLink}}" (click)="buttonClick()" *ngIf="type == 'link'">
+  <button type="button" class="btn text-bubble text-bubble-btn">
+    <span class="f-med-white">
+      {{labelText}}
+    </span>
+  </button>
+</a>
