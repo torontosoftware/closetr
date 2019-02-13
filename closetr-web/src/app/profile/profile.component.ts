@@ -26,7 +26,6 @@ export class ProfileComponent implements OnInit {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
-        console.log(this.currentUser);
       }
     )
   }
@@ -46,15 +45,13 @@ export class ProfileComponent implements OnInit {
   Saves updated user into database.
   */
   save(): void {
-    console.log(this.currentUser, new User(this.currentUser));
     this.userService.update(new User(this.currentUser)).subscribe(
       (data: any) => {
         let user = data.data;
-        console.log(user, user.userName, user.userDesc);
         this.currentUser.userName = user.userName;
         this.currentUser.userDesc = user.userDesc;
-        console.log(data,"and new current user", this.currentUser);
         localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+        this.toggleEditMode();
       },
       (err) => {
         console.log(err);
@@ -66,7 +63,6 @@ export class ProfileComponent implements OnInit {
   Toggle edit mode
   */
   toggleEditMode(): void {
-    console.log(this.currentUser);
     this.editMode = !this.editMode;
   }
 

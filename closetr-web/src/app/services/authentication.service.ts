@@ -32,7 +32,6 @@ export class AuthenticationService {
       .pipe(map(user => {
           if (user && user.token) {
             currUser = new User(user.data);
-            console.log(user);
             localStorage.setItem('currentUser', JSON.stringify(currUser));
             this.currentUserSubject.next(currUser);
             return currUser;
