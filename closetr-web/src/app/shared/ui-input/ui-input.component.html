@@ -4,28 +4,19 @@
   </div>
   <div class="col-12">
     <input
-      *ngIf="type == 'text'"
-      type="text"
+      type="type"
       class="form-control input-clean"
       placeholder="{{placeholder}}"
       (change)="modelChange()"
       [(ngModel)]="inputModel"
+      [ngClass]= "{
+        'input-clean-error' : showError
+      }">
     >
-    <input
-      *ngIf="type == 'date'"
-      type="date"
-      class="form-control input-clean"
-      placeholder="{{placeholder}}"
-      (change)="modelChange()"
-      [(ngModel)]="inputModel"
-    >
-    <input
-      *ngIf="type == 'number'"
-      type="number"
-      class="form-control input-clean"
-      placeholder="{{placeholder}}"
-      (change)="modelChange()"
-      [(ngModel)]="inputModel"
-    >
+  </div>
+  <div class="col-12">
+    <span class="input-clean-error-label" [hidden]="!showError">
+       {{errorMessage}}
+    </span>
   </div>
 </div>

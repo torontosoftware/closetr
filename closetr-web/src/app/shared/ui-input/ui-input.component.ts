@@ -11,6 +11,8 @@ export class UiInputComponent implements OnInit {
   @Input() inputModel: any;
   @Input() placeholder: string;
   @Output() inputModelChange: EventEmitter<any> = new EventEmitter<any>();
+  @Input() errorMessage: string;
+  @Input() showError: boolean;
 
   constructor() { }
 
