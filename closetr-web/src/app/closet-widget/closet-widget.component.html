@@ -4,11 +4,10 @@
         <h3>closet</h3>
       </div>
       <div class="col-6">
-        <a routerLink="/closet-manage">
-          <span class="icon-lg icon-edit pull-right">
-            <i class="fas fa-pen"></i>
-          </span>
-        </a>
+        <ui-edit-button
+          [type]="'link'"
+          [buttonLink]="'/closet-manage'"
+        ></ui-edit-button>
       </div>
   </div>
   <div class="row mtb-10">

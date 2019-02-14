@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { RouterModule, Routes, Router } from '@angular/router';
 
 @Component({
   selector: 'ui-edit-button',
@@ -6,8 +7,17 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./ui-edit-button.component.scss']
 })
 export class UiEditButtonComponent implements OnInit {
-  constructor() { }
+  @Input() type: string = 'button';
+  @Input() buttonLink: string = '/';
+
+  constructor(private router: Router) {}
 
   ngOnInit() {
+  }
+
+  buttonClick(): void {
+    if (this.buttonLink && this.type == 'link') {
+      this.router.navigate([this.buttonLink]);
+    }
   }
 }
