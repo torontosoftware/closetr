@@ -48,6 +48,7 @@ import { UiSelectAddButtonComponent } from './shared/ui-select-add-button/ui-sel
 import { UiBackButtonComponent } from './shared/ui-back-button/ui-back-button.component';
 import { UiEditButtonComponent } from './shared/ui-edit-button/ui-edit-button.component';
 import { UiCloseButtonComponent } from './shared/ui-close-button/ui-close-button.component';
+import { UiFilterSelectComponent } from './shared/ui-filter-select/ui-filter-select.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { UiCloseButtonComponent } from './shared/ui-close-button/ui-close-button
     UiSelectAddButtonComponent,
     UiBackButtonComponent,
     UiEditButtonComponent,
-    UiCloseButtonComponent
+    UiCloseButtonComponent,
+    UiFilterSelectComponent
   ],
   imports: [
     BrowserModule,
