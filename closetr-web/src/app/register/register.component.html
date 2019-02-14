@@ -8,48 +8,56 @@
              <span class='f-light-blue-md text-center'>sign up for free today!</span>
            </div>
            <div class='col-12'>
-             <input type="username" class="form-control input-clean mtb-10-13" placeholder="Name"
-             [(ngModel)]="name"
-             (change) = "registerChangeHandler()"
-             [ngClass]= "{
-               'input-clean-error' : checkError('name')
-             }">
-             <span class="input-clean-error-label" [hidden]="!checkError('name')">
-                {{errorMessage.name}}
-             </span>
+             <ui-input
+               class="mtb-10-13"
+               [labelText]="'name'"
+               [type]="'text'"
+               [(inputModel)]="name"
+               [placeholder]="'Name'"
+               (inputModelChange)="registerChangeHandler()"
+               (change)="registerChangeHandler()"
+               [errorMessage]="errorMessage.name"
+               [showError]="error.name"
+             ></ui-input>
            </div>
            <div class='col-12'>
-             <input type="username" class="form-control input-clean mtb-10-13" placeholder="Username"
-             [(ngModel)]="username"
-             (change) = "registerChangeHandler()"
-             [ngClass]= "{
-               'input-clean-error' : checkError('username')
-             }">
-             <span class="input-clean-error-label" [hidden]="!checkError('username')">
-                {{errorMessage.username}}
-             </span>
+             <ui-input
+               class="mtb-10-13"
+               [labelText]="'username'"
+               [type]="'username'"
+               [(inputModel)]="username"
+               [placeholder]="'Username'"
+               (inputModelChange)="registerChangeHandler()"
+               (change)="registerChangeHandler()"
+               [errorMessage]="errorMessage.username"
+               [showError]="error.username"
+             ></ui-input>
            </div>
            <div class='col-12'>
-             <input type="password" class="form-control input-clean mtb-10-13" placeholder="Password"
-             [(ngModel)]="password"
-             (change) = "registerChangeHandler()"
-             [ngClass]= "{
-               'input-clean-error' : checkError('password')
-             }">
-             <span class="input-clean-error-label" [hidden]="!checkError('password')">
-                {{errorMessage.password}}
-             </span>
+             <ui-input
+               class="mtb-10-13"
+               [labelText]="'password'"
+               [type]="'password'"
+               [(inputModel)]="password"
+               [placeholder]="'Password'"
+               (inputModelChange)="registerChangeHandler()"
+               (change)="registerChangeHandler()"
+               [errorMessage]="errorMessage.password"
+               [showError]="error.password"
+             ></ui-input>
            </div>
            <div class='col-12'>
-             <input type="password" class="form-control input-clean mtb-10-13" placeholder="Confirm Password"
-             [(ngModel)]="passwordConfirm"
-             (change) = "registerChangeHandler()"
-             [ngClass]= "{
-               'input-clean-error' : checkError('passwordConfirm')
-             }">
-             <span class="input-clean-error-label" [hidden]="!checkError('passwordConfirm')">
-                {{errorMessage.passwordConfirm}}
-             </span>
+             <ui-input
+               class="mtb-10-13"
+               [labelText]="'confirm password'"
+               [type]="'password'"
+               [(inputModel)]="passwordConfirm"
+               [placeholder]="'Confirm Password'"
+               (inputModelChange)="registerChangeHandler()"
+               (change)="registerChangeHandler()"
+               [errorMessage]="errorMessage.passwordConfirm"
+               [showError]="error.passwordConfirm"
+             ></ui-input>
            </div>
            <div class='col-12'>
              <ui-text-button
@@ -58,20 +66,19 @@
                [disabled]="!checkEnableRegister()"
                (click)="register()"
                class="mtb-10"
-             >
-             </ui-text-button>
+             ></ui-text-button>
            </div>
            <div class='col-12'>
              <hr>
              <span class='f-light-blue'>
                Have an account already?
              </span>
-             <button type="button" class="btn text-bubble text-bubble-btn mtb-10"
-             (click)="toSignIn()">
-               <span class="f-med-white">
-                 sign in
-               </span>
-             </button>
+             <ui-text-button
+              [labelText]="'sign in'"
+              [type]="'full-width'"
+              [buttonLink]="'/login'"
+              class="mtb-10"
+             ></ui-text-button>
            </div>
          </div>
        </div>

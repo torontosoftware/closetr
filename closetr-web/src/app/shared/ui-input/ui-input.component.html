@@ -7,12 +7,11 @@
       type="type"
       class="form-control input-clean"
       placeholder="{{placeholder}}"
-      (change)="modelChange()"
+      (ngModelChange)="modelChange($event)"
       [(ngModel)]="inputModel"
       [ngClass]= "{
         'input-clean-error' : showError
       }">
-    >
   </div>
   <div class="col-12">
     <span class="input-clean-error-label" [hidden]="!showError">

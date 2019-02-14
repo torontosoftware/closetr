@@ -475,7 +475,7 @@ input changes (default)
 .input-clean-error-label {
   @extend .f-reg-blue-xs;
   position: absolute;
-  top: calc(100% - 14px);
+  top: calc(100% - 2px);
   left: 30px;
   color: $red;
   animation: $a-fade-from-up;

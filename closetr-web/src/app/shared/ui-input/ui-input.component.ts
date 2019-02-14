@@ -19,7 +19,7 @@ export class UiInputComponent implements OnInit {
   ngOnInit() {
   }
 
-  modelChange(): void {
-    this.inputModelChange.emit(this.inputModel);
+  modelChange(inputModel): void {
+    this.inputModelChange.emit(inputModel);
   }
 }
