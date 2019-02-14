@@ -36,15 +36,11 @@
           </div>
           <div class="row mtb-10">
               <div class="col-12">
-                <div class="input-group">
-                  <input type="text" class="form-control input-clean" placeholder="Search your closet..."
-                  (ngModelChange)="search()" [(ngModel)]="searchText">
-                  <span class="input-group-btn input-clean-addon-right">
-                    <button class="btn btn-default" style="background-color: transparent" type="button">
-                      <i class="fas fa-search"></i>
-                    </button>
-                  </span>
-                </div>
+                <ui-input-add-button
+                  [addon]="'search'"
+                  [(inputModel)]="searchText"
+                  [placeholder]="'Search your closet...'"
+                ></ui-input-add-button>
               </div>
           </div>
           <div class="row mtb-4">
