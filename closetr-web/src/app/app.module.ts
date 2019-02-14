@@ -46,6 +46,7 @@ import { UiInputAddButtonComponent } from './shared/ui-input-add-button/ui-input
 import { UiInputAddTextComponent } from './shared/ui-input-add-text/ui-input-add-text.component';
 import { UiSelectAddButtonComponent } from './shared/ui-select-add-button/ui-select-add-button.component';
 import { UiBackButtonComponent } from './shared/ui-back-button/ui-back-button.component';
+import { UiEditButtonComponent } from './shared/ui-edit-button/ui-edit-button.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { UiBackButtonComponent } from './shared/ui-back-button/ui-back-button.co
     UiInputAddButtonComponent,
     UiInputAddTextComponent,
     UiSelectAddButtonComponent,
-    UiBackButtonComponent
+    UiBackButtonComponent,
+    UiEditButtonComponent
   ],
   imports: [
     BrowserModule,
