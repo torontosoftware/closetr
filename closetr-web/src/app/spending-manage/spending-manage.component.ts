@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule, Routes, Router } from '@angular/router';
 import { ClosetService } from '../services/closet.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { DateFormatService } from '../services/utils/date-format.service';
@@ -21,8 +20,7 @@ export class SpendingManageComponent implements OnInit {
   currentUserSubscription: Subscription;
   currentUser: User;
 
-  constructor(private router: Router,
-              private closetService: ClosetService,
+  constructor(private closetService: ClosetService,
               private dateFormatService: DateFormatService,
               private authenticationService: AuthenticationService) {
 
@@ -71,10 +69,6 @@ export class SpendingManageComponent implements OnInit {
       this.searchCriteria.dateFromFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateFrom);
       this.searchCriteria.dateToFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateTo);
     }
-  }
-
-  back(): void {
-    this.router.navigate(['/dashboard']);
   }
 
   /*

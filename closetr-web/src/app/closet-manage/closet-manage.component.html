@@ -5,11 +5,9 @@
         <div class="container-fluid">
           <div class="row">
               <div class="col-4">
-                <button class="btn btn-transparent btn-back" (click)="back()">
-                  <span class="icon-lg">
-                    <i class="fas fa-chevron-left"></i>
-                  </span>
-                </button>
+                <ui-back-button
+                  [url]="'/dashboard'"
+                ></ui-back-button>
                 <h3>closet</h3>
               </div>
               <div class="col-8">

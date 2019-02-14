@@ -39,13 +39,6 @@ export class EditClothingComponent implements OnInit {
   }
 
   /*
-  Go back to the previous page.
-  */
-  back(): void {
-    this.router.navigate(['/closet-manage']);
-  }
-
-  /*
   Save the edit clothing item via POST request (future). On successful update of
   clothing item, navigate back to the previous page.
   */

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule, Routes, Router } from '@angular/router';
 
 @Component({
   selector: 'app-budget-manage',
@@ -15,7 +14,7 @@ export class BudgetManageComponent implements OnInit {
   budgetSettings: any;
   editMode: boolean;
 
-  constructor(private router: Router) {
+  constructor() {
     this.allBudgetSpans = [
       'select',
       'week',
@@ -65,10 +64,6 @@ export class BudgetManageComponent implements OnInit {
 
   toggleEditMode(): void {
     this.editMode = !this.editMode;
-  }
-
-  back(): void {
-    this.router.navigate(['/spending-manage']);
   }
 
 }

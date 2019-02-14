@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule, Routes, Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
@@ -15,8 +14,7 @@ export class ProfileComponent implements OnInit {
   currentUserSubscription: Subscription;
   currentUser: User;
 
-  constructor(private router: Router,
-              private authenticationService: AuthenticationService,
+  constructor(private authenticationService: AuthenticationService,
               private userService: UserService) {
     this.editMode = false;
     this.currentUser = new User();
@@ -32,13 +30,6 @@ export class ProfileComponent implements OnInit {
 
   checkSubmit(): boolean {
     return true;
-  }
-
-  /*
-  Go back to the previous page.
-  */
-  back(): void {
-    this.router.navigate(['/dashboard']);
   }
 
   /*
