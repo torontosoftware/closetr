@@ -11,13 +11,9 @@
                 <h3>closet</h3>
               </div>
               <div class="col-8">
-                <button type="button"
-                (click)="toggleEditMode()"
-                class="btn btn-transparent icon-edit pull-right">
-                  <span class="icon-lg">
-                    <i class="fas fa-pen"></i>
-                  </span>
-                </button>
+                <ui-edit-button
+                  (click)="toggleEditMode()"
+                ></ui-edit-button>
                 <ui-text-button
                   [labelText]="'save'"
                   [type]="'top-right'"
