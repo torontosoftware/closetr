@@ -27,20 +27,15 @@
       </span>
     </div>
     <div class="col-12">
-      <a routerLink="/log-outfit">
-      <button type="button" class="btn text-bubble text-bubble-btn">
-        <span class="f-med-white">
-          log outfit
-        </span>
-      </button>
-    </a>
+      <ui-text-button
+        [labelText]="'log outfit'"
+        [buttonLink]="'/log-outfit'"
+      ></ui-text-button>
     </div>
     <div class="col-12">
-      <button type="button" class="btn text-bubble text-bubble-btn">
-        <span class="f-med-white">
-          pick something for me
-        </span>
-      </button>
+      <ui-text-button
+        [labelText]="'pick something for me'"
+      ></ui-text-button>
     </div>
   </div>
 </div>

@@ -1,0 +1,14 @@
+<button
+  type="button"
+  class="btn text-bubble text-bubble-btn"
+  [disabled]="disabled"
+  [hidden]="hidden"
+  [ngClass]= "{
+    'btn-fixed-width pull-right' : (type == 'top-right')
+  }"
+  (click)="buttonClick()"
+  >
+  <span class="f-med-white">
+    {{labelText}}
+  </span>
+</button>

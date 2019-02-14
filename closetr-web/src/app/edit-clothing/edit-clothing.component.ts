@@ -62,7 +62,10 @@ export class EditClothingComponent implements OnInit {
   none of the fields are empty.
   */
   checkSubmit(): boolean {
-    return this.clothing.enableClothingSave();
+    if (this.clothing) {
+      return this.clothing.enableClothingSave();
+    }
+    return false;
   }
 
 }

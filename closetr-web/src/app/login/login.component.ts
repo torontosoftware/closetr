@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
               private authenticationservice: AuthenticationService) {
     this.username = "";
     this.password = "";
+    this.enableLogin = false;
     this.showLoginError = false;
     this.authenticationService = authenticationservice;
     this.show = false;
@@ -34,15 +35,17 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  checkEnableLogin(): boolean {
+  checkEnableLogin(): void {
     if (this.username.length == 0 || this.password.length == 0) {
-      return false;
+      this.enableLogin = false;
+    } else {
+      this.enableLogin = true;
     }
-    return true;
   }
 
   loginChangeHandler(): void {
     this.showLoginError = false;
+    this.checkEnableLogin();
   }
 
   toSignUp(): void {

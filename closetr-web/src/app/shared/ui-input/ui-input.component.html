@@ -1,0 +1,35 @@
+<div class="row mtb-10">
+  <div class="col-12" [hidden]="!labelText">
+    <span class="input-label">{{labelText}}</span>
+  </div>
+  <div class="col-12">
+    <input
+      *ngIf="type != 'textarea'"
+      type="{{type}}"
+      class="form-control input-clean"
+      placeholder="{{placeholder}}"
+      (ngModelChange)="modelChange($event)"
+      [(ngModel)]="inputModel"
+      [disabled]="disabled"
+      [ngClass]="{
+        'input-clean-error' : showError
+      }">
+    <textarea
+      *ngIf="type == 'textarea'"
+      rows="{{rows}}"
+      class="form-control input-clean"
+      placeholder="{{placeholder}}"
+      (ngModelChange)="modelChange($event)"
+      [(ngModel)]="inputModel"
+      [disabled]="disabled"
+      [ngClass]="{
+        'input-clean-error' : showError
+      }"
+    ></textarea>
+  </div>
+  <div class="col-12">
+    <span class="input-clean-error-label" [hidden]="!showError || !errorMessage || errorMessage == ''">
+       {{errorMessage}}
+    </span>
+  </div>
+</div>

@@ -39,6 +39,9 @@ import { AuthenticationService } from './services/authentication.service';
 import { DateFormatService } from './services/utils/date-format.service';
 import { UserMenuComponent } from './shared/user-menu/user-menu.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UiInputComponent } from './shared/ui-input/ui-input.component';
+import { UiTextButtonComponent } from './shared/ui-text-button/ui-text-button.component';
+import { UiInputSelectComponent } from './shared/ui-input-select/ui-input-select.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +64,10 @@ import { ProfileComponent } from './profile/profile.component';
     RegisterComponent,
     DateRangeFilterPipe,
     UserMenuComponent,
-    ProfileComponent
+    ProfileComponent,
+    UiInputComponent,
+    UiTextButtonComponent,
+    UiInputSelectComponent
   ],
   imports: [
     BrowserModule,

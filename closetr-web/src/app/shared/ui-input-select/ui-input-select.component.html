@@ -1,0 +1,18 @@
+<div class="row mtb-10">
+  <div class="col-12">
+    <span class="input-label">{{labelText}}</span>
+  </div>
+  <div class="col-12">
+    <select
+      class="form-control input-clean"
+      (change)="modelChange()"
+      [(ngModel)]="inputModel"
+    >
+      <option
+        *ngFor="let item of items"
+        value="{{item}}">
+        {{item}}
+      </option>
+    </select>
+  </div>
+</div>

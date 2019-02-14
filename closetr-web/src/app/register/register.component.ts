@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   enableLogin: boolean;
   userExists: boolean;
   errorMessage: any;
+  error: any;
   userService: UserService;
   authenticationService: AuthenticationService;
   show: boolean;
@@ -38,7 +39,14 @@ export class RegisterComponent implements OnInit {
       'username':'',
       'password':'',
       'passwordConfirm':''
-    }
+    };
+
+    this.error = {
+      'name': false,
+      'username': false,
+      'password': false,
+      'passwordConfirm': false
+    };
 
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/dashboard']);
@@ -60,55 +68,55 @@ export class RegisterComponent implements OnInit {
 
   registerChangeHandler(): void {
     this.userExists = false;
+    this.checkError();
   }
 
-  checkError(field): boolean {
-    switch(field) {
-      case 'passwordConfirm':
-        if (this.password.length != 0
-            && this.passwordConfirm.length != 0
-            && this.password != this.passwordConfirm) {
-              this.errorMessage.passwordConfirm = 'passwords are not the same.';
-              return true;
-            }
-        this.errorMessage.passwordConfirm = '';
-        return false;
-        break;
-      case 'password':
-        if (this.password.length == 0
-            && this.passwordConfirm.length != 0) {
-              this.errorMessage.password = 'password is required.'
-              return true;
-            }
-        this.errorMessage.password = '';
-        return false;
-        break;
-      case 'username':
-        if ((this.password.length != 0
-            || this.passwordConfirm.length != 0)
-            && this.username.length == 0) {
-              this.errorMessage.username = 'username is required.'
-              return true;
-            }
-        if (this.userExists) {
-          this.errorMessage.username = 'user with that username already exists.';
-          return true;
+  checkError(): void {
+    this.errorMessage = {
+      'name':'',
+      'username':'',
+      'password':'',
+      'passwordConfirm':''
+    };
+
+    this.error = {
+      'name': false,
+      'username': false,
+      'password': false,
+      'passwordConfirm': false
+    };
+
+    if (this.password.length != 0
+        && this.passwordConfirm.length != 0
+        && this.password != this.passwordConfirm) {
+          this.errorMessage.passwordConfirm = 'passwords are not the same.';
+          this.error.passwordConfirm = true;
         }
-        this.errorMessage.username = '';
-        return false;
-        break;
-      case 'name':
-        if ((this.username.length != 0
-             || this.password.length != 0
-             || this.passwordConfirm.length != 0)
-            && (this.name.length == 0)) {
-              this.errorMessage.name = 'name is required.';
-              return true;
-            }
-        this.errorMessage.name = '';
-        return false;
-        break;
+
+    if (this.password.length == 0
+        && this.passwordConfirm.length != 0) {
+          this.errorMessage.password = 'password is required.'
+          this.error.password = true;
+        }
+
+    if ((this.password.length != 0
+        || this.passwordConfirm.length != 0)
+        && this.username.length == 0) {
+          this.errorMessage.username = 'username is required.'
+          this.error.username = true;
+        }
+    if (this.userExists) {
+      this.errorMessage.username = 'user with that username already exists.';
+      this.error.username = true;
     }
+
+    if ((this.username.length != 0
+         || this.password.length != 0
+         || this.passwordConfirm.length != 0)
+        && (this.name.length == 0)) {
+          this.errorMessage.name = 'name is required.';
+          this.error.name = true;
+        }
   }
 
   toSignIn(): void {

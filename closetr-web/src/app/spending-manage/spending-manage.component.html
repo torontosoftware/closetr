@@ -27,13 +27,10 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <a routerLink="/">
-              <button type="button" class="btn text-bubble text-bubble-btn">
-                <span class="f-med-white">
-                  add new
-                </span>
-              </button>
-            </a>
+              <ui-text-button
+                [labelText]="'add new'"
+                [buttonLink]="'/'"
+              ></ui-text-button>
             </div>
           </div>
           <div class="row mtb-4">
@@ -101,13 +98,10 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <a routerLink="/budget-manage">
-                <button type="button" class="btn text-bubble text-bubble-btn">
-                  <span class="f-med-white">
-                    manage budget
-                  </span>
-                </button>
-              </a>
+              <ui-text-button
+                [labelText]="'manage budget'"
+                [buttonLink]="'/budget-manage'"
+              ></ui-text-button>
             </div>
           </div>
         </div>
