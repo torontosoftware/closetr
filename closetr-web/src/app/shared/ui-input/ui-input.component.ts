@@ -8,11 +8,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class UiInputComponent implements OnInit {
   @Input() labelText: string;
   @Input() type: string;
+  @Input() rows: number;
   @Input() inputModel: any;
   @Input() placeholder: string;
   @Output() inputModelChange: EventEmitter<any> = new EventEmitter<any>();
   @Input() errorMessage: string;
   @Input() showError: boolean;
+  @Input() disabled: boolean;
 
   constructor() { }
 

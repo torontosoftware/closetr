@@ -25,51 +25,38 @@
                 [type]="'top-right'"
                 [hidden]="!editMode"
                 (click)="save()"
-              >
-              </ui-text-button>
+              ></ui-text-button>
             </div>
           </div>
-          <div class="row mtb-10">
-            <div class="col-12">
-              <span class="input-label">username</span>
-            </div>
-            <div class="col-12">
-              <input type="text" class="form-control input-clean"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="currentUser.userID"
-              [disabled]="true">
-            </div>
-          </div>
-          <div class="row mtb-10">
-            <div class="col-12">
-              <span class="input-label">name</span>
-            </div>
-            <div class="col-12">
-              <input type="text" class="form-control input-clean"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="currentUser.userName"
-              [disabled]="!editMode">
-            </div>
-          </div>
-          <div class="row mtb-10">
-            <div class="col-12">
-              <span class="input-label">description</span>
-            </div>
-            <div class="col-12">
-              <textarea rows="5" class="form-control input-clean"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="currentUser.userDesc"
-              [disabled]="!editMode">
-              </textarea>
-            </div>
-          </div>
-          <div class="row mtb-10">
-            <div class="col-12">
-              <span class="input-label">password</span>
-            </div>
-            <div class="col-12">
-              <input type="password" step="0.01" class="form-control input-clean"
-              (ngModelChange)="checkSubmit()" [(ngModel)]="currentUser.userPassword"
-              [disabled]="true">
-            </div>
-          </div>
+          <ui-input
+            [labelText]="'username'"
+            [type]="'username'"
+            [(inputModel)]="currentUser.userID"
+            (inputModelChange)="checkSubmit()"
+            [disabled]="true"
+          ></ui-input>
+          <ui-input
+            [labelText]="'name'"
+            [type]="'text'"
+            [(inputModel)]="currentUser.userName"
+            (inputModelChange)="checkSubmit()"
+            [disabled]="!editMode"
+          ></ui-input>
+          <ui-input
+            [labelText]="'description'"
+            [type]="'textarea'"
+            [rows]="5"
+            [(inputModel)]="currentUser.userDesc"
+            (inputModelChange)="checkSubmit()"
+            [disabled]="!editMode"
+          ></ui-input>
+          <ui-input
+            [labelText]="'password'"
+            [type]="'password'"
+            [(inputModel)]="currentUser.userPassword"
+            (inputModelChange)="checkSubmit()"
+            [disabled]="true"
+          ></ui-input>
         </div>
       </div>
     </div>
