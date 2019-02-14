@@ -33,6 +33,14 @@
               <span class="f-light-blue-md">
                 Add another budget span
               </span>
+              <ui-select-add-button
+                [addon]="'plus'"
+                [(inputModel)]="selectedBudgetSpan"
+                [items]="availableBudgetSpans"
+                (addonClick)="addBudgetSpan(selectedBudgetSpan)"
+                [addonDisabled]="selectedBudgetSpan == 'select'"
+              ></ui-select-add-button>
+              <!--
               <div class="input-group">
                 <select class="form-control input-clean" [(ngModel)]="selectedBudgetSpan">
                   <option *ngFor="let budgetSpan of availableBudgetSpans" value="{{budgetSpan}}">{{budgetSpan}}</option>
@@ -44,7 +52,7 @@
                     <i class="fas fa-plus"></i>
                   </button>
                 </span>
-              </div>
+              </div>-->
             </div>
           </div>
           <div class="row mtb-10">

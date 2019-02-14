@@ -1,3 +1,35 @@
-<p>
-  ui-select-add-button works!
-</p>
+<div class="input-group">
+  <select
+    class="form-control input-clean"
+    [(ngModel)]="inputModel"
+    (ngModelChange)="this.inputModelChange.emit($event)"
+    [disabled]="disabled"
+    [ngClass]="{
+      'input-clean-error' : showError
+    }"
+  >
+    <option
+      *ngFor="let item of items"
+      value="{{item}}"
+    >{{item}}</option>
+  </select>
+  <span class="input-group-btn input-clean-addon-right">
+    <button
+      class="btn btn-default"
+      style="background-color: transparent"
+      type="button"
+      (click)="this.addonClick.emit()"
+      [disabled]="addonDisabled"
+     >
+        <i
+          *ngIf="addon == 'plus'"
+          class="fas fa-plus"
+        ></i>
+    </button>
+  </span>
+</div>
+<span
+  class="input-clean-error-label"
+  [hidden]="!showError || !errorMessage || errorMessage == ''">
+   {{errorMessage}}
+</span>
