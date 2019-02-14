@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   password: string;
   enableLogin: boolean;
   showLoginError: boolean;
+  enableLogin: boolean;
   authenticationService: AuthenticationService;
   show : boolean;
 
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
               private authenticationservice: AuthenticationService) {
     this.username = "";
     this.password = "";
+    this.enableLogin = false;
     this.showLoginError = false;
     this.authenticationService = authenticationservice;
     this.show = false;
@@ -36,13 +38,15 @@ export class LoginComponent implements OnInit {
 
   checkEnableLogin(): boolean {
     if (this.username.length == 0 || this.password.length == 0) {
-      return false;
+      this.enableLogin = false;
+    } else {
+      this.enableLogin = true;
     }
-    return true;
   }
 
   loginChangeHandler(): void {
     this.showLoginError = false;
+    this.checkEnableLogin();
   }
 
   toSignUp(): void {

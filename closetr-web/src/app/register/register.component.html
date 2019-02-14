@@ -15,7 +15,6 @@
                [(inputModel)]="name"
                [placeholder]="'Name'"
                (inputModelChange)="registerChangeHandler()"
-               (change)="registerChangeHandler()"
                [errorMessage]="errorMessage.name"
                [showError]="error.name"
              ></ui-input>
@@ -28,7 +27,6 @@
                [(inputModel)]="username"
                [placeholder]="'Username'"
                (inputModelChange)="registerChangeHandler()"
-               (change)="registerChangeHandler()"
                [errorMessage]="errorMessage.username"
                [showError]="error.username"
              ></ui-input>
@@ -41,7 +39,6 @@
                [(inputModel)]="password"
                [placeholder]="'Password'"
                (inputModelChange)="registerChangeHandler()"
-               (change)="registerChangeHandler()"
                [errorMessage]="errorMessage.password"
                [showError]="error.password"
              ></ui-input>
@@ -54,7 +51,6 @@
                [(inputModel)]="passwordConfirm"
                [placeholder]="'Confirm Password'"
                (inputModelChange)="registerChangeHandler()"
-               (change)="registerChangeHandler()"
                [errorMessage]="errorMessage.passwordConfirm"
                [showError]="error.passwordConfirm"
              ></ui-input>

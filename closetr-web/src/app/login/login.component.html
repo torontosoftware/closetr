@@ -7,31 +7,34 @@
              <h3 class='login-title'>closetr</h3>
            </div>
            <div class='col-12'>
-             <input type="username" class="form-control input-clean mtb-10-13" placeholder="Username"
-             [(ngModel)]="username"
-             (change) = "loginChangeHandler()"
-             [ngClass]= "{
-               'input-clean-error' : showLoginError
-             }">
+             <ui-input
+               class="mtb-10-13"
+               [labelText]="'username'"
+               [type]="'username'"
+               [(inputModel)]="username"
+               [placeholder]="'Username'"
+               (inputModelChange)="loginChangeHandler()"
+               [showError]="showLoginError"
+             ></ui-input>
            </div>
            <div class='col-12'>
-             <input type="password" class="form-control input-clean mtb-10-13" placeholder="Password"
-             [(ngModel)]="password"
-             (change) = "loginChangeHandler()"
-             [ngClass]= "{
-               'input-clean-error' : showLoginError
-             }">
-             <span class="input-clean-error-label" [hidden]="!showLoginError">
-                username or password doesn't match our records.
-             </span>
+             <ui-input
+               class="mtb-10-13"
+               [labelText]="'password'"
+               [type]="'password'"
+               [(inputModel)]="password"
+               [placeholder]="'Password'"
+               (inputModelChange)="loginChangeHandler()"
+               [errorMessage]="'username or password doesn\'t match our records.'"
+               [showError]="showLoginError"
+             ></ui-input>
            </div>
-           <div class='col-12'>
+           <div class='col-12 mtb-15'>
              <ui-text-button
                [labelText]="'log in'"
                [type]="'full-width'"
-               [disabled]="!checkEnableLogin()"
+               [disabled]="!enableLogin"
                (click)="login()"
-               class="mtb-15"
              ></ui-text-button>
            </div>
            <div class='col-12'>
