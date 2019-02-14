@@ -7,14 +7,14 @@ import { RouterModule, Routes, Router } from '@angular/router';
   styleUrls: ['./ui-text-button.component.scss']
 })
 export class UiTextButtonComponent implements OnInit {
-  @Input() type: string;
+  @Input() type: string = 'full-width';
   @Input() labelText: string;
   @Input() buttonLink: string;
-  @Input() disabled: boolean;
-  @Input() hidden: boolean;
+  @Input() disabled: boolean = false;
+  @Input() hidden: boolean = false;
   @Output() click: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   ngOnInit() {
   }
