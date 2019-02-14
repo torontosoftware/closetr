@@ -14,7 +14,6 @@ export class LoginComponent implements OnInit {
   password: string;
   enableLogin: boolean;
   showLoginError: boolean;
-  enableLogin: boolean;
   authenticationService: AuthenticationService;
   show : boolean;
 
@@ -36,7 +35,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  checkEnableLogin(): boolean {
+  checkEnableLogin(): void {
     if (this.username.length == 0 || this.password.length == 0) {
       this.enableLogin = false;
     } else {
