@@ -1,3 +1,20 @@
-<p>
-  ui-input-add-text works!
-</p>
+<div class="input-group">
+  <input
+    type="{{type}}"
+    class="form-control input-clean"
+    [(ngModel)]="inputModel"
+    (ngModelChange)="this.inputModelChange.emit($event)"
+    [disabled]="disabled"
+    placeholder="{{placeholder}}"
+    [ngClass]="{
+      'input-clean-error' : showError
+    }">
+  <span class="input-group-btn input-clean-addon-right">
+    <span class="input-clean-addon-span">{{addon}}</span>
+  </span>
+</div>
+<span
+  class="input-clean-error-label"
+  [hidden]="!showError || !errorMessage || errorMessage == ''">
+   {{errorMessage}}
+</span>
