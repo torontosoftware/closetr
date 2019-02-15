@@ -21,7 +21,7 @@ export class ClosetManageComponent implements OnInit {
   currentUserSubscription: Subscription;
   currentUser: User;
   filterOptions: Array<string>;
-  sortOptions: Array<any>;
+  sortOptions: Array<string>;
 
   constructor(private closetService: ClosetService,
               private router: Router,
