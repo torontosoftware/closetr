@@ -11,7 +11,7 @@ import { SpendingManageComponent } from './spending-manage/spending-manage.compo
 import { BudgetManageComponent } from './budget-manage/budget-manage.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AppComponent } from './app.component';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
   {path: '', canActivate:[AuthGuard], children: [
