@@ -3,6 +3,13 @@
     <div class="col-12 closet-card-picture-container">
       <div class="closet-card-picture">
       </div>
+      <ui-close-button
+        [size]="'md'"
+        [type]="'closet-card'"
+        [hidden]="!editMode"
+        (click)="removeCard(clothing.clothingID)"
+      ></ui-close-button>
+      <!--
       <button [ngClass]="{'display-none':!editMode}"
       (click)="removeCard(clothing.clothingID)"
       [disabled] = "!editMode"
@@ -10,7 +17,7 @@
         <span class="icon-white">
           <i class="fas fa-times"></i>
         </span>
-      </button>
+      </button>-->
     </div>
     <div class="col-12 closet-card-caption-container">
       <div class="closet-card-caption">

@@ -1,3 +1,18 @@
-<p>
-  ui-close-button works!
-</p>
+<button
+  class="btn btn-transparent closet-card-icon-close disabled-none"
+  [disabled]="hidden"
+  [ngClass]="{
+    'display-none': hidden,
+    'closet-card-icon-close': (type == 'closet-card')
+  }">
+  <span>
+    <i
+      class="material-icons icon-white"
+      [ngClass]="{
+        'icon-lg': (size == 'lg'),
+        'icon-md': (size == 'md')
+      }">
+      close
+    </i>
+  </span>
+</button>

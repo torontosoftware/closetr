@@ -11,7 +11,6 @@ export class UiEditButtonComponent implements OnInit {
   @Input() buttonLink: string = '/';
   @Input() hidden: boolean = false;
   @Input() size: string = 'lg';
-  @Input() type: string = '';
 
   constructor(private router: Router) {}
 
