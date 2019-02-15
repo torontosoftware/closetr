@@ -1,7 +1,15 @@
-<span class="icon icon-{{type}}">
+<span
+  *ngIf="type != 'no-icon'"
+  class="icon icon-{{type}}"
+>
   <i class="fas fa-filter"></i>
 </span>
-<select class="pull-right mtb-4 select-with-icon">
+<select
+  class="pull-right mtb-4"
+  [ngClass]="{
+    'select-with-icon': (type != 'no-icon')
+  }"
+>
   <option
     *ngFor="let item of items"
     value="{{item}}">

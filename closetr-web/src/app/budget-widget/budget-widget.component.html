@@ -4,14 +4,9 @@
         <h3>spending</h3>
       </div>
       <div class="col-6">
-        <select class="pull-right mtb-4">
-          <option value="last week">
-            last week
-          </option>
-          <option value="last month">
-            last month
-          </option>
-        </select>
+        <ui-filter-select
+          [items]="dateOptions"
+        ></ui-filter-select>
       </div>
   </div>
   <div class="row mtb-10">

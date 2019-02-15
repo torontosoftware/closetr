@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./ui-filter-select.component.scss']
 })
 export class UiFilterSelectComponent implements OnInit {
-  @Input() type: string;
+  @Input() type: string = 'no-icon';
   @Input() items: Array<any>;
   @Input() inputModel: any;
   @Output() inputModelChange: EventEmitter<any> = new EventEmitter<any>();

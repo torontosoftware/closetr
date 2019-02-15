@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BudgetWidgetComponent implements OnInit {
   purchaseList: object;
+  dateOptions: Array<string>;
 
   constructor() {
     this.purchaseList = [
@@ -15,6 +16,12 @@ export class BudgetWidgetComponent implements OnInit {
       {price: '13', name:'UO Blouse'},
       {price:'$35',name:'Uniqlo Sweater'}
     ];
+
+    this.dateOptions = [
+      "last week",
+      "last month"
+    ];
+
   }
 
   ngOnInit() {
