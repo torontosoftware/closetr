@@ -42,6 +42,12 @@ $screen-xl-min: 1220px;
   transition: $speed;
 }
 
+//table style
+.display-table {
+  display: table;
+  width: 100%;
+}
+
 //scroll bar style
 
 ::-webkit-scrollbar {
@@ -508,6 +514,8 @@ select {
   border-bottom: 1px solid $med-blue;
   background-color: $light-blue-grey;
   -webkit-appearance: none;
+  overflow: hidden;
+  width: auto;
 }
 
 .select-with-icon {
@@ -515,15 +523,20 @@ select {
 }
 
 // select with to-from
-.select-with-from {
-  width: calc(100% - 40px);
-}
-
-.select-with-to {
-  width: calc(100% - 23px);
+.select-with-label {
+  width: 110%;
+  display: table-cell;
 }
 
 .select-label {
+  @extend .f-med-blue;
+  display: table-cell;
+  position: relative;
+  margin-right: -5px;
+  top: -11px;
+}
+
+.date-picker-label {
   @extend .f-med-blue;
   margin-right: 5px;
 }

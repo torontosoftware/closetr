@@ -1,18 +1,28 @@
-<span
-  *ngIf="type != 'no-icon'"
-  class="icon icon-{{type}}"
->
-  <i class="fas fa-filter"></i>
-</span>
-<select
-  class="pull-right mtb-4"
-  [ngClass]="{
-    'select-with-icon': (type != 'no-icon')
-  }"
->
-  <option
-    *ngFor="let item of items"
-    value="{{item}}">
-    {{item}}
-  </option>
-</select>
+<div class="display-table">
+  <span
+    *ngIf="type != 'no-icon'"
+    class="icon icon-{{type}}">
+    <i class="fas fa-filter"></i>
+  </span>
+  <span
+    *ngIf="labelText"
+    class="select-label">
+    {{labelText}}
+  </span>
+  <select
+    class="pull-right mtb-4"
+    [ngClass]="{
+      'select-with-icon': (type != 'no-icon'),
+      'select-with-label': (labelText)
+    }"
+    [(ngModel)]="inputModel"
+    (ngModelChange)="inputModelChange.emit()"
+    (change)="inputModelChange.emit()"
+  >
+    <option
+      *ngFor="let item of items"
+      value="{{item}}">
+      {{item}}
+    </option>
+  </select>
+</div>
