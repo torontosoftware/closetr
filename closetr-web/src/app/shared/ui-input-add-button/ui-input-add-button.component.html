@@ -1,0 +1,29 @@
+<div class="input-group">
+  <input
+    type="{{type}}"
+    class="form-control input-clean"
+    [(ngModel)]="inputModel"
+    [disabled]="disabled"
+    (ngModelChange)="modelChange($event)"
+    placeholder="{{placeholder}}"
+    [ngClass]="{
+      'input-clean-error' : showError
+    }">
+  <span class="input-group-btn input-clean-addon-right">
+    <button
+      class="btn btn-default"
+      style="background-color: transparent"
+      type="button"
+      [disabled]="disabled">
+        <i
+          *ngIf="addon == 'search'"
+          class="fas fa-search"
+        ></i>
+    </button>
+  </span>
+</div>
+<span
+  class="input-clean-error-label"
+  [hidden]="!showError || !errorMessage || errorMessage == ''">
+   {{errorMessage}}
+</span>

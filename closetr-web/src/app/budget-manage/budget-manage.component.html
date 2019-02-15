@@ -5,11 +5,9 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-6">
-              <button class="btn btn-transparent btn-back" (click)="back()">
-                <span class="icon-lg">
-                  <i class="fas fa-chevron-left"></i>
-                </span>
-              </button>
+              <ui-back-button
+                [url]="'/spending-manage'"
+              ></ui-back-button>
               <h3>budget manage</h3>
             </div>
             <div class="col-6">
@@ -33,18 +31,13 @@
               <span class="f-light-blue-md">
                 Add another budget span
               </span>
-              <div class="input-group">
-                <select class="form-control input-clean" [(ngModel)]="selectedBudgetSpan">
-                  <option *ngFor="let budgetSpan of availableBudgetSpans" value="{{budgetSpan}}">{{budgetSpan}}</option>
-                </select>
-                <span class="input-group-btn input-clean-addon-right">
-                  <button class="btn btn-default" style="background-color: transparent" type="button"
-                  (click)="addBudgetSpan(selectedBudgetSpan)"
-                  [disabled]="selectedBudgetSpan == 'select'">
-                    <i class="fas fa-plus"></i>
-                  </button>
-                </span>
-              </div>
+              <ui-select-add-button
+                [addon]="'plus'"
+                [(inputModel)]="selectedBudgetSpan"
+                [items]="availableBudgetSpans"
+                (addonClick)="addBudgetSpan(selectedBudgetSpan)"
+                [addonDisabled]="selectedBudgetSpan == 'select'"
+              ></ui-select-add-button>
             </div>
           </div>
           <div class="row mtb-10">
@@ -56,14 +49,13 @@
           </div>
           <div class="row mtb-10" *ngFor="let budgetSpan of selectedBudgetSpans | keyvalue">
             <div class="col-12">
-              <div class="input-group">
-                <input type="text" class="form-control input-clean" placeholder="ex. 200"
+              <ui-input-add-text
+                [type]="'number'"
+                [placeholder]="'200'"
                 [disabled]="!editMode"
-                [(ngModel)]="budgetSpan.value.amount">
-                <span class="input-group-btn input-clean-addon-right">
-                  <span class="input-clean-addon-span">per {{budgetSpan.key}}</span>
-                </span>
-              </div>
+                [(inputModel)]="budgetSpan.value.amount"
+                addon="{{'per ' + budgetSpan.key}}"
+              ></ui-input-add-text>
             </div>
           </div>
           <div class="row mtb-10">

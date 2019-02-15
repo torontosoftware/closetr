@@ -51,10 +51,6 @@ export class ClosetManageComponent implements OnInit {
     this.closetService.setAllClothes(this.closetList);
   }
 
-  back(): void {
-    this.router.navigate(['/dashboard']);
-  }
-
   /*
   Helper function to get all clothes from database and update local
   closetList.

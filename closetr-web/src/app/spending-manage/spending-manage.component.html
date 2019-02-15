@@ -5,24 +5,19 @@
         <div class="container-fluid">
           <div class="row">
               <div class="col-12">
-                <button class="btn btn-transparent btn-back" (click)="back()">
-                  <span class="icon-lg">
-                    <i class="fas fa-chevron-left"></i>
-                  </span>
-                </button>
+                <ui-back-button
+                  [url]="'/dashboard'"
+                ></ui-back-button>
                 <h3>spending</h3>
               </div>
           </div>
           <div class="row mtb-4">
               <div class="col-12">
-                <div class="input-group">
-                  <input type="text" class="form-control input-clean" placeholder="Search your logs...">
-                  <span class="input-group-btn input-clean-addon-right">
-                    <button class="btn btn-default" style="background-color: transparent" type="button">
-                      <i class="fas fa-search"></i>
-                    </button>
-                  </span>
-                </div>
+                <ui-input-add-button
+                  [addon]="'search'"
+                  [(inputModel)]="searchText"
+                  [placeholder]="'Search your closet...'"
+                ></ui-input-add-button>
               </div>
           </div>
           <div class="row">

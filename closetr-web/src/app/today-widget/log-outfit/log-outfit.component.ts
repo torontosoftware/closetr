@@ -1,5 +1,4 @@
 import { Component, OnInit} from '@angular/core';
-import { RouterModule, Routes, Router } from '@angular/router';
 import { LogOutfitService } from '../../services/log-outfit.service';
 import { ClosetService } from '../../services/closet.service';
 import { AuthenticationService } from '../../services/authentication.service';
@@ -22,8 +21,7 @@ export class LogOutfitComponent implements OnInit {
   currentUserSubscription: Subscription;
   currentUser: User;
 
-  constructor(private router: Router,
-              private logOutfitService: LogOutfitService,
+  constructor(private logOutfitService: LogOutfitService,
               private closetService: ClosetService,
               private authenticationService: AuthenticationService) {
     this.editMode = false;
@@ -76,10 +74,6 @@ export class LogOutfitComponent implements OnInit {
       this.logOutfitService.addOutfitClothing(clothing, 'search');
       this.outfitClothingList = this.logOutfitService.getAllOutfitClothes();
     }
-  }
-
-  back(): void {
-    this.router.navigate(['/dashboard']);
   }
 
   removeCard(clothingID: any): void {
