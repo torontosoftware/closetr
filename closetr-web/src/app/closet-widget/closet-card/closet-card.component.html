@@ -18,6 +18,13 @@
         <span class="f-light-blue-xs">cost: {{clothing.clothingCost}}</span><br>
         <span class="f-light-blue-xs">worn: {{clothing.clothingWorn}} times</span><br>
       </div>
+      <ui-edit-button
+        [type]="'closet-card'"
+        [hidden]="!editMode || !isClosetManage"
+        (click)="editCard(clothing)"
+        [size]="'md'"
+      ></ui-edit-button>
+      <!--
       <button [ngClass]="{'display-none':!editMode}"
       class="btn btn-transparent closet-card-icon-edit icon-edit disabled-none"
       (click)="editCard(clothing)"
@@ -25,7 +32,7 @@
         <span class="icon">
           <i class="fas fa-pen"></i>
         </span>
-      </button>
+      </button>-->
     </div>
   </div>
 </div>

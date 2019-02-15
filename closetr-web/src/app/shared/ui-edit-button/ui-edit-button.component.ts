@@ -9,6 +9,9 @@ import { RouterModule, Routes, Router } from '@angular/router';
 export class UiEditButtonComponent implements OnInit {
   @Input() type: string = 'button';
   @Input() buttonLink: string = '/';
+  @Input() hidden: boolean = false;
+  @Input() size: string = 'lg';
+  @Input() type: string = '';
 
   constructor(private router: Router) {}
 

@@ -611,6 +611,12 @@ icon styles
   font-size: 20px;
 }
 
+.icon-md {
+  @extend .icon;
+  margin-top: 0px;
+  font-size: 15px;
+}
+
 .icon-sort {
   position: absolute;
   top: 2px;
@@ -758,8 +764,8 @@ closet card components
 .closet-card-icon-edit {
   position: relative;
   font-size: 15px;
-  top: -23px;
-  left: 92%;
+  top: -22px;
+  left: 5px;
   transition: $fast-ease;
 }
 
