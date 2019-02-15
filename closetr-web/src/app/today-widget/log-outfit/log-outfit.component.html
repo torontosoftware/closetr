@@ -11,20 +11,15 @@
                 <h3>log outfit</h3>
               </div>
               <div class="col-6">
-                <button type="button"
-                (click)="toggleEditMode()"
-                class="btn btn-transparent pull-right icon-edit">
-                  <span class="icon-lg">
-                    <i class="fas fa-pen"></i>
-                  </span>
-                </button>
+                <ui-edit-button
+                  (click)="toggleEditMode()"
+                ></ui-edit-button>
                 <ui-text-button
                   [labelText]="'save'"
                   [type]="'top-right'"
                   [hidden]="!editMode"
                   (click)="save()"
-                >
-                </ui-text-button>
+                > </ui-text-button>
               </div>
           </div>
           <div class="row">
@@ -61,8 +56,7 @@
               <ui-text-button
                 [labelText]="'add manually'"
                 [buttonLink]="'/add-clothing'"
-              >
-              </ui-text-button>
+              ></ui-text-button>
             </div>
           </div>
           <div class="row mtb-10">
