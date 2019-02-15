@@ -20,12 +20,30 @@ export class ClosetManageComponent implements OnInit {
   searchText: String;
   currentUserSubscription: Subscription;
   currentUser: User;
+  filterOptions: Array<string>;
+  sortOptions: Array<any>;
 
   constructor(private closetService: ClosetService,
               private router: Router,
               private routesService: RoutesService,
               private authenticationService: AuthenticationService) {
     this.editMode = false;
+
+    this.filterOptions = [
+      "no filter",
+      "exclude Aritzia items",
+      "sweaters only",
+      "pants and sweaters only",
+      "pants only"
+    ];
+
+    this.sortOptions = [
+      "cost ascending",
+      "cost descending",
+      "most recently purchased",
+      "least recently purchased",
+      "most worn"
+    ];
   }
 
   ngOnInit() {
