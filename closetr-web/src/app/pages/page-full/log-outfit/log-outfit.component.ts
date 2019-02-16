@@ -1,10 +1,10 @@
 import { Component, OnInit} from '@angular/core';
-import { LogOutfitService } from '../../services/log-outfit.service';
-import { ClosetService } from '../../services/closet.service';
-import { AuthenticationService } from '../../services/authentication.service';
-import { SearchFilterPipe } from '../../pipes/search-filter.pipe';
-import { Clothing } from '../../models/clothing.model';
-import { User } from '../../models/user.model';
+import { LogOutfitService } from '../../../services/log-outfit.service';
+import { ClosetService } from '../../../services/closet.service';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { SearchFilterPipe } from '../../../pipes/search-filter.pipe';
+import { Clothing } from '../../../models/clothing.model';
+import { User } from '../../../models/user.model';
 import { Subscription } from 'rxjs';
 
 @Component({

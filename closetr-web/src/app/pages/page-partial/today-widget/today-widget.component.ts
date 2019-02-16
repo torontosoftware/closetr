@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../services/authentication.service';
-import { User } from '../models/user.model';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { User } from '../../../models/user.model';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'app-today-widget',
+  templateUrl: './today-widget.component.html',
+  styleUrls: ['./today-widget.component.scss']
 })
-
-export class DashboardComponent implements OnInit {
+export class TodayWidgetComponent implements OnInit {
   currentUserSubscription: Subscription;
   currentUser: User;
 

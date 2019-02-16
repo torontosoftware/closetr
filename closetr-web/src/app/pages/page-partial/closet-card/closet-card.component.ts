@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
-import { ClosetService } from '../../services/closet.service';
-import { Clothing } from '../../models/clothing.model';
+import { ClosetService } from '../../../services/closet.service';
+import { Clothing } from '../../../models/clothing.model';
 
 @Component({
   selector: 'app-closet-card',
