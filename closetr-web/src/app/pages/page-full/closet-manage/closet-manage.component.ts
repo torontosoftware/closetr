@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ClosetService } from '../services/closet.service';
-import { AuthenticationService } from '../services/authentication.service';
-import { RoutesService } from '../services/routes.service';
+import { ClosetService } from '../../../services/closet.service';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { RoutesService } from '../../../services/routes.service';
 import { RouterModule, Routes, Router } from '@angular/router';
-import { SearchFilterPipe } from '../pipes/search-filter.pipe';
-import { Clothing } from '../models/clothing.model';
-import { User } from '../models/user.model';
+import { SearchFilterPipe } from '../../../pipes/search-filter.pipe';
+import { Clothing } from '../../../models/clothing.model';
+import { User } from '../../../models/user.model';
 import { Subscription } from 'rxjs';
 
 @Component({

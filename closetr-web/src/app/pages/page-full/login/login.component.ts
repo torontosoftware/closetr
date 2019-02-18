@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
-import { AuthenticationService } from '../services/authentication.service';
-import { User } from '../models/user.model';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { User } from '../../../models/user.model';
 import { first } from 'rxjs/operators';
 
 @Component({

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ClosetService } from '../services/closet.service';
-import { AuthenticationService } from '../services/authentication.service';
-import { RoutesService } from '../services/routes.service';
-import { LogOutfitService } from '../services/log-outfit.service';
+import { ClosetService } from '../../../services/closet.service';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { RoutesService } from '../../../services/routes.service';
+import { LogOutfitService } from '../../../services/log-outfit.service';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { BaseGeneralComponent } from '../base-general/base-general.component';
-import { Clothing } from '../models/clothing.model';
-import { User } from '../models/user.model';
+import { Clothing } from '../../../models/clothing.model';
+import { User } from '../../../models/user.model';
 import { Subscription } from 'rxjs';
 
 @Component({

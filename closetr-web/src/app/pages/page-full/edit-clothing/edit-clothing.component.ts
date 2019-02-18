@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ClosetService } from '../services/closet.service';
-import { AuthenticationService } from '../services/authentication.service';
+import { ClosetService } from '../../../services/closet.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 import { RouterModule, Routes, Router } from '@angular/router';
-import { Clothing } from '../models/clothing.model';
-import { User } from '../models/user.model';
+import { Clothing } from '../../../models/clothing.model';
+import { User } from '../../../models/user.model';
 import { Subscription } from 'rxjs';
 
 @Component({

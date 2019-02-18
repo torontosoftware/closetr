@@ -10,21 +10,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 //components
-import { TodayWidgetComponent } from './today-widget/today-widget.component';
-import { BudgetWidgetComponent } from './budget-widget/budget-widget.component';
-import { ClosetWidgetComponent } from './closet-widget/closet-widget.component';
-import { ClosetCardComponent } from './closet-widget/closet-card/closet-card.component';
-import { LogOutfitComponent } from './today-widget/log-outfit/log-outfit.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { AddClothingComponent } from './add-clothing/add-clothing.component';
-import { ClosetManageComponent } from './closet-manage/closet-manage.component';
-import { EditClothingComponent } from './edit-clothing/edit-clothing.component';
-import { SpendingManageComponent } from './spending-manage/spending-manage.component';
-import { BaseGeneralComponent } from './base-general/base-general.component';
-import { BudgetManageComponent } from './budget-manage/budget-manage.component';
-import { LoginComponent } from './login/login.component';
+import { TodayWidgetComponent } from './pages/page-partial/today-widget/today-widget.component';
+import { BudgetWidgetComponent } from './pages/page-partial/budget-widget/budget-widget.component';
+import { ClosetWidgetComponent } from './pages/page-partial/closet-widget/closet-widget.component';
+import { ClosetCardComponent } from './pages/page-partial/closet-card/closet-card.component';
+import { LogOutfitComponent } from './pages/page-full/log-outfit/log-outfit.component';
+import { DashboardComponent } from './pages/page-full/dashboard/dashboard.component';
+import { AddClothingComponent } from './pages/page-full/add-clothing/add-clothing.component';
+import { ClosetManageComponent } from './pages/page-full/closet-manage/closet-manage.component';
+import { EditClothingComponent } from './pages/page-full/edit-clothing/edit-clothing.component';
+import { SpendingManageComponent } from './pages/page-full/spending-manage/spending-manage.component';
+import { BaseGeneralComponent } from './pages/page-full/base-general/base-general.component';
+import { BudgetManageComponent } from './pages/page-full/budget-manage/budget-manage.component';
+import { LoginComponent } from './pages/page-full/login/login.component';
 import { HeaderComponent } from './shared/header/header.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './pages/page-full/register/register.component';
+import { ProfileComponent } from './pages/page-full/profile/profile.component';
+import { UserMenuComponent } from './pages/page-partial/user-menu/user-menu.component';
 
 //pipes
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
@@ -37,8 +39,8 @@ import { RoutesService } from './services/routes.service';
 import { UserService } from './services/user.service';
 import { AuthenticationService } from './services/authentication.service';
 import { DateFormatService } from './services/utils/date-format.service';
-import { UserMenuComponent } from './shared/user-menu/user-menu.component';
-import { ProfileComponent } from './profile/profile.component';
+
+//ui-library
 import { UiInputComponent } from './shared/ui-input/ui-input.component';
 import { UiTextButtonComponent } from './shared/ui-text-button/ui-text-button.component';
 import { UiInputSelectComponent } from './shared/ui-input-select/ui-input-select.component';
