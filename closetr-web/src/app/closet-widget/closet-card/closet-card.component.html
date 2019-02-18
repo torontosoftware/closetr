@@ -3,14 +3,12 @@
     <div class="col-12 closet-card-picture-container">
       <div class="closet-card-picture">
       </div>
-      <button [ngClass]="{'display-none':!editMode}"
-      (click)="removeCard(clothing.clothingID)"
-      [disabled] = "!editMode"
-      class="btn btn-transparent closet-card-icon-close disabled-none">
-        <span class="icon-white">
-          <i class="fas fa-times"></i>
-        </span>
-      </button>
+      <ui-close-button
+        [size]="'md'"
+        [type]="'closet-card'"
+        [hidden]="!editMode"
+        (click)="removeCard(clothing.clothingID)"
+      ></ui-close-button>
     </div>
     <div class="col-12 closet-card-caption-container">
       <div class="closet-card-caption">
@@ -18,14 +16,12 @@
         <span class="f-light-blue-xs">cost: {{clothing.clothingCost}}</span><br>
         <span class="f-light-blue-xs">worn: {{clothing.clothingWorn}} times</span><br>
       </div>
-      <button [ngClass]="{'display-none':!editMode}"
-      class="btn btn-transparent closet-card-icon-edit icon-edit disabled-none"
-      (click)="editCard(clothing)"
-      [disabled] = "!editMode || !isClosetManage">
-        <span class="icon">
-          <i class="fas fa-pen"></i>
-        </span>
-      </button>
+      <ui-edit-button
+        [type]="'closet-card'"
+        [hidden]="!editMode || !isClosetManage"
+        (click)="editCard(clothing)"
+        [size]="'md'"
+      ></ui-edit-button>
     </div>
   </div>
 </div>

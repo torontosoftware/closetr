@@ -1,0 +1,16 @@
+<button
+  type="button"
+  class="btn btn-transparent icon-edit pull-right disabled-none"
+  [ngClass]="{
+    'display-none': hidden,
+    'closet-card-icon-edit': (type == 'closet-card')
+  }"
+  [disabled]="hidden"
+  (click)="buttonClick()">
+  <span [ngClass]="{
+    'icon-lg': (size == 'lg'),
+    'icon-md': (size == 'md')
+  }">
+    <i class="fas fa-pen"></i>
+  </span>
+</button>
