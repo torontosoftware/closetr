@@ -9,13 +9,11 @@ import { User } from '../../../models/user.model';
 describe('TodayWidgetComponent', () => {
   let component: TodayWidgetComponent;
   let fixture: ComponentFixture<TodayWidgetComponent>;
-  let mockUser: any;
   let currentUser: any;
 
   beforeEach(async(() => {
-    mockUser = {
-      userName: "Fides",
-      userID: "fideslinga"
+    const mockUser = {
+      userName: "Fides"
     };
     TestBed.configureTestingModule({
       imports: [
@@ -27,21 +25,23 @@ describe('TodayWidgetComponent', () => {
         TodayWidgetComponent
       ],
       providers: [
-        {provide: User, useValue: mockUser},
-        AuthenticationService
+        AuthenticationService,
+        {provide: User, useValue: mockUser}
       ]
     }).compileComponents();
   }));
 
   beforeEach(() => {
+    currentUser = TestBed.get(User);
     fixture = TestBed.createComponent(TodayWidgetComponent);
     component = fixture.componentInstance;
-    currentUser = TestBed.get(User);
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    currentUser.userName = "Fides";
+    console.log(component, currentUser);
+    component.currentUser = currentUser;
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 });
