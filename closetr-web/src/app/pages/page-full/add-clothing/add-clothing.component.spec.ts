@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
 import { AddClothingComponent } from './add-clothing.component';
 
 describe('AddClothingComponent', () => {
@@ -8,7 +8,10 @@ describe('AddClothingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddClothingComponent ]
+      declarations: [
+        AddClothingComponent,
+        UiBackButtonComponent 
+      ]
     })
     .compileComponents();
   }));

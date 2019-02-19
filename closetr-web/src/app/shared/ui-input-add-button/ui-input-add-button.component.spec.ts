@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule } from '@angular/forms';
 import { UiInputAddButtonComponent } from './ui-input-add-button.component';
 
 describe('UiInputAddButtonComponent', () => {
@@ -8,7 +8,8 @@ describe('UiInputAddButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UiInputAddButtonComponent ]
+      declarations: [ UiInputAddButtonComponent ],
+      imports: [ FormsModule ]
     })
     .compileComponents();
   }));

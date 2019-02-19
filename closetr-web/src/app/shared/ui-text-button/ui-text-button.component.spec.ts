@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { UiTextButtonComponent } from './ui-text-button.component';
 
 describe('UiTextButtonComponent', () => {
@@ -8,6 +8,7 @@ describe('UiTextButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ RouterTestingModule ],
       declarations: [ UiTextButtonComponent ]
     })
     .compileComponents();

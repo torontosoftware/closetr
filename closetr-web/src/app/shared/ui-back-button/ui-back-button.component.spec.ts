@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { UiBackButtonComponent } from './ui-back-button.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('UiBackButtonComponent', () => {
   let component: UiBackButtonComponent;
@@ -8,7 +8,8 @@ describe('UiBackButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UiBackButtonComponent ]
+      declarations: [ UiBackButtonComponent ],
+      imports: [ RouterTestingModule ]
     })
     .compileComponents();
   }));

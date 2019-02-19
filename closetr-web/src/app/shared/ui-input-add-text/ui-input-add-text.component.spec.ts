@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule } from '@angular/forms';
 import { UiInputAddTextComponent } from './ui-input-add-text.component';
 
 describe('UiInputAddTextComponent', () => {
@@ -8,7 +8,8 @@ describe('UiInputAddTextComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UiInputAddTextComponent ]
+      declarations: [ UiInputAddTextComponent ],
+      imports: [ FormsModule ]
     })
     .compileComponents();
   }));
