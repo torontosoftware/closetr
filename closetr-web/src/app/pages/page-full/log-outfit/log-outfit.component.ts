@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { LogOutfitService } from '../../../services/log-outfit.service';
 import { ClosetService } from '../../../services/closet.service';
+import { RoutesService } from '../../../services/routes.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { SearchFilterPipe } from '../../../pipes/search-filter.pipe';
 import { Clothing } from '../../../models/clothing.model';
@@ -23,7 +24,8 @@ export class LogOutfitComponent implements OnInit {
 
   constructor(private logOutfitService: LogOutfitService,
               private closetService: ClosetService,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private routesService: RoutesService) {
     this.editMode = false;
   }
 
@@ -44,6 +46,10 @@ export class LogOutfitComponent implements OnInit {
   save(): void {
     this.toggleEditMode();
     this.logOutfitService.setAllOutfitClothes(this.outfitClothingList);
+  }
+
+  navTo(): void {
+    this.routesService.setPrevUrl('/log-outfit');
   }
 
   search(): void {

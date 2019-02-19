@@ -44,7 +44,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
 
     // items
     this.clothingCategories = Clothing.getClothingCategories();
-
+    console.log(this.routesService.getPrevUrl());
     // routes
     if (!(this.prevUrl = this.routesService.getPrevUrl())) {
       this.prevUrl = "/closet-manage";
