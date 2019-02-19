@@ -8,9 +8,12 @@ const bcrypt = require('bcryptjs');
 // users schema
 const users = require('../models/users.model');
 
+router.post('/login', check_login_credentials);
+router.post('/update', update_user_info);
+router.post('/register', register_new_user);
 
 /* API updates one user */
-router.post('/update', function(req, res, next) {
+function update_user_info (req, res, next) {
   // gather attributes from request
   var user = req.body.user;
 
@@ -70,11 +73,10 @@ router.post('/update', function(req, res, next) {
       }
     );
   }
-});
-
+}
 
 /* API sets one new user clothing */
-router.post('/register', function(req, res, next) {
+function register_new_user(req, res, next) {
   // gather attributes from request
   var user = req.body.user;
   const newItem = {
@@ -145,12 +147,11 @@ router.post('/register', function(req, res, next) {
     );
   }
 
-});
-
+}
 
 /* API returns true if passed user and password
 matches a pair in the database. */
-router.post('/login', function(req, res, next) {
+function check_login_credentials(req, res, next) {
   var user = req.body.user;
   // query all clothes in the database
   users.find(
@@ -201,6 +202,6 @@ router.post('/login', function(req, res, next) {
       }
     }
   );
-});
+}
 
 module.exports = router;
