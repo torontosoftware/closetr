@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./edit-clothing.component.scss']
 })
 export class EditClothingComponent implements OnInit {
-  clothing: Clothing;
+  clothing: Clothing = new Clothing();
   clothingCategories: Array<string>;
   currentUserSubscription: Subscription;
   currentUser: User;
@@ -24,12 +24,14 @@ export class EditClothingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.clothing = this.closetService.getClothingForEdit();
-    this.clothingCategories = Clothing.getClothingCategories();
-
-    if (!this.clothing) {
+    let clothingForEdit = this.closetService.getClothingForEdit();
+    if (clothingForEdit) {
+      this.clothing = clothingForEdit;
+    } else {
       this.router.navigate(['/closet-manage']);
     }
+
+    this.clothingCategories = Clothing.getClothingCategories();
 
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
       user => {
