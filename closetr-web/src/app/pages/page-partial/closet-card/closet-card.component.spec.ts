@@ -36,17 +36,14 @@ describe('ClosetCardComponent', () => {
   }));
 
   beforeEach(() => {
-    clothing = TestBed.get(clothing);
-    console.log(clothing,"henloooooooooooooooo");
+    clothing = TestBed.get(Clothing);
     fixture = TestBed.createComponent(ClosetCardComponent);
     component = fixture.componentInstance;
     component.clothing = clothing;
-    console.log("hi",fixture, component);
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    console.log("fefefefefe");
     component.clothing = clothing;
     fixture.detectChanges();
     expect(component).toBeTruthy();
