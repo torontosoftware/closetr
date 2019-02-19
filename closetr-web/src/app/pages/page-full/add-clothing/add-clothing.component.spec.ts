@@ -1,5 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
+import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
+import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
+import { UiInputSelectComponent } from '../../../shared/ui-input-select/ui-input-select.component';
 import { AddClothingComponent } from './add-clothing.component';
 
 describe('AddClothingComponent', () => {
@@ -8,9 +14,17 @@ describe('AddClothingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        FormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule,
+      ],
       declarations: [
         AddClothingComponent,
-        UiBackButtonComponent 
+        UiBackButtonComponent,
+        UiTextButtonComponent,
+        UiInputComponent,
+        UiInputSelectComponent,
       ]
     })
     .compileComponents();

@@ -82,7 +82,10 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   none of the fields are empty.
   */
   checkSubmit(): boolean {
-    return this.clothing.enableClothingSave();
+    if (this.clothing) {
+      return this.clothing.enableClothingSave();
+    }
+    return false;
   }
 
 }
