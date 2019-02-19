@@ -6,6 +6,7 @@ import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-bu
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
 import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
 import { UiInputSelectComponent } from '../../../shared/ui-input-select/ui-input-select.component';
+import { Clothing } from '../../../models/clothing.model';
 import { AddClothingComponent } from './add-clothing.component';
 
 describe('AddClothingComponent', () => {
@@ -13,6 +14,14 @@ describe('AddClothingComponent', () => {
   let fixture: ComponentFixture<AddClothingComponent>;
 
   beforeEach(async(() => {
+    const clothingMock = {
+      clothingName: "",
+      clothingWorn: 0,
+      clothingCost: 0,
+      clothingCategory: "Top",
+      clothingPurchaseDate: "01/01/2019",
+      enableClothingSave: () => true
+    };
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
@@ -25,6 +34,9 @@ describe('AddClothingComponent', () => {
         UiTextButtonComponent,
         UiInputComponent,
         UiInputSelectComponent,
+      ],
+      providers: [
+        {provide: Clothing, useValue: clothingMock}
       ]
     })
     .compileComponents();
@@ -33,6 +45,7 @@ describe('AddClothingComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AddClothingComponent);
     component = fixture.componentInstance;
+    component.clothing = TestBed.get(Clothing);
     fixture.detectChanges();
   });
 

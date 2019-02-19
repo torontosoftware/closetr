@@ -55,5 +55,6 @@ describe('LogOutfitComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    console.log(component);
   });
 });
