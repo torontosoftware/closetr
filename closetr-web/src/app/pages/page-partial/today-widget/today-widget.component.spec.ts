@@ -39,7 +39,6 @@ describe('TodayWidgetComponent', () => {
   });
 
   it('should create', () => {
-    console.log(component, currentUser);
     component.currentUser = currentUser;
     fixture.detectChanges();
     expect(component).toBeTruthy();
