@@ -1,15 +1,6 @@
 const express = require('express');
-const router = express.Router();
 const mongoose = require('mongoose');
-const clothes = require('../models/clothes.model');
-const clothes_controller = require('../controllers/clothing.controller');
-
-/* API sets one new user clothing */
-router.post('/clothing', add_new_clothing);
-/* API deletes one clothing item by id. */
-router.delete('/clothing/:clothing_id', delete_clothing);
-/* API returns all user clothes */
-router.get('/all', get_all_user_clothing);
+const clothes_model = require('../models/clothes.model');
 
 function add_new_clothing(req, res, next) {
   // gather attributes from request
@@ -30,7 +21,7 @@ function add_new_clothing(req, res, next) {
   }
 
   // create new clothing from clothes schema
-  clothes.findOneAndUpdate(
+  clothes_model.findOneAndUpdate(
     {_id: newItem._id},
     newItem,
     {upsert: true, new: true, runValidators: true},
@@ -42,7 +33,7 @@ function delete_clothing(req, res, next) {
   // gather attributes from request
   const clothingID = req.params.clothing_id;
   // create new clothing from clothes schema
-  clothes.remove(
+  clothes_model.remove(
     {_id: clothingID},
     generic_error_handling
   );
@@ -51,7 +42,7 @@ function delete_clothing(req, res, next) {
 function get_all_user_clothing(req, res, next) {
   // query all clothes in the database
   const userID = req.query.userID;
-  clothes.find(
+  clothes_model.find(
     {userID: userID},
     get_all_clothing_doc_handler
   );
@@ -101,4 +92,10 @@ function generic_error_handling(err, doc) {
   }
 }
 
-module.exports = router;
+function clothing_module(){
+  this.add_new_clothing = add_new_clothing;
+  this.delete_clothing = delete_clothing;
+  this.get_all_user_clothing = get_all_user_clothing;
+}
+
+module.exports = clothing_module;
