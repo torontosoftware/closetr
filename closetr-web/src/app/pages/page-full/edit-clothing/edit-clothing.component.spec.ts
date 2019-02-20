@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -30,8 +31,6 @@ describe('EditClothingComponent', () => {
       clothingPurchaseDate: "01/01/2019",
       enableClothingSave: () => true
     };
-
-    const closetManageComponentMock;
 
     TestBed.configureTestingModule({
       imports: [
