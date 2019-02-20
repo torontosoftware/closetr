@@ -1,15 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-ui-table',
+  selector: 'ui-table',
   templateUrl: './ui-table.component.html',
   styleUrls: ['./ui-table.component.scss']
 })
 export class UiTableComponent implements OnInit {
+  @Input() items: Array<any> = [];
+  @Input() filter: string = 'none';
+  @Input() filterCriteria: any;
+  @Input() filterBy: string = '';
+  @Input() bindBold: string;
+  @Input() bindRegular: string;
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
+    console.log(this.items, this.bindBold, this.bindRegular);
+    for (let item of (this.items)) {
+      console.log(item);
+      item.bindBold = item[this.bindBold];
+      item.bindRegular = item[this.bindRegular];
+    }
+    console.log(this.items);
   }
 
 }
