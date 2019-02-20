@@ -18,15 +18,20 @@ export class DateRangeFilterPipe implements PipeTransform {
 
     let itemCount = 0;
     let filteredItems = {};
+    console.log(items);
     for (let itemID in items) {
       let item = items[itemID];
+      console.log(item);
       let itemDateProperty = this.dateFormatService.formatStringDate(item[property]);
       //comparing item date and criteria
+      console.log(itemDateProperty, dateFrom, dateTo);
       if (dateFrom <= itemDateProperty && dateTo >= itemDateProperty) {
         filteredItems[itemCount] = item;
+        console.log("added",item);
         itemCount++;
       }
     }
+    console.log(filteredItems);
     return filteredItems;
   }
 

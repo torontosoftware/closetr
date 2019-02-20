@@ -2,17 +2,12 @@
   <table class="table table-sm table-borderless">
     <tbody>
       <div *ngIf="filter == 'date'">
-        <tr *ngFor="let item of items |
-                    dateRangeFilter:
-                    filterCriteria.dateFrom:
-                    filterCriteria.dateTo:
-                    filterBy
-                    | keyvalue">
+        <tr *ngFor="let item of items | dateRangeFilter:filterCriteria.dateFrom:filterCriteria.dateTo:filterBy | keyvalue">
           <td class="cell-bold">
-            {{item.value[bindBold]}
+            {{item.value.bindBold}}
           </td>
           <td class="cell-regular">
-            {{item.value[bindRegular]}}
+            {{item.value.bindRegular}}
           </td>
         </tr>
       </div>

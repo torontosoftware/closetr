@@ -20,11 +20,11 @@ export class UiTableComponent implements OnInit {
   ngOnInit() {
     console.log(this.items, this.bindBold, this.bindRegular);
     for (let item of (this.items)) {
-      console.log(item);
       item.bindBold = item[this.bindBold];
       item.bindRegular = item[this.bindRegular];
     }
     console.log(this.items);
+    console.log(this.filterCriteria);
   }
 
 }

@@ -56,6 +56,16 @@
           </div>
           <div class="row mtb-10">
             <div class="col-12">
+              <ui-table
+                *ngIf="closetList"
+                [items]="closetList"
+                [bindBold]="'clothingCost'"
+                [bindRegular]="'clothingName'"
+                [filter]="'date'"
+                [filterBy]="'clothingPurchaseDate'"
+                [filterCriteria]="filterCriteria"
+              ></ui-table>
+              <!--
               <div class="purchase-list-table">
                 <table class="table table-sm table-borderless">
                   <tbody>
@@ -66,6 +76,7 @@
                   </tbody>
                 </table>
               </div>
+              -->
             </div>
           </div>
           <div class="row mtb-10">
