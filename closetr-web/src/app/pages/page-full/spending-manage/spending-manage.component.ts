@@ -68,6 +68,7 @@ export class SpendingManageComponent implements OnInit {
       // choosing date range up to today:
       // set date objects, then set string format from date objects.
       this.searchCriteria.dateFrom = this.dateFormatService.dateRangeForFrom(this.searchCriteria.dateRangeFor);
+      console.log(this.dateFormatService.dateRangeForFrom(this.searchCriteria.dateRangeFor), this.searchCriteria.dateRangeFor);
       this.searchCriteria.dateTo = new Date();
 
       this.searchCriteria.dateFromFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateFrom);
