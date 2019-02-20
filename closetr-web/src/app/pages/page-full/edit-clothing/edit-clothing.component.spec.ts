@@ -9,10 +9,18 @@ import { UiInputSelectComponent } from '../../../shared/ui-input-select/ui-input
 import { Clothing } from '../../../models/clothing.model';
 import { EditClothingComponent } from './edit-clothing.component';
 
+@Component({
+  selector: 'app-closet-manage',
+  template: '<p>Mock Closet Manage Component</p>'
+})
+class MockClosetManageComponent {}
+
 describe('EditClothingComponent', () => {
   let component: EditClothingComponent;
   let fixture: ComponentFixture<EditClothingComponent>;
-
+  const routes = [
+    {path: 'closet-manage', component: MockClosetManageComponent}
+  ];
   beforeEach(async(() => {
     const clothingMock = {
       clothingName: "Zara Mockneck Tee",
@@ -22,10 +30,13 @@ describe('EditClothingComponent', () => {
       clothingPurchaseDate: "01/01/2019",
       enableClothingSave: () => true
     };
+
+    const closetManageComponentMock;
+
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
-        RouterTestingModule,
+        RouterTestingModule.withRoutes(routes),
         HttpClientTestingModule
       ],
       declarations: [
@@ -33,7 +44,8 @@ describe('EditClothingComponent', () => {
         UiTextButtonComponent,
         UiInputComponent,
         UiInputSelectComponent,
-        EditClothingComponent
+        EditClothingComponent,
+        MockClosetManageComponent
       ],
       providers: [
         {provide: Clothing, useValue: clothingMock}

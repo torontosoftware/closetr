@@ -49,6 +49,7 @@ export class LogOutfitComponent implements OnInit {
   }
 
   navTo(): void {
+    console.log(this);
     this.routesService.setPrevUrl('/log-outfit');
   }
 

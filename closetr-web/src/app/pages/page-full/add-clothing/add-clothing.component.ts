@@ -56,6 +56,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   Go back to the previous page.
   */
   back(): void {
+    console.log("hi there",this.prevUrl);
     this.router.navigate([this.prevUrl]);
   }
 
