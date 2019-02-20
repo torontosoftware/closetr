@@ -44,7 +44,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
 
     // items
     this.clothingCategories = Clothing.getClothingCategories();
-
+    console.log(this.routesService.getPrevUrl());
     // routes
     if (!(this.prevUrl = this.routesService.getPrevUrl())) {
       this.prevUrl = "/closet-manage";
@@ -56,6 +56,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   Go back to the previous page.
   */
   back(): void {
+    console.log("hi there",this.prevUrl);
     this.router.navigate([this.prevUrl]);
   }
 
@@ -82,7 +83,10 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   none of the fields are empty.
   */
   checkSubmit(): boolean {
-    return this.clothing.enableClothingSave();
+    if (this.clothing) {
+      return this.clothing.enableClothingSave();
+    }
+    return false;
   }
 
 }

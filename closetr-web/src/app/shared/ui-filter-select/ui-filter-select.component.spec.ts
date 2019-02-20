@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule } from '@angular/forms';
 import { UiFilterSelectComponent } from './ui-filter-select.component';
 
 describe('UiFilterSelectComponent', () => {
@@ -8,7 +8,8 @@ describe('UiFilterSelectComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UiFilterSelectComponent ]
+      declarations: [ UiFilterSelectComponent ],
+      imports: [ FormsModule ]
     })
     .compileComponents();
   }));
