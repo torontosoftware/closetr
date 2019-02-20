@@ -806,24 +806,18 @@ closet card components
 }
 
 // spending manage view
-.purchase-list-table {
+.table-general {
   @extend .mtb-15;
   overflow-y: scroll;
   --webkit-overflow-scrolling: touch;
   max-height: 40vh;
-  /*
-  & tr {
-    &:nth-child(odd) {
-      background-color: $light-blue-grey;
-    }
-  }*/
 }
 
-.purchase-list-cost {
+.cell-bold {
   @extend .f-bold-blue-md;
 }
 
-.purchase-list-clothing {
+.cell-regular {
   @extend .f-light-blue-md;
 }
 

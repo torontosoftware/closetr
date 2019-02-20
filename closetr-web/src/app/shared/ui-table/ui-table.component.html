@@ -1,3 +1,31 @@
-<p>
-  ui-table works!
-</p>
+<div class="table-general">
+  <table class="table table-sm table-borderless">
+    <tbody>
+      <tr
+        *ngIf="filter == 'date'"
+        *ngFor="let item of items |
+                  dateRangeFilter:
+                  filterCriteria.dateFrom:
+                  filterCriteria.dateTo:
+                  filterBy
+                  | keyvalue">
+        <td class="cell-bold">
+          {{item.value[bindBold]}
+        </td>
+        <td class="cell-regular">
+          {{item.value[bindRegular]}}
+        </td>
+      </tr>
+      <tr
+        *ngIf="filter == 'none'"
+        *ngFor="let item of items | keyvalue">
+        <td class="cell-bold">
+          {{item.value[bindBold]}
+        </td>
+        <td class="cell-regular">
+          {{item.value[bindRegular]}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
