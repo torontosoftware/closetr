@@ -44,42 +44,30 @@ export class DateFormatService {
     let today = new Date();
     switch (dateRangeFor) {
         case 'last week':
-        console.log('last week');
         return new Date(
           today.getFullYear(),
           today.getMonth(),
           today.getDate() - 7
         );
       case 'last two weeks':
-      console.log('last  2 week');
         return new Date(
           today.getFullYear(),
           today.getMonth(),
           today.getDate() - 14
         );
       case 'last month':
-        console.log('last month');
-        console.log(
-          new Date(
-            today.getFullYear(),
-            today.getMonth() - 1,
-            today.getDate()
-          )
-        );
         return new Date(
           today.getFullYear(),
           today.getMonth() - 1,
           today.getDate()
         );
       case 'last 6 months':
-        console.log('last 6 months');
         return new Date(
           today.getFullYear(),
           today.getMonth() - 6,
           today.getDate()
         );
       case 'last year':
-        console.log('last year');
         return new Date(
           today.getFullYear() - 1,
           today.getMonth(),

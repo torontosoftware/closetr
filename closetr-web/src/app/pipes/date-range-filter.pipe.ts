@@ -18,7 +18,6 @@ export class DateRangeFilterPipe implements PipeTransform {
 
     let itemCount = 0;
     let filteredItems = {};
-    console.log(items);
     for (let itemID in items) {
       let item = items[itemID];
       let itemDateProperty = this.dateFormatService.formatStringDate(item[property]);
@@ -28,7 +27,6 @@ export class DateRangeFilterPipe implements PipeTransform {
         itemCount++;
       }
     }
-    console.log(filteredItems);
     return filteredItems;
   }
 

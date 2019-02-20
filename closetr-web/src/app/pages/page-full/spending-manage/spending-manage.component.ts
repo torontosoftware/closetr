@@ -34,8 +34,6 @@ export class SpendingManageComponent implements OnInit {
       dateToFormatted: this.dateFormatService.formatDateString(new Date())
     };
 
-    this.updateFilterCriteria();
-
     this.isDateRange = false;
     this.searchCriteriaChangeHandler();
 
@@ -59,7 +57,6 @@ export class SpendingManageComponent implements OnInit {
   }
 
   searchCriteriaChangeHandler(): void {
-    console.log("hello");
     if (this.isDateRange) {
       // choosing date range: turn string format to date object.
       this.searchCriteria.dateFrom = this.dateFormatService.formatStringDate(this.searchCriteria.dateFromFormatted);
@@ -68,7 +65,6 @@ export class SpendingManageComponent implements OnInit {
       // choosing date range up to today:
       // set date objects, then set string format from date objects.
       this.searchCriteria.dateFrom = this.dateFormatService.dateRangeForFrom(this.searchCriteria.dateRangeFor);
-      console.log(this.dateFormatService.dateRangeForFrom(this.searchCriteria.dateRangeFor), this.searchCriteria.dateRangeFor);
       this.searchCriteria.dateTo = new Date();
 
       this.searchCriteria.dateFromFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateFrom);
@@ -80,9 +76,8 @@ export class SpendingManageComponent implements OnInit {
   updateFilterCriteria(): void {
     this.filterCriteria = {
       dateFrom: this.searchCriteria.dateFrom,
-      dateTo: this.searchCriteria.dateFrom
+      dateTo: this.searchCriteria.dateTo
     };
-    console.log(this.filterCriteria, this.searchCriteria);
   }
 
   /*
