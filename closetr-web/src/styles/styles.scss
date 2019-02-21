@@ -2,44 +2,21 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "global-variables.scss";
 @import "container/mixins.scss";
+@import "container/scroll-bar.scss";
 @import "position-spacing.scss";
 @import "custom.scss";
 @import "icons.scss";
 @import "buttons.scss";
 @import "fonts.scss";
 @import "inputs.scss";
-@import "scroll-bar.scss";
+
+//partial imports
+@import "partial/dashboard.scss";
 
 //table style
 .display-table {
   display: table;
   width: 100%;
-}
-
-.dashboard-container-width {
-  width: 100vw;
-  @include sm {
-    width: 90vw;
-  }
-  @include md {
-    width: 80vw;
-  }
-  @include lg {
-    width: 70vw;
-  }
-  @include xl {
-    width: 60vw;
-  }
-}
-
-.dashboard-container {
-  @extend .dashboard-container-width;
-  margin-top: 15px;
-  padding: 0;
-  max-width: 1100px;
-  @include sm {
-    padding: 0 15px 0 15px;
-  }
 }
 
 body {
