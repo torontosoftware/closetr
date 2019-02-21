@@ -2,6 +2,14 @@
 Closetr icon styles.
 */
 
+%circle-sm {
+  padding: 10px;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+}
+
+
 @mixin rotate($deg, $speed) {
   -moz-transform: rotate($deg);
   -webkit-transform: rotate($deg);
@@ -22,15 +30,6 @@ Closetr icon styles.
   }
 }
 
-.icon-white {
-  @extend .icon;
-  color: $white;
-  &:hover {
-    color: $light-blue-grey;
-    //text-shadow: 0 3px 3px blue;
-  }
-}
-
 .icon-lg {
   @extend .icon;
   margin-top: 0px;
@@ -41,6 +40,15 @@ Closetr icon styles.
   @extend .icon;
   margin-top: 0px;
   font-size: 15px;
+}
+
+.icon-white {
+  @extend .icon;
+  color: $white;
+  &:hover {
+    color: $light-blue-grey;
+    //text-shadow: 0 3px 3px blue;
+  }
 }
 
 .icon-sort {
