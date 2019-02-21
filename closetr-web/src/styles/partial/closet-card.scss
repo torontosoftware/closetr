@@ -1,0 +1,52 @@
+/*
+Closet card styles.
+*/
+
+.closet-card {
+  border-radius: 10px;
+  background-color: $med-blue;
+  height: 170px;
+  width: 100%;
+  transition: $fast-ease;
+  &:hover {
+    transition: $fast-ease;
+    margin-left: -3px;
+    margin-top: 7px;
+    width: calc(100% + 5px);
+    height: 175px;
+  }
+}
+
+.closet-card-picture-container {
+  height: 100px;
+  background-color: $dark-blue;
+  border-radius: 10px 10px 0 0;
+}
+
+.closet-card-caption-container {
+  height: 70px;
+  line-height: 15px;
+  overflow: hidden;
+}
+
+.closet-card-caption {
+  margin: 7px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.closet-card-icon-edit {
+  position: relative;
+  top: -22px;
+  left: 5px;
+  transition: $fast-ease;
+}
+
+.closet-card-icon-close {
+  position: relative;
+  font-size: 15px;
+  top: 5px;
+  left: 92%;
+  transition: $fast-ease;
+}
