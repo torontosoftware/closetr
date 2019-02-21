@@ -1,0 +1,11 @@
+.nav-row {
+  animation: $a-fade-from-up;
+  transition: $mid-ease;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  z-index: $z-nav-row;
+  @include sm {
+    margin-top: 35px;
+    margin-bottom: 20px;
+  }
+}

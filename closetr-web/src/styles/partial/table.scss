@@ -1,0 +1,15 @@
+.table-general {
+  @extend .mtb-15;
+  overflow-y: scroll;
+  --webkit-overflow-scrolling: touch;
+  max-height: 40vh;
+}
+
+.cell-bold {
+  @extend .f-bold-blue-md;
+  padding-right: 10% !important;
+}
+
+.cell-regular {
+  @extend .f-light-blue-md;
+}
