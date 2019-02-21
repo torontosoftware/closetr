@@ -4,6 +4,7 @@
 @import "custom.scss";
 @import "buttons.scss";
 @import "fonts.scss";
+@import "inputs.scss";
 /*
 screen-width breakpoints
 */
@@ -267,120 +268,6 @@ circle styles
   }
 
 }
-
-/*
-input changes (default)
-*/
-
-.input-clean {
-  @extend .f-med-blue-md;
-  border: none;
-  border-bottom: 1px solid $med-blue;
-  border-radius: 20px;
-  height: 40px;
-  &:disabled {
-    background-color: $white;
-  }
-}
-
-.input-clean-error {
-  border: 2px solid $red;
-}
-
-.input-clean-error-label {
-  @extend .f-reg-blue-xs;
-  position: absolute;
-  top: calc(100% - 2px);
-  left: 30px;
-  color: $red;
-  animation: $a-fade-from-up;
-}
-
-.input-clean-btn-size {
-  @extend .input-clean;
-  height: 30px;
-}
-
-.input-clean-addon-right {
-  height: 40px;
-  width: auto;
-  border-radius: 0 20px 20px 0;
-  border-bottom: 1px solid $med-blue;
-}
-
-.input-clean-addon-span {
-  line-height: 40px;
-  margin-right: 15px;
-  margin-left: 15px;
-}
-
-select {
-  @extend .f-light-blue-xs;
-  border-radius: 10px;
-  border: none;
-  //width: 100%;
-  padding: 2px 5px 2px 5px;
-  border-bottom: 1px solid $med-blue;
-  background-color: $light-blue-grey;
-  -webkit-appearance: none;
-  overflow: hidden;
-  width: auto;
-}
-
-.select-with-icon {
-  width: calc(100% - 25px);
-}
-
-// select with to-from
-.select-with-label {
-  width: 110%;
-  display: table-cell;
-}
-
-.select-label {
-  @extend .f-med-blue;
-  display: table-cell;
-  position: relative;
-  margin-right: -5px;
-  top: -11px;
-}
-
-.date-picker-label {
-  @extend .f-med-blue;
-  margin-right: 5px;
-}
-
-.toggle-label {
-  @extend .f-med-blue;
-  margin-right: 5px;
-  position: relative;
-  top: 3px;
-}
-
-.toggle {
-  position: relative;
-  top: 5px;
-}
-
-.date-picker {
-  @extend .f-light-blue;
-  padding-left: 5px;
-  background-color: $light-blue-grey;
-  border: none;
-  border-radius: 23px;
-  height: 23px;
-}
-
-.date-picker-from {
-  @extend .date-picker;
-  width: calc(100% - 40px);
-}
-
-.date-picker-to {
-  @extend .date-picker;
-  width: calc(100% - 23px);
-}
-
 
 ::-webkit-inner-spin-button {
   display: none;
