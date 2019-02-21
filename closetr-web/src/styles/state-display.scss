@@ -1,0 +1,16 @@
+.display-none {
+  opacity: 0;
+  transition: $fast-ease;
+}
+
+.display-table {
+  display: table;
+  width: 100%;
+}
+
+.disabled-none {
+  transition: $fast-ease;
+  &:disabled {
+    opacity:0 !important;
+  }
+}

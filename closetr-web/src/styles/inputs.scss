@@ -2,6 +2,14 @@
 Closetr input styles.
 */
 
+::-webkit-inner-spin-button {
+  display: none;
+}
+
+::-webkit-calendar-picker-indicator {
+  background: none;
+}
+
 .input-clean {
   @extend .f-med-blue-md;
   border: none;

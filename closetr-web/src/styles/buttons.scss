@@ -2,6 +2,15 @@
 Closetr button styles.
 */
 
+a {
+  color: inherit;
+  text-decoration: inherit;
+  &:hover {
+    color: inherit;
+    text-decoration: inherit;
+  }
+}
+
 .text-bubble-xs {
   height: 15px;
   vertical-align: middle;

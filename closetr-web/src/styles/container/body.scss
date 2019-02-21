@@ -1,0 +1,26 @@
+body {
+  font-size: 15px;
+  font-weight: 400;
+  font-family: $font-main;
+  background-color: $light-blue-grey;
+  transition: $mid-ease;
+  overflow-y: overlay;
+  overflow-x: hidden;
+}
+
+router-outlet ~ * {
+  position: absolute;
+  width: calc(100vw);
+  @include sm {
+    width: calc(90vw - 30px);
+  }
+  @include md {
+    width: calc(80vw - 30px);
+  }
+  @include lg {
+    width: calc(70vw - 30px);
+  }
+  @include xl {
+    width: calc(60vw - 30px);
+  }
+}

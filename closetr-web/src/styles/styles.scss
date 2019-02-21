@@ -3,6 +3,8 @@
 @import "global-variables.scss";
 @import "container/mixins.scss";
 @import "container/scroll-bar.scss";
+@import "container/body.scss";
+@import "state-display.scss";
 @import "position-spacing.scss";
 @import "custom.scss";
 @import "icons.scss";
@@ -17,22 +19,6 @@
 @import "partial/weather.scss";
 @import "partial/user-menu.scss";
 
-//table style
-.display-table {
-  display: table;
-  width: 100%;
-}
-
-body {
-  font-size: 15px;
-  font-weight: 400;
-  font-family: $font-main;
-  background-color: $light-blue-grey;
-  transition: $mid-ease;
-  overflow-y: overlay;
-  overflow-x: hidden;
-}
-
 .nav-row {
   animation: $a-fade-from-up;
   transition: $mid-ease;
@@ -42,39 +28,6 @@ body {
   @include sm {
     margin-top: 35px;
     margin-bottom: 20px;
-  }
-}
-
-::-webkit-inner-spin-button {
-  display: none;
-}
-
-::-webkit-calendar-picker-indicator {
-  background: none;
-}
-
-/*
-a changes
-*/
-
-a {
-  color: inherit;
-  text-decoration: inherit;
-  &:hover {
-    color: inherit;
-    text-decoration: inherit;
-  }
-}
-
-.display-none {
-  opacity: 0;
-  transition: $fast-ease;
-}
-
-.disabled-none {
-  transition: $fast-ease;
-  &:disabled {
-    opacity:0 !important;
   }
 }
 
@@ -132,21 +85,4 @@ a {
   text-overflow: ellipsis;
   width: calc(100% - 20px);
   display: inline-block;
-}
-
-router-outlet ~ * {
-  position: absolute;
-  width: calc(100vw);
-  @include sm {
-    width: calc(90vw - 30px);
-  }
-  @include md {
-    width: calc(80vw - 30px);
-  }
-  @include lg {
-    width: calc(70vw - 30px);
-  }
-  @include xl {
-    width: calc(60vw - 30px);
-  }
 }
