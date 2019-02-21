@@ -15,6 +15,7 @@
 @import "partial/widget.scss";
 @import "partial/closet-card.scss";
 @import "partial/weather.scss";
+@import "partial/user-menu.scss";
 
 //table style
 .display-table {
@@ -147,53 +148,5 @@ router-outlet ~ * {
   }
   @include xl {
     width: calc(60vw - 30px);
-  }
-}
-
-// user menu styles
-.nav-popup-container {
-  position: absolute;
-  top: 0; left: 0;
-  height: 100vh;
-  width: 100vw;
-  z-index: $z-nav-popup-container;
-}
-
-.nav-popup {
-  animation: $a-fade-from-up;
-  position: absolute;
-  background-color: $white;
-  z-index: $z-nav-popup;
-  border-radius: 5px;
-  box-shadow: 3px 3px 12px -3px #bbbbbb;
-}
-
-#user-menu {
-  top: 75px;
-  left: 16px;
-  height: 110px;
-  width: 140px;
-  @include sm {
-    left: calc(8% + 5px);
-    top: 90px;
-  }
-  @include md {
-    left: calc(13% + 3px);
-  }
-  @include lg {
-    left: calc(17% + 8px);
-  }
-  @include xl {
-    left: calc(22% + 3px);
-  }
-  & .menu-item {
-    & button {
-      @extend .f-light-blue-md;
-    }
-    list-style: none;
-    position: relative;
-    top: 5px;
-    left: -40px;
-    margin: 8px 0 8px 0;
   }
 }
