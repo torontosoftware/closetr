@@ -1,0 +1,117 @@
+/*
+Closetr icon styles.
+*/
+
+@mixin rotate($deg, $speed) {
+  -moz-transform: rotate($deg);
+  -webkit-transform: rotate($deg);
+  -o-transform: rotate($deg);
+  transform: rotate($deg);
+  transition: $speed;
+}
+
+.icon {
+  display: inline;
+  margin-top: 3px;
+  font-size: 17px;
+  transition: $fast-ease;
+  &:hover {
+    transition: $fast-ease;
+    color: $darker-blue;
+    //text-shadow: 0 3px 3px blue;
+  }
+}
+
+.icon-white {
+  @extend .icon;
+  color: $white;
+  &:hover {
+    color: $light-blue-grey;
+    //text-shadow: 0 3px 3px blue;
+  }
+}
+
+.icon-lg {
+  @extend .icon;
+  margin-top: 0px;
+  font-size: 20px;
+}
+
+.icon-md {
+  @extend .icon;
+  margin-top: 0px;
+  font-size: 15px;
+}
+
+.icon-sort {
+  position: absolute;
+  top: 2px;
+  left: 24px;
+  font-size: 13px;
+}
+
+.icon-filter {
+  position: absolute;
+  top: 5px;
+  left: 22px;
+  font-size: 11px;
+}
+
+.icon-edit {
+  position: relative;
+  transition: $fast-ease;
+  &:hover {
+    cursor: pointer;
+    @include rotate(7deg, $fast-ease);
+  }
+  & span {
+    &:hover {
+      cursor: pointer;
+      @include rotate(7deg, $fast-ease);
+    }
+  }
+}
+
+.icon-add {
+  position: relative;
+  top: -5px;
+  font-size: 11px;
+  transition: $mid-ease;
+  &:hover {
+    transition: $mid-ease;
+    font-size: 12px;
+  }
+}
+
+.closetr-logo {
+  @extend %circle-sm;
+  background-color: $dark-blue;
+  @include rotate(-21deg, $mid-ease);
+  &:hover {
+    cursor: pointer;
+    @include rotate(0deg, $mid-ease);
+  }
+}
+
+.closetr-logo-content {
+  font-family: 'Quicksand', sans-serif;
+  position: relative;
+  top: -8px;
+  left: 4px;
+  font-size: 30px;
+  color: $white;
+}
+
+.user-icon {
+  @extend %circle-sm;
+  background-color: $white;
+  float: left;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+  & img {
+    width: 100%;
+    border-radius: 100%;
+  }
+}
