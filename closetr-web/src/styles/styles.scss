@@ -8,31 +8,12 @@
 @import "buttons.scss";
 @import "fonts.scss";
 @import "inputs.scss";
+@import "scroll-bar.scss";
 
 //table style
 .display-table {
   display: table;
   width: 100%;
-}
-
-//scroll bar style
-
-::-webkit-scrollbar {
-  width: 6px;
-  background-color: transparent;
-}
-
-::-webkit-scrollbar-track {
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: $med-blue;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: $med-blue;
 }
 
 .dashboard-container-width {
