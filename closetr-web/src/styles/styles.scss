@@ -11,20 +11,12 @@ Bootstrap
 @import "~bootstrap/dist/css/bootstrap.css";
 
 /*
-Container:
-Styles relating to overarching top-level container styles for
-closetr, such as body styles, scrolling.
-*/
-@import "container/mixins.scss";
-@import "container/scroll-bar.scss";
-@import "container/body.scss";
-
-/*
 Main:
 Styles for inputs, ui elements that don't pertain to one
 particular component or use case. Fonts, and global variables
 are also defined here.
 */
+@import "main/global-variables.scss";
 @import "main/state-display.scss";
 @import "main/position-spacing.scss";
 @import "main/custom.scss";
@@ -32,7 +24,15 @@ are also defined here.
 @import "main/buttons.scss";
 @import "main/fonts.scss";
 @import "main/inputs.scss";
-@import "main/global-variables.scss";
+
+/*
+Container:
+Styles relating to overarching top-level container styles for
+closetr, such as body styles, scrolling.
+*/
+@import "container/mixins.scss";
+@import "container/scroll-bar.scss";
+@import "container/body.scss";
 
 /*
 Partial:
