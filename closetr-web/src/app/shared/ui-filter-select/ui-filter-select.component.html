@@ -16,8 +16,8 @@
       'select-with-label': (labelText)
     }"
     [(ngModel)]="inputModel"
-    (ngModelChange)="inputModelChange.emit()"
-    (change)="inputModelChange.emit()"
+    (ngModelChange)="inputModelChange.emit($event)"
+    (change)="inputModelChange.emit(inputModel)"
   >
     <option
       *ngFor="let item of items"

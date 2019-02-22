@@ -15,7 +15,8 @@ import { Subscription } from 'rxjs';
 export class SpendingManageComponent implements OnInit {
   closetList: Array<Clothing>;
   isDateRange: boolean;
-  searchCriteria: any
+  searchCriteria: any;
+  filterCriteria: any;
   availableDateRange: any;
   currentUserSubscription: Subscription;
   currentUser: User;
@@ -69,6 +70,14 @@ export class SpendingManageComponent implements OnInit {
       this.searchCriteria.dateFromFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateFrom);
       this.searchCriteria.dateToFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateTo);
     }
+    this.updateFilterCriteria();
+  }
+
+  updateFilterCriteria(): void {
+    this.filterCriteria = {
+      dateFrom: this.searchCriteria.dateFrom,
+      dateTo: this.searchCriteria.dateTo
+    };
   }
 
   /*
