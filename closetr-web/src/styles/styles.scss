@@ -1,18 +1,44 @@
-/* You can add global styles to this file, and also import other style files */
+/*
+Closetr style imports. No new styles are defined here, but only
+imported. To add new styles, define it in one of the proper scss
+files. If no category/file suits the new style, then you may
+create a new one, and import it here.
+*/
+
+/*
+Bootstrap
+*/
 @import "~bootstrap/dist/css/bootstrap.css";
-@import "global-variables.scss";
+
+/*
+Container:
+Styles relating to overarching top-level container styles for
+closetr, such as body styles, scrolling.
+*/
 @import "container/mixins.scss";
 @import "container/scroll-bar.scss";
 @import "container/body.scss";
-@import "state-display.scss";
-@import "position-spacing.scss";
-@import "custom.scss";
-@import "icons.scss";
-@import "buttons.scss";
-@import "fonts.scss";
-@import "inputs.scss";
 
-//partial imports
+/*
+Main:
+Styles for inputs, ui elements that don't pertain to one
+particular component or use case. Fonts, and global variables
+are also defined here.
+*/
+@import "main/state-display.scss";
+@import "main/position-spacing.scss";
+@import "main/custom.scss";
+@import "main/icons.scss";
+@import "main/buttons.scss";
+@import "main/fonts.scss";
+@import "main/inputs.scss";
+@import "main/global-variables.scss";
+
+/*
+Partial:
+Styles that apply to a particular component (or part of
+a component), and are seldom used anywhere else.
+*/
 @import "partial/dashboard.scss";
 @import "partial/widget.scss";
 @import "partial/closet-card.scss";

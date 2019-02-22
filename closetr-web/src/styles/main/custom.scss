@@ -1,4 +1,7 @@
-// INPUT CHECKBOX TOGGLE STYLES
+/*
+Toggle styles (more to add later).
+*/
+
 input[type=checkbox]{
 	height: 0;
 	width: 0;
@@ -50,5 +53,3 @@ input:checked + label:after {
 label:active:after {
 	width: 20px;
 }
-
-//*****************************************
