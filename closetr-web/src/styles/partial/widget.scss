@@ -1,0 +1,46 @@
+/*
+Widget styles.
+*/
+
+.widget {
+  animation: $a-fade-from-down;
+  padding: 15px 5px 15px 5px;
+  color: $dark-blue;
+  background-color: $white;
+  min-height: 380px;
+  margin: 10px -15px 10px -15px;
+  border-radius: 12px;
+  transition: $mid-ease;
+  @include sm {
+    padding: 22px 25px 22px 25px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  @include xl {
+    padding: 25px 35px 25px 35px;
+  }
+}
+
+.widget-left {
+  @include md {
+    margin-right: -5px;
+  }
+}
+
+.widget-right {
+  @include md {
+    margin-left: -5px;
+  }
+}
+
+.widget-full {
+  @extend .widget;
+  min-height: 550px;
+  padding: 20px;
+  @include sm {
+    padding: 22px 35px 22px 35px;
+  }
+  @include xl {
+    padding: 25px 45px 25px 45px;
+  }
+}

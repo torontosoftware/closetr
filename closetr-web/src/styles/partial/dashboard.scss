@@ -1,0 +1,29 @@
+/*
+Dashboard styles.
+*/
+
+.dashboard-container-width {
+  width: 100vw;
+  @include sm {
+    width: 90vw;
+  }
+  @include md {
+    width: 80vw;
+  }
+  @include lg {
+    width: 70vw;
+  }
+  @include xl {
+    width: 60vw;
+  }
+}
+
+.dashboard-container {
+  @extend .dashboard-container-width;
+  margin-top: 15px;
+  padding: 0;
+  max-width: 1100px;
+  @include sm {
+    padding: 0 15px 0 15px;
+  }
+}
