@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
     this.enableLogin = false;
     this.showLoginError = false;
     this.show = false;
+    console.log("the current user value",this.authenticationService.currentUserValue);
     if (this.authenticationService.currentUserValue) {
       console.log("here");
       this.router.navigate(['/dashboard']);
