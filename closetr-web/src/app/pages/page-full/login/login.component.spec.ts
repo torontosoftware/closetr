@@ -76,10 +76,18 @@ describe('LoginComponent', () => {
   });
 
   it('should not redirect to dashboard if not logged in', () => {
-    console.log(component);
+    console.log("starting second case",component);
     component.authenticationService.currentUserValue = null;
-    console.log(component);
+    console.log(component,"should not redirect to dashboard");
     fixture.detectChanges();
+    expect(component).toBeTruthy();
+  });
+
+  it('should redirect to dashboard', () => {
+    console.log("starting third case",component);
+    component.authenticationService.currentUserValue = "nuya";
+    console.log(component,"third: should not redirect to dashboard");
+    //fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
