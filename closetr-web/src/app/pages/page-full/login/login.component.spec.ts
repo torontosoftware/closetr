@@ -12,7 +12,14 @@ import { LoginComponent } from './login.component';
   providedIn: 'root'
 })
 class AuthenticationServiceMock {
-  public currentUserValue = "Fides Lingaaa";
+  public currentUserValue = "desslinga";
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+class AuthenticationServiceNone {
+  public currentUserValue = "desslinga";
 }
 
 @Component({
@@ -53,7 +60,27 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    fixture = null;
+    component = null;
+  });
+
+  /*
   it('should create', () => {
     expect(component).toBeTruthy();
+  });*/
+
+  it('should redirect to dashboard if logged in', () => {
+    console.log(component);
+    //expect(component.router.url).toEqual('/dashboard');
   });
+
+  it('should not redirect to dashboard if not logged in', () => {
+    console.log(component);
+    component.authenticationService.currentUserValue = null;
+    console.log(component);
+    fixture.detectChanges();
+    expect(component).toBeTruthy();
+  });
+
 });
