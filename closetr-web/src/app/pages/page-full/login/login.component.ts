@@ -14,25 +14,25 @@ export class LoginComponent implements OnInit {
   password: string;
   enableLogin: boolean;
   showLoginError: boolean;
-  authenticationService: AuthenticationService;
   show : boolean;
 
   constructor(private router: Router,
-              private authenticationservice: AuthenticationService) {
+              private authenticationService: AuthenticationService) {
     this.username = "";
     this.password = "";
     this.enableLogin = false;
     this.showLoginError = false;
-    this.authenticationService = authenticationservice;
     this.show = false;
-    if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/dashboard']);
-    } else {
-      this.show = true;
-    }
   }
 
   ngOnInit() {
+    if (this.authenticationService.currentUserValue) {
+      console.log("i went to the dashboard.");
+      this.router.navigate(['/dashboard']);
+    } else {
+      console.log("i did not go to the dashboard.");
+      this.show = true;
+    }
   }
 
   checkEnableLogin(): void {
