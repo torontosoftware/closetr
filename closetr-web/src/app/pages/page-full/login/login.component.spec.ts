@@ -14,7 +14,7 @@ import { LoginComponent } from './login.component';
   providedIn: 'root'
 })
 class AuthenticationServiceMock {
-  public currentUserValue = "fides";
+  public currentUserValue = null;
 }
 
 @Component({
@@ -62,20 +62,23 @@ describe('LoginComponent', () => {
 
   it('should redirect to dashboard if logged in.', () => {
     let navSpy = spyOn(router, "navigate");
+    authenticationService.currentUserValue = "fides";
     fixture.detectChanges();
     expect(navSpy).toHaveBeenCalledWith(['/dashboard']);
   });
 
   it('should not redirect to dashboard if not logged in.', () => {
     let navSpy = spyOn(router, "navigate");
-    authenticationService.currentUserValue = null;
     fixture.detectChanges();
     expect(navSpy).not.toHaveBeenCalledWith(['/dashboard']);
   });
 
   it(`should not allow login button to be clicked when both
     fields empty.`, () => {
-
+    fixture.detectChanges();
+    const hostElement = fixture.nativeElement;
+    const loginButton: HTMLElement = hostElement.querySelector('#login-button button');
+    expect(loginButton.disabled).toBeTruthy();
   });
 
   it(`should not allow login button to be clicked when
@@ -107,5 +110,5 @@ describe('LoginComponent', () => {
     service returns success on login function.`, () => {
 
   });
-  
+
 });
