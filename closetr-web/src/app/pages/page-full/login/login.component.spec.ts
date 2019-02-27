@@ -12,14 +12,7 @@ import { LoginComponent } from './login.component';
   providedIn: 'root'
 })
 class AuthenticationServiceMock {
-  public currentUserValue = "desslinga";
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceNone {
-  public currentUserValue = "desslinga";
+  public currentUserValue = "fides";
 }
 
 @Component({
@@ -30,11 +23,12 @@ class MockDashboardComponent {}
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
+  let authenticationService: AuthenticationServiceMock;
   let fixture: ComponentFixture<LoginComponent>;
   const routes = [
     { path: 'dashboard', component: MockDashboardComponent }
   ];
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
@@ -48,22 +42,23 @@ describe('LoginComponent', () => {
         LoginComponent
       ],
       providers: [
+        LoginComponent,
         { provide: AuthenticationService, useClass: AuthenticationServiceMock }
       ]
-    })
-    .compileComponents();
-  }));
-
+    });
+    //.compileComponents();
+    fixture = TestBed.createComponent(LoginComponent);
+    component = TestBed.get(LoginComponent);
+    console.log("howdy", component);
+    //component = TestBed.get(LoginComponent);
+    authenticationService = TestBed.get(AuthenticationService);
+  });
+  /*
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  afterEach(() => {
-    fixture = null;
-    component = null;
-  });
+  });*/
 
   /*
   it('should create', () => {
@@ -71,13 +66,15 @@ describe('LoginComponent', () => {
   });*/
 
   it('should redirect to dashboard if logged in', () => {
-    console.log(component);
+    console.log("starting first case", component);
+    authenticationService.currentUserValue = "yes";
+    fixture.detectChanges();
     //expect(component.router.url).toEqual('/dashboard');
   });
 
   it('should not redirect to dashboard if not logged in', () => {
-    console.log("starting second case",component);
-    component.authenticationService.currentUserValue = null;
+    console.log("starting second case");
+    authenticationService.currentUserValue = 0;
     console.log(component,"should not redirect to dashboard");
     fixture.detectChanges();
     expect(component).toBeTruthy();
@@ -85,8 +82,9 @@ describe('LoginComponent', () => {
 
   it('should redirect to dashboard', () => {
     console.log("starting third case",component);
-    component.authenticationService.currentUserValue = "nuya";
+    authenticationService.currentUserValue = "pls";
     console.log(component,"third: should not redirect to dashboard");
+    fixture.detectChanges();
     //fixture.detectChanges();
     expect(component).toBeTruthy();
   });
