@@ -1,3 +1,60 @@
-<p>
-  closet-stats-widget works!
-</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6">
+      <h3>closet stats</h3>
+    </div>
+    <div class="col-6">
+      <ui-edit-button
+        [type]="'link'"
+        [buttonLink]="'/closet-manage'"
+      ></ui-edit-button>
+    </div>
+  </div>
+  <div class="row mtb-10">
+    <div class="col-12 col-md-6">
+      <span class="f-med-blue-md">
+        number of items:
+      </span>
+      <span class="f-light-blue-md">
+        264
+      </span>
+      <br>
+      <span class="f-med-blue-md">
+        total value:
+      </span>
+      <span class="f-light-blue-md">
+        $25,678
+      </span>
+    </div>
+    <div class="col-12 col-md-6">
+      <span class="f-med-blue-md">
+        average cost:
+      </span>
+      <span class="f-light-blue-md">
+        $97.27
+      </span>
+      <br>
+      <span class="f-med-blue-md">
+        average cost per wear:
+      </span>
+      <span class="f-light-blue-md">
+        $10.60
+      </span>
+    </div>
+  </div>
+  <hr>
+  <div class="row mtb-10">
+    <div class="col-12">
+      <span class="f-med-blue-md">
+        most worn items:
+      </span>
+    </div>
+    <div class="col-6 col-md-4" *ngFor="let i of [1,2,3,4,5]" style="padding: 15px">
+      <button class="btn closet-search-box">
+        <span class="closet-search-box-text f-med-blue-xs">Tshirt
+        <span class="f-light-blue-xs"> | </span> worn: <span class="f-light-blue-xs">60</span>
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
