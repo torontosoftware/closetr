@@ -87,11 +87,11 @@ describe('LoginComponent', () => {
     const hostElement = fixture.nativeElement;
     const loginButton: HTMLElement = hostElement.querySelector('#login-button button');
     const usernameInput: HTMLInputElement = hostElement.querySelector('#username-input input');
-    console.log("username",usernameInput,hostElement);
+
     usernameInput.value = 'input';
     usernameInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
-    console.log(usernameInput, usernameInput.value);
+    
     expect(loginButton.disabled).toBeTruthy();
   });
 
@@ -102,7 +102,19 @@ describe('LoginComponent', () => {
 
   it(`should allow login button to be clicked when both
     fields are filled.`, () => {
+    fixture.detectChanges();
+    const hostElement = fixture.nativeElement;
+    const loginButton: HTMLElement = hostElement.querySelector('#login-button button');
+    const usernameInput: HTMLInputElement = hostElement.querySelector('#username-input input');
+    const passwordInput: HTMLInputElement = hostElement.querySelector('#password-input input');
 
+    usernameInput.value = 'input';
+    usernameInput.dispatchEvent(new Event('input'));
+    passwordInput.value = 'input';
+    passwordInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    expect(loginButton.disabled).toBeFalsy();
   });
 
   it(`should call the authentication service's login function
