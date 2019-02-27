@@ -162,7 +162,29 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
     expect(navSpy).not.toHaveBeenCalledWith(['/dashboard']);
     expect(errorLabel.hidden).toBeFalsy();
+  });
 
+  it(`should display an error message when the authentication
+    service returns error on login function, which disappears
+    when user types new value.`, () => {
+    let navSpy = spyOn(router, "navigate");
+    authenticationService.login = jasmine.createSpy('authenticationService.login').and.returnValue(
+      of(false)
+    );
+    component.ngOnInit();
+    usernameInput.value = 'input';
+    usernameInput.dispatchEvent(new Event('input'));
+    passwordInput.value = 'input';
+    passwordInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    loginButton.click();
+    fixture.detectChanges();
+    expect(navSpy).not.toHaveBeenCalledWith(['/dashboard']);
+    expect(errorLabel.hidden).toBeFalsy();
+    usernameInput.value = 'new input';
+    usernameInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    expect(errorLabel.hidden).toBeTruthy();
   });
 
   it(`should redirect to dashboard when the authentication
