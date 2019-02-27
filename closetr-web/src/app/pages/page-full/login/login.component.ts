@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("the current user value",this, this.authenticationService);
     if (this.authenticationService.currentUserValue) {
       console.log("i went to the dashboard.");
       this.router.navigate(['/dashboard']);

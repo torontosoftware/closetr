@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { Location } from '@angular/common';
 import { Injectable, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -59,37 +60,51 @@ describe('LoginComponent', () => {
     router = TestBed.get(Router);
     location = TestBed.get(Location);
   });
-  /*
-  beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
+
+  it('should redirect to dashboard if logged in.', () => {
+    let navSpy = spyOn(router, "navigate");
     fixture.detectChanges();
-  });*/
-
-  /*
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });*/
-
-  it('should redirect to dashboard if logged in', () => {
-
-    console.log("location",location);
-    console.log("starting first case", component);
-    fixture.detectChanges();
-    console.log(component.router,component.router.url);
-    expect(component.router.url).toEqual('/dashboard');
-    //expect(component.router.url).toEqual('/dashboard');
+    expect(navSpy).toHaveBeenCalledWith(['/dashboard']);
   });
 
-  it('should not redirect to dashboard if not logged in', () => {
-    console.log("starting second case");
-
-    console.log("locatoin",location);
+  it('should not redirect to dashboard if not logged in.', () => {
+    let navSpy = spyOn(router, "navigate");
     authenticationService.currentUserValue = null;
     fixture.detectChanges();
-    console.log(component.router,component.router.url);
-    expect(component.router.url).toEqual('/');
+    expect(navSpy).not.toHaveBeenCalledWith(['/dashboard']);
   });
 
+  it(`should not allow login button to be clicked when both
+    fields empty.`, () => {
 
-});
+  });
+
+  it(`should not allow login button to be clicked when
+    username field is empty, yet password field is filled.`, () => {
+
+  });
+
+  it(`should not allow login button to be clicked when
+    password field is empty, yet username field is filled.`, () => {
+
+  });
+
+  it(`should allow login button to be clicked when both
+    fields are filled.`, () => {
+
+  });
+
+  it(`should call the authentication service's login function
+    upon clicking the the login button.`, () => {
+
+  });
+
+  it(`should display an error message when the authentication
+    service returns error on login function.`, () => {
+
+  });
+
+  it(`should redirect to dashboard when the authentication
+    service returns success on login function.`, () => {
+
+  });
