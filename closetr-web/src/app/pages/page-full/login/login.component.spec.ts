@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { Location } from '@angular/common';
 import { Injectable, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +15,10 @@ import { LoginComponent } from './login.component';
   providedIn: 'root'
 })
 class AuthenticationServiceMock {
-  public currentUserValue = null;
+  currentUserValue = null;
+  login = jasmine.createSpy('authenticationService.login').and.returnValue(
+    of(true)
+  );
 }
 
 @Component({
@@ -125,7 +129,19 @@ describe('LoginComponent', () => {
 
   it(`should call the authentication service's login function
     upon clicking the the login button.`, () => {
-
+    let loginData = {
+      userID: 'input',
+      userPassword: 'input'
+    };
+    component.ngOnInit();
+    usernameInput.value = 'input';
+    usernameInput.dispatchEvent(new Event('input'));
+    passwordInput.value = 'input';
+    passwordInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    loginButton.click();
+    fixture.detectChanges();
+    expect(authenticationService.login).toHaveBeenCalledWith(loginData);
   });
 
   it(`should display an error message when the authentication

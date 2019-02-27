@@ -56,11 +56,10 @@ export class LoginComponent implements OnInit {
       userID: this.username,
       userPassword: this.password
     };
-
     this.authenticationService.login(loginData)
-      .pipe(first())
       .subscribe(
         data => {
+          console.log(data);
           if (data) {
             this.router.navigate(['/dashboard']);
           } else {
