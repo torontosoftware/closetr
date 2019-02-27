@@ -47,6 +47,7 @@ describe('LoginComponent', () => {
         LoginComponent
       ],
       providers: [
+        Location,
         LoginComponent,
         { provide: AuthenticationService, useClass: AuthenticationServiceMock }
       ]
@@ -54,11 +55,9 @@ describe('LoginComponent', () => {
     //.compileComponents();
     fixture = TestBed.createComponent(LoginComponent);
     component = TestBed.get(LoginComponent);
-    console.log("howdy", component);
     //component = TestBed.get(LoginComponent);
     authenticationService = TestBed.get(AuthenticationService);
     router = TestBed.get(Router);
-    location = TestBed.get(Location);
   });
 
   it('should redirect to dashboard if logged in.', () => {
@@ -81,7 +80,7 @@ describe('LoginComponent', () => {
 
   it(`should not allow login button to be clicked when
     username field is empty, yet password field is filled.`, () => {
-
+ 
   });
 
   it(`should not allow login button to be clicked when
