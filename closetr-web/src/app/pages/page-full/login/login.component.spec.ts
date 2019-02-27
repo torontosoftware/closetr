@@ -80,7 +80,7 @@ describe('LoginComponent', () => {
 
   it(`should not allow login button to be clicked when
     username field is empty, yet password field is filled.`, () => {
- 
+
   });
 
   it(`should not allow login button to be clicked when
@@ -107,3 +107,5 @@ describe('LoginComponent', () => {
     service returns success on login function.`, () => {
 
   });
+  
+});
