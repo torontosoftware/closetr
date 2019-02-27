@@ -35,6 +35,7 @@ describe('LoginComponent', () => {
   let router: Router;
   let hostElement;
   let loginButton: any;
+  let errorLabel: HTMLInputElement;
   let usernameInput: HTMLInputElement;
   let passwordInput: HTMLInputElement;
 
@@ -70,6 +71,7 @@ describe('LoginComponent', () => {
 
     fixture.detectChanges();
     hostElement = fixture.nativeElement;
+    errorLabel = hostElement.querySelector('#password-input .input-clean-error-label');
     loginButton = hostElement.querySelector('#login-button button');
     usernameInput = hostElement.querySelector('#username-input input');
     passwordInput = hostElement.querySelector('#password-input input');
@@ -146,7 +148,21 @@ describe('LoginComponent', () => {
 
   it(`should display an error message when the authentication
     service returns error on login function.`, () => {
-    
+    let navSpy = spyOn(router, "navigate");
+    authenticationService.login = jasmine.createSpy('authenticationService.login').and.returnValue(
+      of(false)
+    );
+    component.ngOnInit();
+    usernameInput.value = 'input';
+    usernameInput.dispatchEvent(new Event('input'));
+    passwordInput.value = 'input';
+    passwordInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    loginButton.click();
+    fixture.detectChanges();
+    expect(navSpy).not.toHaveBeenCalledWith(['/dashboard']);
+    expect(errorLabel.hidden).toBeFalsy();
+
   });
 
   it(`should redirect to dashboard when the authentication
@@ -163,7 +179,6 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
     loginButton.click();
     fixture.detectChanges();
-    console.log("my component",component);
     expect(navSpy).toHaveBeenCalledWith(['/dashboard']);
   });
 
