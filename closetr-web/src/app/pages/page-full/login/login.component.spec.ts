@@ -146,6 +146,11 @@ describe('LoginComponent', () => {
 
   it(`should display an error message when the authentication
     service returns error on login function.`, () => {
+    
+  });
+
+  it(`should redirect to dashboard when the authentication
+    service returns success on login function.`, () => {
     let navSpy = spyOn(router, "navigate");
     authenticationService.login = jasmine.createSpy('authenticationService.login').and.returnValue(
       of(true)
@@ -160,11 +165,6 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
     console.log("my component",component);
     expect(navSpy).toHaveBeenCalledWith(['/dashboard']);
-  });
-
-  it(`should redirect to dashboard when the authentication
-    service returns success on login function.`, () => {
-
   });
 
 });
