@@ -52,6 +52,7 @@ import { UiEditButtonComponent } from './shared/ui-edit-button/ui-edit-button.co
 import { UiCloseButtonComponent } from './shared/ui-close-button/ui-close-button.component';
 import { UiFilterSelectComponent } from './shared/ui-filter-select/ui-filter-select.component';
 import { UiTableComponent } from './shared/ui-table/ui-table.component';
+import { ClosetStatsWidgetComponent } from './pages/page-partial/closet-stats-widget/closet-stats-widget.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { UiTableComponent } from './shared/ui-table/ui-table.component';
     UiEditButtonComponent,
     UiCloseButtonComponent,
     UiFilterSelectComponent,
-    UiTableComponent
+    UiTableComponent,
+    ClosetStatsWidgetComponent
   ],
   imports: [
     BrowserModule,
