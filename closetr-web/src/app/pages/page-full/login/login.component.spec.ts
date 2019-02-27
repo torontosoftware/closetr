@@ -29,6 +29,11 @@ describe('LoginComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
   let location: Location;
   let router: Router;
+  let hostElement;
+  let loginButton: any;
+  let usernameInput: HTMLInputElement;
+  let passwordInput: HTMLInputElement;
+
   const routes = [
     { path: 'dashboard', component: MockDashboardComponent }
   ];
@@ -58,11 +63,19 @@ describe('LoginComponent', () => {
     //component = TestBed.get(LoginComponent);
     authenticationService = TestBed.get(AuthenticationService);
     router = TestBed.get(Router);
+
+    fixture.detectChanges();
+    hostElement = fixture.nativeElement;
+    loginButton = hostElement.querySelector('#login-button button');
+    usernameInput = hostElement.querySelector('#username-input input');
+    passwordInput = hostElement.querySelector('#password-input input');
+    fixture.detectChanges();
   });
 
   it('should redirect to dashboard if logged in.', () => {
     let navSpy = spyOn(router, "navigate");
     authenticationService.currentUserValue = "fides";
+    component.ngOnInit();
     fixture.detectChanges();
     expect(navSpy).toHaveBeenCalledWith(['/dashboard']);
   });
@@ -70,50 +83,43 @@ describe('LoginComponent', () => {
   it('should not redirect to dashboard if not logged in.', () => {
     let navSpy = spyOn(router, "navigate");
     fixture.detectChanges();
+    component.ngOnInit();
     expect(navSpy).not.toHaveBeenCalledWith(['/dashboard']);
   });
 
   it(`should not allow login button to be clicked when both
     fields empty.`, () => {
+    component.ngOnInit();
     fixture.detectChanges();
-    const hostElement = fixture.nativeElement;
-    const loginButton: HTMLElement = hostElement.querySelector('#login-button button');
     expect(loginButton.disabled).toBeTruthy();
   });
 
   it(`should not allow login button to be clicked when
     username field is empty, yet password field is filled.`, () => {
-    fixture.detectChanges();
-    const hostElement = fixture.nativeElement;
-    const loginButton: HTMLElement = hostElement.querySelector('#login-button button');
-    const usernameInput: HTMLInputElement = hostElement.querySelector('#username-input input');
-
+    component.ngOnInit();
     usernameInput.value = 'input';
     usernameInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
-    
     expect(loginButton.disabled).toBeTruthy();
   });
 
   it(`should not allow login button to be clicked when
     password field is empty, yet username field is filled.`, () => {
-
+    component.ngOnInit();
+    passwordInput.value = 'input';
+    passwordInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    expect(loginButton.disabled).toBeTruthy();
   });
 
   it(`should allow login button to be clicked when both
     fields are filled.`, () => {
-    fixture.detectChanges();
-    const hostElement = fixture.nativeElement;
-    const loginButton: HTMLElement = hostElement.querySelector('#login-button button');
-    const usernameInput: HTMLInputElement = hostElement.querySelector('#username-input input');
-    const passwordInput: HTMLInputElement = hostElement.querySelector('#password-input input');
-
+    component.ngOnInit();
     usernameInput.value = 'input';
     usernameInput.dispatchEvent(new Event('input'));
     passwordInput.value = 'input';
     passwordInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
-
     expect(loginButton.disabled).toBeFalsy();
   });
 
