@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { Injectable, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -83,7 +83,16 @@ describe('LoginComponent', () => {
 
   it(`should not allow login button to be clicked when
     username field is empty, yet password field is filled.`, () => {
-
+    fixture.detectChanges();
+    const hostElement = fixture.nativeElement;
+    const loginButton: HTMLElement = hostElement.querySelector('#login-button button');
+    const usernameInput: HTMLInputElement = hostElement.querySelector('#username-input input');
+    console.log("username",usernameInput,hostElement);
+    usernameInput.value = 'input';
+    usernameInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    console.log(usernameInput, usernameInput.value);
+    expect(loginButton.disabled).toBeTruthy();
   });
 
   it(`should not allow login button to be clicked when
