@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const clothes = require('../components/clothes/clothes.model');
-const clothes_controller = require('../controllers/clothes.controller');
+const clothes = require('./clothes.model');
+const clothes_controller = require('./clothes.controller');
 
 /* API sets one new user clothing */
 router.post('/clothing', add_new_clothing);

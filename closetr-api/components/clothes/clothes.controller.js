@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const clothes_model = require('../models/clothes.model');
+const clothes_model = require('./clothes.model');
 
 function add_new_clothing(req, res, next) {
   // gather attributes from request

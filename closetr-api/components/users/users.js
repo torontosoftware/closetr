@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 // users schema
-const users = require('../models/users.model');
+const users = require('./users.model');
 
 router.post('/login', check_login_credentials);
 router.post('/update', update_user_info);

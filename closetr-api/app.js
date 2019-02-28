@@ -13,8 +13,8 @@ const config = require('./config')
 
 // routers from route folder
 var indexRouter = require('./components/index/index');
-var clothesRouter = require('./routes/clothes');
-var usersRouter = require('./routes/users');
+var clothesRouter = require('./components/clothes/clothes');
+var usersRouter = require('./components/users/users');
 
 // the express app
 var app = express();
