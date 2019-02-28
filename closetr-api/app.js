@@ -12,7 +12,7 @@ var cors = require('cors');
 const config = require('./config')
 
 // routers from route folder
-var indexRouter = require('./routes/index');
+var indexRouter = require('./components/index/index');
 var clothesRouter = require('./routes/clothes');
 var usersRouter = require('./routes/users');
 
