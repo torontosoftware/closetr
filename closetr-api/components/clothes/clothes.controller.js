@@ -44,7 +44,7 @@ function get_all_user_clothing(req, res, next) {
   const userID = req.query.userID;
   clothes_model.find(
     {userID: userID},
-    get_all_clothing_doc_handler
+    get_all_clothing_error_handling
   );
 }
 
@@ -92,10 +92,10 @@ function generic_error_handling(err, doc) {
   }
 }
 
-function clothing_module(){
-  this.add_new_clothing = add_new_clothing;
-  this.delete_clothing = delete_clothing;
-  this.get_all_user_clothing = get_all_user_clothing;
+var clothing_module ={
+  add_new_clothing: add_new_clothing,
+  delete_clothing: delete_clothing,
+  get_all_user_clothing: get_all_user_clothing
 }
 
 module.exports = clothing_module;
