@@ -51,6 +51,7 @@ import { UiBackButtonComponent } from './shared/ui-back-button/ui-back-button.co
 import { UiEditButtonComponent } from './shared/ui-edit-button/ui-edit-button.component';
 import { UiCloseButtonComponent } from './shared/ui-close-button/ui-close-button.component';
 import { UiFilterSelectComponent } from './shared/ui-filter-select/ui-filter-select.component';
+import { UiTableComponent } from './shared/ui-table/ui-table.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { UiFilterSelectComponent } from './shared/ui-filter-select/ui-filter-sel
     UiBackButtonComponent,
     UiEditButtonComponent,
     UiCloseButtonComponent,
-    UiFilterSelectComponent
+    UiFilterSelectComponent,
+    UiTableComponent
   ],
   imports: [
     BrowserModule,

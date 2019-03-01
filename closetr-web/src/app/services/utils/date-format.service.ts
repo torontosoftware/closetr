@@ -25,7 +25,7 @@ export class DateFormatService {
 
     return [year, month, day].join('-');
   }
-  
+
   /*
   format string to date, from ISO format.
   */

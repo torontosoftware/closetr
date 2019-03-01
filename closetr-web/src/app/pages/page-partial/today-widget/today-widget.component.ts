@@ -10,12 +10,12 @@ import { Subscription } from 'rxjs';
 })
 export class TodayWidgetComponent implements OnInit {
   currentUserSubscription: Subscription;
-  currentUser: User;
+  currentUser: User = new User();
 
   constructor(private authenticationService: AuthenticationService) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
       user => {
-        this.currentUser = user;
+        if (user) this.currentUser = user;
       }
     )
   }
