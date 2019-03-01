@@ -8,10 +8,13 @@ const mongoose = require('mongoose');
 
 var cors = require('cors');
 
+// config options for credentials
+const config = require('./config')
+
 // routers from route folder
-var indexRouter = require('./routes/index');
-var clothesRouter = require('./routes/clothes');
-var usersRouter = require('./routes/users');
+var indexRouter = require('./components/index/index');
+var clothesRouter = require('./components/clothes/clothes');
+var usersRouter = require('./components/users/users');
 
 // the express app
 var app = express();
@@ -35,7 +38,8 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // Connect to Mongoose and set connection variable
-mongoose.connect('mongodb://admin:password1@ds263619.mlab.com:63619/closetr', { useNewUrlParser: true });
+mongo_connect_string = 'mongodb://' + config.db.user + ':' + config.db.pass + '@' + config.db.host + ':' + config.db.port + '/' + config.db.database_name
+mongoose.connect(mongo_connect_string, { useNewUrlParser: true });
 var db = mongoose.connection;
 
 // catch 404 and forward to error handler
