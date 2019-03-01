@@ -43,18 +43,40 @@
     </div>
   </div>
   <hr>
-  <div class="row mtb-10">
+  <div class="row">
     <div class="col-12">
       <span class="f-med-blue-md">
         most worn items:
       </span>
     </div>
-    <div class="col-6 col-md-4" *ngFor="let i of [1,2,3,4,5]" style="padding: 15px">
-      <button class="btn closet-search-box">
-        <span class="closet-search-box-text f-med-blue-xs">Tshirt
-        <span class="f-light-blue-xs"> | </span> worn: <span class="f-light-blue-xs">60</span>
-        </span>
-      </button>
+    <div class="col-12">
+      <div class="row row-reset-3">
+        <div class="col-6 col-reset-3" *ngFor="let i of [1,2,3,4]">
+          <button class="btn closet-search-box">
+            <span class="closet-search-box-text f-med-blue-xs">Turtleneck Sweater
+            <span class="f-light-blue-xs"> | </span><span class="f-light-blue-xs">60</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <span class="f-med-blue-md">
+        most value items:
+      </span>
+    </div>
+    <div class="col-12">
+      <div class="row row-reset-3">
+        <div class="col-6 col-reset-3" *ngFor="let i of [1,2,3,4]">
+          <button class="btn closet-search-box">
+            <span class="closet-search-box-text f-med-blue-xs">Crewneck Sweater
+            <span class="f-light-blue-xs"> | </span><span class="f-light-blue-xs">60</span>
+            </span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
