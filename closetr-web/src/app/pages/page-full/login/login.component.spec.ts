@@ -43,7 +43,7 @@ describe('LoginComponent', () => {
   const routes = [
     { path: 'dashboard', component: MockDashboardComponent }
   ];
-  const routerSpy = jasmine.createSpyObj('Router',['navigateByUrl']);
+  const routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -63,14 +63,11 @@ describe('LoginComponent', () => {
         { provide: AuthenticationService, useClass: AuthenticationServiceMock }
       ]
     });
-    //.compileComponents();
     fixture = TestBed.createComponent(LoginComponent);
     component = TestBed.get(LoginComponent);
-    //component = TestBed.get(LoginComponent);
     authenticationService = TestBed.get(AuthenticationService);
     router = TestBed.get(Router);
     navSpy = spyOn(router, "navigate");
-
     fixture.detectChanges();
     hostElement = fixture.nativeElement;
     errorLabel = hostElement.querySelector('#password-input .input-clean-error-label');
