@@ -38,6 +38,7 @@ describe('LoginComponent', () => {
   let errorLabel: HTMLInputElement;
   let usernameInput: HTMLInputElement;
   let passwordInput: HTMLInputElement;
+  let navSpy;
 
   const routes = [
     { path: 'dashboard', component: MockDashboardComponent }
@@ -68,6 +69,7 @@ describe('LoginComponent', () => {
     //component = TestBed.get(LoginComponent);
     authenticationService = TestBed.get(AuthenticationService);
     router = TestBed.get(Router);
+    navSpy = spyOn(router, "navigate");
 
     fixture.detectChanges();
     hostElement = fixture.nativeElement;
@@ -78,130 +80,106 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should redirect to dashboard if logged in.', () => {
-    let navSpy = spyOn(router, "navigate");
-    authenticationService.currentUserValue = "fides";
-    component.ngOnInit();
-    fixture.detectChanges();
-    expect(navSpy).toHaveBeenCalledWith(['/dashboard']);
+  describe('when there is a user logged in', () => {
+    it('should redirect to dashboard.', () => {
+      authenticationService.currentUserValue = "fides";
+      component.ngOnInit();
+      fixture.detectChanges();
+      expect(navSpy).toHaveBeenCalledWith(['/dashboard']);
+    });
   });
 
-  it('should not redirect to dashboard if not logged in.', () => {
-    let navSpy = spyOn(router, "navigate");
-    fixture.detectChanges();
-    component.ngOnInit();
-    expect(navSpy).not.toHaveBeenCalledWith(['/dashboard']);
-  });
+  describe('when there is no user logged in,', () => {
+    it('should not redirect to dashboard.', () => {
+      fixture.detectChanges();
+      component.ngOnInit();
+      expect(navSpy).not.toHaveBeenCalledWith(['/dashboard']);
+    });
 
-  it(`should not allow login button to be clicked when both
-    fields empty.`, () => {
-    component.ngOnInit();
-    fixture.detectChanges();
-    expect(loginButton.disabled).toBeTruthy();
-  });
+    describe('when user attempts to click "log in" button,', () => {
+      describe('should be disabled when,', () => {
+        it('both fields are empty.', () => {
+          component.ngOnInit();
+          fixture.detectChanges();
+          expect(loginButton.disabled).toBeTruthy();
+        });
+        it('username field is empty, yet password field is filled.', () => {
+          component.ngOnInit();
+          usernameInput.value = 'input';
+          usernameInput.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(loginButton.disabled).toBeTruthy();
+        });
+        it(`password field is empty, yet username field is filled.`, () => {
+          component.ngOnInit();
+          passwordInput.value = 'input';
+          passwordInput.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(loginButton.disabled).toBeTruthy();
+        });
+      });
 
-  it(`should not allow login button to be clicked when
-    username field is empty, yet password field is filled.`, () => {
-    component.ngOnInit();
-    usernameInput.value = 'input';
-    usernameInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    expect(loginButton.disabled).toBeTruthy();
-  });
+      describe('and both fields are filled,', () => {
+        beforeEach(() => {
+          authenticationService.login = jasmine.createSpy('authenticationService.login').and.returnValue(
+            of(false)
+          );
+          component.ngOnInit();
+          usernameInput.value = 'input';
+          usernameInput.dispatchEvent(new Event('input'));
+          passwordInput.value = 'input';
+          passwordInput.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+        });
 
-  it(`should not allow login button to be clicked when
-    password field is empty, yet username field is filled.`, () => {
-    component.ngOnInit();
-    passwordInput.value = 'input';
-    passwordInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    expect(loginButton.disabled).toBeTruthy();
-  });
+        it(`should allow login button to be clicked.`, () => {
+          expect(loginButton.disabled).toBeFalsy();
+        });
 
-  it(`should allow login button to be clicked when both
-    fields are filled.`, () => {
-    component.ngOnInit();
-    usernameInput.value = 'input';
-    usernameInput.dispatchEvent(new Event('input'));
-    passwordInput.value = 'input';
-    passwordInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    expect(loginButton.disabled).toBeFalsy();
-  });
+        it(`should call the authentication service's login function
+          upon clicking the the login button.`, () => {
+          let loginData = {
+            userID: 'input',
+            userPassword: 'input'
+          };
+          loginButton.click();
+          fixture.detectChanges();
+          expect(authenticationService.login).toHaveBeenCalledWith(loginData);
+        });
 
-  it(`should call the authentication service's login function
-    upon clicking the the login button.`, () => {
-    let loginData = {
-      userID: 'input',
-      userPassword: 'input'
-    };
-    component.ngOnInit();
-    usernameInput.value = 'input';
-    usernameInput.dispatchEvent(new Event('input'));
-    passwordInput.value = 'input';
-    passwordInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    loginButton.click();
-    fixture.detectChanges();
-    expect(authenticationService.login).toHaveBeenCalledWith(loginData);
-  });
+        describe('with incorrect credentials', () => {
+          beforeEach(() => {
+            loginButton.click();
+            fixture.detectChanges();
+          });
 
-  it(`should display an error message when the authentication
-    service returns error on login function.`, () => {
-    let navSpy = spyOn(router, "navigate");
-    authenticationService.login = jasmine.createSpy('authenticationService.login').and.returnValue(
-      of(false)
-    );
-    component.ngOnInit();
-    usernameInput.value = 'input';
-    usernameInput.dispatchEvent(new Event('input'));
-    passwordInput.value = 'input';
-    passwordInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    loginButton.click();
-    fixture.detectChanges();
-    expect(navSpy).not.toHaveBeenCalledWith(['/dashboard']);
-    expect(errorLabel.hidden).toBeFalsy();
-  });
+          it(`should display an error message.`, () => {
+            expect(navSpy).not.toHaveBeenCalledWith(['/dashboard']);
+            expect(errorLabel.hidden).toBeFalsy();
+          });
 
-  it(`should display an error message when the authentication
-    service returns error on login function, which disappears
-    when user types new value.`, () => {
-    let navSpy = spyOn(router, "navigate");
-    authenticationService.login = jasmine.createSpy('authenticationService.login').and.returnValue(
-      of(false)
-    );
-    component.ngOnInit();
-    usernameInput.value = 'input';
-    usernameInput.dispatchEvent(new Event('input'));
-    passwordInput.value = 'input';
-    passwordInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    loginButton.click();
-    fixture.detectChanges();
-    expect(navSpy).not.toHaveBeenCalledWith(['/dashboard']);
-    expect(errorLabel.hidden).toBeFalsy();
-    usernameInput.value = 'new input';
-    usernameInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    expect(errorLabel.hidden).toBeTruthy();
-  });
+          it(`should display an error message, which disappears
+            when user types new value.`, () => {
+            usernameInput.value = 'new input';
+            usernameInput.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            expect(errorLabel.hidden).toBeTruthy();
+          });
+        });
 
-  it(`should redirect to dashboard when the authentication
-    service returns success on login function.`, () => {
-    let navSpy = spyOn(router, "navigate");
-    authenticationService.login = jasmine.createSpy('authenticationService.login').and.returnValue(
-      of(true)
-    );
-    component.ngOnInit();
-    usernameInput.value = 'input';
-    usernameInput.dispatchEvent(new Event('input'));
-    passwordInput.value = 'input';
-    passwordInput.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    loginButton.click();
-    fixture.detectChanges();
-    expect(navSpy).toHaveBeenCalledWith(['/dashboard']);
-  });
+        describe('with correct credentials,', () => {
+          it(`should redirect to dashboard when the authentication
+            service returns success on login function.`, () => {
+            authenticationService.login = jasmine.createSpy('authenticationService.login').and.returnValue(
+              of(true)
+            );
+            loginButton.click();
+            fixture.detectChanges();
+            expect(navSpy).toHaveBeenCalledWith(['/dashboard']);
+          });
+        });
 
+      });
+    });
+  });
 });
