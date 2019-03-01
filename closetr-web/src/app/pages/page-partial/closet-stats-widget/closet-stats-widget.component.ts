@@ -6,8 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./closet-stats-widget.component.scss']
 })
 export class ClosetStatsWidgetComponent implements OnInit {
-
-  constructor() { }
+  dateOptions: Array<string>;
+  constructor() {
+    this.dateOptions = [
+      "last week",
+      "last month"
+    ];
+  }
 
   ngOnInit() {
   }

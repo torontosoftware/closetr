@@ -1,4 +1,4 @@
-<div class="display-table">
+<div>
   <span
     *ngIf="type != 'no-icon'"
     class="icon icon-{{type}}">
@@ -13,7 +13,8 @@
     class="pull-right mtb-4"
     [ngClass]="{
       'select-with-icon': (type != 'no-icon'),
-      'select-with-label': (labelText)
+      'select-with-label': (labelText),
+      'mrt-5': (className == 'mrt-5')
     }"
     [(ngModel)]="inputModel"
     (ngModelChange)="inputModelChange.emit($event)"
