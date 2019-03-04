@@ -73,14 +73,22 @@ describe('RegisterComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('when there is a user logged in', () => {
+  describe('when there is a user logged in,', () => {
     it('should redirect to dashboard.', () => {
       authenticationService.currentUserValue = 'fides';
       component.ngOnInit();
       fixture.detectChanges();
       console.log(component);
       expect(routerSpy).toHaveBeenCalledWith(['/dashboard']);
-    })
+    });
+  });
+
+  describe('when there is no user logged in,', () => {
+    it('should not redirect to dashboard', () => {
+      component.ngOnInit();
+      fixture.detectChanges();
+      expect(routerSpy).not.toHaveBeenCalledWith(['/dashboard']);
+    });
   });
 
   /*
