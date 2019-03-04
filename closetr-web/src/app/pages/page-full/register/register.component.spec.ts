@@ -160,23 +160,20 @@ describe('RegisterComponent', () => {
             usernameInput.dispatchEvent(new Event('input'));
             fixture.detectChanges();
           });
-          it('and no other fields are.', () => {
+          afterEach(() => {
+            fixture.detectChanges();
             expect(nameInputErrorLabel.hidden).toBeFalsy();
           });
+          it('and no other fields are.', () => {});
           describe('and password input is filled', () => {
             beforeEach(() => {
               passwordInput.value = "password";
               passwordInput.dispatchEvent(new Event('input'));
-              fixture.detectChanges();
             });
-            it('and no other fields are.', () => {
-              expect(nameInputErrorLabel.hidden).toBeFalsy();
-            });
+            it('and no other fields are.', () => {});
             it('and password confirm input field is filled.', () => {
               passwordConfirmInput.value = "password confirm";
               passwordConfirmInput.dispatchEvent(new Event('input'));
-              fixture.detectChanges();
-              expect(nameInputErrorLabel.hidden).toBeFalsy();
             });
           })
         });
@@ -190,14 +187,14 @@ describe('RegisterComponent', () => {
               passwordInput.dispatchEvent(new Event('input'));
               fixture.detectChanges();
             });
-            it(`and no other fields (after username) are.`, () => {
+            afterEach(() => {
+              fixture.detectChanges();
               expect(usernameInputErrorLabel.hidden).toBeFalsy();
-            });
+            })
+            it(`and no other fields (after username) are.`, () => {});
             it('and password confirm input field is filled.', () => {
               passwordConfirmInput.value = "password confirm";
               passwordConfirmInput.dispatchEvent(new Event('input'));
-              fixture.detectChanges();
-              expect(usernameInputErrorLabel.hidden).toBeFalsy();
             });
           });
       });
