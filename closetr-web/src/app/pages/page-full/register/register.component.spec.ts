@@ -121,7 +121,7 @@ describe('RegisterComponent', () => {
       loginButton.click();
       fixture.detectChanges();
       expect(routerSpy).toHaveBeenCalledWith(['/login']);
-    })
+    });
 
     it('should have all fields empty on load.', () => {
       component.ngOnInit();
@@ -139,13 +139,47 @@ describe('RegisterComponent', () => {
       expect(usernameInputErrorLabel.hidden).toBeTruthy();
       expect(passwordInputErrorLabel.hidden).toBeTruthy();
       expect(passwordConfirmInputErrorLabel.hidden).toBeTruthy();
-    })
+    });
 
     it('should disable register button on load.', () => {
       component.ngOnInit();
       fixture.detectChanges();
       expect(registerButton.disabled).toBeTruthy();
-    })
+    });
+
+    describe('and there is user input,', () => {
+      describe('should display error on name input field when', () => {
+
+      });
+
+      describe('should not display error on name input field when', () => {
+
+      });
+
+      describe('should display error on username input field when', () => {
+
+      });
+
+      describe('should not display error on username input field when', () => {
+
+      });
+
+      describe('should display error on password input field when', () => {
+
+      });
+
+      describe('should not display error on password input field when', () => {
+
+      });
+
+      describe('should display error on password confirm input field when', () => {
+
+      });
+
+      describe('should not display error on password confirm input field when', () => {
+
+      });
+    });
 
 
 
