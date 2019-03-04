@@ -1,5 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-button.component';
+import { UiFilterSelectComponent } from '../../../shared/ui-filter-select/ui-filter-select.component';
 import { ClosetStatsWidgetComponent } from './closet-stats-widget.component';
 
 describe('ClosetStatsWidgetComponent', () => {
@@ -8,7 +11,15 @@ describe('ClosetStatsWidgetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ClosetStatsWidgetComponent ]
+      imports: [
+        FormsModule,
+        RouterTestingModule
+      ],
+      declarations: [
+        UiEditButtonComponent,
+        UiFilterSelectComponent,
+        ClosetStatsWidgetComponent
+      ]
     })
     .compileComponents();
   }));
