@@ -54,11 +54,11 @@
       </span>
     </div>
     <div class="col-12">
-      <div class="row row-reset-3">
-        <div class="col-6 col-reset-3" *ngFor="let i of [1,2,3,4]">
+      <div class="row row-reset-3 mtb-10">
+        <div class="col-6 col-reset-3" *ngFor="let item of mostWornItems">
           <button class="btn closet-search-box">
-            <span class="closet-search-box-text f-med-blue-xs">Turtleneck Sweater
-            <span class="f-light-blue-xs"> | </span><span class="f-light-blue-xs">60</span>
+            <span class="stats-box-text f-med-blue-xs">{{item.clothingName}}
+            <span class="f-light-blue-xs pull-right">{{item.clothingWorn}} times</span>
             </span>
           </button>
         </div>
@@ -68,15 +68,15 @@
   <div class="row">
     <div class="col-12">
       <span class="f-med-blue-md">
-        most value items:
+        best value items:
       </span>
     </div>
     <div class="col-12">
-      <div class="row row-reset-3">
-        <div class="col-6 col-reset-3" *ngFor="let i of [1,2,3,4]">
+      <div class="row row-reset-3 mtb-10">
+        <div class="col-6 col-reset-3" *ngFor="let item of bestValueItems">
           <button class="btn closet-search-box">
-            <span class="closet-search-box-text f-med-blue-xs">Crewneck Sweater
-            <span class="f-light-blue-xs"> | </span><span class="f-light-blue-xs">60</span>
+            <span class="stats-box-text f-med-blue-xs">{{item.clothingName}}
+            <span class="f-light-blue-xs pull-right">${{item.clothingCostPerWear}} / wear</span>
             </span>
           </button>
         </div>

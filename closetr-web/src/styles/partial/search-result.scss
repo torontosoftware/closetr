@@ -24,3 +24,8 @@ Closet search result styles.
   width: calc(100% - 20px);
   display: inline-block;
 }
+
+.stats-box-text {
+  @extend .closet-search-box-text;
+  width: 100%;
+}
