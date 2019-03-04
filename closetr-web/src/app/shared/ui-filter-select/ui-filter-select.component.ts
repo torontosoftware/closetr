@@ -7,6 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class UiFilterSelectComponent implements OnInit {
   @Input() type: string = 'no-icon';
+  @Input() className: string;
   @Input() items: Array<any>;
   @Input() labelText: string;
   @Input() inputModel: any;

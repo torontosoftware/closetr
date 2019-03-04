@@ -11,6 +11,7 @@ import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-bu
 import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-button.component';
 import { BudgetWidgetComponent } from '../../page-partial/budget-widget/budget-widget.component';
 import { TodayWidgetComponent } from '../../page-partial/today-widget/today-widget.component';
+import { ClosetStatsWidgetComponent } from '../../page-partial/closet-stats-widget/closet-stats-widget.component';
 import { ClosetWidgetComponent } from '../../page-partial/closet-widget/closet-widget.component';
 import { ClosetCardComponent } from '../../page-partial/closet-card/closet-card.component';
 import { DashboardComponent } from './dashboard.component';
@@ -43,6 +44,7 @@ describe('DashboardComponent', () => {
         BudgetWidgetComponent,
         TodayWidgetComponent,
         ClosetWidgetComponent,
+        ClosetStatsWidgetComponent,
         ClosetCardComponent,
         DashboardComponent
       ],

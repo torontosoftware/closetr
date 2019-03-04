@@ -11,6 +11,7 @@ body {
 router-outlet ~ * {
   position: absolute;
   width: calc(100vw);
+  padding-bottom: 5vh;
   @include sm {
     width: calc(90vw - 30px);
   }
