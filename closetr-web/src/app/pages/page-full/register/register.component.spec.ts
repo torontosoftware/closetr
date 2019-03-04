@@ -184,26 +184,32 @@ describe('RegisterComponent', () => {
 
       describe(`should display error on username input field when
         username input field is empty but`, () => {
-          describe('password input field is filled,' () => {
+          describe('password input field is filled,', () => {
             beforeEach(() => {
               passwordInput.value = "password";
-              password.dispatchEvent(new Event('input'));
+              passwordInput.dispatchEvent(new Event('input'));
               fixture.detectChanges();
             });
-            it('and no other fields (after username) are.', () => {
+            it(`and no other fields (after username) are.`, () => {
               expect(usernameInputErrorLabel.hidden).toBeFalsy();
-            })
-            describe('and password confirm input field is filled.', () => {
+            });
+            it('and password confirm input field is filled.', () => {
               passwordConfirmInput.value = "password confirm";
               passwordConfirmInput.dispatchEvent(new Event('input'));
               fixture.detectChanges();
               expect(usernameInputErrorLabel.hidden).toBeFalsy();
-            })
-          })
+            });
+          });
       });
 
-      describe('should display error on password input field when', () => {
-
+      describe(`should display error on password input field when
+        password input field is empty but`, () => {
+          it('password confirm input field is filled.', () => {
+            passwordConfirmInput.value = "password confirm";
+            passwordConfirmInput.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            expect(passwordInputErrorLabel.hidden).toBeFalsy();
+          });
       });
 
       describe('should display error on password confirm input field when', () => {
