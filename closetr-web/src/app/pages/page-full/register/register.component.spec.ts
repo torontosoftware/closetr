@@ -223,24 +223,35 @@ describe('RegisterComponent', () => {
       });
 
       describe('should not display error on any input fields when', () => {
-        beforeEach(() => {
-          nameInput.value = "name";
-          nameInput.dispatchEvent(new Event('input'));
-          fixture.detectChanges();
-        })
         afterEach(() => {
+          fixture.detectChanges();
           expect(nameInputErrorLabel.hidden).toBeTruthy();
           expect(usernameInputErrorLabel.hidden).toBeTruthy();
           expect(passwordInputErrorLabel.hidden).toBeTruthy();
           expect(passwordConfirmInputErrorLabel.hidden).toBeTruthy();
         });
         describe('name field is filled,', () => {
+          beforeEach(() => {
+            nameInput.value = "name";
+            nameInput.dispatchEvent(new Event('input'));
+          })
           it('and no other fields.', () => {});
           describe('and username field is filled,', () => {
+            beforeEach(() => {
+              usernameInput.value = "username";
+              usernameInput.dispatchEvent(new Event('input'));
+            })
             it('and no other fields.', () => {});
             describe('and password field is filled,', () => {
+              beforeEach(() => {
+                passwordInput.value = "password";
+                passwordInput.dispatchEvent(new Event('input'));
+              })
               it('and no other fields.', () => {});
-              it('and password confirm field is filled.', () => {});
+              it('and password confirm field is filled.', () => {
+                passwordConfirmInput.value = "password";
+                passwordConfirmInput.dispatchEvent(new Event('input'));
+              });
             });
           });
         });
@@ -248,28 +259,6 @@ describe('RegisterComponent', () => {
     });
 
 
-
   });
-
-  /*
-  test: redirect to dashboard if logged in
-
-  test: don't redirect to dashboard if not logged in
-
-  test: clicking on 'log in' navigates to login component
-
-  test: all fields empty on initial load
-
-  test: no errors shown on initial load
-
-  test: sign up button disabled on initial load
-
-  form validation tests...
-
-  test: type value in 'name' field, should show no errors,
-  and should leave button disabled.
-
-  test: type value in 'username' field, same as above
-  */
 
 });
