@@ -256,6 +256,21 @@ describe('RegisterComponent', () => {
           });
         });
       });
+
+      describe('when correct input is entered for all fields', () => {
+        it('should enable the register button', () => {
+
+        });
+        describe('and register button is clicked', () => {
+          it(`should call the authentication service's register function`, () => {
+
+          });
+          it('should redirect to dashboard component', () => {
+
+          });
+        });
+      });
+
     });
 
 
