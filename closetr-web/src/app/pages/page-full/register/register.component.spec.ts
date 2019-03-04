@@ -208,12 +208,21 @@ describe('RegisterComponent', () => {
             passwordConfirmInput.value = "password confirm";
             passwordConfirmInput.dispatchEvent(new Event('input'));
             fixture.detectChanges();
+            console.log(component,hostElement,"yuh");
             expect(passwordInputErrorLabel.hidden).toBeFalsy();
           });
       });
 
       describe('should display error on password confirm input field when', () => {
-
+        it(`password confirm field is filled and not the same
+          as password field,`, () => {
+              passwordConfirmInput.value = "password confirm";
+              passwordConfirmInput.dispatchEvent(new Event('input'));
+              passwordInput.value = "password";
+              passwordInput.dispatchEvent(new Event('input'));
+              fixture.detectChanges();
+              expect(passwordConfirmInputErrorLabel.hidden).toBeFalsy();
+            });
       });
 
       describe('should not display error on any input fields when', () => {
