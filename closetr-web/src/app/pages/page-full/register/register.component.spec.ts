@@ -141,6 +141,12 @@ describe('RegisterComponent', () => {
       expect(passwordConfirmInputErrorLabel.hidden).toBeTruthy();
     })
 
+    it('should disable register button on load.', () => {
+      component.ngOnInit();
+      fixture.detectChanges();
+      expect(registerButton.disabled).toBeTruthy();
+    })
+
 
 
   });
