@@ -35,6 +35,7 @@ describe('RegisterComponent', () => {
   let fixture: ComponentFixture<RegisterComponent>;
   let router: Router;
   let routerSpy;
+  let hostElement;
 
   const routes = [
     { path: 'login', component: MockLoginComponent },
@@ -66,6 +67,7 @@ describe('RegisterComponent', () => {
     authenticationService = TestBed.get(AuthenticationService);
     router = TestBed.get(Router);
     routerSpy = spyOn(router, "navigate");
+    hostElement = fixture.nativeElement;
     fixture.detectChanges();
   });
 
@@ -84,11 +86,34 @@ describe('RegisterComponent', () => {
   });
 
   describe('when there is no user logged in,', () => {
+    let registerButton: any;
+    let nameInput: HTMLInputElement;
+    let usernameInput: HTMLInputElement;
+    let passwordInput: HTMLInputElement;
+    let passwordConfirmInput: HTMLInputElement;
+    
+    beforeEach(() => {
+      registerButton = hostElement.querySelector('#register-button button');
+      nameInput = hostElement.querySelector('#name-input input');
+      usernameInput = hostElement.querySelector('#username-input input');
+      passwordInput = hostElement.querySelector('#password-input input');
+      passwordConfirmInput = hostElement.querySelector('#password-confirm-input input');
+    });
+
     it('should not redirect to dashboard', () => {
       component.ngOnInit();
       fixture.detectChanges();
       expect(routerSpy).not.toHaveBeenCalledWith(['/dashboard']);
     });
+
+    it('should have all fields empty on load.', () => {
+      component.ngOnInit();
+      expect(nameInput.value).toEqual('');
+      expect(usernameInput.value).toEqual('');
+      expect(passwordInput.value).toEqual('');
+      expect(passwordConfirmInput.value).toEqual('');
+    });
+
   });
 
   /*
