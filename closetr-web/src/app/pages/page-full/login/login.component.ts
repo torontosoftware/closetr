@@ -14,25 +14,23 @@ export class LoginComponent implements OnInit {
   password: string;
   enableLogin: boolean;
   showLoginError: boolean;
-  authenticationService: AuthenticationService;
   show : boolean;
 
   constructor(private router: Router,
-              private authenticationservice: AuthenticationService) {
+              private authenticationService: AuthenticationService) {
     this.username = "";
     this.password = "";
     this.enableLogin = false;
     this.showLoginError = false;
-    this.authenticationService = authenticationservice;
     this.show = false;
+  }
+
+  ngOnInit() {
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/dashboard']);
     } else {
       this.show = true;
     }
-  }
-
-  ngOnInit() {
   }
 
   checkEnableLogin(): void {
@@ -58,9 +56,7 @@ export class LoginComponent implements OnInit {
       userID: this.username,
       userPassword: this.password
     };
-
     this.authenticationService.login(loginData)
-      .pipe(first())
       .subscribe(
         data => {
           if (data) {

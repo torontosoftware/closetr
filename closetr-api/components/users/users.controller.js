@@ -1,16 +1,10 @@
-const express = require('express');
-const router = express.Router();
 const mongoose = require('mongoose');
-
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-
-// users schema
-const users = require('../models/users.model');
-
+const users = require('./users.model');
 
 /* API updates one user */
-router.post('/update', function(req, res, next) {
+function update_user_info (req, res, next) {
   // gather attributes from request
   var user = req.body.user;
 
@@ -70,11 +64,10 @@ router.post('/update', function(req, res, next) {
       }
     );
   }
-});
-
+}
 
 /* API sets one new user clothing */
-router.post('/register', function(req, res, next) {
+function register_new_user(req, res, next) {
   // gather attributes from request
   var user = req.body.user;
   const newItem = {
@@ -145,12 +138,11 @@ router.post('/register', function(req, res, next) {
     );
   }
 
-});
-
+}
 
 /* API returns true if passed user and password
 matches a pair in the database. */
-router.post('/login', function(req, res, next) {
+function check_login_credentials(req, res, next) {
   var user = req.body.user;
   // query all clothes in the database
   users.find(
@@ -201,6 +193,12 @@ router.post('/login', function(req, res, next) {
       }
     }
   );
-});
+}
 
-module.exports = router;
+var users_module = {
+  update_user_info: update_user_info,
+  register_new_user: register_new_user,
+  check_login_credentials: check_login_credentials
+}
+
+module.exports = users_module;
