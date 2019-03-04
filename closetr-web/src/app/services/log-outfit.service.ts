@@ -6,22 +6,14 @@ import { ClosetService } from './closet.service';
 })
 
 export class LogOutfitService {
-  closetService: ClosetService;
   outfitClothingCount: number;
   outfitClothingList: any;
 
-  constructor(private closetservice: ClosetService) {
-    this.closetService = closetservice;
-    this.outfitClothingCount = 2;
+  constructor(private closetService: ClosetService) {
     this.outfitClothingList = {
       1: {outfitClothingID: 1, clothingID: 1, clothingCost:'$45',clothingName:'Aritzia TShirt', clothingWorn: 45, clothingCategory:'TShirt'},
       2: {outfitClothingID: 2, clothingID: 2, clothingCost: '$35', clothingName:'Zara Turtleneck TShirt', clothingWorn: 32, clothingCategory:'TShirt'}
     };
-  }
-
-  generateOutfitClothingID(): number {
-    this.outfitClothingCount++;
-    return this.outfitClothingCount;
   }
 
   /*
@@ -30,7 +22,6 @@ export class LogOutfitService {
   Format {name, cost, category}
   */
   addOutfitClothing(clothing: any, mode: String): void {
-    var newOutfitClothingID = this.generateOutfitClothingID();
     var newOutfitClothing = {
       'outfitClothingID': newOutfitClothingID,
       'clothingID': clothing.clothingID,

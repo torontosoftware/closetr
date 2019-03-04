@@ -31,7 +31,7 @@ app.use(cors({credentials: true, origin: true}));
 app.use('/', indexRouter);
 app.use('/api/clothes/', clothesRouter);
 app.use('/api/users/', usersRouter);
-app.use('/api/outfitEntry/')
+app.use('/api/outfitEntry/', outfitEntryRouter);
 
 // Configure bodyparser to handle post requests
 app.use(bodyParser.urlencoded({

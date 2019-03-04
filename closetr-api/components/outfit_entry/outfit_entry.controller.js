@@ -1,4 +1,4 @@
-const outfit_entry_modle = require('./outfit_entry.model');
+const outfit_entry_model = require('./outfit_entry.model');
 const mongoose = require('mongoose');
 
 function add_new_entry(req, res, next) {
@@ -19,8 +19,8 @@ function add_new_entry(req, res, next) {
   }
 
   // create new entry from schema
-  outfit_entry_modle.findOneAndUpdate(
-    {_id, new_entry._id},
+  outfit_entry_model.findOneAndUpdate(
+    {_id: new_entry._id},
     new_entry,
     {upsert: true, new: true, runValidators: true},
 
