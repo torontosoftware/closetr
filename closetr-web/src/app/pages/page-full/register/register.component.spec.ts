@@ -91,13 +91,21 @@ describe('RegisterComponent', () => {
     let usernameInput: HTMLInputElement;
     let passwordInput: HTMLInputElement;
     let passwordConfirmInput: HTMLInputElement;
-    
+    let nameInputErrorLabel: HTMLElement;
+    let usernameInputErrorLabel: HTMLElement;
+    let passwordInputErrorLabel: HTMLElement;
+    let passwordConfirmInputErrorLabel: HTMLElement;
+
     beforeEach(() => {
       registerButton = hostElement.querySelector('#register-button button');
       nameInput = hostElement.querySelector('#name-input input');
       usernameInput = hostElement.querySelector('#username-input input');
       passwordInput = hostElement.querySelector('#password-input input');
       passwordConfirmInput = hostElement.querySelector('#password-confirm-input input');
+      nameInputErrorLabel = hostElement.querySelector('#name-input .input-clean-error-label');
+      usernameInputErrorLabel = hostElement.querySelector('#username-input .input-clean-error-label');
+      passwordInputErrorLabel = hostElement.querySelector('#password-input .input-clean-error-label');
+      passwordConfirmInputErrorLabel = hostElement.querySelector('#password-confirm-input .input-clean-error-label');
     });
 
     it('should not redirect to dashboard', () => {
@@ -108,11 +116,23 @@ describe('RegisterComponent', () => {
 
     it('should have all fields empty on load.', () => {
       component.ngOnInit();
+      fixture.detectChanges();
       expect(nameInput.value).toEqual('');
       expect(usernameInput.value).toEqual('');
       expect(passwordInput.value).toEqual('');
       expect(passwordConfirmInput.value).toEqual('');
     });
+
+    it('should have no errors on load.', () => {
+      component.ngOnInit();
+      fixture.detectChanges();
+      expect(nameInputErrorLabel.hidden).toBeTruthy();
+      expect(usernameInputErrorLabel.hidden).toBeTruthy();
+      expect(passwordInputErrorLabel.hidden).toBeTruthy();
+      expect(passwordConfirmInputErrorLabel.hidden).toBeTruthy();
+    })
+
+
 
   });
 
