@@ -148,7 +148,38 @@ describe('RegisterComponent', () => {
     });
 
     describe('and there is user input,', () => {
-      describe('should display error on name input field when', () => {
+      beforeEach(() => {
+        component.ngOnInit();
+        fixture.detectChanges();
+      });
+      describe(`should display error on name input field when name input
+        field is empty but`, () => {
+        describe('username input field is filled,', () => {
+          beforeEach(() => {
+            usernameInput.value = "username";
+            usernameInput.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+          });
+          it('and no other fields are.', () => {
+            expect(nameInputErrorLabel.hidden).toBeFalsy();
+          });
+          describe('and password input is filled', () => {
+            beforeEach(() => {
+              passwordInput.value = "password";
+              passwordInput.dispatchEvent(new Event('input'));
+              fixture.detectChanges();
+            });
+            it('and no other fields are.', () => {
+              expect(nameInputErrorLabel.hidden).toBeFalsy();
+            });
+            it('and password confirm input field is filled.', () => {
+              passwordConfirmInput.value = "password confirm";
+              passwordConfirmInput.dispatchEvent(new Event('input'));
+              fixture.detectChanges();
+              expect(nameInputErrorLabel.hidden).toBeFalsy();
+            });
+          })
+        });
 
       });
 
