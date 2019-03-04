@@ -87,6 +87,7 @@ describe('RegisterComponent', () => {
 
   describe('when there is no user logged in,', () => {
     let registerButton: any;
+    let loginButton: any;
     let nameInput: HTMLInputElement;
     let usernameInput: HTMLInputElement;
     let passwordInput: HTMLInputElement;
@@ -98,6 +99,7 @@ describe('RegisterComponent', () => {
 
     beforeEach(() => {
       registerButton = hostElement.querySelector('#register-button button');
+      loginButton = hostElement.querySelector('#to-login-button button');
       nameInput = hostElement.querySelector('#name-input input');
       usernameInput = hostElement.querySelector('#username-input input');
       passwordInput = hostElement.querySelector('#password-input input');
@@ -113,6 +115,13 @@ describe('RegisterComponent', () => {
       fixture.detectChanges();
       expect(routerSpy).not.toHaveBeenCalledWith(['/dashboard']);
     });
+
+    it('should navigate to login page when `login` button is clicked', () => {
+      component.ngOnInit();
+      loginButton.click();
+      fixture.detectChanges();
+      expect(routerSpy).toHaveBeenCalledWith(['/login']);
+    })
 
     it('should have all fields empty on load.', () => {
       component.ngOnInit();
