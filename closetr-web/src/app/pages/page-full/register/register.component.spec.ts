@@ -259,8 +259,19 @@ describe('RegisterComponent', () => {
 
       describe(`when all fields are filled, and password is the
         same as password confirm,`, () => {
+        beforeEach(() => {
+          nameInput.value = "name";
+          nameInput.dispatchEvent(new Event('input'));
+          usernameInput.value = "username";
+          usernameInput.dispatchEvent(new Event('input'));
+          passwordInput.value = "password";
+          passwordInput.dispatchEvent(new Event('input'));
+          passwordConfirmInput.value = "password";
+          passwordConfirmInput.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+        });
         it('should enable the register button', () => {
-
+          expect(registerButton.disabled).toBeTruthy();
         });
         describe('and register button is clicked', () => {
           it(`should call the authentication service's register function.`, () => {
