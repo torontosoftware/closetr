@@ -1,8 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { Injectable, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { User } from '../../../models/user.model';
+import { UserService } from '../../../services/user.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
@@ -16,6 +19,11 @@ import { RegisterComponent } from './register.component';
 class AuthenticationServiceMock {
   currentUserValue = null;
 }
+
+@Injectable({
+  providedIn: 'root'
+})
+class UserServiceMock {}
 
 @Component({
   selector: 'app-login',
@@ -32,6 +40,7 @@ class MockDashboardComponent {}
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let authenticationService: AuthenticationServiceMock;
+  let userService: UserServiceMock;
   let fixture: ComponentFixture<RegisterComponent>;
   let router: Router;
   let routerSpy;
@@ -58,13 +67,15 @@ describe('RegisterComponent', () => {
       ],
       providers: [
         RegisterComponent,
-        { provide: AuthenticationService, useClass: AuthenticationServiceMock }
+        { provide: AuthenticationService, useClass: AuthenticationServiceMock },
+        { provide: UserService, useClass: UserServiceMock }
       ]
     });
 
     fixture = TestBed.createComponent(RegisterComponent);
     component = TestBed.get(RegisterComponent);
     authenticationService = TestBed.get(AuthenticationService);
+    userService = TestBed.get(UserService);
     router = TestBed.get(Router);
     routerSpy = spyOn(router, "navigate");
     hostElement = fixture.nativeElement;
@@ -271,11 +282,16 @@ describe('RegisterComponent', () => {
           fixture.detectChanges();
         });
         it('should enable the register button', () => {
-          expect(registerButton.disabled).toBeTruthy();
+          expect(registerButton.disabled).toBeFalsy();
         });
         describe('and register button is clicked', () => {
-          it(`should call the authentication service's register function.`, () => {
-
+          it(`should call the user service's register function.`, () => {
+            userService.register = jasmine.createSpy('userService.register').and.returnValue(
+              of(true)
+            );
+            registerButton.click();
+            fixture.detectChanges();
+            expect(userService.register).toHaveBeenCalled();
           });
           describe('with username that is already registered', () => {
             it('should not redirect to dashboard.', () => {
