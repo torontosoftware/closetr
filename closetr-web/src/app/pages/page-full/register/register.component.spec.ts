@@ -285,20 +285,30 @@ describe('RegisterComponent', () => {
           expect(registerButton.disabled).toBeFalsy();
         });
         describe('and register button is clicked', () => {
-          it(`should call the user service's register function.`, () => {
+          beforeEach(() => {
             userService.register = jasmine.createSpy('userService.register').and.returnValue(
               of(true)
             );
+          });
+          it(`should call the user service's register function.`, () => {
             registerButton.click();
             fixture.detectChanges();
             expect(userService.register).toHaveBeenCalled();
           });
           describe('with username that is already registered', () => {
+            beforeEach(() => {
+              userService.register = jasmine.createSpy('userService.register').and.returnValue(
+                of(false)
+              );
+              usernameInput.value = "newfides";
+              usernameInput.dispatchEvent(new Event('input'));
+              registerButton.click();
+            });
             it('should not redirect to dashboard.', () => {
-
+              expect(routerSpy).not.toHaveBeenCalledWith(['/dashboard']);
             });
             it('should show error on username.', () => {
-
+              expect(nameInputErrorLabel.hidden).toBeFalsy();
             });
           });
           describe('with username that has not been registered', () => {
