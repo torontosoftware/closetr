@@ -257,16 +257,27 @@ describe('RegisterComponent', () => {
         });
       });
 
-      describe('when correct input is entered for all fields', () => {
+      describe(`when all fields are filled, and password is the
+        same as password confirm,`, () => {
         it('should enable the register button', () => {
 
         });
         describe('and register button is clicked', () => {
-          it(`should call the authentication service's register function`, () => {
+          it(`should call the authentication service's register function.`, () => {
 
           });
-          it('should redirect to dashboard component', () => {
+          describe('with username that is already registered', () => {
+            it('should not redirect to dashboard.', () => {
 
+            });
+            it('should show error on username.', () => {
+
+            });
+          });
+          describe('with username that has not been registered', () => {
+            it('should redirect to dashboard component.', () => {
+
+            });
           });
         });
       });
