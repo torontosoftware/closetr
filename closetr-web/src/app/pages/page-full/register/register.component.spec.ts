@@ -23,7 +23,11 @@ class AuthenticationServiceMock {
 @Injectable({
   providedIn: 'root'
 })
-class UserServiceMock {}
+class UserServiceMock {
+  register = jasmine.createSpy('userService.register').and.returnValue(
+    of(true)
+  );
+}
 
 @Component({
   selector: 'app-login',
@@ -91,7 +95,6 @@ describe('RegisterComponent', () => {
       authenticationService.currentUserValue = 'fides';
       component.ngOnInit();
       fixture.detectChanges();
-      console.log(component);
       expect(routerSpy).toHaveBeenCalledWith(['/dashboard']);
     });
   });
@@ -216,7 +219,6 @@ describe('RegisterComponent', () => {
             passwordConfirmInput.value = "password confirm";
             passwordConfirmInput.dispatchEvent(new Event('input'));
             fixture.detectChanges();
-            console.log(component,hostElement,"yuh");
             expect(passwordInputErrorLabel.hidden).toBeFalsy();
           });
       });
@@ -285,11 +287,6 @@ describe('RegisterComponent', () => {
           expect(registerButton.disabled).toBeFalsy();
         });
         describe('and register button is clicked', () => {
-          beforeEach(() => {
-            userService.register = jasmine.createSpy('userService.register').and.returnValue(
-              of(true)
-            );
-          });
           it(`should call the user service's register function.`, () => {
             registerButton.click();
             fixture.detectChanges();
@@ -303,12 +300,13 @@ describe('RegisterComponent', () => {
               usernameInput.value = "newfides";
               usernameInput.dispatchEvent(new Event('input'));
               registerButton.click();
+              fixture.detectChanges();
             });
             it('should not redirect to dashboard.', () => {
               expect(routerSpy).not.toHaveBeenCalledWith(['/dashboard']);
             });
             it('should show error on username.', () => {
-              expect(nameInputErrorLabel.hidden).toBeFalsy();
+              expect(usernameInputErrorLabel.hidden).toBeFalsy();
             });
           });
           describe('with username that has not been registered', () => {
