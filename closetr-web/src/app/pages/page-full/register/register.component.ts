@@ -131,7 +131,6 @@ export class RegisterComponent implements OnInit {
     }
     this.userService.register(new User(params)).subscribe(
       (data: any) => {
-        console.log(data);
         if (data.auth) {
           this.router.navigate(['/dashboard']);
         } else {

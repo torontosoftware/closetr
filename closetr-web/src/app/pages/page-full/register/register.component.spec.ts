@@ -314,9 +314,7 @@ describe('RegisterComponent', () => {
               registerButton.click();
               fixture.detectChanges();
               expect(usernameInputErrorLabel.hidden).toBeTruthy();
-              console.log(component);
               expect(routerSpy).toHaveBeenCalledWith(['/dashboard']);
-              console.log(routerSpy);
             });
           });
         });
