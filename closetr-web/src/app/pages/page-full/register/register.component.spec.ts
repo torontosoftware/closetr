@@ -25,7 +25,7 @@ class AuthenticationServiceMock {
 })
 class UserServiceMock {
   register = jasmine.createSpy('userService.register').and.returnValue(
-    of(true)
+    of({auth: true})
   );
 }
 
@@ -275,7 +275,7 @@ describe('RegisterComponent', () => {
         beforeEach(() => {
           nameInput.value = "name";
           nameInput.dispatchEvent(new Event('input'));
-          usernameInput.value = "username";
+          usernameInput.value = "usernameeeeee";
           usernameInput.dispatchEvent(new Event('input'));
           passwordInput.value = "password";
           passwordInput.dispatchEvent(new Event('input'));
@@ -295,7 +295,7 @@ describe('RegisterComponent', () => {
           describe('with username that is already registered', () => {
             beforeEach(() => {
               userService.register = jasmine.createSpy('userService.register').and.returnValue(
-                of(false)
+                of({auth: false})
               );
               usernameInput.value = "newfides";
               usernameInput.dispatchEvent(new Event('input'));
@@ -311,7 +311,12 @@ describe('RegisterComponent', () => {
           });
           describe('with username that has not been registered', () => {
             it('should redirect to dashboard component.', () => {
-
+              registerButton.click();
+              fixture.detectChanges();
+              expect(usernameInputErrorLabel.hidden).toBeTruthy();
+              console.log(component);
+              expect(routerSpy).toHaveBeenCalledWith(['/dashboard']);
+              console.log(routerSpy);
             });
           });
         });

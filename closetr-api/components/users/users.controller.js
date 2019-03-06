@@ -132,6 +132,7 @@ function register_new_user(req, res, next) {
             auth: true,
             token: token
           };
+          console.log(result_json);
           res.json(result_json);
         }
       }
