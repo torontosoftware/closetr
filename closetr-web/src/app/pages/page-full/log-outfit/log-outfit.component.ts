@@ -42,7 +42,8 @@ export class LogOutfitComponent implements OnInit {
       userID: this.currentUser.userID,
       date: this.dateFormatService.formatDateString(new Date())
     };
-    this.logOutfitService.getAllOutfitClothes(params);
+    console.log("calling get outfit clothes");
+    this.getAllOutfitClothes(params);
   }
 
   toggleEditMode(): void {
@@ -111,12 +112,18 @@ export class LogOutfitComponent implements OnInit {
   }
 
   getAllOutfitClothes(params: any): void {
+    console.log("calling get outfit clothes in the body");
     this.logOutfitService.getAllOutfitClothes(params).subscribe(
       (data: any) => {
+        console.log("get all outfit clothes result",data);
         this.outfitClothingList = data.data;
         for (let clothing of this.outfitClothingList) {
           clothing = new Clothing(clothing);
         };
+        console.log(this.outfitClothingList);
+      },
+      err => {
+        console.log("error on get outfit clothes", err);
       }
     );
   }

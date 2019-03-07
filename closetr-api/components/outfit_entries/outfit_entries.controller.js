@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 function add_new_entry(req, res, next) {
   // gather attributes
   const req_obj = req.body;
-  console.log(req);
+  console.log(req.body,"add new entry body");
   const new_entry = {
     clothingID: req_obj.clothingID,
     userID: req_obj.userID,
@@ -24,20 +24,21 @@ function add_new_entry(req, res, next) {
     {_id: new_entry._id},
     new_entry,
     {upsert: true, new: true, runValidators: true},
-
+    (err, doc) => generic_error_handling(err, doc, res)
   );
 }
 
 function get_entry(req, res, next) {
   const criteria = req.query.criteria;
-  console.log(req.body);
+  console.log(req.body,"get entry body");
   outfit_entries_model.find(
-    criteria,
+    {},
     (err, doc) => generic_error_handling(err, doc, res)
   );
 }
 
 function generic_error_handling(err, doc, res) {
+  console.log(doc);
   if (err) {
     const result_json = {
       status: 'failed',

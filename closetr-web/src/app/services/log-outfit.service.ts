@@ -16,6 +16,7 @@ export class LogOutfitService {
   Format {name, cost, category}
   */
   addOutfitClothing(clothing: any, mode: String): void {
+    console.log(clothing,"howdywww");
     this.http.post('http://localhost:8080/api/outfitEntries/entry', clothing).subscribe(
       (data: any) => {
         console.log(data);
