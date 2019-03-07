@@ -1,20 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ClosetService } from './closet.service';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class LogOutfitService {
-  outfitClothingCount: number;
-  outfitClothingList: any;
-
-  constructor(private closetService: ClosetService) {
-    this.outfitClothingList = {
-      1: {outfitClothingID: 1, clothingID: 1, clothingCost:'$45',clothingName:'Aritzia TShirt', clothingWorn: 45, clothingCategory:'TShirt'},
-      2: {outfitClothingID: 2, clothingID: 2, clothingCost: '$35', clothingName:'Zara Turtleneck TShirt', clothingWorn: 32, clothingCategory:'TShirt'}
-    };
-  }
+  constructor(private closetService: ClosetService
+              private http: HttpClient) { }
 
   /*
   Input: clothing object (generic for now)
@@ -22,15 +16,14 @@ export class LogOutfitService {
   Format {name, cost, category}
   */
   addOutfitClothing(clothing: any, mode: String): void {
-    var newOutfitClothing = {
-      'outfitClothingID': newOutfitClothingID,
-      'clothingID': clothing.clothingID,
-      'clothingName': clothing.clothingName,
-      'clothingCost': clothing.clothingCost,
-      'clothingCategory': clothing.clothingCategory,
-      'clothingWorn': 0
-    };
-    this.outfitClothingList[newOutfitClothingID] = newOutfitClothing;
+    this.http.post('http://localhost:8080/api/outfitEntry/entry', params).subscribe(
+      (data: any) => {
+        console.log(data);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
 
     // further actions depending on mode
     switch (mode) {
@@ -42,8 +35,11 @@ export class LogOutfitService {
     }
   }
 
-  getAllOutfitClothes(): any {
-    return this.outfitClothingList;
+  getAllOutfitClothes(criteria: Array<any>): any {
+    const params = new HttpParams({
+      fromObject: criteria
+    });
+    return this.http.get('http://localhost:8080/api/outfitEntry/entry', {params});
   }
 
   setAllOutfitClothes(outfitClothingList: any): void {

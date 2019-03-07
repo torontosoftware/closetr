@@ -7,6 +7,7 @@ import { SearchFilterPipe } from '../../../pipes/search-filter.pipe';
 import { Clothing } from '../../../models/clothing.model';
 import { User } from '../../../models/user.model';
 import { Subscription } from 'rxjs';
+import { DateFormatService } from '../../../services/utils/date-format.service';
 
 @Component({
   selector: 'app-log-outfit',
@@ -25,7 +26,8 @@ export class LogOutfitComponent implements OnInit {
   constructor(private logOutfitService: LogOutfitService,
               private closetService: ClosetService,
               private authenticationService: AuthenticationService,
-              private routesService: RoutesService) {
+              private routesService: RoutesService,
+              private dateFormatService: DateFormatService) {
     this.editMode = false;
   }
 
@@ -36,7 +38,11 @@ export class LogOutfitComponent implements OnInit {
         this.getAllClothes();
       }
     )
-    this.outfitClothingList = this.logOutfitService.getAllOutfitClothes();
+    const params = {
+      userID: this.currentUser.userID,
+      date: this.dateFormatService.formatDateString(new Date())
+    };
+    this.logOutfitService.getAllOutfitClothes(params);
   }
 
   toggleEditMode(): void {
@@ -64,7 +70,7 @@ export class LogOutfitComponent implements OnInit {
     var clothingID = clothing.clothingID;
     var contains = false;
     for (let i in this.outfitClothingList) {
-      if (this.outfitClothingList[i].clothingID == clothingID) {
+      if (this.outfitClothingList[i].clothingID === clothingID) {
         contains = true;
         break;
       }
@@ -91,11 +97,22 @@ export class LogOutfitComponent implements OnInit {
     this.closetService.getAllClothes(this.currentUser).subscribe(
       (data: any) => {
         this.closetList = data.data;
-        for (let i in this.closetList) {
-          this.closetList[i] = new Clothing(this.closetList[i]);
+        for (let clothing of this.closetList) {
+          clothing = new Clothing(clothing);
         }
       },
       error => { }
+    );
+  }
+
+  getAllOutfitClothes(params: any): void {
+    this.logOutfitService.getAllOutfitClothes(params).subscribe(
+      (data: any) => {
+        this.outfitClothingList = data.data;
+        for (let clothing of this.outfitClothingList) {
+          clothing = new Clothing(clothing);
+        };
+      }
     );
   }
 
