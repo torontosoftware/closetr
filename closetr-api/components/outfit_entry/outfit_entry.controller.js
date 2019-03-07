@@ -27,7 +27,15 @@ function add_new_entry(req, res, next) {
   );
 }
 
-function generic_error_handling(err, doc) {
+function get_entry(req, res, next) {
+  const criteria = req.query.criteria;
+  clothes_model.find(
+    criteria,
+    generic_error_handling
+  )
+}
+
+function generic_error_handling(err, doc, res) {
   if (err) {
     const result_json = {
       status: 'failed',
