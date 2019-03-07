@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ClosetService } from './closet.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { BehaviourSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +42,11 @@ export class LogOutfitService {
     const params = new HttpParams({
       fromObject: criteria
     });
-    return this.http.get('http://localhost:8080/api/outfitEntries/entry', {params});
+    return this.http.get('http://localhost:8080/api/outfitEntries/entry', {params})
+      .pipe(map(data => {
+        console.log(data);
+        
+      }));
   }
 
   setAllOutfitClothes(outfitClothingList: any): void {
