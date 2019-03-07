@@ -90,7 +90,7 @@ export class LogOutfitComponent implements OnInit {
         userID: this.currentUser.userID,
         date: this.dateFormatService.formatDateString(new Date())
       };
-      this.logOutfitService.addOutfitClothing(clothing, 'search');
+      this.logOutfitService.addOutfitClothing(params, 'search');
       this.logOutfitService.getAllOutfitClothes(params);
     }
   }

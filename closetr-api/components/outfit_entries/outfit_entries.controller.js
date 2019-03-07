@@ -40,7 +40,7 @@ function get_entry(req, res, next) {
 function get_entry_handler(err, doc, res) {
   if (err) {
     const result_json = {
-      status: 'failed'.
+      status: 'failed',
       message: err.message
     };
     res.json(result_json);

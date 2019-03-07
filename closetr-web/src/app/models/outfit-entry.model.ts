@@ -16,5 +16,5 @@ export class OutfitEntry {
     this.userID = userID;
     this.date = date;
     this.outfitEntryID = outfitEntryID;
-  };
+  }
 }

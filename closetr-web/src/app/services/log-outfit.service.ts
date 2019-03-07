@@ -15,9 +15,9 @@ export class LogOutfitService {
   Adds clothing to outfit clothing list, and to the closet as well.
   Format {name, cost, category}
   */
-  addOutfitClothing(clothing: any, mode: String): void {
-    console.log(clothing,"howdywww");
-    this.http.post('http://localhost:8080/api/outfitEntries/entry', clothing).subscribe(
+  addOutfitClothing(params: any, mode: String): void {
+    console.log(params,"howdywww");
+    this.http.post('http://localhost:8080/api/outfitEntries/entry', params).subscribe(
       (data: any) => {
         console.log(data);
       },
