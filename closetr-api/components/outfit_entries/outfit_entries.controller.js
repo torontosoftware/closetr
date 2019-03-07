@@ -1,9 +1,10 @@
-const outfit_entry_model = require('./outfit_entry.model');
+const outfit_entries_model = require('./outfit_entries.model');
 const mongoose = require('mongoose');
 
 function add_new_entry(req, res, next) {
   // gather attributes
-  const req_obj = req.body.entry;
+  const req_obj = req.body;
+  console.log(req);
   const new_entry = {
     clothingID: req_obj.clothingID,
     userID: req_obj.userID,
@@ -29,10 +30,11 @@ function add_new_entry(req, res, next) {
 
 function get_entry(req, res, next) {
   const criteria = req.query.criteria;
-  clothes_model.find(
+  console.log(req);
+  outfit_entries_model.find(
     criteria,
-    generic_error_handling
-  )
+    (err, doc) => generic_error_handling(err, doc, res)
+  );
 }
 
 function generic_error_handling(err, doc, res) {
@@ -51,8 +53,9 @@ function generic_error_handling(err, doc, res) {
   }
 }
 
-var outfit_entry_module = {
-  add_new_entry: add_new_entry
+var outfit_entries_module = {
+  add_new_entry,
+  get_entry
 }
 
-module.exports = outfit_entry_module
+module.exports = outfit_entries_module;

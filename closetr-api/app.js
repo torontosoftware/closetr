@@ -15,7 +15,7 @@ const config = require('./config')
 const indexRouter = require('./components/index/index');
 const clothesRouter = require('./components/clothes/clothes');
 const usersRouter = require('./components/users/users');
-const outfitEntryRouter = require('./components/outfit_entry/outfit_entry');
+const outfitEntriesRouter = require('./components/outfit_entries/outfit_entries');
 
 // the express app
 var app = express();
@@ -31,7 +31,7 @@ app.use(cors({credentials: true, origin: true}));
 app.use('/', indexRouter);
 app.use('/api/clothes/', clothesRouter);
 app.use('/api/users/', usersRouter);
-app.use('/api/outfitEntry/', outfitEntryRouter);
+app.use('/api/outfitEntries/', outfitEntriesRouter);
 
 // Configure bodyparser to handle post requests
 app.use(bodyParser.urlencoded({

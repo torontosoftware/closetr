@@ -84,8 +84,13 @@ export class LogOutfitComponent implements OnInit {
   addSearchResult(clothing: any): void {
     // check if clothing to be added is already in outfit clothing list
     if (!this.outfitClothingListContains(clothing)) {
+      const params = {
+        clothingID: clothing.clothingID,
+        userID: this.currentUser.userID,
+        date: this.dateFormatService.formatDateString(new Date())
+      };
       this.logOutfitService.addOutfitClothing(clothing, 'search');
-      this.outfitClothingList = this.logOutfitService.getAllOutfitClothes();
+      this.logOutfitService.getAllOutfitClothes(params);
     }
   }
 

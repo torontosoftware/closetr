@@ -7,7 +7,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 })
 
 export class LogOutfitService {
-  constructor(private closetService: ClosetService
+  constructor(private closetService: ClosetService,
               private http: HttpClient) { }
 
   /*
@@ -16,7 +16,7 @@ export class LogOutfitService {
   Format {name, cost, category}
   */
   addOutfitClothing(clothing: any, mode: String): void {
-    this.http.post('http://localhost:8080/api/outfitEntry/entry', params).subscribe(
+    this.http.post('http://localhost:8080/api/outfitEntry/entry', clothing).subscribe(
       (data: any) => {
         console.log(data);
       },
@@ -35,7 +35,7 @@ export class LogOutfitService {
     }
   }
 
-  getAllOutfitClothes(criteria: Array<any>): any {
+  getAllOutfitClothes(criteria: any): any {
     const params = new HttpParams({
       fromObject: criteria
     });
@@ -43,6 +43,6 @@ export class LogOutfitService {
   }
 
   setAllOutfitClothes(outfitClothingList: any): void {
-    this.outfitClothingList = outfitClothingList;
+    //
   }
 }
