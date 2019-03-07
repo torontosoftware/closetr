@@ -33,8 +33,34 @@ function get_entry(req, res, next) {
   console.log(req.body,"get entry body");
   outfit_entries_model.find(
     {},
-    (err, doc) => generic_error_handling(err, doc, res)
+    (err, doc) => get_entry_handler(err, doc, res)
   );
+}
+
+function get_entry_handler(err, doc, res) {
+  if (err) {
+    const result_json = {
+      status: 'failed'.
+      message: err.message
+    };
+    res.json(result_json);
+  } else {
+    var result = [];
+    doc.forEach((outfitEntry) => {
+      var outfitEntryResult = {
+        outfitEntryID: outfitEntry._id,
+        userID: outfitEntry.userID,
+        clothingID: outfitEntry.clothingID,
+        date: outfitEntry.date
+      };
+      result.push(outfitEntryResult);
+    });
+    const result_json = {
+      status: 'success',
+      data: result
+    };
+    res.json(result_json);
+  }
 }
 
 function generic_error_handling(err, doc, res) {
