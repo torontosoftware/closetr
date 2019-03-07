@@ -16,7 +16,7 @@ export class LogOutfitService {
   Format {name, cost, category}
   */
   addOutfitClothing(clothing: any, mode: String): void {
-    this.http.post('http://localhost:8080/api/outfitEntry/entry', clothing).subscribe(
+    this.http.post('http://localhost:8080/api/outfitEntries/entry', clothing).subscribe(
       (data: any) => {
         console.log(data);
       },
@@ -39,7 +39,7 @@ export class LogOutfitService {
     const params = new HttpParams({
       fromObject: criteria
     });
-    return this.http.get('http://localhost:8080/api/outfitEntry/entry', {params});
+    return this.http.get('http://localhost:8080/api/outfitEntries/entry', {params});
   }
 
   setAllOutfitClothes(outfitClothingList: any): void {

@@ -20,7 +20,7 @@ function add_new_entry(req, res, next) {
   }
 
   // create new entry from schema
-  outfit_entry_model.findOneAndUpdate(
+  outfit_entries_model.findOneAndUpdate(
     {_id: new_entry._id},
     new_entry,
     {upsert: true, new: true, runValidators: true},
@@ -30,7 +30,7 @@ function add_new_entry(req, res, next) {
 
 function get_entry(req, res, next) {
   const criteria = req.query.criteria;
-  console.log(req);
+  console.log(req.body);
   outfit_entries_model.find(
     criteria,
     (err, doc) => generic_error_handling(err, doc, res)
