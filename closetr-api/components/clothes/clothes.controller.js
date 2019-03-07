@@ -25,7 +25,7 @@ function add_new_clothing(req, res, next) {
     {_id: newItem._id},
     newItem,
     {upsert: true, new: true, runValidators: true},
-    generic_error_handling
+    (err, doc) => generic_error_handling(err, doc, res)
   );
 }
 
@@ -35,7 +35,7 @@ function delete_clothing(req, res, next) {
   // create new clothing from clothes schema
   clothes_model.remove(
     {_id: clothingID},
-    generic_error_handling
+    (err, doc) => generic_error_handling(err, doc, res)
   );
 }
 
@@ -44,11 +44,12 @@ function get_all_user_clothing(req, res, next) {
   const userID = req.query.userID;
   clothes_model.find(
     {userID: userID},
-    get_all_clothing_error_handling
+    (err, doc) => get_all_clothing_error_handling(err, doc, res)
   );
 }
 
-function get_all_clothing_error_handling(err, doc) {
+function get_all_clothing_error_handling(err, doc, res) {
+  console.log(err, doc);
   if (err) {
     const result_json = {
       status: 'failed',
@@ -76,7 +77,7 @@ function get_all_clothing_error_handling(err, doc) {
   }
 }
 
-function generic_error_handling(err, doc) {
+function generic_error_handling(err, doc, res) {
   if (err) {
     const result_json = {
       status: 'failed',
@@ -92,7 +93,7 @@ function generic_error_handling(err, doc) {
   }
 }
 
-var clothing_module ={
+var clothing_module = {
   add_new_clothing: add_new_clothing,
   delete_clothing: delete_clothing,
   get_all_user_clothing: get_all_user_clothing

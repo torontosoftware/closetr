@@ -18,20 +18,16 @@ export class RegisterComponent implements OnInit {
   userExists: boolean;
   errorMessage: any;
   error: any;
-  userService: UserService;
-  authenticationService: AuthenticationService;
   show: boolean;
 
   constructor(private router: Router,
-              private userservice: UserService,
-              private authenticationservice: AuthenticationService) {
+              private userService: UserService,
+              private authenticationService: AuthenticationService) {
     this.name = "";
     this.username = "";
     this.password = "";
     this.passwordConfirm = "";
     this.userExists = false;
-    this.userService = userservice;
-    this.authenticationService = authenticationservice;
     this.show = false;
 
     this.errorMessage = {
@@ -48,6 +44,9 @@ export class RegisterComponent implements OnInit {
       'passwordConfirm': false
     };
 
+  }
+
+  ngOnInit() {
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/dashboard']);
     } else {
@@ -132,18 +131,14 @@ export class RegisterComponent implements OnInit {
     }
     this.userService.register(new User(params)).subscribe(
       (data: any) => {
-        console.log(data);
-        var isRegistered = data.auth;
-        if (isRegistered) {
+        if (data.auth) {
           this.router.navigate(['/dashboard']);
         } else {
           this.userExists = true;
+          this.checkError();
         }
       }, error => {}
     );
-  }
-
-  ngOnInit() {
   }
 
 }

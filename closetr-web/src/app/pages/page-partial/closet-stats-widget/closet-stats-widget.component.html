@@ -1,0 +1,86 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6">
+      <h3>closet stats</h3>
+    </div>
+    <div class="col-6">
+      <ui-edit-button
+        [type]="'link'"
+        [buttonLink]="'/closet-manage'"
+      ></ui-edit-button>
+      <ui-filter-select
+        [items]="dateOptions"
+        [className]="'mrt-5'"
+      ></ui-filter-select>
+    </div>
+  </div>
+  <div class="row mtb-10">
+    <div class="col-12 col-md-6">
+      <span class="f-med-blue-md">
+        number of items:
+      </span>
+      <span class="f-light-blue-md">
+        264
+      </span>
+      <br>
+      <span class="f-med-blue-md">
+        total value:
+      </span>
+      <span class="f-light-blue-md">
+        $25,678
+      </span>
+    </div>
+    <div class="col-12 col-md-6">
+      <span class="f-med-blue-md">
+        average cost:
+      </span>
+      <span class="f-light-blue-md">
+        $97.27
+      </span>
+      <br>
+      <span class="f-med-blue-md">
+        average cost per wear:
+      </span>
+      <span class="f-light-blue-md">
+        $10.60
+      </span>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-12">
+      <span class="f-med-blue-md">
+        most worn items:
+      </span>
+    </div>
+    <div class="col-12">
+      <div class="row row-reset-3 mtb-10">
+        <div class="col-6 col-reset-3" *ngFor="let item of mostWornItems">
+          <button class="btn closet-search-box">
+            <span class="stats-box-text f-med-blue-xs">{{item.clothingName}}
+            <span class="f-light-blue-xs pull-right">{{item.clothingWorn}} times</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <span class="f-med-blue-md">
+        best value items:
+      </span>
+    </div>
+    <div class="col-12">
+      <div class="row row-reset-3 mtb-10">
+        <div class="col-6 col-reset-3" *ngFor="let item of bestValueItems">
+          <button class="btn closet-search-box">
+            <span class="stats-box-text f-med-blue-xs">{{item.clothingName}}
+            <span class="f-light-blue-xs pull-right">${{item.clothingCostPerWear}} / wear</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
