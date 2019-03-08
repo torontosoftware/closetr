@@ -8,7 +8,7 @@ function add_new_entry(req, res, next) {
   console.log(req.body,"add new entry body");
   const new_entry = {
     clothing: req_obj.clothingID,
-    userID: req_obj.userID,
+    user: req_obj.userID,
     date: req_obj.date,
     outfitEntryID: req_obj.outfitEntryID
   };
@@ -58,7 +58,7 @@ function outfit_entry_doc_handler(doc, res) {
   doc.forEach((outfitEntry) => {
     let outfitEntryResult = {
       outfitEntryID: outfitEntry._id,
-      userID: outfitEntry.userID,
+      user: outfitEntry.userID,
       clothing: outfitEntry.clothing,
       date: outfitEntry.date
     };
@@ -84,7 +84,7 @@ function get_entry_handler(err, doc, res) {
     doc.forEach((outfitEntry) => {
       var outfitEntryResult = {
         outfitEntryID: outfitEntry._id,
-        userID: outfitEntry.userID,
+        user: outfitEntry.userID,
         clothing: outfitEntry.clothing,
         date: outfitEntry.date
       };
