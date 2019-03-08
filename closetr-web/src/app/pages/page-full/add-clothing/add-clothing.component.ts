@@ -56,7 +56,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   Go back to the previous page.
   */
   back(): void {
-    console.log("hi there",this.prevUrl);
+    console.log("im going back",this.prevUrl);
     this.router.navigate([this.prevUrl]);
   }
 
@@ -65,10 +65,11 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   clothing item, navigate back to the previous page.
   */
   save(): void {
-    console.log(this.clothing);
+    console.log("im calling save",this.clothing);
     if (this.prevUrl == '/closet-manage') {
       this.closetService.addClothing(this.clothing).subscribe(
         (data: any) => {
+          console.log("got my data result");
           this.back();
         },
         error => { }

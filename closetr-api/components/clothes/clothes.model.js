@@ -8,7 +8,7 @@ const clothes = new Schema({
   clothingWorn: {type: Number, default:0},
   clothingCategory: {type: String, default:'', trim:true},
   clothingPurchaseDate: {type: String, default:'', trim:true},
-  userID: {type: String, default: '', trim:true}
+  userID: {ref:'users', type: String, default: '', trim:true}
 })
 
 module.exports = mongoose.model('clothes', clothes);

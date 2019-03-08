@@ -1,5 +1,5 @@
 const outfit_entries_model = require('./outfit_entries.model');
-const clothes_model = require('./clothes.model');
+const clothes_model = require('../clothes/clothes.model');
 const mongoose = require('mongoose');
 
 function add_new_entry(req, res, next) {
@@ -34,30 +34,14 @@ function get_entry(req, res, next) {
   let clothes;
   let outfit_entries;
   console.log(req.body,"get entry body");
-  clothes_model.find(
-    {userID: criteria.userID},
-    (err, doc) => {
-      if (err) {
-        error_handler(res);
-      } else {
-        clothes = closet_doc_handler(doc)
-      }
-    }
-  );
-  outfit_entries_model.find(
-    criteria,
-    (err, doc) => {
-      if (err) {
-        error_handler(res)
-      } else {
-        outfit_entries = outfit_entry_doc_handler(doc);
-      }
-    }
-  );
-  let outfit_entries_mod = closet_outfit_entry_handler(clothes, outfit_entries);
+  clothes_model.find({userID: criteria.userID})
+  .populate('outfit_entries').exec(
+    (err, outfit_entries) => {
+      console.log(outfit_entries)
+    });
   const result_json = {
     status: 'success',
-    data: outfit_entries_mod
+    data: outfit_entries
   };
   res.json(result_json);
 }
