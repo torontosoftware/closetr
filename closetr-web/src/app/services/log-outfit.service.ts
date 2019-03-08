@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ClosetService } from './closet.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { BehaviourSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -33,7 +33,7 @@ export class LogOutfitService {
       case 'search':
         break;
       case 'manual':
-        this.closetService.addClothing(clothing);
+        this.closetService.addClothing(params);
         break;
     }
   }
@@ -42,11 +42,8 @@ export class LogOutfitService {
     const params = new HttpParams({
       fromObject: criteria
     });
-    return this.http.get('http://localhost:8080/api/outfitEntries/entry', {params})
-      .pipe(map(data => {
-        console.log(data);
-        
-      }));
+    console.log("tried my best");
+    return this.http.get<any>('http://localhost:8080/api/outfitEntries/entry', {params});
   }
 
   setAllOutfitClothes(outfitClothingList: any): void {

@@ -30,23 +30,21 @@ function add_new_entry(req, res, next) {
 }
 
 function get_entry(req, res, next) {
-  const criteria = req.query.criteria;
+  const criteria = req.query;
   let clothes;
-  let outfit_entries;
-  console.log(req.body,"get entry body");
-  clothes_model.find({userID: criteria.userID})
+  clothes_model.find()
   .populate('outfit_entries').exec(
-    (err, outfit_entries) => {
-      console.log(outfit_entries)
-    });
-  const result_json = {
-    status: 'success',
-    data: outfit_entries
-  };
-  res.json(result_json);
+  (err, clothes) => {
+    if (err) {
+      error_handler(err, res);
+    } else {
+      console.log("my clothes",clothes);
+      outfit_entry_doc_handler(clothes, res);
+    }
+  });
 }
 
-function error_handler(res) {
+function error_handler(err, res) {
   const result_json = {
     status: 'failed',
     message: err.message
@@ -54,24 +52,9 @@ function error_handler(res) {
   res.json(result_json);
 }
 
-function closet_doc_handler(doc) {
+function outfit_entry_doc_handler(doc, res) {
   let result = [];
-  doc.forEach((clothing) => {
-    let clothingResult = {
-      clothingID: clothing._id,
-      clothingName: clothing.clothingName,
-      clothingCategory: clothing.clothingCategory,
-      clothingWorn: clothing.clothingWorn,
-      clothingCost: clothing.clothingCost,
-      clothingPurchaseDate: clothing.clothingPurchaseDate
-    };
-    result.push(clothingResult);
-  });
-  return result;
-}
-
-function outfit_entry_doc_handler(doc) {
-  let result = [];
+  console.log(doc);
   doc.forEach((outfitEntry) => {
     let outfitEntryResult = {
       outfitEntryID: outfitEntry._id,
@@ -81,11 +64,12 @@ function outfit_entry_doc_handler(doc) {
     };
     result.push(outfitEntryResult);
   });
-  return result;
-}
-
-function closet_outfit_entry_handler(clothes, outfit_entries) {
-
+  const result_json = {
+    status: 'success',
+    data: result
+  };
+  console.log("successful res json", result_json);
+  res.json(result_json);
 }
 
 function get_entry_handler(err, doc, res) {

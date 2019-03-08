@@ -113,7 +113,7 @@ export class LogOutfitComponent implements OnInit {
 
   getAllOutfitClothes(params: any): void {
     console.log("calling get outfit clothes in the body");
-    this.logOutfitService.getAllOutfitClothes(params).subscribe(
+    let mydata = this.logOutfitService.getAllOutfitClothes(params).subscribe(
       (data: any) => {
         console.log("get all outfit clothes result",data);
         this.outfitClothingList = data.data;
@@ -126,6 +126,7 @@ export class LogOutfitComponent implements OnInit {
         console.log("error on get outfit clothes", err);
       }
     );
+  
   }
 
 }
