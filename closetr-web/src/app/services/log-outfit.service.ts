@@ -17,7 +17,7 @@ export class LogOutfitService {
   Adds clothing to outfit clothing list, and to the closet as well.
   Format {name, cost, category}
   */
-  addOutfitClothing(params: any): void {
+  addOutfitClothing(params: any): any {
     console.log(params,"howdywww");
     return this.http.post('http://localhost:8080/api/outfitEntries/entry', params);
   }
@@ -26,7 +26,7 @@ export class LogOutfitService {
     const params = new HttpParams({
       fromObject: criteria
     });
-    console.log("tried my best");
+    console.log("tried my best", params);
     return this.http.get<any>('http://localhost:8080/api/outfitEntries/entry', {params});
   }
 

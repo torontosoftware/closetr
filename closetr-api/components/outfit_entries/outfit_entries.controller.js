@@ -32,13 +32,14 @@ function add_new_entry(req, res, next) {
 function get_entry(req, res, next) {
   const criteria = req.query;
   let clothes;
-  outfit_entries_model.find({},(err,doc)=>{console.log("docs",doc)})
-  .populate('clothing').exec(
+  outfit_entries_model.find()
+  .populate('clothing')
+  .populate({path: 'user', select: 'userID _id'}).exec(
   (err, clothes) => {
     if (err) {
       error_handler(err, res);
     } else {
-      console.log("my clothes",clothes);
+      console.log("my clothes", clothes);
       outfit_entry_doc_handler(clothes, res);
     }
   });
@@ -54,11 +55,11 @@ function error_handler(err, res) {
 
 function outfit_entry_doc_handler(doc, res) {
   let result = [];
-  //console.log(doc);
+  console.log("outfit entry doc",doc);
   doc.forEach((outfitEntry) => {
     let outfitEntryResult = {
       outfitEntryID: outfitEntry._id,
-      user: outfitEntry.userID,
+      user: outfitEntry.user,
       clothing: outfitEntry.clothing,
       date: outfitEntry.date
     };
@@ -99,7 +100,6 @@ function get_entry_handler(err, doc, res) {
 }
 
 function generic_error_handling(err, doc, res) {
-  console.log(doc);
   if (err) {
     const result_json = {
       status: 'failed',

@@ -74,6 +74,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
         console.log("got my data result", data);
         if (this.prevUrl == '/log-outfit') {
           let newClothing = data.data;
+          console.log(newClothing);
           const params = {
             clothingID: newClothing._id,
             userID: this.currentUser.id,
