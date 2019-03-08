@@ -4,9 +4,7 @@ const mongoose = require('mongoose');
 
 function add_new_entry(req, res, next) {
   // gather attributes
-  console.log("ADDING A NEW ENTRY");
   const req_obj = req.body;
-  console.log(req.body,"add new entry body");
   const new_entry = {
     clothing: req_obj.clothingID,
     user: req_obj.userID,
@@ -28,6 +26,20 @@ function add_new_entry(req, res, next) {
     {upsert: true, new: true, runValidators: true},
     (err, doc) => generic_error_handling(err, doc, res)
   );
+}
+
+function delete_entry(req, res, next) {
+  const id = req.params.id;
+  outfit_entries_model.remove(
+    {_id: id},
+    (err, doc) => {
+      if (err) {
+        error_handler(err, res);
+      } else {
+        doc_handler(doc, res);
+      }
+    }
+  )
 }
 
 function get_entry(req, res, next) {
@@ -54,6 +66,14 @@ function error_handler(err, res) {
   res.json(result_json);
 }
 
+function doc_handler(doc, res) {
+  const result_json = {
+    status: 'success',
+    data: doc
+  };
+  res.json(result_json);
+}
+
 function outfit_entry_doc_handler(doc, res) {
   let result = [];
   console.log("outfit entry doc",doc);
@@ -70,34 +90,7 @@ function outfit_entry_doc_handler(doc, res) {
     status: 'success',
     data: result
   };
-  //console.log("successful res json", result_json);
   res.json(result_json);
-}
-
-function get_entry_handler(err, doc, res) {
-  if (err) {
-    const result_json = {
-      status: 'failed',
-      message: err.message
-    };
-    res.json(result_json);
-  } else {
-    var result = [];
-    doc.forEach((outfitEntry) => {
-      var outfitEntryResult = {
-        outfitEntryID: outfitEntry._id,
-        user: outfitEntry.userID,
-        clothing: outfitEntry.clothing,
-        date: outfitEntry.date
-      };
-      result.push(outfitEntryResult);
-    });
-    const result_json = {
-      status: 'success',
-      data: result
-    };
-    res.json(result_json);
-  }
 }
 
 function generic_error_handling(err, doc, res) {
@@ -118,7 +111,8 @@ function generic_error_handling(err, doc, res) {
 
 var outfit_entries_module = {
   add_new_entry,
-  get_entry
+  get_entry,
+  delete_entry
 }
 
 module.exports = outfit_entries_module;
