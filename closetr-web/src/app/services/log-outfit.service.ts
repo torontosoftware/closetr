@@ -19,14 +19,7 @@ export class LogOutfitService {
   */
   addOutfitClothing(params: any): void {
     console.log(params,"howdywww");
-    this.http.post('http://localhost:8080/api/outfitEntries/entry', params).subscribe(
-      (data: any) => {
-        console.log(data);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    return this.http.post('http://localhost:8080/api/outfitEntries/entry', params);
   }
 
   getAllOutfitClothes(criteria: any): any {

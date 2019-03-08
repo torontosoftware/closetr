@@ -93,8 +93,8 @@ export class LogOutfitComponent implements OnInit {
         userID: this.currentUser.id,
         date: this.dateFormatService.formatDateString(new Date())
       };
-      this.logOutfitService.addOutfitClothing(params);
-      this.logOutfitService.getAllOutfitClothes(params);
+      this.addOutfitClothing(params);
+      this.getAllOutfitClothes(params);
     }
   }
 
@@ -114,9 +114,13 @@ export class LogOutfitComponent implements OnInit {
     );
   }
 
+  addOutfitClothing(params: any): void {
+    this.logOutfitService.addOutfitClothing(params);
+  }
+
   getAllOutfitClothes(params: any): void {
     console.log("calling get outfit clothes in the body");
-    let mydata = this.logOutfitService.getAllOutfitClothes(params).subscribe(
+    this.logOutfitService.getAllOutfitClothes(params).subscribe(
       (data: any) => {
         console.log("get all outfit clothes result",data);
         this.outfitClothingList = data.data;

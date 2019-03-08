@@ -79,7 +79,11 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
             userID: this.currentUser.id,
             date: this.dateFormatService.formatDateString(new Date())
           };
-          this.logOutfitService.addOutfitClothing(params);
+          this.logOutfitService.addOutfitClothing(params).subscribe(
+            (data: any) => {
+              this.back();
+            }
+          );
         }
         this.back();
       },
