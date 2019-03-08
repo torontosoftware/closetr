@@ -81,11 +81,13 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
           };
           this.logOutfitService.addOutfitClothing(params).subscribe(
             (data: any) => {
+              console.log("finished adding outfit entry", params);
               this.back();
             }
           );
+        } else {
+          this.back();
         }
-        this.back();
       },
       error => { }
     );
