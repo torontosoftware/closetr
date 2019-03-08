@@ -76,6 +76,7 @@ export class ClosetManageComponent implements OnInit {
   getAllClothes(): void {
     this.closetService.getAllClothes(this.currentUser).subscribe(
       (data: any) => {
+        console.log(data);
         this.closetList = data.data;
         for (let i in this.closetList) {
           this.closetList[i] = new Clothing(this.closetList[i]);

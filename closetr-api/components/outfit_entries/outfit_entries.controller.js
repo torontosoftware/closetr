@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 function add_new_entry(req, res, next) {
   // gather attributes
+  console.log("ADDING A NEW ENTRY");
   const req_obj = req.body;
   console.log(req.body,"add new entry body");
   const new_entry = {

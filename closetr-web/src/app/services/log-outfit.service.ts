@@ -18,7 +18,7 @@ export class LogOutfitService {
   Format {name, cost, category}
   */
   addOutfitClothing(params: any): any {
-    console.log(params,"howdywww");
+    console.log(params,"LITERALLY CALLING POST!");
     return this.http.post('http://localhost:8080/api/outfitEntries/entry', params);
   }
 
