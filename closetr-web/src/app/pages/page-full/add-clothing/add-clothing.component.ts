@@ -4,6 +4,7 @@ import { ClosetService } from '../../../services/closet.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { RoutesService } from '../../../services/routes.service';
 import { LogOutfitService } from '../../../services/log-outfit.service';
+import { DateFormatService } from '../../../services/utils/date-format.service';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { BaseGeneralComponent } from '../base-general/base-general.component';
 import { Clothing } from '../../../models/clothing.model';
@@ -27,6 +28,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
               private logOutfitService: LogOutfitService,
               private routesService: RoutesService,
               private authenticationService: AuthenticationService,
+              private dateFormatService: DateFormatService,
               private router: Router,
               private location: Location) {
       super();
@@ -44,11 +46,12 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
 
     // items
     this.clothingCategories = Clothing.getClothingCategories();
-    console.log(this.routesService.getPrevUrl());
+    console.log("my prev url is",this.routesService.getPrevUrl());
     // routes
     if (!(this.prevUrl = this.routesService.getPrevUrl())) {
       this.prevUrl = "/closet-manage";
     }
+    console.log("the prev url is", this.prevUrl);
     this.routesService.setPrevUrl('');
   }
 
@@ -66,17 +69,22 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   */
   save(): void {
     console.log("im calling save",this.clothing);
-    if (this.prevUrl == '/closet-manage') {
-      this.closetService.addClothing(this.clothing).subscribe(
-        (data: any) => {
-          console.log("got my data result");
-          this.back();
-        },
-        error => { }
-      );
-    } else {
-      this.logOutfitService.addOutfitClothing(this.clothing, 'manual');
-    }
+    this.closetService.addClothing(this.clothing).subscribe(
+      (data: any) => {
+        console.log("got my data result", data);
+        if (this.prevUrl == '/log-outfit') {
+          let newClothing = data.data;
+          const params = {
+            clothingID: newClothing._id,
+            userID: this.currentUser.id,
+            date: this.dateFormatService.formatDateString(new Date())
+          };
+          this.logOutfitService.addOutfitClothing(params);
+        }
+        this.back();
+      },
+      error => { }
+    );
   }
 
   /*

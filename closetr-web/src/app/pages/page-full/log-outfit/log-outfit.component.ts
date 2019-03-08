@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 import { LogOutfitService } from '../../../services/log-outfit.service';
 import { ClosetService } from '../../../services/closet.service';
 import { RoutesService } from '../../../services/routes.service';
@@ -23,7 +24,8 @@ export class LogOutfitComponent implements OnInit {
   currentUserSubscription: Subscription;
   currentUser: User;
 
-  constructor(private logOutfitService: LogOutfitService,
+  constructor(private router: Router,
+              private logOutfitService: LogOutfitService,
               private closetService: ClosetService,
               private authenticationService: AuthenticationService,
               private routesService: RoutesService,
@@ -58,6 +60,7 @@ export class LogOutfitComponent implements OnInit {
   navTo(): void {
     console.log(this);
     this.routesService.setPrevUrl('/log-outfit');
+    this.router.navigate(['/add-clothing']);
   }
 
   search(): void {
@@ -90,7 +93,7 @@ export class LogOutfitComponent implements OnInit {
         userID: this.currentUser.id,
         date: this.dateFormatService.formatDateString(new Date())
       };
-      this.logOutfitService.addOutfitClothing(params, 'search');
+      this.logOutfitService.addOutfitClothing(params);
       this.logOutfitService.getAllOutfitClothes(params);
     }
   }
