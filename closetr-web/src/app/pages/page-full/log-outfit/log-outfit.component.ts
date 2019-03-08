@@ -39,7 +39,7 @@ export class LogOutfitComponent implements OnInit {
       }
     )
     const params = {
-      userID: this.currentUser.userID,
+      userID: this.currentUser.id,
       date: this.dateFormatService.formatDateString(new Date())
     };
     console.log("calling get outfit clothes");
@@ -87,7 +87,7 @@ export class LogOutfitComponent implements OnInit {
     if (!this.outfitClothingListContains(clothing)) {
       const params = {
         clothingID: clothing.clothingID,
-        userID: this.currentUser.userID,
+        userID: this.currentUser.id,
         date: this.dateFormatService.formatDateString(new Date())
       };
       this.logOutfitService.addOutfitClothing(params, 'search');
@@ -126,7 +126,7 @@ export class LogOutfitComponent implements OnInit {
         console.log("error on get outfit clothes", err);
       }
     );
-  
+
   }
 
 }

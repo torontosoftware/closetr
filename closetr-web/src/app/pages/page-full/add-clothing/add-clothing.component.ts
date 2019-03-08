@@ -37,7 +37,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       user => {
         this.currentUser = user;
         this.clothing = new Clothing({
-          userID: this.currentUser.userID
+          userID: this.currentUser.id
         });
       }
     )
