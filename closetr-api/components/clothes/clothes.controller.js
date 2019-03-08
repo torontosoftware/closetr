@@ -77,6 +77,7 @@ function get_all_clothing_error_handling(err, doc, res) {
 }
 
 function generic_error_handling(err, doc, res) {
+  console.log(err,doc)
   if (err) {
     const result_json = {
       status: 'failed',

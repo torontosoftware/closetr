@@ -7,7 +7,7 @@ function add_new_entry(req, res, next) {
   const req_obj = req.body;
   console.log(req.body,"add new entry body");
   const new_entry = {
-    clothingID: req_obj.clothingID,
+    clothing: req_obj.clothingID,
     userID: req_obj.userID,
     date: req_obj.date,
     outfitEntryID: req_obj.outfitEntryID
@@ -32,8 +32,8 @@ function add_new_entry(req, res, next) {
 function get_entry(req, res, next) {
   const criteria = req.query;
   let clothes;
-  clothes_model.find()
-  .populate('outfit_entries').exec(
+  outfit_entries_model.find({},(err,doc)=>{console.log("docs",doc)})
+  .populate('clothing').exec(
   (err, clothes) => {
     if (err) {
       error_handler(err, res);
@@ -54,12 +54,12 @@ function error_handler(err, res) {
 
 function outfit_entry_doc_handler(doc, res) {
   let result = [];
-  console.log(doc);
+  //console.log(doc);
   doc.forEach((outfitEntry) => {
     let outfitEntryResult = {
       outfitEntryID: outfitEntry._id,
       userID: outfitEntry.userID,
-      clothingID: outfitEntry.clothingID,
+      clothing: outfitEntry.clothing,
       date: outfitEntry.date
     };
     result.push(outfitEntryResult);
@@ -68,7 +68,7 @@ function outfit_entry_doc_handler(doc, res) {
     status: 'success',
     data: result
   };
-  console.log("successful res json", result_json);
+  //console.log("successful res json", result_json);
   res.json(result_json);
 }
 
@@ -85,7 +85,7 @@ function get_entry_handler(err, doc, res) {
       var outfitEntryResult = {
         outfitEntryID: outfitEntry._id,
         userID: outfitEntry.userID,
-        clothingID: outfitEntry.clothingID,
+        clothing: outfitEntry.clothing,
         date: outfitEntry.date
       };
       result.push(outfitEntryResult);
