@@ -9,32 +9,42 @@ import { map } from 'rxjs/operators';
 })
 
 export class LogOutfitService {
+  baseUrl = 'http://localhost:8080/api/outfitEntries/entry/';
   constructor(private closetService: ClosetService,
               private http: HttpClient) { }
 
   /*
-  Input: clothing object (generic for now)
-  Adds clothing to outfit clothing list, and to the closet as well.
-  Format {name, cost, category}
+  Input: Outfit Entry object (generic for now)
+  Adds the outfit entry into the list of entries for this user.
+  Parameters include userID, date, and clothingID.
   */
   addOutfitClothing(params: any): any {
-    console.log(params,"LITERALLY CALLING POST!");
-    return this.http.post('http://localhost:8080/api/outfitEntries/entry', params);
+    return this.http.post(`${this.baseUrl}`, params);
   }
 
+  /*
+  Input: outfitEntryID
+  Deletes outfit entry from the list of entries for
+  the id.
+  */
   deleteOutfitClothing(outfitEntryID: any): any {
-    return this.http.delete(`http://localhost:8080/api/outfitEntries/entry/${outfitEntryID}`);
+    return this.http.delete(`${this.baseUrl}${outfitEntryID}`);
   }
 
+  /*
+  Input: criteria, including date, userID.
+  Returns list of outfit entries for the given date
+  and userID. Returns all outfit entries if no
+  criteria provided.
+  */
   getAllOutfitClothes(criteria: any): any {
     const params = new HttpParams({
       fromObject: criteria
     });
-    console.log("tried my best", params);
-    return this.http.get<any>('http://localhost:8080/api/outfitEntries/entry', {params});
+    return this.http.get<any>(`${this.baseUrl}`, {params});
   }
 
   setAllOutfitClothes(outfitClothingList: any): void {
-    //
+    
   }
 }
