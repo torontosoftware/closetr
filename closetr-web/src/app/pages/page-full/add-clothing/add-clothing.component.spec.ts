@@ -43,10 +43,8 @@ class AuthenticationServiceMock {
   providedIn: 'root'
 })
 class RoutesServiceMock {
-  getPrevUrl(): {
-    return '/log-outfit';
-  };
-  setPrevUrl(): { }
+  getPrevUrl = () => '/log-outfit';
+  setPrevUrl = () => null;
 }
 
 describe('AddClothingComponent', () => {
@@ -57,6 +55,7 @@ describe('AddClothingComponent', () => {
   let router: Router;
   let routerSpy;
   let hostElement;
+  let clothingMock;
 
   const routes = [
     { path: 'login', component: MockLoginComponent },
@@ -65,7 +64,7 @@ describe('AddClothingComponent', () => {
   ];
 
   beforeEach(() => {
-    const clothingMock = {
+    clothingMock = {
       clothingName: "",
       clothingWorn: 0,
       clothingCost: 0,
@@ -123,9 +122,7 @@ describe('AddClothingComponent', () => {
 
     it(`should retrieve the prevUrl as /closet-manage
       if the previous component was closet manage`, () => {
-        routesService.getPrevUrl = {
-          return '/closet-manage';
-        };
+        routesService.getPrevUrl = () => '/closet-manage';
         component.ngOnInit();
         fixture.detectChanges();
         expect(component.prevUrl).toEqual('/closet-manage');
@@ -133,13 +130,29 @@ describe('AddClothingComponent', () => {
 
     it(`should set the prevUrl as /closet-manage
       if there is no previous component`, () => {
-        routesService.getPrevUrl = {
-          return null;
-        };
+        routesService.getPrevUrl = () => null;
         component.ngOnInit();
         fixture.detectChanges();
         expect(component.prevUrl).toEqual('/closet-manage');
+    });
+  });
 
+  describe('when user is trying to submit', () => {
+    console.log("howdy yall");
+    let saveButton: any;
+    beforeEach(() => {
+      saveButton = hostElement.querySelector('#save-button button');
+    });
+    it(`should disable submit if clothing.enableClothingSave
+      returns false`, () => {
+      expect(saveButton.disabled).toBeTruthy();
+    });
+    it(`should enable submit if clothing.enableClothingSave
+      returns true`, () => {
+      clothingMock.enableClothingSave = () => true;
+      fixture.detectChanges();
+      console.log("save button",saveButton);
+      expect(saveButton.disabled).toBeFalsy();
     });
   });
 
