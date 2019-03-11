@@ -5,6 +5,7 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { RoutesService } from '../../../services/routes.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
@@ -36,6 +37,16 @@ class MockLogOutfitComponent {}
 })
 class AuthenticationServiceMock {
   currentUser = of('fides');
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+class RoutesServiceMock {
+  getPrevUrl(): {
+    return '/log-outfit';
+  };
+  setPrevUrl(): { }
 }
 
 describe('AddClothingComponent', () => {
@@ -81,6 +92,7 @@ describe('AddClothingComponent', () => {
       providers: [
         AddClothingComponent,
         { provide: Clothing, useValue: clothingMock },
+        { provide: RoutesService, useClass: RoutesServiceMock },
         { provide: AuthenticationService, useClass: AuthenticationServiceMock }
       ]
     });
@@ -98,6 +110,25 @@ describe('AddClothingComponent', () => {
     it('should redirect to login page.', () => {
     });
   });
+
+  describe('for prevUrl,', () => {
+    it(`should retrieve the prevUrl as log-outfit
+      if the previous component was log outfit`, () => {
+
+    });
+
+    it(`should retrieve the prevUrl as closet-manage
+      if the previous component was closet manage`, () => {
+
+    });
+
+    it(`should set the prevUrl as closet-manage
+      if there is no previous component`, () => {
+
+    });
+  });
+
+
 
   it('should create', () => {
     expect(component).toBeTruthy();
