@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthenticationService } from '../../../services/authentication.service';
 import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
 import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
@@ -30,10 +31,20 @@ class MockClosetManageComponent {}
 })
 class MockLogOutfitComponent {}
 
+@Injectable({
+  providedIn: 'root'
+})
+class AuthenticationServiceMock {
+  currentUserValue = null;
+}
+
 describe('AddClothingComponent', () => {
   let component: AddClothingComponent;
   let fixture: ComponentFixture<AddClothingComponent>;
+  let authenticationService: AuthenticationServiceMock;
   let router: Router;
+  let routerSpy;
+  let hostElement;
 
   const routes = [
     { path: 'login', component: MockLoginComponent },
@@ -41,7 +52,7 @@ describe('AddClothingComponent', () => {
     { path: 'log-outfit', component: MockLogOutfitComponent }
   ];
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     const clothingMock = {
       clothingName: "",
       clothingWorn: 0,
@@ -68,17 +79,25 @@ describe('AddClothingComponent', () => {
         UiInputSelectComponent,
       ],
       providers: [
-        {provide: Clothing, useValue: clothingMock}
+        AddClothingComponent,
+        { provide: Clothing, useValue: clothingMock },
+        { provide: AuthenticationService, useClass: AuthenticationServiceMock }
       ]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
+    });
     fixture = TestBed.createComponent(AddClothingComponent);
-    component = fixture.componentInstance;
+    component = TestBed.get(AddClothingComponent);
+    authenticationService = TestBed.get(AuthenticationService);
     component.clothing = TestBed.get(Clothing);
+    router = TestBed.get(Router);
+    routerSpy = spyOn(router, "navigate");
+    hostElement = fixture.nativeElement;
     fixture.detectChanges();
+  });
+
+  describe('when no user is logged in', () => {
+    it('should redirect to login page.', () => {
+
+    });
   });
 
   it('should create', () => {
