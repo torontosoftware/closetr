@@ -22,6 +22,10 @@ export class LogOutfitService {
     return this.http.post('http://localhost:8080/api/outfitEntries/entry', params);
   }
 
+  deleteOutfitClothing(outfitEntryID: any): any {
+    return this.http.delete(`http://localhost:8080/api/outfitEntries/entry/${outfitEntryID}`);
+  }
+
   getAllOutfitClothes(criteria: any): any {
     const params = new HttpParams({
       fromObject: criteria

@@ -52,7 +52,6 @@ function get_entry(req, res, next) {
     if (err) {
       error_handler(err, res);
     } else {
-      console.log("my clothes", clothes);
       outfit_entry_doc_handler(clothes, res);
     }
   });
@@ -76,7 +75,6 @@ function doc_handler(doc, res) {
 
 function outfit_entry_doc_handler(doc, res) {
   let result = [];
-  console.log("outfit entry doc",doc);
   doc.forEach((outfitEntry) => {
     let outfitEntryResult = {
       outfitEntryID: outfitEntry._id,

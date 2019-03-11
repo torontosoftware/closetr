@@ -42,7 +42,6 @@ function delete_clothing(req, res, next) {
 function get_all_user_clothing(req, res, next) {
   // query all clothes in the database
   const userID = req.query.userID;
-  console.log(req.query);
   clothes_model.find(
     {user: userID},
     (err, doc) => get_all_clothing_error_handling(err, doc, res)
@@ -69,7 +68,6 @@ function get_all_clothing_error_handling(err, doc, res) {
       }
       result.push(clothingResult);
     });
-    console.log(result);
     const result_json = {
       status: 'success',
       data: result
@@ -79,7 +77,6 @@ function get_all_clothing_error_handling(err, doc, res) {
 }
 
 function generic_error_handling(err, doc, res) {
-  console.log(err,doc)
   if (err) {
     const result_json = {
       status: 'failed',

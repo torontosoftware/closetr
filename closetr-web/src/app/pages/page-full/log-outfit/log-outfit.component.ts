@@ -93,14 +93,13 @@ export class LogOutfitComponent implements OnInit {
         userID: this.currentUser.id,
         date: this.dateFormatService.formatDateString(new Date())
       };
-      console.log("adding search result", params);
       this.addOutfitClothing(params);
       this.getAllOutfitClothes(params);
     }
   }
 
-  removeCard(clothingID: any): void {
-    delete this.outfitClothingList[clothingID];
+  removeCard(outfitEntry: any): void {
+    this.deleteOutfitClothing(outfitEntry.outfitEntryID);
   }
 
   getAllClothes(): void {
@@ -115,8 +114,22 @@ export class LogOutfitComponent implements OnInit {
     );
   }
 
+  deleteOutfitClothing(outfitEntryID: any): void {
+    this.logOutfitService.deleteOutfitClothing(outfitEntryID).subscribe(
+      (data: any) => {
+        const params = {
+          userID: this.currentUser.id,
+          date: this.dateFormatService.formatDateString(new Date())
+        };
+        this.getAllOutfitClothes(params);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
   addOutfitClothing(params: any): void {
-    console.log("adding search result....!", params);
     this.logOutfitService.addOutfitClothing(params).subscribe(
       (data: any) => {
         const params = {
@@ -132,18 +145,14 @@ export class LogOutfitComponent implements OnInit {
   }
 
   getAllOutfitClothes(params: any): void {
-    console.log("calling get outfit clothes in the body");
     this.logOutfitService.getAllOutfitClothes(params).subscribe(
       (data: any) => {
-        console.log("get all outfit clothes result",data);
         this.outfitClothingList = data.data;
         for (let clothing of this.outfitClothingList) {
           clothing = new Clothing(clothing);
         };
-        console.log(this.outfitClothingList);
       },
       err => {
-        console.log("error on get outfit clothes", err);
       }
     );
 
