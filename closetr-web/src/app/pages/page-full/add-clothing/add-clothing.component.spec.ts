@@ -131,7 +131,14 @@ describe('AddClothingComponent', () => {
       saveButton = hostElement.querySelector('#save-button button');
     })
     it('should set proper default values on fields', () => {
-
+      component.ngOnInit();
+      fixture.detectChanges();
+      console.log("component clothing",component.clothing, costInput, "cost input value",wornInput.value);
+      expect(nameInput.value).toEqual('');
+      //expect(costInput.value).toEqual(0);
+      //expect(categoryInput.value).toEqual('Top');
+      //expect(wornInput.value).toEqual(0);
+      //expect(purchaseDateInput.value).toEqual('');
     });
     describe('for prevUrl,', () => {
       it(`should retrieve the prevUrl as /log-outfit

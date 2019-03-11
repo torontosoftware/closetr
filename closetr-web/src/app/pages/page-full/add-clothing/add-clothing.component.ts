@@ -35,7 +35,6 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   }
 
   ngOnInit() {
-    console.log("current user",this.authenticationService, this.authenticationService.currentUser.subscribe);
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
