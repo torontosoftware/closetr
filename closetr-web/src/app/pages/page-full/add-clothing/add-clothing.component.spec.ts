@@ -53,6 +53,7 @@ describe('AddClothingComponent', () => {
   let component: AddClothingComponent;
   let fixture: ComponentFixture<AddClothingComponent>;
   let authenticationService: AuthenticationServiceMock;
+  let routesService: RoutesServiceMock;
   let router: Router;
   let routerSpy;
   let hostElement;
@@ -99,6 +100,7 @@ describe('AddClothingComponent', () => {
     fixture = TestBed.createComponent(AddClothingComponent);
     component = TestBed.get(AddClothingComponent);
     authenticationService = TestBed.get(AuthenticationService);
+    routesService = TestBed.get(RoutesService);
     component.clothing = TestBed.get(Clothing);
     router = TestBed.get(Router);
     routerSpy = spyOn(router, "navigate");
@@ -112,18 +114,31 @@ describe('AddClothingComponent', () => {
   });
 
   describe('for prevUrl,', () => {
-    it(`should retrieve the prevUrl as log-outfit
+    it(`should retrieve the prevUrl as /log-outfit
       if the previous component was log outfit`, () => {
-
+        component.ngOnInit();
+        fixture.detectChanges();
+        expect(component.prevUrl).toEqual('/log-outfit');
     });
 
-    it(`should retrieve the prevUrl as closet-manage
+    it(`should retrieve the prevUrl as /closet-manage
       if the previous component was closet manage`, () => {
-
+        routesService.getPrevUrl = {
+          return '/closet-manage';
+        };
+        component.ngOnInit();
+        fixture.detectChanges();
+        expect(component.prevUrl).toEqual('/closet-manage');
     });
 
-    it(`should set the prevUrl as closet-manage
+    it(`should set the prevUrl as /closet-manage
       if there is no previous component`, () => {
+        routesService.getPrevUrl = {
+          return null;
+        };
+        component.ngOnInit();
+        fixture.detectChanges();
+        expect(component.prevUrl).toEqual('/closet-manage');
 
     });
   });
