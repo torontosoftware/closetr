@@ -21,6 +21,7 @@
             </div>
           </div>
           <ui-input
+            id="name-input"
             [labelText]="'name'"
             [type]="'text'"
             [(inputModel)]="clothing.clothingName"
@@ -28,6 +29,7 @@
             (inputModelChange)="checkSubmit()"
           ></ui-input>
           <ui-input
+            id="cost-input"
             [labelText]="'cost ($)'"
             [type]="'number'"
             [(inputModel)]="clothing.clothingCost"
@@ -35,12 +37,14 @@
             (inputModelChange)="checkSubmit()"
           ></ui-input>
           <ui-input-select
+            id="category-input"
             [labelText]="'category'"
             [(inputModel)]="clothing.clothingCategory"
             (inputModelChange)="checkSubmit()"
             [items]="clothingCategories"
           ></ui-input-select>
           <ui-input
+            id="worn-input"
             [labelText]="'worn'"
             [type]="'number'"
             [(inputModel)]="clothing.clothingWorn"
@@ -48,6 +52,7 @@
             (inputModelChange)="checkSubmit()"
           ></ui-input>
           <ui-input
+            id="purchase-date-input"
             [labelText]="'date purchased'"
             [type]="'date'"
             [(inputModel)]="clothing.clothingPurchaseDate"

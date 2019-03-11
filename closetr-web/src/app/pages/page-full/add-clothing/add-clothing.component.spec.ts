@@ -112,49 +112,66 @@ describe('AddClothingComponent', () => {
     });
   });
 
-  describe('for prevUrl,', () => {
-    it(`should retrieve the prevUrl as /log-outfit
-      if the previous component was log outfit`, () => {
-        component.ngOnInit();
-        fixture.detectChanges();
-        expect(component.prevUrl).toEqual('/log-outfit');
-    });
 
-    it(`should retrieve the prevUrl as /closet-manage
-      if the previous component was closet manage`, () => {
-        routesService.getPrevUrl = () => '/closet-manage';
-        component.ngOnInit();
-        fixture.detectChanges();
-        expect(component.prevUrl).toEqual('/closet-manage');
-    });
 
-    it(`should set the prevUrl as /closet-manage
-      if there is no previous component`, () => {
-        routesService.getPrevUrl = () => null;
-        component.ngOnInit();
-        fixture.detectChanges();
-        expect(component.prevUrl).toEqual('/closet-manage');
-    });
-  });
-
-  describe('when user is trying to submit', () => {
-    console.log("howdy yall");
+  describe('when there is a user logged in,', () => {
+    let nameInput: HTMLInputElement;
+    let costInput: HTMLInputElement;
+    let categoryInput: HTMLInputElement;
+    let wornInput: HTMLInputElement;
+    let purchaseDateInput: HTMLInputElement;
     let saveButton: any;
+
     beforeEach(() => {
+      nameInput = hostElement.querySelector('#name-input input');
+      costInput = hostElement.querySelector('#cost-input input');
+      categoryInput = hostElement.querySelector('#category-input input');
+      wornInput = hostElement.querySelector('#worn-input input');
+      purchaseDateInput = hostElement.querySelector('#purchase-date-input input');
       saveButton = hostElement.querySelector('#save-button button');
+    })
+    it('should set proper default values on fields', () => {
+
     });
-    it(`should disable submit if clothing.enableClothingSave
-      returns false`, () => {
-      expect(saveButton.disabled).toBeTruthy();
+    describe('for prevUrl,', () => {
+      it(`should retrieve the prevUrl as /log-outfit
+        if the previous component was log outfit`, () => {
+          component.ngOnInit();
+          fixture.detectChanges();
+          expect(component.prevUrl).toEqual('/log-outfit');
+      });
+
+      it(`should retrieve the prevUrl as /closet-manage
+        if the previous component was closet manage`, () => {
+          routesService.getPrevUrl = () => '/closet-manage';
+          component.ngOnInit();
+          fixture.detectChanges();
+          expect(component.prevUrl).toEqual('/closet-manage');
+      });
+
+      it(`should set the prevUrl as /closet-manage
+        if there is no previous component`, () => {
+          routesService.getPrevUrl = () => null;
+          component.ngOnInit();
+          fixture.detectChanges();
+          expect(component.prevUrl).toEqual('/closet-manage');
+      });
     });
-    it(`should enable submit if clothing.enableClothingSave
-      returns true`, () => {
-      clothingMock.enableClothingSave = () => true;
-      fixture.detectChanges();
-      console.log("save button",saveButton);
-      expect(saveButton.disabled).toBeFalsy();
+
+    describe('when user is trying to submit', () => {
+      it(`should disable submit if clothing.enableClothingSave
+        returns false`, () => {
+        expect(saveButton.disabled).toBeTruthy();
+      });
+      it(`should enable submit if clothing.enableClothingSave
+        returns true`, () => {
+        clothingMock.enableClothingSave = () => true;
+        fixture.detectChanges();
+        console.log("save button",saveButton);
+        expect(saveButton.disabled).toBeFalsy();
+      });
     });
-  });
+  })
 
 
 
