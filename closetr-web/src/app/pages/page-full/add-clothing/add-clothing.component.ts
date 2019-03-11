@@ -4,6 +4,7 @@ import { ClosetService } from '../../../services/closet.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { RoutesService } from '../../../services/routes.service';
 import { LogOutfitService } from '../../../services/log-outfit.service';
+import { DateFormatService } from '../../../services/utils/date-format.service';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { BaseGeneralComponent } from '../base-general/base-general.component';
 import { Clothing } from '../../../models/clothing.model';
@@ -27,6 +28,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
               private logOutfitService: LogOutfitService,
               private routesService: RoutesService,
               private authenticationService: AuthenticationService,
+              private dateFormatService: DateFormatService,
               private router: Router,
               private location: Location) {
       super();
@@ -37,18 +39,19 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       user => {
         this.currentUser = user;
         this.clothing = new Clothing({
-          userID: this.currentUser.userID
+          userID: this.currentUser.id
         });
       }
     )
 
     // items
     this.clothingCategories = Clothing.getClothingCategories();
-    console.log(this.routesService.getPrevUrl());
+    console.log("my prev url is",this.routesService.getPrevUrl());
     // routes
     if (!(this.prevUrl = this.routesService.getPrevUrl())) {
       this.prevUrl = "/closet-manage";
     }
+    console.log("the prev url is", this.prevUrl);
     this.routesService.setPrevUrl('');
   }
 
@@ -56,7 +59,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   Go back to the previous page.
   */
   back(): void {
-    console.log("hi there",this.prevUrl);
+    console.log("im going back",this.prevUrl);
     this.router.navigate([this.prevUrl]);
   }
 
@@ -65,17 +68,30 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   clothing item, navigate back to the previous page.
   */
   save(): void {
-    console.log(this.clothing);
-    if (this.prevUrl == '/closet-manage') {
-      this.closetService.addClothing(this.clothing).subscribe(
-        (data: any) => {
+    console.log("im calling save",this.clothing);
+    this.closetService.addClothing(this.clothing).subscribe(
+      (data: any) => {
+        console.log("got my data result", data);
+        if (this.prevUrl == '/log-outfit') {
+          let newClothing = data.data;
+          console.log(newClothing);
+          const params = {
+            clothingID: newClothing._id,
+            userID: this.currentUser.id,
+            date: this.dateFormatService.formatDateString(new Date())
+          };
+          this.logOutfitService.addOutfitClothing(params).subscribe(
+            (data: any) => {
+              console.log("finished adding outfit entry", params);
+              this.back();
+            }
+          );
+        } else {
           this.back();
-        },
-        error => { }
-      );
-    } else {
-      this.logOutfitService.addOutfitClothing(this.clothing, 'manual');
-    }
+        }
+      },
+      error => { }
+    );
   }
 
   /*

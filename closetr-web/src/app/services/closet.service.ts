@@ -62,7 +62,7 @@ export class ClosetService {
   */
   getAllClothes(user: User): any {
     let userID = '';
-    if (user) userID = user.userID;
+    if (user) userID = user.id;
     const params = new HttpParams({
       fromObject: {
         'userID': userID

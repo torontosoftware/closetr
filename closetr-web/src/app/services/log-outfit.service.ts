@@ -1,61 +1,50 @@
 import { Injectable } from '@angular/core';
 import { ClosetService } from './closet.service';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class LogOutfitService {
-  closetService: ClosetService;
-  outfitClothingCount: number;
-  outfitClothingList: any;
+  baseUrl = 'http://localhost:8080/api/outfitEntries/entry/';
+  constructor(private closetService: ClosetService,
+              private http: HttpClient) { }
 
-  constructor(private closetservice: ClosetService) {
-    this.closetService = closetservice;
-    this.outfitClothingCount = 2;
-    this.outfitClothingList = {
-      1: {outfitClothingID: 1, clothingID: 1, clothingCost:'$45',clothingName:'Aritzia TShirt', clothingWorn: 45, clothingCategory:'TShirt'},
-      2: {outfitClothingID: 2, clothingID: 2, clothingCost: '$35', clothingName:'Zara Turtleneck TShirt', clothingWorn: 32, clothingCategory:'TShirt'}
-    };
-  }
-
-  generateOutfitClothingID(): number {
-    this.outfitClothingCount++;
-    return this.outfitClothingCount;
+  /*
+  Input: Outfit Entry object (generic for now)
+  Adds the outfit entry into the list of entries for this user.
+  Parameters include userID, date, and clothingID.
+  */
+  addOutfitClothing(params: any): any {
+    return this.http.post(`${this.baseUrl}`, params);
   }
 
   /*
-  Input: clothing object (generic for now)
-  Adds clothing to outfit clothing list, and to the closet as well.
-  Format {name, cost, category}
+  Input: outfitEntryID
+  Deletes outfit entry from the list of entries for
+  the id.
   */
-  addOutfitClothing(clothing: any, mode: String): void {
-    var newOutfitClothingID = this.generateOutfitClothingID();
-    var newOutfitClothing = {
-      'outfitClothingID': newOutfitClothingID,
-      'clothingID': clothing.clothingID,
-      'clothingName': clothing.clothingName,
-      'clothingCost': clothing.clothingCost,
-      'clothingCategory': clothing.clothingCategory,
-      'clothingWorn': 0
-    };
-    this.outfitClothingList[newOutfitClothingID] = newOutfitClothing;
-
-    // further actions depending on mode
-    switch (mode) {
-      case 'search':
-        break;
-      case 'manual':
-        this.closetService.addClothing(clothing);
-        break;
-    }
+  deleteOutfitClothing(outfitEntryID: any): any {
+    return this.http.delete(`${this.baseUrl}${outfitEntryID}`);
   }
 
-  getAllOutfitClothes(): any {
-    return this.outfitClothingList;
+  /*
+  Input: criteria, including date, userID.
+  Returns list of outfit entries for the given date
+  and userID. Returns all outfit entries if no
+  criteria provided.
+  */
+  getAllOutfitClothes(criteria: any): any {
+    const params = new HttpParams({
+      fromObject: criteria
+    });
+    return this.http.get<any>(`${this.baseUrl}`, {params});
   }
 
   setAllOutfitClothes(outfitClothingList: any): void {
-    this.outfitClothingList = outfitClothingList;
+    
   }
 }

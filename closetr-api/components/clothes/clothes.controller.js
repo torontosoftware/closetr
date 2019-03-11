@@ -11,7 +11,7 @@ function add_new_clothing(req, res, next) {
     clothingCategory: clothing.clothingCategory,
     clothingWorn: clothing.clothingWorn,
     clothingPurchaseDate: clothing.clothingPurchaseDate,
-    userID: clothing.userID
+    user: clothing.userID
   };
 
   if (clothing.clothingID == null) {
@@ -43,13 +43,12 @@ function get_all_user_clothing(req, res, next) {
   // query all clothes in the database
   const userID = req.query.userID;
   clothes_model.find(
-    {userID: userID},
+    {user: userID},
     (err, doc) => get_all_clothing_error_handling(err, doc, res)
   );
 }
 
 function get_all_clothing_error_handling(err, doc, res) {
-  console.log(err, doc);
   if (err) {
     const result_json = {
       status: 'failed',

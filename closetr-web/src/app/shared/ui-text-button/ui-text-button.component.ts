@@ -12,15 +12,16 @@ export class UiTextButtonComponent implements OnInit {
   @Input() buttonLink: string;
   @Input() disabled: boolean = false;
   @Input() hidden: boolean = false;
-  @Output() click: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private router: Router) {}
 
   ngOnInit() {
   }
 
+
   buttonClick(): void {
-    this.click.emit();
+    //this.click.emit();
+    console.log("emitted click");
     if (this.buttonLink && this.type == 'full-width') {
       this.router.navigate([this.buttonLink]);
     }
