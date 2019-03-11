@@ -45,7 +45,10 @@ function delete_entry(req, res, next) {
 function get_entry(req, res, next) {
   const criteria = req.query;
   let clothes;
-  outfit_entries_model.find()
+  outfit_entries_model.find({
+    user: criteria.userID,
+    date: criteria.date
+  })
   .populate('clothing')
   .populate({path: 'user', select: 'userID _id'}).exec(
   (err, clothes) => {
