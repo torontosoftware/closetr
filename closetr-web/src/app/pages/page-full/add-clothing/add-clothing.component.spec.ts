@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthenticationService } from '../../../services/authentication.service';
@@ -35,7 +35,7 @@ class MockLogOutfitComponent {}
   providedIn: 'root'
 })
 class AuthenticationServiceMock {
-  currentUserValue = null;
+  currentUser = of('fides');
 }
 
 describe('AddClothingComponent', () => {
@@ -96,7 +96,6 @@ describe('AddClothingComponent', () => {
 
   describe('when no user is logged in', () => {
     it('should redirect to login page.', () => {
-
     });
   });
 
