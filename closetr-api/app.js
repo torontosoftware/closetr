@@ -8,9 +8,6 @@ const mongoose = require('mongoose');
 
 var cors = require('cors');
 
-// config options for credentials
-const config = require('./config')
-
 // routers from route folder
 const indexRouter = require('./components/index/index');
 const clothesRouter = require('./components/clothes/clothes');
