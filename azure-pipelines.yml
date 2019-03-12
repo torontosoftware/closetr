@@ -22,6 +22,7 @@ steps:
     ng build --prod
   displayName: 'npm install and build'
 
-- task: PublishBuildArtifacts@1
+- task: PublishPipelineArtifact@0
   inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)'
+    artifactName: 'artifactName'
+    targetPath: 'closetr-web/dist'
