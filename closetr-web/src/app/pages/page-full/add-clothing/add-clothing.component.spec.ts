@@ -55,7 +55,15 @@ describe('AddClothingComponent', () => {
   let router: Router;
   let routerSpy;
   let hostElement;
-  let clothingMock;
+
+  let clothingMock = {
+    clothingNam:"yes",
+    clothingWorn: 0,
+    clothingCost: 0,
+    clothingCategory: "Top",
+    clothingPurchaseDate: "01/01/2019",
+    enableClothingSave: () => true
+  }
 
   const routes = [
     { path: 'login', component: MockLoginComponent },
@@ -64,14 +72,6 @@ describe('AddClothingComponent', () => {
   ];
 
   beforeEach(() => {
-    clothingMock = {
-      clothingName: "",
-      clothingWorn: 0,
-      clothingCost: 0,
-      clothingCategory: "Top",
-      clothingPurchaseDate: "01/01/2019",
-      enableClothingSave: () => true
-    };
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes(routes),
@@ -91,7 +91,6 @@ describe('AddClothingComponent', () => {
       ],
       providers: [
         AddClothingComponent,
-        { provide: Clothing, useValue: clothingMock },
         { provide: RoutesService, useClass: RoutesServiceMock },
         { provide: AuthenticationService, useClass: AuthenticationServiceMock }
       ]
@@ -100,7 +99,7 @@ describe('AddClothingComponent', () => {
     component = TestBed.get(AddClothingComponent);
     authenticationService = TestBed.get(AuthenticationService);
     routesService = TestBed.get(RoutesService);
-    component.clothing = TestBed.get(Clothing);
+    component.clothing = clothingMock;
     router = TestBed.get(Router);
     routerSpy = spyOn(router, "navigate");
     hostElement = fixture.nativeElement;
@@ -133,12 +132,14 @@ describe('AddClothingComponent', () => {
     it('should set proper default values on fields', () => {
       component.ngOnInit();
       fixture.detectChanges();
-      console.log("component clothing",component.clothing, costInput, "cost input value",wornInput.value);
-      expect(nameInput.value).toEqual('');
-      //expect(costInput.value).toEqual(0);
-      //expect(categoryInput.value).toEqual('Top');
-      //expect(wornInput.value).toEqual(0);
-      //expect(purchaseDateInput.value).toEqual('');
+      fixture.whenStable().then(() => {
+        console.log("component clothing",component.clothing, costInput, "cost input value",wornInput.value);
+        expect(nameInput.value).toEqual('');
+        expect(costInput.value).toEqual('0');
+        expect(categoryInput.value).toEqual('Top');
+        expect(wornInput.value).toEqual('0');
+        expect(purchaseDateInput.value).toEqual('');
+      });
     });
     describe('for prevUrl,', () => {
       it(`should retrieve the prevUrl as /log-outfit
@@ -168,14 +169,23 @@ describe('AddClothingComponent', () => {
     describe('when user is trying to submit', () => {
       it(`should disable submit if clothing.enableClothingSave
         returns false`, () => {
+        saveButton.click();
         expect(saveButton.disabled).toBeTruthy();
       });
       it(`should enable submit if clothing.enableClothingSave
         returns true`, () => {
-        clothingMock.enableClothingSave = () => true;
+        component.ngOnInit();
+        component.clothing.clothingName = "name";
+        component.clothing.clothingPurchaseDate = "01/01/2019";
+        component.clothing.enableClothingSave = () => true;
+        component.checkSubmit();
         fixture.detectChanges();
-        console.log("save button",saveButton);
-        expect(saveButton.disabled).toBeFalsy();
+        saveButton.click();
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          expect(saveButton.disabled).toBeFalsy();
+        })
+        console.log("save button enabled",component,component.clothing, nameInput, saveButton, component.enableSave);
       });
     });
   })

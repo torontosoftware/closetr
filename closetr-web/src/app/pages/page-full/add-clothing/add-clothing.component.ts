@@ -23,6 +23,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   clothingCategories: Array<string>;
   currentUserSubscription: Subscription;
   currentUser: User;
+  enableSave: boolean;
 
   constructor(private closetService: ClosetService,
               private logOutfitService: LogOutfitService,
@@ -51,6 +52,9 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
       this.prevUrl = "/closet-manage";
     }
     this.routesService.setPrevUrl('');
+
+    this.checkSubmit();
+    console.log(this.enableSave);
   }
 
   /*
@@ -96,11 +100,12 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   Called every time user changes any one of the input fields. Ensures that
   none of the fields are empty.
   */
-  checkSubmit(): boolean {
+  checkSubmit(): void {
+    this.enableSave = false;
     if (this.clothing) {
-      return this.clothing.enableClothingSave();
+      console.log("checking submit", this.clothing,this.clothing.enableClothingSave());
+      this.enableSave = this.clothing.enableClothingSave();
     }
-    return false;
   }
 
 }
