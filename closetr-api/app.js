@@ -8,9 +8,6 @@ const mongoose = require('mongoose');
 
 var cors = require('cors');
 
-// config options for credentials
-const config = require('./config')
-
 // routers from route folder
 const indexRouter = require('./components/index/index');
 const clothesRouter = require('./components/clothes/clothes');
@@ -40,7 +37,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // Connect to Mongoose and set connection variable
-mongo_connect_string = 'mongodb://' + config.db.user + ':' + config.db.pass + '@' + config.db.host + ':' + config.db.port + '/' + config.db.database_name
+mongo_connect_string = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASS + '@' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME
 mongoose.connect(mongo_connect_string, { useNewUrlParser: true });
 var db = mongoose.connection;
 
@@ -64,7 +61,7 @@ app.use(function(err, req, res, next) {
 });
 
 // Setup server port
-var port = process.env.PORT || 8080;
+var port = process.env.API_PORT || 8080;
 
 // Launch app to listen to specified port
 app.listen(port, function () {
