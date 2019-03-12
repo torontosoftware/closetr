@@ -169,7 +169,6 @@ describe('AddClothingComponent', () => {
     describe('when user is trying to submit', () => {
       it(`should disable submit if clothing.enableClothingSave
         returns false`, () => {
-        saveButton.click();
         expect(saveButton.disabled).toBeTruthy();
       });
       it(`should enable submit if clothing.enableClothingSave
@@ -179,13 +178,12 @@ describe('AddClothingComponent', () => {
         component.clothing.clothingPurchaseDate = "01/01/2019";
         component.clothing.enableClothingSave = () => true;
         component.checkSubmit();
-        fixture.detectChanges();
         saveButton.click();
         fixture.detectChanges();
         fixture.whenStable().then(() => {
-          expect(saveButton.disabled).toBeFalsy();
+          console.log("should be true",hostElement, saveButton, component.enableSave);
+          expect(component.enableSave).toBeTruthy();
         })
-        console.log("save button enabled",component,component.clothing, nameInput, saveButton, component.enableSave);
       });
     });
   })
