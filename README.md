@@ -1,5 +1,6 @@
 # Closetr
 
+[![Build Status](https://dev.azure.com/joshuaconcon/waffly/_apis/build/status/wafffly.closetr.frontend?branchName=master)](https://dev.azure.com/joshuaconcon/waffly/_build/latest?definitionId=3&branchName=master)
 [LIVE PROJECT](http://fideslinga.com/closeter/)
 
 ### What it is
