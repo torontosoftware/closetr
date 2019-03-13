@@ -5,6 +5,7 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ClosetService } from '../../../services/closet.service';
 import { RoutesService } from '../../../services/routes.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
@@ -47,13 +48,20 @@ class RoutesServiceMock {
   setPrevUrl = () => null;
 }
 
+@Injectable({
+  providedIn: 'root'
+})
+class ClosetServiceMock {
+  addClothing = (clothing) => of(true);
+}
+
 describe('AddClothingComponent', () => {
   let component: AddClothingComponent;
   let fixture: ComponentFixture<AddClothingComponent>;
   let authenticationService: AuthenticationServiceMock;
   let routesService: RoutesServiceMock;
+  let closetService: ClosetServiceMock;
   let router: Router;
-  let routerSpy;
   let hostElement;
 
   let clothingMock = new Clothing({
@@ -90,6 +98,7 @@ describe('AddClothingComponent', () => {
       ],
       providers: [
         AddClothingComponent,
+        { provide: ClosetService, useClass: ClosetServiceMock },
         { provide: RoutesService, useClass: RoutesServiceMock },
         { provide: AuthenticationService, useClass: AuthenticationServiceMock }
       ]
@@ -98,8 +107,10 @@ describe('AddClothingComponent', () => {
     component = TestBed.get(AddClothingComponent);
     authenticationService = TestBed.get(AuthenticationService);
     routesService = TestBed.get(RoutesService);
+    closetService = TestBed.get(ClosetService);
     router = TestBed.get(Router);
-    routerSpy = spyOn(router, "navigate");
+    spyOn(router, "navigate");
+    spyOn(closetService, "addClothing");
     hostElement = fixture.nativeElement;
     fixture.detectChanges();
   });
@@ -113,7 +124,6 @@ describe('AddClothingComponent', () => {
     let saveButton: any;
 
     beforeEach(() => {
-      spyOn(component, "save");
       nameInput = hostElement.querySelector('#name-input input');
       costInput = hostElement.querySelector('#cost-input input');
       categoryInput = hostElement.querySelector('#category-input input');
@@ -168,7 +178,6 @@ describe('AddClothingComponent', () => {
           component.ngOnInit();
           nameInput.value = "name";
           nameInput.dispatchEvent(new Event('input'));
-          fixture.detectChanges();
           purchaseDateInput.value = "2019-01-02";
           purchaseDateInput.dispatchEvent(new Event('input'));
           fixture.detectChanges();
@@ -181,9 +190,8 @@ describe('AddClothingComponent', () => {
             saveButton.click();
             fixture.detectChanges();
           });
-          it('should call the save function.', () => {
-            component.save();
-            expect(component.save).toHaveBeenCalled();
+          it('should call closetService.addClothing.', () => {
+            expect(closetService.addClothing).toHaveBeenCalled();
           });
           describe(`when data comes back,`, () => {
             describe(`and the prev page was log outfit,`, () => {
