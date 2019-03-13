@@ -5,6 +5,7 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { LogOutfitService } from '../../../services/log-outfit.service';
 import { ClosetService } from '../../../services/closet.service';
 import { RoutesService } from '../../../services/routes.service';
 import { AuthenticationService } from '../../../services/authentication.service';
@@ -55,12 +56,20 @@ class ClosetServiceMock {
   addClothing;
 }
 
+@Injectable({
+  providedIn: 'root'
+})
+class LogOutfitServiceMock {
+  addOutfitClothing;
+}
+
 describe('AddClothingComponent', () => {
   let component: AddClothingComponent;
   let fixture: ComponentFixture<AddClothingComponent>;
   let authenticationService: AuthenticationServiceMock;
   let routesService: RoutesServiceMock;
   let closetService: ClosetServiceMock;
+  let logOutfitService: LogOutfitServiceMock;
   let router: Router;
   let hostElement;
 
@@ -98,6 +107,7 @@ describe('AddClothingComponent', () => {
       ],
       providers: [
         AddClothingComponent,
+        { provide: LogOutfitService, useClass: LogOutfitServiceMock },
         { provide: ClosetService, useClass: ClosetServiceMock },
         { provide: RoutesService, useClass: RoutesServiceMock },
         { provide: AuthenticationService, useClass: AuthenticationServiceMock }
@@ -108,6 +118,7 @@ describe('AddClothingComponent', () => {
     authenticationService = TestBed.get(AuthenticationService);
     routesService = TestBed.get(RoutesService);
     closetService = TestBed.get(ClosetService);
+    logOutfitService = TestBed.get(LogOutfitService);
     router = TestBed.get(Router);
     spyOn(router, "navigate");
     hostElement = fixture.nativeElement;
@@ -186,32 +197,44 @@ describe('AddClothingComponent', () => {
         });
         describe(`and after the click,`, () => {
           beforeEach(() => {
+            component.prevUrl = '/closet-manage';
             closetService.addClothing = jasmine.createSpy('closetService.addClothing').and.returnValue(
               of({
                 data: {_id: 'id'}
               })
             );
-            saveButton.click();
-            fixture.detectChanges();
+            logOutfitService.addOutfitClothing = jasmine.createSpy('logOutfitService.addOutfitClothing').and.returnValue(
+              of(true)
+            );
           });
           it('should call closetService.addClothing.', () => {
-            console.log("closet service", closetService);
+            saveButton.click();
+            fixture.detectChanges();
             expect(closetService.addClothing).toHaveBeenCalled();
           });
           describe(`when data comes back,`, () => {
             describe(`and the prev page was log outfit,`, () => {
+              beforeEach(() => {
+                saveButton.click();
+                fixture.detectChanges();
+              })
               it(`should call logOutfitService.addOutfitClothing with
                 the proper params`, () => {
-
+                expect(logOutfitService.addOutfitClothing).toHaveBeenCalled();
               });
               it(`after calling logOutfitService.addOutfitClothing,
                 go back to the log outfit page.`, () => {
-
+                expect(router.navigate).toHaveBeenCalledWith(['/log-outfit']);
               });
             });
             describe(`and the prev page was closet manage`, () => {
-              it(`shold go back to the closet manage page.`, () => {
-
+              it(`should go back to the closet manage page.`, () => {
+                component.enableSave = false;
+                component._setPrevUrl('/closet-manage');
+                fixture.detectChanges();
+                saveButton.click();
+                console.log(component,fixture,"closet manage test after");
+                expect(router.navigate).toHaveBeenCalledWith(['/closet-manage']);
               });
             })
           });
