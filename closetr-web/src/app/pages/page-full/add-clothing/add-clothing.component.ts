@@ -69,16 +69,19 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   clothing item, navigate back to the previous page.
   */
   save(): void {
+    console.log("closet service from component",this.closetService.addClothing);
     this.closetService.addClothing(this.clothing).subscribe(
       (data: any) => {
         if (this.prevUrl == '/log-outfit') {
           let newClothing = data.data;
-          console.log(newClothing);
+          console.log("got my data back!", data);
           const params = {
             clothingID: newClothing._id,
             userID: this.currentUser.id,
             date: this.dateFormatService.formatDateString(new Date())
           };
+          console.log(params);
+
           this.logOutfitService.addOutfitClothing(params).subscribe(
             (data: any) => {
               this.back();

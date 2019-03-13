@@ -52,7 +52,7 @@ class RoutesServiceMock {
   providedIn: 'root'
 })
 class ClosetServiceMock {
-  addClothing = (clothing) => of(true);
+  addClothing;
 }
 
 describe('AddClothingComponent', () => {
@@ -110,7 +110,6 @@ describe('AddClothingComponent', () => {
     closetService = TestBed.get(ClosetService);
     router = TestBed.get(Router);
     spyOn(router, "navigate");
-    spyOn(closetService, "addClothing");
     hostElement = fixture.nativeElement;
     fixture.detectChanges();
   });
@@ -187,10 +186,16 @@ describe('AddClothingComponent', () => {
         });
         describe(`and after the click,`, () => {
           beforeEach(() => {
+            closetService.addClothing = jasmine.createSpy('closetService.addClothing').and.returnValue(
+              of({
+                data: {_id: 'id'}
+              })
+            );
             saveButton.click();
             fixture.detectChanges();
           });
           it('should call closetService.addClothing.', () => {
+            console.log("closet service", closetService);
             expect(closetService.addClothing).toHaveBeenCalled();
           });
           describe(`when data comes back,`, () => {
