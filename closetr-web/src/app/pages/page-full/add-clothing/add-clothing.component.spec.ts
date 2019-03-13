@@ -61,7 +61,7 @@ describe('AddClothingComponent', () => {
     clothingWorn: 0,
     clothingCost: 0,
     clothingCategory: "Top",
-    clothingPurchaseDate: "01/01/2019"
+    clothingPurchaseDate: "2019-01-02"
   });
 
   const routes = [
@@ -132,7 +132,6 @@ describe('AddClothingComponent', () => {
       component.ngOnInit();
       fixture.detectChanges();
       fixture.whenStable().then(() => {
-        console.log("component clothing",component.clothing, costInput, "cost input value",wornInput.value);
         expect(nameInput.value).toEqual('');
         expect(costInput.value).toEqual('0');
         expect(categoryInput.value).toEqual('Top');
@@ -173,22 +172,13 @@ describe('AddClothingComponent', () => {
       it(`should enable submit if clothing.enableClothingSave
         returns true`, () => {
         component.ngOnInit();
-        /*
-        component.clothing.clothingName = "name";
-        component.clothing.clothingPurchaseDate = "01/01/2019";
-        component.clothing.enableClothingSave = () => true;*/
         nameInput.value = "name";
         nameInput.dispatchEvent(new Event('input'));
         fixture.detectChanges();
-        purchaseDateInput.value = "01/01/2019";
+        purchaseDateInput.value = "2019-01-02";
         purchaseDateInput.dispatchEvent(new Event('input'));
-        //component.checkSubmit();
         fixture.detectChanges();
-        fixture.whenStable().then(() => {
-            console.log("should be true",hostElement, saveButton,component, nameInput, purchaseDateInput);
-
-            expect(saveButton.disabled).toBeTruthy();
-        })
+        expect(saveButton.disabled).toBeFalsy();
       });
     });
   })

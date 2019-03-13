@@ -60,7 +60,6 @@ export class RegisterComponent implements OnInit {
         || this.password.length == 0
         || this.passwordConfirm.length == 0
         || (this.password != this.passwordConfirm));
-    console.log("the result from register component ", result, this);
     return result;
   }
 

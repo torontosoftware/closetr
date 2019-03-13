@@ -55,14 +55,12 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
     this.routesService.setPrevUrl('');
 
     this.checkSubmit();
-    console.log(this.enableSave);
   }
 
   /*
   Go back to the previous page.
   */
   back(): void {
-    console.log("im going back",this.prevUrl);
     this.router.navigate([this.prevUrl]);
   }
 
@@ -71,10 +69,8 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   clothing item, navigate back to the previous page.
   */
   save(): void {
-    console.log("im calling save",this.clothing);
     this.closetService.addClothing(this.clothing).subscribe(
       (data: any) => {
-        console.log("got my data result", data);
         if (this.prevUrl == '/log-outfit') {
           let newClothing = data.data;
           console.log(newClothing);
@@ -85,7 +81,6 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
           };
           this.logOutfitService.addOutfitClothing(params).subscribe(
             (data: any) => {
-              console.log("finished adding outfit entry", params);
               this.back();
             }
           );
@@ -101,16 +96,14 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   Called every time user changes any one of the input fields. Ensures that
   none of the fields are empty.
   */
-  checkSubmit(): boolean {
+  checkSubmit(): void {
     let result = !(this.clothing.clothingName.length === 0
         || !this.clothing.clothingCost === null
         || this.clothing.clothingCategory.length === 0
         || !this.clothing.clothingWorn === null
         || this.clothing.clothingPurchaseDate.length === 0);
 
-    console.log("the result from check submit is ", result, this.clothing);
-    return result;
-
+    this.enableSave = result;
   }
 
 }

@@ -162,7 +162,6 @@ describe('RegisterComponent', () => {
     });
 
     describe('and there is user input,', () => {
-      console.log("register component! input",usernameInput);
       beforeEach(() => {
         component.ngOnInit();
         fixture.detectChanges();
@@ -173,7 +172,6 @@ describe('RegisterComponent', () => {
           beforeEach(() => {
             usernameInput.value = "username";
             usernameInput.dispatchEvent(new Event('input'));
-            console.log("username input",usernameInput);
             fixture.detectChanges();
           });
           afterEach(() => {
@@ -185,7 +183,6 @@ describe('RegisterComponent', () => {
             beforeEach(() => {
               passwordInput.value = "password";
               passwordInput.dispatchEvent(new Event('input'));
-              console.log("register component test", component);
             });
             it('and no other fields are.', () => {});
             it('and password confirm input field is filled.', () => {
