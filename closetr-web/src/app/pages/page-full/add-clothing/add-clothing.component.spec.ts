@@ -98,19 +98,11 @@ describe('AddClothingComponent', () => {
     component = TestBed.get(AddClothingComponent);
     authenticationService = TestBed.get(AuthenticationService);
     routesService = TestBed.get(RoutesService);
-    //component.clothing = clothingMock;
     router = TestBed.get(Router);
     routerSpy = spyOn(router, "navigate");
     hostElement = fixture.nativeElement;
     fixture.detectChanges();
   });
-
-  describe('when no user is logged in', () => {
-    it('should redirect to login page.', () => {
-    });
-  });
-
-
 
   describe('when there is a user logged in,', () => {
     let nameInput: HTMLInputElement;
@@ -164,21 +156,47 @@ describe('AddClothingComponent', () => {
       });
     });
 
-    describe('when user is trying to submit', () => {
-      it(`should disable submit if clothing.enableClothingSave
-        returns false`, () => {
+    describe('when user is trying to submit,', () => {
+      it(`should disable submit if not all required fields
+        are filled.`, () => {
         expect(saveButton.disabled).toBeTruthy();
       });
-      it(`should enable submit if clothing.enableClothingSave
-        returns true`, () => {
-        component.ngOnInit();
-        nameInput.value = "name";
-        nameInput.dispatchEvent(new Event('input'));
-        fixture.detectChanges();
-        purchaseDateInput.value = "2019-01-02";
-        purchaseDateInput.dispatchEvent(new Event('input'));
-        fixture.detectChanges();
-        expect(saveButton.disabled).toBeFalsy();
+      describe(`and the user attempts to click save with
+        all fields filled,`, () => {
+        beforeEach(() => {
+          component.ngOnInit();
+          nameInput.value = "name";
+          nameInput.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          purchaseDateInput.value = "2019-01-02";
+          purchaseDateInput.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+        });
+        it(`should enable submit.`, () => {
+          expect(saveButton.disabled).toBeFalsy();
+        });
+        describe(`and after the click,`, () => {
+          it('should call the save function.', () => {
+
+          });
+          describe(`when data comes back,`, () => {
+            describe(`and the prev page was log outfit,`, () => {
+              it(`should call logOutfitService.addOutfitClothing with
+                the proper params`, () => {
+
+              });
+              it(`after calling logOutfitService.addOutfitClothing,
+                go back to the log outfit page.`, () => {
+
+              });
+            });
+            describe(`and the prev page was closet manage`, () => {
+              it(`shold go back to the closet manage page.`, () => {
+
+              });
+            })
+          });
+        });
       });
     });
   })
