@@ -55,14 +55,13 @@ export class RegisterComponent implements OnInit {
   }
 
   checkEnableRegister(): boolean {
-    if (this.name.length == 0
+    let result = !(this.name.length == 0
         || this.username.length == 0
         || this.password.length == 0
         || this.passwordConfirm.length == 0
-        || (this.password != this.passwordConfirm)) {
-      return false;
-    }
-    return true;
+        || (this.password != this.passwordConfirm));
+    console.log("the result from register component ", result, this);
+    return result;
   }
 
   registerChangeHandler(): void {

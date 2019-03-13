@@ -33,6 +33,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
               private router: Router,
               private location: Location) {
       super();
+      this.clothing = new Clothing();
   }
 
   ngOnInit() {
@@ -100,12 +101,16 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   Called every time user changes any one of the input fields. Ensures that
   none of the fields are empty.
   */
-  checkSubmit(): void {
-    this.enableSave = false;
-    if (this.clothing) {
-      console.log("checking submit", this.clothing,this.clothing.enableClothingSave());
-      this.enableSave = this.clothing.enableClothingSave();
-    }
+  checkSubmit(): boolean {
+    let result = !(this.clothing.clothingName.length === 0
+        || !this.clothing.clothingCost === null
+        || this.clothing.clothingCategory.length === 0
+        || !this.clothing.clothingWorn === null
+        || this.clothing.clothingPurchaseDate.length === 0);
+
+    console.log("the result from check submit is ", result, this.clothing);
+    return result;
+
   }
 
 }

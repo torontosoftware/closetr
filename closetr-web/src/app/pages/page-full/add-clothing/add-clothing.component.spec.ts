@@ -56,14 +56,13 @@ describe('AddClothingComponent', () => {
   let routerSpy;
   let hostElement;
 
-  let clothingMock = {
-    clothingNam:"yes",
+  let clothingMock = new Clothing({
+    clothingName: "yes",
     clothingWorn: 0,
     clothingCost: 0,
     clothingCategory: "Top",
-    clothingPurchaseDate: "01/01/2019",
-    enableClothingSave: () => true
-  }
+    clothingPurchaseDate: "01/01/2019"
+  });
 
   const routes = [
     { path: 'login', component: MockLoginComponent },
@@ -99,7 +98,7 @@ describe('AddClothingComponent', () => {
     component = TestBed.get(AddClothingComponent);
     authenticationService = TestBed.get(AuthenticationService);
     routesService = TestBed.get(RoutesService);
-    component.clothing = clothingMock;
+    //component.clothing = clothingMock;
     router = TestBed.get(Router);
     routerSpy = spyOn(router, "navigate");
     hostElement = fixture.nativeElement;
@@ -174,15 +173,21 @@ describe('AddClothingComponent', () => {
       it(`should enable submit if clothing.enableClothingSave
         returns true`, () => {
         component.ngOnInit();
+        /*
         component.clothing.clothingName = "name";
         component.clothing.clothingPurchaseDate = "01/01/2019";
-        component.clothing.enableClothingSave = () => true;
-        component.checkSubmit();
-        saveButton.click();
+        component.clothing.enableClothingSave = () => true;*/
+        nameInput.value = "name";
+        nameInput.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        purchaseDateInput.value = "01/01/2019";
+        purchaseDateInput.dispatchEvent(new Event('input'));
+        //component.checkSubmit();
         fixture.detectChanges();
         fixture.whenStable().then(() => {
-          console.log("should be true",hostElement, saveButton, component.enableSave);
-          expect(component.enableSave).toBeTruthy();
+            console.log("should be true",hostElement, saveButton,component, nameInput, purchaseDateInput);
+
+            expect(saveButton.disabled).toBeTruthy();
         })
       });
     });
