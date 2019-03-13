@@ -113,6 +113,7 @@ describe('AddClothingComponent', () => {
     let saveButton: any;
 
     beforeEach(() => {
+      spyOn(component, "save");
       nameInput = hostElement.querySelector('#name-input input');
       costInput = hostElement.querySelector('#cost-input input');
       categoryInput = hostElement.querySelector('#category-input input');
@@ -176,8 +177,13 @@ describe('AddClothingComponent', () => {
           expect(saveButton.disabled).toBeFalsy();
         });
         describe(`and after the click,`, () => {
+          beforeEach(() => {
+            saveButton.click();
+            fixture.detectChanges();
+          });
           it('should call the save function.', () => {
-
+            component.save();
+            expect(component.save).toHaveBeenCalled();
           });
           describe(`when data comes back,`, () => {
             describe(`and the prev page was log outfit,`, () => {
