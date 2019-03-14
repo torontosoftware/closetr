@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
@@ -39,6 +40,12 @@ class ClosetServiceMock {
   getAllClothes = (user) => of({data: closetList});
 }
 
+@Component({
+  selector: 'app-dashboard',
+  template: '<p>Mock Dashboard Component</p>'
+})
+class MockDashboardComponent { }
+
 @Pipe({name: 'filter'})
 class SearchFilterPipeMock implements PipeTransform{
   transform(items: any, searchText: String, property: string) {
@@ -52,13 +59,18 @@ describe('ClosetManageComponent', () => {
   let fixture: ComponentFixture<ClosetManageComponent>;
   let authenticationService: AuthenticationServiceMock;
   let closetService: ClosetServiceMock;
+  let router: Router;
   let hostElement;
   let closetCardList;
+
+  const routes = [
+    { path: 'dashboard', component: MockDashboardComponent}
+  ];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterTestingModule.withRoutes(routes),
         HttpClientTestingModule,
         FormsModule
       ],
@@ -71,7 +83,8 @@ describe('ClosetManageComponent', () => {
         UiCloseButtonComponent,
         ClosetCardComponent,
         ClosetManageComponent,
-        SearchFilterPipeMock
+        SearchFilterPipeMock,
+        MockDashboardComponent
       ],
       providers: [
         ClosetManageComponent,
@@ -89,14 +102,25 @@ describe('ClosetManageComponent', () => {
     component = debugElement.componentInstance;
     authenticationService = TestBed.get(AuthenticationService);
     closetService = TestBed.get(ClosetService);
+    router = TestBed.get(Router);
     spyOn(component, 'getAllClothes').and.callThrough();
     spyOn(closetService, 'getAllClothes').and.callThrough();
+    spyOn(router, 'navigate');
     hostElement = fixture.nativeElement;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it(`should navigate to dashboard component when
+    back button is clicked`, () => {
+    component.ngOnInit();
+    let backButton = hostElement.querySelector('#back-button button');
+    backButton.click();
+    fixture.detectChanges();
+    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
   });
 
   describe(`from the init method,`, () => {
@@ -119,7 +143,7 @@ describe('ClosetManageComponent', () => {
       let closetCardList = hostElement.querySelectorAll('.closet-card-item')
       expect(closetCardList.length).toEqual(closetList.length);
     });
-    it('should have editMode as false.', () => {
+    it(`should have editMode as false.`, () => {
       expect(component.editMode).toBeFalsy();
     })
   });
