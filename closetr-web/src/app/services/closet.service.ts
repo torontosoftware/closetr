@@ -11,7 +11,6 @@ export class ClosetService {
   Generic closet service containing methods that help in updating and maintaining
   closet items accross all componenets.
   */
-  closetList: Array<Clothing>;
   clothingForEdit: Clothing;
 
   constructor(private http: HttpClient) {
@@ -78,7 +77,6 @@ export class ClosetService {
   modified in the database.
   */
   setAllClothes(closetList: any): void {
-    this.closetList = closetList;
   }
 
   /*

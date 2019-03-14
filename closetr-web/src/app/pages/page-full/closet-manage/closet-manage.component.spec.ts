@@ -49,6 +49,9 @@ class MockDashboardComponent { }
 @Pipe({name: 'filter'})
 class SearchFilterPipeMock implements PipeTransform{
   transform(items: any, searchText: String, property: string) {
+    if (searchText == 'shirt') {
+      return items[1];
+    }
     return items;
   }
 }
@@ -105,6 +108,7 @@ describe('ClosetManageComponent', () => {
     router = TestBed.get(Router);
     spyOn(component, 'getAllClothes').and.callThrough();
     spyOn(component, 'toggleEditMode').and.callThrough();
+    spyOn(component, 'save').and.callThrough();
     spyOn(closetService, 'getAllClothes').and.callThrough();
     spyOn(router, 'navigate');
     hostElement = fixture.nativeElement;
@@ -152,6 +156,13 @@ describe('ClosetManageComponent', () => {
       editButton.click();
       fixture.detectChanges();
       expect(saveButton.hidden).toBeTruthy();
+    });
+    it(`should call save, and toggleEditMode functions
+      when save button is clicked`, () => {
+      saveButton.click();
+      fixture.detectChanges();
+      expect(component.save).toHaveBeenCalled();
+      expect(component.toggleEditMode).toHaveBeenCalled();
     });
   });
 
