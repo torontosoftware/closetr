@@ -117,7 +117,12 @@ describe('ClosetManageComponent', () => {
       let closetCardList = hostElement.querySelectorAll('.closet-card-item')
       expect(closetCardList.length).toEqual(closetList.length);
     });
+    it('should have editMode as false.', () => {
+      expect(component.editMode).toBeFalsy();
+    })
   });
+
+
 
 
 });
