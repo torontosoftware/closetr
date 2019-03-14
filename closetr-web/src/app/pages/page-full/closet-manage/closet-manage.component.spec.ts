@@ -62,6 +62,7 @@ describe('ClosetManageComponent', () => {
   let fixture: ComponentFixture<ClosetManageComponent>;
   let authenticationService: AuthenticationServiceMock;
   let closetService: ClosetServiceMock;
+  let searchFilterPipe;
   let router: Router;
   let hostElement;
   let closetCardList;
@@ -110,6 +111,7 @@ describe('ClosetManageComponent', () => {
     spyOn(component, 'toggleEditMode').and.callThrough();
     spyOn(component, 'save').and.callThrough();
     spyOn(closetService, 'getAllClothes').and.callThrough();
+    //searchFilterPipe = spyOn(SearchFilterPipeMock.prototype, 'transform');
     spyOn(router, 'navigate');
     hostElement = fixture.nativeElement;
     fixture.detectChanges();
@@ -129,9 +131,21 @@ describe('ClosetManageComponent', () => {
   });
 
   describe(`when user types input in the search bar,`, () => {
+    let searchInput: HTMLInputElement;
+    beforeEach(() => {
+      component.ngOnInit();
+      searchInput = hostElement.querySelector('#search-input input');
+    });
     it(`should call search filter with searchText and
       the clothingName string as property.`, () => {
-
+      const params = [[
+        closetList, 'shirt', 'clothingName'
+      ]];
+      searchFilterPipe = spyOn(SearchFilterPipeMock.prototype, 'transform');
+      searchInput.value = "shirt";
+      searchInput.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(searchFilterPipe.calls.allArgs()).toEqual(params);
     });
     it(`should render changed results into closet card
       components.`, () => {
