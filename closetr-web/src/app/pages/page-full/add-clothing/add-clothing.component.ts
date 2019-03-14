@@ -69,27 +69,21 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   clothing item, navigate back to the previous page.
   */
   save(): void {
-    console.log("closet service from component",this,this.closetService.addClothing);
-    console.log("prev url from component", this.prevUrl);
     this.closetService.addClothing(this.clothing).subscribe(
       (data: any) => {
         if (this.prevUrl == '/log-outfit') {
           let newClothing = data.data;
-          console.log("got my data back!", data);
           const params = {
             clothingID: newClothing._id,
             userID: this.currentUser.id,
             date: this.dateFormatService.formatDateString(new Date())
           };
-          console.log("howdy");
           this.logOutfitService.addOutfitClothing(params).subscribe(
             (data: any) => {
-              console.log("log outfit service was called!");
               this.back();
             }
           );
         } else {
-          console.log("prev url is closet manage");
           this.back();
         }
       },
@@ -109,14 +103,6 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
         || this.clothing.clothingPurchaseDate.length === 0);
 
     this.enableSave = result;
-  }
-
-  /*
-  For testing purposes
-  */
-  _setPrevUrl(prevUrl: string): void {
-    this.prevUrl = prevUrl;
-    console.log("gotteeeem", this);
   }
 
 }

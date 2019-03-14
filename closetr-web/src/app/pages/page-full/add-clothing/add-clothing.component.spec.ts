@@ -242,9 +242,6 @@ describe('AddClothingComponent', () => {
       });
     });
   })
-
-
-
   it('should create', () => {
     expect(debugElement.componentInstance).toBeTruthy();
   });
