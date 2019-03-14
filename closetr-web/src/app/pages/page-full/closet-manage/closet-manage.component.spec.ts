@@ -128,6 +128,17 @@ describe('ClosetManageComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
   });
 
+  describe(`when user types input in the search bar,`, () => {
+    it(`should call search filter with searchText and
+      the clothingName string as property.`, () => {
+
+    });
+    it(`should render changed results into closet card
+      components.`, () => {
+
+    });
+  });
+
   describe(`when edit button is clicked,`, () => {
     let editButton;
     let saveButton;
