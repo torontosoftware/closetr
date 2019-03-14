@@ -90,6 +90,7 @@ describe('ClosetManageComponent', () => {
     authenticationService = TestBed.get(AuthenticationService);
     closetService = TestBed.get(ClosetService);
     spyOn(component, 'getAllClothes').and.callThrough();
+    spyOn(closetService, 'getAllClothes').and.callThrough();
     hostElement = fixture.nativeElement;
     fixture.detectChanges();
   });
@@ -110,6 +111,7 @@ describe('ClosetManageComponent', () => {
     it(`should call the getAllClothes method, and
       set the closetList from it.`, () => {
       expect(component.getAllClothes).toHaveBeenCalled();
+      expect(closetService.getAllClothes).toHaveBeenCalledWith(currentUser);
       expect(component.closetList).toEqual(closetList);
     });
     it(`should render each item in the closetList
