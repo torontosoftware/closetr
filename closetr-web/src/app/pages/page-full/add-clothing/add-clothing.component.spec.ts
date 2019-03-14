@@ -135,6 +135,7 @@ describe('AddClothingComponent', () => {
     let wornInput: HTMLInputElement;
     let purchaseDateInput: HTMLInputElement;
     let saveButton: any;
+    let backButton: any;
 
     beforeEach(() => {
       nameInput = hostElement.querySelector('#name-input input');
@@ -143,6 +144,7 @@ describe('AddClothingComponent', () => {
       wornInput = hostElement.querySelector('#worn-input input');
       purchaseDateInput = hostElement.querySelector('#purchase-date-input input');
       saveButton = hostElement.querySelector('#save-button button');
+      backButton = hostElement.querySelector('#back-button button');
     })
     it('should set proper default values on fields', () => {
       debugElement.componentInstance.ngOnInit();
@@ -161,6 +163,8 @@ describe('AddClothingComponent', () => {
           debugElement.componentInstance.ngOnInit();
           fixture.detectChanges();
           expect(debugElement.componentInstance.prevUrl).toEqual('/log-outfit');
+          backButton.click();
+          expect(router.navigate).toHaveBeenCalledWith(['/log-outfit']);
       });
 
       it(`should retrieve the prevUrl as /closet-manage
@@ -169,6 +173,8 @@ describe('AddClothingComponent', () => {
           debugElement.componentInstance.ngOnInit();
           fixture.detectChanges();
           expect(debugElement.componentInstance.prevUrl).toEqual('/closet-manage');
+          backButton.click();
+          expect(router.navigate).toHaveBeenCalledWith(['/closet-manage']);
       });
 
       it(`should set the prevUrl as /closet-manage
@@ -177,6 +183,8 @@ describe('AddClothingComponent', () => {
           debugElement.componentInstance.ngOnInit();
           fixture.detectChanges();
           expect(debugElement.componentInstance.prevUrl).toEqual('/closet-manage');
+          backButton.click();
+          expect(router.navigate).toHaveBeenCalledWith(['/closet-manage']);
       });
     });
 
