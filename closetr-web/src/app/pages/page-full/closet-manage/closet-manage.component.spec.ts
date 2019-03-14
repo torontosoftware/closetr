@@ -104,6 +104,7 @@ describe('ClosetManageComponent', () => {
     closetService = TestBed.get(ClosetService);
     router = TestBed.get(Router);
     spyOn(component, 'getAllClothes').and.callThrough();
+    spyOn(component, 'toggleEditMode').and.callThrough();
     spyOn(closetService, 'getAllClothes').and.callThrough();
     spyOn(router, 'navigate');
     hostElement = fixture.nativeElement;
@@ -121,6 +122,29 @@ describe('ClosetManageComponent', () => {
     backButton.click();
     fixture.detectChanges();
     expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+  });
+
+  describe(`when edit button is clicked,`, () => {
+    let editButton;
+    beforeEach(() => {
+      component.ngOnInit();
+      editButton = hostElement.querySelector('#edit-button button');
+      editButton.click();
+      fixture.detectChanges();
+    });
+    it(`should call toggleEditMode method, and
+      change the editMode variable (multiple toggles)`, () => {
+      expect(component.toggleEditMode).toHaveBeenCalled();
+      expect(component.editMode).toBeTruthy();
+      editButton.click();
+      fixture.detectChanges();
+      expect(component.toggleEditMode).toHaveBeenCalled();
+      expect(component.editMode).toBeFalsy();
+      editButton.click();
+      fixture.detectChanges();
+      expect(component.toggleEditMode).toHaveBeenCalled();
+      expect(component.editMode).toBeTruthy();
+    });
   });
 
   describe(`from the init method,`, () => {
