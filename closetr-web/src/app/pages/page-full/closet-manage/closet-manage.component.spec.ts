@@ -31,6 +31,7 @@ class SearchFilterPipeMock implements PipeTransform{
 
 describe('ClosetManageComponent', () => {
   let debugElement: DebugElement;
+  let component: ClosetManageComponent;
   let fixture: ComponentFixture<ClosetManageComponent>;
   let authenticationService: AuthenticationServiceMock;
 
@@ -63,25 +64,27 @@ describe('ClosetManageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ClosetManageComponent);
     debugElement = fixture.debugElement;
+    component = debugElement.componentInstance;
     authenticationService = TestBed.get(AuthenticationService);
+    spyOn(component, 'getAllClothes');
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(debugElement.componentInstance).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
   describe(`from the init method,`, () => {
-    beforeEach(() => {
-      debugElement.componentInstance.ngOnInit();
+    beforeEach(() =>
+      component.ngOnInit();
     });
     it(`should retrieve the current user from the
       authentication service.`, () => {
-
+      expect(component.currentUser).toEqual('fides');
     });
     it(`should be call the getAllClothes method, and
       set the closetList from it.`, () => {
-
+      expect(component.getAllClothes).toHaveBeenCalled();
     });
     it(`should render each item in the closetList
       into closet card components`, () => {
