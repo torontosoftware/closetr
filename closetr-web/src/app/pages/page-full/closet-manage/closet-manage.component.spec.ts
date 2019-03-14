@@ -126,9 +126,11 @@ describe('ClosetManageComponent', () => {
 
   describe(`when edit button is clicked,`, () => {
     let editButton;
+    let saveButton;
     beforeEach(() => {
-      component.ngOnInit();
       editButton = hostElement.querySelector('#edit-button button');
+      saveButton = hostElement.querySelector('#save-button button');
+      component.ngOnInit();
       editButton.click();
       fixture.detectChanges();
     });
@@ -144,6 +146,12 @@ describe('ClosetManageComponent', () => {
       fixture.detectChanges();
       expect(component.toggleEditMode).toHaveBeenCalled();
       expect(component.editMode).toBeTruthy();
+    });
+    it(`should hide save button when editMode is off`, () => {
+      expect(saveButton.hidden).toBeFalsy();
+      editButton.click();
+      fixture.detectChanges();
+      expect(saveButton.hidden).toBeTruthy();
     });
   });
 
