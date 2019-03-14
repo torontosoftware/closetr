@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { Injectable, Component } from '@angular/core';
+import { Injectable, Component, DebugElement } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -64,7 +64,7 @@ class LogOutfitServiceMock {
 }
 
 describe('AddClothingComponent', () => {
-  let component: AddClothingComponent;
+  let debugElement: DebugElement;
   let fixture: ComponentFixture<AddClothingComponent>;
   let authenticationService: AuthenticationServiceMock;
   let routesService: RoutesServiceMock;
@@ -87,7 +87,7 @@ describe('AddClothingComponent', () => {
     { path: 'log-outfit', component: MockLogOutfitComponent }
   ];
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes(routes),
@@ -112,9 +112,12 @@ describe('AddClothingComponent', () => {
         { provide: RoutesService, useClass: RoutesServiceMock },
         { provide: AuthenticationService, useClass: AuthenticationServiceMock }
       ]
-    });
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(AddClothingComponent);
-    component = TestBed.get(AddClothingComponent);
+    debugElement = fixture.debugElement;
     authenticationService = TestBed.get(AuthenticationService);
     routesService = TestBed.get(RoutesService);
     closetService = TestBed.get(ClosetService);
@@ -142,7 +145,7 @@ describe('AddClothingComponent', () => {
       saveButton = hostElement.querySelector('#save-button button');
     })
     it('should set proper default values on fields', () => {
-      component.ngOnInit();
+      debugElement.componentInstance.ngOnInit();
       fixture.detectChanges();
       fixture.whenStable().then(() => {
         expect(nameInput.value).toEqual('');
@@ -155,25 +158,25 @@ describe('AddClothingComponent', () => {
     describe('for prevUrl,', () => {
       it(`should retrieve the prevUrl as /log-outfit
         if the previous component was log outfit`, () => {
-          component.ngOnInit();
+          debugElement.componentInstance.ngOnInit();
           fixture.detectChanges();
-          expect(component.prevUrl).toEqual('/log-outfit');
+          expect(debugElement.componentInstance.prevUrl).toEqual('/log-outfit');
       });
 
       it(`should retrieve the prevUrl as /closet-manage
         if the previous component was closet manage`, () => {
           routesService.getPrevUrl = () => '/closet-manage';
-          component.ngOnInit();
+          debugElement.componentInstance.ngOnInit();
           fixture.detectChanges();
-          expect(component.prevUrl).toEqual('/closet-manage');
+          expect(debugElement.componentInstance.prevUrl).toEqual('/closet-manage');
       });
 
       it(`should set the prevUrl as /closet-manage
         if there is no previous component`, () => {
           routesService.getPrevUrl = () => null;
-          component.ngOnInit();
+          debugElement.componentInstance.ngOnInit();
           fixture.detectChanges();
-          expect(component.prevUrl).toEqual('/closet-manage');
+          expect(debugElement.componentInstance.prevUrl).toEqual('/closet-manage');
       });
     });
 
@@ -185,7 +188,7 @@ describe('AddClothingComponent', () => {
       describe(`and the user attempts to click save with
         all fields filled,`, () => {
         beforeEach(() => {
-          component.ngOnInit();
+          debugElement.componentInstance.ngOnInit();
           nameInput.value = "name";
           nameInput.dispatchEvent(new Event('input'));
           purchaseDateInput.value = "2019-01-02";
@@ -197,7 +200,6 @@ describe('AddClothingComponent', () => {
         });
         describe(`and after the click,`, () => {
           beforeEach(() => {
-            component.prevUrl = '/closet-manage';
             closetService.addClothing = jasmine.createSpy('closetService.addClothing').and.returnValue(
               of({
                 data: {_id: 'id'}
@@ -229,11 +231,9 @@ describe('AddClothingComponent', () => {
             });
             describe(`and the prev page was closet manage`, () => {
               it(`should go back to the closet manage page.`, () => {
-                component.enableSave = false;
-                component._setPrevUrl('/closet-manage');
+                debugElement.componentInstance.prevUrl = '/closet-manage';
                 fixture.detectChanges();
                 saveButton.click();
-                console.log(component,fixture,"closet manage test after");
                 expect(router.navigate).toHaveBeenCalledWith(['/closet-manage']);
               });
             })
@@ -246,6 +246,6 @@ describe('AddClothingComponent', () => {
 
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(debugElement.componentInstance).toBeTruthy();
   });
 });
