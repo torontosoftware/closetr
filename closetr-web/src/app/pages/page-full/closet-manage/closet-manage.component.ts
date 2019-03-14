@@ -50,7 +50,6 @@ export class ClosetManageComponent implements OnInit {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
-        console.log(this.currentUser);
         this.getAllClothes();
       }
     )
@@ -76,7 +75,6 @@ export class ClosetManageComponent implements OnInit {
   getAllClothes(): void {
     this.closetService.getAllClothes(this.currentUser).subscribe(
       (data: any) => {
-        console.log(data);
         this.closetList = data.data;
         for (let i in this.closetList) {
           this.closetList[i] = new Clothing(this.closetList[i]);

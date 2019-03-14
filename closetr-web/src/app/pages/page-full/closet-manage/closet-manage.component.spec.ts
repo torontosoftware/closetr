@@ -5,6 +5,9 @@ import { of } from 'rxjs';
 import { Injectable, Component, DebugElement, Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { ClosetService } from '../../../services/closet.service';
+import { User } from '../../../models/user.model';
+import { Clothing } from '../../../models/clothing.model';
 import { SearchFilterPipe } from '../../../pipes/search-filter.pipe';
 import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
 import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-button.component';
@@ -15,11 +18,25 @@ import { UiCloseButtonComponent } from '../../../shared/ui-close-button/ui-close
 import { ClosetCardComponent } from '../../page-partial/closet-card/closet-card.component';
 import { ClosetManageComponent } from './closet-manage.component';
 
+const closetList = [
+  new Clothing({clothingName: 'tshirt'}),
+  new Clothing({clothingName: 'jeans'}),
+  new Clothing({clothingName: 'shoes'})
+];
+const currentUser = new User({userName: 'fides'});
+
 @Injectable({
   providedIn: 'root'
 })
 class AuthenticationServiceMock {
-  currentUser = of('fides');
+  currentUser = of(currentUser);
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+class ClosetServiceMock {
+  getAllClothes = (user) => of({data: closetList});
 }
 
 @Pipe({name: 'filter'})
@@ -34,6 +51,7 @@ describe('ClosetManageComponent', () => {
   let component: ClosetManageComponent;
   let fixture: ComponentFixture<ClosetManageComponent>;
   let authenticationService: AuthenticationServiceMock;
+  let closetService: ClosetServiceMock;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -54,6 +72,7 @@ describe('ClosetManageComponent', () => {
         SearchFilterPipeMock
       ],
       providers: [
+        {provide: ClosetService, useClass: ClosetServiceMock},
         {provide: AuthenticationService, useClass: AuthenticationServiceMock},
         {provide: SearchFilterPipe, useClass: SearchFilterPipeMock}
       ]
@@ -66,7 +85,8 @@ describe('ClosetManageComponent', () => {
     debugElement = fixture.debugElement;
     component = debugElement.componentInstance;
     authenticationService = TestBed.get(AuthenticationService);
-    spyOn(component, 'getAllClothes');
+    closetService = TestBed.get(ClosetService);
+    spyOn(component, 'getAllClothes').and.callThrough();
     fixture.detectChanges();
   });
 
@@ -75,16 +95,18 @@ describe('ClosetManageComponent', () => {
   });
 
   describe(`from the init method,`, () => {
-    beforeEach(() =>
-      component.ngOnInit();
+    beforeEach(() => {
+      debugElement.componentInstance.ngOnInit();
+      fixture.detectChanges();
     });
     it(`should retrieve the current user from the
       authentication service.`, () => {
-      expect(component.currentUser).toEqual('fides');
+      expect(component.currentUser).toEqual(currentUser);
     });
-    it(`should be call the getAllClothes method, and
+    it(`should call the getAllClothes method, and
       set the closetList from it.`, () => {
       expect(component.getAllClothes).toHaveBeenCalled();
+      expect(component.closetList).toEqual(closetList);
     });
     it(`should render each item in the closetList
       into closet card components`, () => {
