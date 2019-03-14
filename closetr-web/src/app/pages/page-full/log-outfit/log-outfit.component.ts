@@ -40,10 +40,13 @@ export class LogOutfitComponent implements OnInit {
         this.getAllClothes();
       }
     )
-    const params = {
-      userID: this.currentUser.id,
-      date: this.dateFormatService.formatDateString(new Date())
-    };
+    let params;
+    if (this.currentUser) {
+      let params = {
+        userID: this.currentUser.id,
+        date: this.dateFormatService.formatDateString(new Date())
+      };
+    }
     console.log("calling get outfit clothes");
     this.getAllOutfitClothes(params);
   }

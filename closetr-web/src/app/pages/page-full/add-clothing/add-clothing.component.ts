@@ -23,6 +23,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   clothingCategories: Array<string>;
   currentUserSubscription: Subscription;
   currentUser: User;
+  enableSave: boolean;
 
   constructor(private closetService: ClosetService,
               private logOutfitService: LogOutfitService,
@@ -32,6 +33,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
               private router: Router,
               private location: Location) {
       super();
+      this.clothing = new Clothing();
   }
 
   ngOnInit() {
@@ -46,20 +48,19 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
 
     // items
     this.clothingCategories = Clothing.getClothingCategories();
-    console.log("my prev url is",this.routesService.getPrevUrl());
     // routes
+
     if (!(this.prevUrl = this.routesService.getPrevUrl())) {
       this.prevUrl = "/closet-manage";
     }
-    console.log("the prev url is", this.prevUrl);
     this.routesService.setPrevUrl('');
+    this.checkSubmit();
   }
 
   /*
   Go back to the previous page.
   */
   back(): void {
-    console.log("im going back",this.prevUrl);
     this.router.navigate([this.prevUrl]);
   }
 
@@ -68,13 +69,10 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   clothing item, navigate back to the previous page.
   */
   save(): void {
-    console.log("im calling save",this.clothing);
     this.closetService.addClothing(this.clothing).subscribe(
       (data: any) => {
-        console.log("got my data result", data);
         if (this.prevUrl == '/log-outfit') {
           let newClothing = data.data;
-          console.log(newClothing);
           const params = {
             clothingID: newClothing._id,
             userID: this.currentUser.id,
@@ -82,7 +80,6 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
           };
           this.logOutfitService.addOutfitClothing(params).subscribe(
             (data: any) => {
-              console.log("finished adding outfit entry", params);
               this.back();
             }
           );
@@ -98,11 +95,14 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   Called every time user changes any one of the input fields. Ensures that
   none of the fields are empty.
   */
-  checkSubmit(): boolean {
-    if (this.clothing) {
-      return this.clothing.enableClothingSave();
-    }
-    return false;
+  checkSubmit(): void {
+    let result = !(this.clothing.clothingName.length === 0
+        || !this.clothing.clothingCost === null
+        || this.clothing.clothingCategory.length === 0
+        || !this.clothing.clothingWorn === null
+        || this.clothing.clothingPurchaseDate.length === 0);
+
+    this.enableSave = result;
   }
 
 }
