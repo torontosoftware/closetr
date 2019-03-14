@@ -42,7 +42,7 @@ class ClosetServiceMock {
 @Pipe({name: 'filter'})
 class SearchFilterPipeMock implements PipeTransform{
   transform(items: any, searchText: String, property: string) {
-    return ;
+    return items;
   }
 }
 
@@ -52,6 +52,8 @@ describe('ClosetManageComponent', () => {
   let fixture: ComponentFixture<ClosetManageComponent>;
   let authenticationService: AuthenticationServiceMock;
   let closetService: ClosetServiceMock;
+  let hostElement;
+  let closetCardList;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -72,6 +74,7 @@ describe('ClosetManageComponent', () => {
         SearchFilterPipeMock
       ],
       providers: [
+        ClosetManageComponent,
         {provide: ClosetService, useClass: ClosetServiceMock},
         {provide: AuthenticationService, useClass: AuthenticationServiceMock},
         {provide: SearchFilterPipe, useClass: SearchFilterPipeMock}
@@ -87,6 +90,7 @@ describe('ClosetManageComponent', () => {
     authenticationService = TestBed.get(AuthenticationService);
     closetService = TestBed.get(ClosetService);
     spyOn(component, 'getAllClothes').and.callThrough();
+    hostElement = fixture.nativeElement;
     fixture.detectChanges();
   });
 
@@ -110,7 +114,8 @@ describe('ClosetManageComponent', () => {
     });
     it(`should render each item in the closetList
       into closet card components`, () => {
-
+      let closetCardList = hostElement.querySelectorAll('.closet-card-item')
+      expect(closetCardList.length).toEqual(closetList.length);
     });
   });
 

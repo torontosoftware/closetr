@@ -60,6 +60,7 @@
               *ngFor="let clothing of closetList | filter:searchText:'clothingName' |keyvalue">
               <div class="closet-card mtb-10">
                 <app-closet-card
+                  class="closet-card-item"
                   [clothing]="clothing.value"
                   [editMode]="editMode"
                   (removeCardEmit)="removeClothing($event)"
