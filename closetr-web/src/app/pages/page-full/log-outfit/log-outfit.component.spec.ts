@@ -1,7 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { Component, Injectable, DebugElement, Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { ClosetService } from '../../../services/closet.service';
+import { User } from '../../../models/user.model';
+import { Clothing } from '../../../models/clothing.model';
+import { LogOutfitService } from  '../../../services/log-outfit.service';
 import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
 import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-button.component';
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
@@ -9,8 +16,44 @@ import { UiInputAddButtonComponent } from '../../../shared/ui-input-add-button/u
 import { UiCloseButtonComponent } from '../../../shared/ui-close-button/ui-close-button.component';
 import { ClosetCardComponent } from '../../page-partial/closet-card/closet-card.component';
 import { SearchFilterPipe } from '../../../pipes/search-filter.pipe';
-import { Pipe, PipeTransform } from '@angular/core';
 import { LogOutfitComponent } from './log-outfit.component';
+
+const closetList = [
+  new Clothing({clothingID: '1', clothingName: 'tshirt'}),
+  new Clothing({clothingID: '2', clothingName: 'jeans'}),
+  new Clothing({clothingID: '3', clothingName: 'shoes'})
+];
+const outfitClothingList = closetList.map((clothing) => {
+  return {clothing: clothing}
+});
+const currentUser = new User({userName: 'fides'});
+
+@Injectable({
+  providedIn: 'root'
+})
+class AuthenticationServiceMock {
+  currentUser = of(currentUser);
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+class ClosetServiceMock {
+  getAllClothes = (user) => of({data: closetList});
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+class LogOutfitServiceMock {
+  getAllOutfitClothes = (params) => of({data: outfitClothingList});
+}
+
+@Component({
+  selector: 'app-dashboard',
+  template: '<p>Mock Dashboard Component</p>'
+})
+class MockDashboardComponent { }
 
 @Pipe({name: 'filter'})
 class SearchFilterPipeMock implements PipeTransform{
@@ -22,12 +65,19 @@ class SearchFilterPipeMock implements PipeTransform{
 describe('LogOutfitComponent', () => {
   let component: LogOutfitComponent;
   let fixture: ComponentFixture<LogOutfitComponent>;
+  let authenticationService: AuthenticationServiceMock;
+  let closetService: ClosetServiceMock;
+  let logOutfitService: LogOutfitServiceMock;
+
+  const routes = [
+    { path: 'dashboard', component: MockDashboardComponent }
+  ];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
-        RouterTestingModule,
+        RouterTestingModule.withRoutes(routes),
         HttpClientTestingModule
       ],
       declarations: [
@@ -38,9 +88,13 @@ describe('LogOutfitComponent', () => {
         UiCloseButtonComponent,
         ClosetCardComponent,
         LogOutfitComponent,
+        MockDashboardComponent,
         SearchFilterPipeMock
       ],
       providers: [
+        {provide: ClosetService, useClass: ClosetServiceMock},
+        {provide: LogOutfitService, useClass: LogOutfitServiceMock},
+        {provide: AuthenticationService, useClass: AuthenticationServiceMock},
         {provide: SearchFilterPipe, useClass: SearchFilterPipeMock}
       ]
     })
@@ -49,7 +103,10 @@ describe('LogOutfitComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LogOutfitComponent);
-    component = fixture.componentInstance;
+    component = fixture.debugElement.componentInstance;
+    authenticationService = TestBed.get(AuthenticationService);
+    closetService = TestBed.get(ClosetService);
+    logOutfitService = TestBed.get(LogOutfitService);
     fixture.detectChanges();
   });
 
@@ -59,9 +116,14 @@ describe('LogOutfitComponent', () => {
   });
 
   describe(`from the init method`, () => {
+    beforeEach(() => {
+      component.ngOnInit();
+      fixture.detectChanges();
+    });
     it(`should retrieve the currentuser from the
       authentication service.`, () => {
-
+      console.log(component);
+      expect(component.currentUser).toEqual(currentUser);
     });
     it(`should call the getAllClothes method, and
       set the closetList from it.`, () => {

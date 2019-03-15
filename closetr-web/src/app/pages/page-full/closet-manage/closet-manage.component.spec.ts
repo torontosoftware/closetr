@@ -38,7 +38,7 @@ class AuthenticationServiceMock {
 })
 class ClosetServiceMock {
   getAllClothes = (user) => of({data: closetList});
-  removeClothing = (id) => of({data: closetList});
+  removeClothing = (id) => of({data: {closetList}});
 }
 
 @Component({
