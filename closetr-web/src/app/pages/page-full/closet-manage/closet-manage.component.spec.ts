@@ -115,7 +115,6 @@ describe('ClosetManageComponent', () => {
     spyOn(component, 'removeClothing').and.callThrough();
     spyOn(closetService, 'getAllClothes').and.callThrough();
     spyOn(closetService, 'removeClothing').and.callThrough();
-    //searchFilterPipe = spyOn(SearchFilterPipeMock.prototype, 'transform');
     spyOn(router, 'navigate');
     hostElement = fixture.nativeElement;
     fixture.detectChanges();
@@ -136,17 +135,16 @@ describe('ClosetManageComponent', () => {
 
   describe(`when removeClothing function is called`, () => {
     beforeEach(() => {
-      component.ngOnInit();
       component.removeClothing('1');
       fixture.detectChanges();
     });
     it(`should call closetService's removeClothing method
     with clothing id.`, () => {
-
+      expect(closetService.removeClothing).toHaveBeenCalledWith('1');
     });
     it(`should call closetService's getAllClothes method
     after recieving data from removeClothing`, () => {
-
+      expect(component.getAllClothes).toHaveBeenCalledTimes(2);
     });
   });
 
