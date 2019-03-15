@@ -149,7 +149,7 @@ describe('LogOutfitComponent', () => {
       expect(component.getAllOutfitClothes).toHaveBeenCalledWith(params);
     });
     it(`should have editMode as false.`, () => {
-
+      expect(component.editMode).toBeFalsy();
     });
   });
 
