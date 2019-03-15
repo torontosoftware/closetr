@@ -52,7 +52,7 @@ class SearchFilterPipeMock implements PipeTransform{
     console.log("from search filter",items, searchText, property);
     if (searchText == 'shirt') {
       console.log("search text was shirt, returned items[0]")
-      return items[0];
+      return [items[0]];
     }
     console.log("alrighty", items);
     return items;
