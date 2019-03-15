@@ -112,6 +112,7 @@ describe('LogOutfitComponent', () => {
     logOutfitService = TestBed.get(LogOutfitService);
     dateFormatService = TestBed.get(DateFormatService);
     spyOn(component, 'getAllClothes').and.callThrough();
+    spyOn(component, 'getAllOutfitClothes').and.callThrough();
     fixture.detectChanges();
   });
 
@@ -121,7 +122,12 @@ describe('LogOutfitComponent', () => {
   });
 
   describe(`from the init method`, () => {
+    let params;
     beforeEach(() => {
+      params = {
+        userID: currentUser.id,
+        date: dateFormatService.formatDateString(new Date())
+      };
       component.ngOnInit();
       fixture.detectChanges();
     });
@@ -136,15 +142,11 @@ describe('LogOutfitComponent', () => {
     });
     it(`should set the global params (used for
     calling getAllOutfitClothes())`, () => {
-      const params = {
-        userID: currentUser.id,
-        date: dateFormatService.formatDateString(new Date())
-      };
       expect(component.params).toEqual(params);
     });
     it(`should call getAllOutfitClothes with
       the global params`, () => {
-
+      expect(component.getAllOutfitClothes).toHaveBeenCalledWith(params);
     });
     it(`should have editMode as false.`, () => {
 
