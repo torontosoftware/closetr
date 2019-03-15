@@ -107,6 +107,8 @@ describe('LogOutfitComponent', () => {
     authenticationService = TestBed.get(AuthenticationService);
     closetService = TestBed.get(ClosetService);
     logOutfitService = TestBed.get(LogOutfitService);
+
+    spyOn(component, 'getAllClothes').and.callThrough();
     fixture.detectChanges();
   });
 
@@ -122,12 +124,12 @@ describe('LogOutfitComponent', () => {
     });
     it(`should retrieve the currentuser from the
       authentication service.`, () => {
-      console.log(component);
       expect(component.currentUser).toEqual(currentUser);
     });
     it(`should call the getAllClothes method, and
       set the closetList from it.`, () => {
-
+      expect(component.getAllClothes).toHaveBeenCalled();
+      expect(component.closetList).toEqual(closetList);
     });
     it(`should call the global params (used for
     calling getAllOutfitClothes())`, () => {
