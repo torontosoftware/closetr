@@ -6,9 +6,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { ClosetService } from '../../../services/closet.service';
+import { LogOutfitService } from  '../../../services/log-outfit.service';
+import { DateFormatService } from '../../../services/utils/date-format.service';
 import { User } from '../../../models/user.model';
 import { Clothing } from '../../../models/clothing.model';
-import { LogOutfitService } from  '../../../services/log-outfit.service';
 import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
 import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-button.component';
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
@@ -26,7 +27,7 @@ const closetList = [
 const outfitClothingList = closetList.map((clothing) => {
   return {clothing: clothing}
 });
-const currentUser = new User({userName: 'fides'});
+const currentUser = new User({userName: 'fides', id: '1'});
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +69,7 @@ describe('LogOutfitComponent', () => {
   let authenticationService: AuthenticationServiceMock;
   let closetService: ClosetServiceMock;
   let logOutfitService: LogOutfitServiceMock;
+  let dateFormatService: DateFormatService;
 
   const routes = [
     { path: 'dashboard', component: MockDashboardComponent }
@@ -92,6 +94,7 @@ describe('LogOutfitComponent', () => {
         SearchFilterPipeMock
       ],
       providers: [
+        DateFormatService,
         {provide: ClosetService, useClass: ClosetServiceMock},
         {provide: LogOutfitService, useClass: LogOutfitServiceMock},
         {provide: AuthenticationService, useClass: AuthenticationServiceMock},
@@ -107,7 +110,7 @@ describe('LogOutfitComponent', () => {
     authenticationService = TestBed.get(AuthenticationService);
     closetService = TestBed.get(ClosetService);
     logOutfitService = TestBed.get(LogOutfitService);
-
+    dateFormatService = TestBed.get(DateFormatService);
     spyOn(component, 'getAllClothes').and.callThrough();
     fixture.detectChanges();
   });
@@ -131,9 +134,13 @@ describe('LogOutfitComponent', () => {
       expect(component.getAllClothes).toHaveBeenCalled();
       expect(component.closetList).toEqual(closetList);
     });
-    it(`should call the global params (used for
+    it(`should set the global params (used for
     calling getAllOutfitClothes())`, () => {
-
+      const params = {
+        userID: currentUser.id,
+        date: dateFormatService.formatDateString(new Date())
+      };
+      expect(component.params).toEqual(params);
     });
     it(`should call getAllOutfitClothes with
       the global params`, () => {
