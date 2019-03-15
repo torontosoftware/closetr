@@ -49,9 +49,12 @@ class MockDashboardComponent { }
 @Pipe({name: 'filter'})
 class SearchFilterPipeMock implements PipeTransform{
   transform(items: any, searchText: String, property: string) {
+    console.log("from search filter",items, searchText, property);
     if (searchText == 'shirt') {
-      return items[1];
+      console.log("search text was shirt, returned items[0]")
+      return items[0];
     }
+    console.log("alrighty", items);
     return items;
   }
 }
@@ -132,13 +135,15 @@ describe('ClosetManageComponent', () => {
 
   describe(`when user types input in the search bar,`, () => {
     let searchInput: HTMLInputElement;
+    let params: any;
     beforeEach(() => {
       component.ngOnInit();
+      console.log("sbefore each",fixture, hostElement, component);
       searchInput = hostElement.querySelector('#search-input input');
     });
     it(`should call search filter with searchText and
       the clothingName string as property.`, () => {
-      const params = [[
+      params = [[
         closetList, 'shirt', 'clothingName'
       ]];
       searchFilterPipe = spyOn(SearchFilterPipeMock.prototype, 'transform');
@@ -149,7 +154,12 @@ describe('ClosetManageComponent', () => {
     });
     it(`should render changed results into closet card
       components.`, () => {
-
+      searchInput.value = "shirt";
+      searchInput.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      let closetCardList = hostElement.querySelectorAll('.closet-card-item');
+      console.log("should render clsoet card components",fixture, hostElement, component);
+      expect(closetCardList.length).toEqual(1);
     });
   });
 
@@ -193,7 +203,7 @@ describe('ClosetManageComponent', () => {
 
   describe(`from the init method,`, () => {
     beforeEach(() => {
-      debugElement.componentInstance.ngOnInit();
+      component.ngOnInit();
       fixture.detectChanges();
     });
     it(`should retrieve the current user from the
@@ -208,8 +218,10 @@ describe('ClosetManageComponent', () => {
     });
     it(`should render each item in the closetList
       into closet card components`, () => {
-      let closetCardList = hostElement.querySelectorAll('.closet-card-item')
+        console.log("ya the other one",fixture, hostElement, component);
+      let closetCardList = hostElement.querySelectorAll('.closet-card-item');
       expect(closetCardList.length).toEqual(closetList.length);
+      console.log("closet card list", closetCardList);
     });
     it(`should have editMode as false.`, () => {
       expect(component.editMode).toBeFalsy();
