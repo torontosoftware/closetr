@@ -113,6 +113,7 @@ describe('LogOutfitComponent', () => {
     dateFormatService = TestBed.get(DateFormatService);
     spyOn(component, 'getAllClothes').and.callThrough();
     spyOn(component, 'getAllOutfitClothes').and.callThrough();
+    spyOn(closetService, 'getAllClothes').and.callThrough();
     fixture.detectChanges();
   });
 
@@ -150,6 +151,20 @@ describe('LogOutfitComponent', () => {
     });
     it(`should have editMode as false.`, () => {
       expect(component.editMode).toBeFalsy();
+    });
+  });
+
+  describe(`the getAllClothes method`, () => {
+    beforeEach(() => {
+      component.getAllClothes();
+      fixture.detectChanges();
+    });
+    it(`should call closetService's getAllClothes method`, () => {
+      expect(closetService.getAllClothes).toHaveBeenCalled();
+    });
+    it(`should set closetList as equal to the returned data
+      from closetService`, () => {
+      expect(component.closetList).toEqual(closetList);
     });
   });
 
