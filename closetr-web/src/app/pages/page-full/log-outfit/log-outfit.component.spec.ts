@@ -57,4 +57,27 @@ describe('LogOutfitComponent', () => {
     expect(component).toBeTruthy();
     console.log(component);
   });
+
+  describe(`from the init method`, () => {
+    it(`should retrieve the currentuser from the
+      authentication service.`, () => {
+
+    });
+    it(`should call the getAllClothes method, and
+      set the closetList from it.`, () => {
+
+    });
+    it(`should call the global params (used for
+    calling getAllOutfitClothes())`, () => {
+
+    });
+    it(`should call getAllOutfitClothes with
+      the global params`, () => {
+
+    });
+    it(`should have editMode as false.`, () => {
+
+    });
+  });
+
 });
