@@ -20,9 +20,9 @@ import { ClosetCardComponent } from '../../page-partial/closet-card/closet-card.
 import { ClosetManageComponent } from './closet-manage.component';
 
 const closetList = [
-  new Clothing({clothingName: 'tshirt'}),
-  new Clothing({clothingName: 'jeans'}),
-  new Clothing({clothingName: 'shoes'})
+  new Clothing({clothingID: '1', clothingName: 'tshirt'}),
+  new Clothing({clothingID: '2', clothingName: 'jeans'}),
+  new Clothing({clothingID: '3', clothingName: 'shoes'})
 ];
 const currentUser = new User({userName: 'fides'});
 
@@ -38,6 +38,7 @@ class AuthenticationServiceMock {
 })
 class ClosetServiceMock {
   getAllClothes = (user) => of({data: closetList});
+  removeClothing = (id) => of({data: closetList});
 }
 
 @Component({
@@ -51,10 +52,8 @@ class SearchFilterPipeMock implements PipeTransform{
   transform(items: any, searchText: String, property: string) {
     console.log("from search filter",items, searchText, property);
     if (searchText == 'shirt') {
-      console.log("search text was shirt, returned items[0]")
       return [items[0]];
     }
-    console.log("alrighty", items);
     return items;
   }
 }
@@ -113,7 +112,9 @@ describe('ClosetManageComponent', () => {
     spyOn(component, 'getAllClothes').and.callThrough();
     spyOn(component, 'toggleEditMode').and.callThrough();
     spyOn(component, 'save').and.callThrough();
+    spyOn(component, 'removeClothing').and.callThrough();
     spyOn(closetService, 'getAllClothes').and.callThrough();
+    spyOn(closetService, 'removeClothing').and.callThrough();
     //searchFilterPipe = spyOn(SearchFilterPipeMock.prototype, 'transform');
     spyOn(router, 'navigate');
     hostElement = fixture.nativeElement;
@@ -133,12 +134,27 @@ describe('ClosetManageComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
   });
 
+  describe(`when removeClothing function is called`, () => {
+    beforeEach(() => {
+      component.ngOnInit();
+      component.removeClothing('1');
+      fixture.detectChanges();
+    });
+    it(`should call closetService's removeClothing method
+    with clothing id.`, () => {
+
+    });
+    it(`should call closetService's getAllClothes method
+    after recieving data from removeClothing`, () => {
+
+    });
+  });
+
   describe(`when user types input in the search bar,`, () => {
     let searchInput: HTMLInputElement;
     let params: any;
     beforeEach(() => {
       component.ngOnInit();
-      console.log("sbefore each",fixture, hostElement, component);
       searchInput = hostElement.querySelector('#search-input input');
     });
     it(`should call search filter with searchText and
