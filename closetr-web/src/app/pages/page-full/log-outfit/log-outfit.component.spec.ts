@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { Component, Injectable, DebugElement, Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AuthenticationService } from '../../../services/authentication.service';
@@ -66,10 +67,12 @@ class SearchFilterPipeMock implements PipeTransform{
 describe('LogOutfitComponent', () => {
   let component: LogOutfitComponent;
   let fixture: ComponentFixture<LogOutfitComponent>;
+  let router: Router;
   let authenticationService: AuthenticationServiceMock;
   let closetService: ClosetServiceMock;
   let logOutfitService: LogOutfitServiceMock;
   let dateFormatService: DateFormatService;
+  let hostElement;
 
   const routes = [
     { path: 'dashboard', component: MockDashboardComponent }
@@ -106,11 +109,14 @@ describe('LogOutfitComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LogOutfitComponent);
+    hostElement = fixture.nativeElement;
     component = fixture.debugElement.componentInstance;
+    router = TestBed.get(Router);
     authenticationService = TestBed.get(AuthenticationService);
     closetService = TestBed.get(ClosetService);
     logOutfitService = TestBed.get(LogOutfitService);
     dateFormatService = TestBed.get(DateFormatService);
+    spyOn(router, 'navigate').and.callThrough();
     spyOn(component, 'getAllClothes').and.callThrough();
     spyOn(component, 'getAllOutfitClothes').and.callThrough();
     spyOn(closetService, 'getAllClothes').and.callThrough();
@@ -120,6 +126,15 @@ describe('LogOutfitComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
     console.log(component);
+  });
+
+  it(`should navigate to dashboard component when
+    back button is clicked`, () => {
+    component.ngOnInit();
+    let backButton = hostElement.querySelector('#back-button button');
+    backButton.click();
+    fixture.detectChanges();
+    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
   });
 
   describe(`from the init method`, () => {
@@ -167,5 +182,6 @@ describe('LogOutfitComponent', () => {
       expect(component.closetList).toEqual(closetList);
     });
   });
+
 
 });
