@@ -50,7 +50,6 @@ class MockDashboardComponent { }
 @Pipe({name: 'filter'})
 class SearchFilterPipeMock implements PipeTransform{
   transform(items: any, searchText: String, property: string) {
-    console.log("from search filter",items, searchText, property);
     if (searchText == 'shirt') {
       return [items[0]];
     }
@@ -172,7 +171,6 @@ describe('ClosetManageComponent', () => {
       searchInput.dispatchEvent(new Event('input'));
       fixture.detectChanges();
       let closetCardList = hostElement.querySelectorAll('.closet-card-item');
-      console.log("should render clsoet card components",fixture, hostElement, component);
       expect(closetCardList.length).toEqual(1);
     });
   });
@@ -232,10 +230,8 @@ describe('ClosetManageComponent', () => {
     });
     it(`should render each item in the closetList
       into closet card components`, () => {
-        console.log("ya the other one",fixture, hostElement, component);
       let closetCardList = hostElement.querySelectorAll('.closet-card-item');
       expect(closetCardList.length).toEqual(closetList.length);
-      console.log("closet card list", closetCardList);
     });
     it(`should have editMode as false.`, () => {
       expect(component.editMode).toBeFalsy();
