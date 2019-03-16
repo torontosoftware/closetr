@@ -119,6 +119,7 @@ describe('LogOutfitComponent', () => {
     spyOn(router, 'navigate').and.callThrough();
     spyOn(component, 'getAllClothes').and.callThrough();
     spyOn(component, 'getAllOutfitClothes').and.callThrough();
+    spyOn(component, 'save').and.callThrough();
     spyOn(component, 'toggleEditMode').and.callThrough();
     spyOn(closetService, 'getAllClothes').and.callThrough();
     spyOn(logOutfitService, 'getAllOutfitClothes').and.callThrough();
@@ -225,6 +226,19 @@ describe('LogOutfitComponent', () => {
       fixture.detectChanges();
       expect(component.toggleEditMode).toHaveBeenCalledTimes(3);
       expect(component.editMode).toBeTruthy();
+    });
+    it(`should hide save button when editMode is off`, () => {
+      expect(saveButton.hidden).toBeFalsy();
+      editButton.click();
+      fixture.detectChanges();
+      expect(saveButton.hidden).toBeTruthy();
+    });
+    it(`should call save, and toggleEditMode functions
+      when save button is clicked`, () => {
+      saveButton.click();
+      fixture.detectChanges();
+      expect(component.save).toHaveBeenCalled();
+      expect(component.toggleEditMode).toHaveBeenCalled();
     });
 
   });
