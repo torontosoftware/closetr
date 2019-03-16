@@ -25,6 +25,7 @@
     "core-js": "^2.5.4",
     "jquery": "^3.3.1",
     "node-sass": "^4.11.0",
+    "nyc": "^13.3.0",
     "popper.js": "^1.14.6",
     "rxjs": "~6.3.3",
     "webpack-dev-server": "^3.1.14",
