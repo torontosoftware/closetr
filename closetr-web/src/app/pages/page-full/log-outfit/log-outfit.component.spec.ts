@@ -120,6 +120,7 @@ describe('LogOutfitComponent', () => {
     spyOn(component, 'getAllClothes').and.callThrough();
     spyOn(component, 'getAllOutfitClothes').and.callThrough();
     spyOn(closetService, 'getAllClothes').and.callThrough();
+    spyOn(logOutfitService, 'getAllOutfitClothes').and.callThrough();
     fixture.detectChanges();
   });
 
@@ -151,10 +152,8 @@ describe('LogOutfitComponent', () => {
       authentication service.`, () => {
       expect(component.currentUser).toEqual(currentUser);
     });
-    it(`should call the getAllClothes method, and
-      set the closetList from it.`, () => {
+    it(`should call the getAllClothes method.`, () => {
       expect(component.getAllClothes).toHaveBeenCalled();
-      expect(component.closetList).toEqual(closetList);
     });
     it(`should set the global params (used for
     calling getAllOutfitClothes())`, () => {
@@ -182,6 +181,26 @@ describe('LogOutfitComponent', () => {
       expect(component.closetList).toEqual(closetList);
     });
   });
+
+  describe(`the getAllOutfitClothes method`, () => {
+    let params;
+    beforeEach(() => {
+      params = {
+        userID: currentUser.id,
+        date: dateFormatService.formatDateString(new Date())
+      };
+      component.getAllOutfitClothes(params);
+      fixture.detectChanges();
+    });
+    it(`should call the logOutfitService's getAllOutfitClothes
+    method.`, () => {
+      expect(logOutfitService.getAllOutfitClothes).toHaveBeenCalledWith(params);
+    });
+    it(`should set outfitClothingList as the result from
+      logOutfitService`, () => {
+      expect(component.outfitClothingList).toEqual(outfitClothingList);
+    });
+  })
 
 
 });
