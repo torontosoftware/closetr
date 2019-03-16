@@ -126,6 +126,7 @@ describe('LogOutfitComponent', () => {
     spyOn(component, 'save').and.callThrough();
     spyOn(component, 'toggleEditMode').and.callThrough();
     spyOn(component, 'addSearchResult').and.callThrough();
+    spyOn(component, 'addOutfitClothing').and.callThrough();
     spyOn(closetService, 'getAllClothes').and.callThrough();
     spyOn(logOutfitService, 'getAllOutfitClothes').and.callThrough();
     fixture.detectChanges();
@@ -287,7 +288,7 @@ describe('LogOutfitComponent', () => {
       let outfitSearchList = hostElement.querySelectorAll('.closet-search-box');
       expect(outfitSearchList.length).toEqual(3);
     });
-    describe(`and user clicks a search result`, () => {
+    describe(`and user clicks a search result,`, () => {
       let searchResultButton;
       beforeEach(() => {
         searchResultButton = hostElement.querySelector('.closet-search-box');
@@ -296,6 +297,23 @@ describe('LogOutfitComponent', () => {
       });
       it(`should call the addSearchResult function with clothing`, () => {
         expect(component.addSearchResult).toHaveBeenCalledWith(closetList[0]);
+      });
+      describe(`the addSearchResult function`, () => {
+        it(`should call addOutfitClothing with correct params`, () => {
+          const params = {
+            clothingID: closetList[0].clothingID,
+            userID: currentUser.id,
+            date: dateFormatService.formatDateString(new Date())
+          };
+          expect(component.addOutfitClothing).toHaveBeenCalledWith(params);
+        });
+        it(`should call getAllOutfitClothes with global params`, () => {
+          const params = {
+            userID: currentUser.id,
+            date: dateFormatService.formatDateString(new Date())
+          };
+          expect(component.getAllOutfitClothes).toHaveBeenCalledWith(params);
+        });
       });
     });
   });
