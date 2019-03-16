@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build:
+  build_node:
     docker:
       # specify the version you desire here
       - image: circleci/node:7.10
@@ -19,7 +19,7 @@ jobs:
     steps:
       - checkout
 
-      - run: 
+      - run:
           command: npm install -g @angular/cli
 
       # Download and cache dependencies
@@ -29,7 +29,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: 
+      - run:
           command: |
             cd closetr-web
             npm install
@@ -40,7 +40,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # build the Angular Project
-      - run: 
+      - run:
           command: |
             cd closetr-web
             npm build
