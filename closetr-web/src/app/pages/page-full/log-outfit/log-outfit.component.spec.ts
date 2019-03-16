@@ -119,6 +119,7 @@ describe('LogOutfitComponent', () => {
     spyOn(router, 'navigate').and.callThrough();
     spyOn(component, 'getAllClothes').and.callThrough();
     spyOn(component, 'getAllOutfitClothes').and.callThrough();
+    spyOn(component, 'toggleEditMode').and.callThrough();
     spyOn(closetService, 'getAllClothes').and.callThrough();
     spyOn(logOutfitService, 'getAllOutfitClothes').and.callThrough();
     fixture.detectChanges();
@@ -200,7 +201,33 @@ describe('LogOutfitComponent', () => {
       logOutfitService`, () => {
       expect(component.outfitClothingList).toEqual(outfitClothingList);
     });
-  })
+  });
+
+  describe(`when edit button is clicked`, () => {
+    let editButton;
+    let saveButton;
+    beforeEach(() => {
+      editButton = hostElement.querySelector('#edit-button button');
+      saveButton = hostElement.querySelector('#save-button button');
+      component.ngOnInit();
+      editButton.click();
+      fixture.detectChanges();
+    });
+    it(`should call toggleEditMode method, and
+      change the editMode variable (multiple toggles)`, () => {
+      expect(component.toggleEditMode).toHaveBeenCalledTimes(1);
+      expect(component.editMode).toBeTruthy();
+      editButton.click();
+      fixture.detectChanges();
+      expect(component.toggleEditMode).toHaveBeenCalledTimes(2);
+      expect(component.editMode).toBeFalsy();
+      editButton.click();
+      fixture.detectChanges();
+      expect(component.toggleEditMode).toHaveBeenCalledTimes(3);
+      expect(component.editMode).toBeTruthy();
+    });
+
+  });
 
 
 });

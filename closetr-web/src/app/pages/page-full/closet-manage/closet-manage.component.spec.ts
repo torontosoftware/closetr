@@ -189,15 +189,15 @@ describe('ClosetManageComponent', () => {
     });
     it(`should call toggleEditMode method, and
       change the editMode variable (multiple toggles)`, () => {
-      expect(component.toggleEditMode).toHaveBeenCalled();
+      expect(component.toggleEditMode).toHaveBeenCalledTimes(1);
       expect(component.editMode).toBeTruthy();
       editButton.click();
       fixture.detectChanges();
-      expect(component.toggleEditMode).toHaveBeenCalled();
+      expect(component.toggleEditMode).toHaveBeenCalledTimes(2);
       expect(component.editMode).toBeFalsy();
       editButton.click();
       fixture.detectChanges();
-      expect(component.toggleEditMode).toHaveBeenCalled();
+      expect(component.toggleEditMode).toHaveBeenCalledTimes(3);
       expect(component.editMode).toBeTruthy();
     });
     it(`should hide save button when editMode is off`, () => {

@@ -13,9 +13,11 @@
               </div>
               <div class="col-6">
                 <ui-edit-button
+                  id="edit-button"
                   (click)="toggleEditMode()"
                 ></ui-edit-button>
                 <ui-text-button
+                  id="save-button"
                   [labelText]="'save'"
                   [type]="'top-right'"
                   [hidden]="!editMode"
