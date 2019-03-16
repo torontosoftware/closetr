@@ -60,6 +60,9 @@ class MockDashboardComponent { }
 @Pipe({name: 'filter'})
 class SearchFilterPipeMock implements PipeTransform{
  transform(items: any, searchText: String, property: string) {
+  if (searchText == 'shirt') {
+    return [items[0]];
+  }
   return items;
  }
 }
@@ -72,6 +75,7 @@ describe('LogOutfitComponent', () => {
   let closetService: ClosetServiceMock;
   let logOutfitService: LogOutfitServiceMock;
   let dateFormatService: DateFormatService;
+  let searchFilterPipe: SearchFilterPipeMock;
   let hostElement;
 
   const routes = [
@@ -233,20 +237,39 @@ describe('LogOutfitComponent', () => {
       expect(component.toggleEditMode).toHaveBeenCalledTimes(3);
       expect(component.editMode).toBeTruthy();
     });
-    it(`should hide save button when editMode is off`, () => {
+    it(`should hide save button when editMode is off.`, () => {
       expect(saveButton.hidden).toBeFalsy();
       editButton.click();
       fixture.detectChanges();
       expect(saveButton.hidden).toBeTruthy();
     });
     it(`should call save, and toggleEditMode functions
-      when save button is clicked`, () => {
+      when save button is clicked.`, () => {
       saveButton.click();
       fixture.detectChanges();
       expect(component.save).toHaveBeenCalled();
       expect(component.toggleEditMode).toHaveBeenCalled();
     });
+  });
 
+  describe(`when the user types input in the search bar`, () => {
+    let searchInput: HTMLInputElement;
+    let params: any;
+    beforeEach(() => {
+      component.ngOnInit();
+      searchInput = hostElement.querySelector('#search-input input');
+    });
+    it(`should call search filter with searchText and
+      the clothingName string as property.`, () => {
+      params = [[
+        closetList, 'shirt', 'clothingName'
+      ]];
+      searchFilterPipe = spyOn(SearchFilterPipeMock.prototype, 'transform');
+      searchInput.value = "shirt";
+      searchInput.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(searchFilterPipe.calls.allArgs()).toEqual(params);
+    });
   });
 
 

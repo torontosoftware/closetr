@@ -50,7 +50,6 @@ class MockDashboardComponent { }
 @Pipe({name: 'filter'})
 class SearchFilterPipeMock implements PipeTransform{
   transform(items: any, searchText: String, property: string) {
-    console.log("from search filter",items, searchText, property);
     if (searchText == 'shirt') {
       return [items[0]];
     }
