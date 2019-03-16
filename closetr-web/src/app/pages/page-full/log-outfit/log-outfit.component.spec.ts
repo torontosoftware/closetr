@@ -165,6 +165,12 @@ describe('LogOutfitComponent', () => {
       the global params`, () => {
       expect(component.getAllOutfitClothes).toHaveBeenCalledWith(params);
     });
+    it(`should render each item in outfitClothingList
+      into closet card components`, () => {
+      let outfitCardList = hostElement.querySelectorAll('.closet-card-item');
+      expect(outfitCardList.length).toEqual(outfitClothingList.length);
+      console.log("length of outfit clothing list", outfitClothingList.length);
+    });
     it(`should have editMode as false.`, () => {
       expect(component.editMode).toBeFalsy();
     });

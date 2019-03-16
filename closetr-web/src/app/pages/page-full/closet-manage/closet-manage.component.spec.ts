@@ -232,10 +232,8 @@ describe('ClosetManageComponent', () => {
     });
     it(`should render each item in the closetList
       into closet card components`, () => {
-        console.log("ya the other one",fixture, hostElement, component);
       let closetCardList = hostElement.querySelectorAll('.closet-card-item');
       expect(closetCardList.length).toEqual(closetList.length);
-      console.log("closet card list", closetCardList);
     });
     it(`should have editMode as false.`, () => {
       expect(component.editMode).toBeFalsy();

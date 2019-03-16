@@ -65,7 +65,12 @@
           <div class="row mtb-10">
             <div class="col-6 col-sm-4 col-lg-3" *ngFor="let clothing of outfitClothingList | keyvalue">
               <div class="closet-card mtb-10">
-                <app-closet-card [clothing]="clothing.value.clothing" [editMode]="editMode" (removeCardEmit)="removeCard(clothing.value)"></app-closet-card>
+                <app-closet-card
+                  class="closet-card-item"
+                  [clothing]="clothing.value.clothing"
+                  [editMode]="editMode"
+                  (removeCardEmit)="removeCard(clothing.value)"
+                ></app-closet-card>
               </div>
             </div>
           </div>
