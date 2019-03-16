@@ -125,6 +125,7 @@ describe('LogOutfitComponent', () => {
     spyOn(component, 'getAllOutfitClothes').and.callThrough();
     spyOn(component, 'save').and.callThrough();
     spyOn(component, 'toggleEditMode').and.callThrough();
+    spyOn(component, 'addSearchResult').and.callThrough();
     spyOn(closetService, 'getAllClothes').and.callThrough();
     spyOn(logOutfitService, 'getAllOutfitClothes').and.callThrough();
     fixture.detectChanges();
@@ -252,7 +253,7 @@ describe('LogOutfitComponent', () => {
     });
   });
 
-  describe(`when the user types input in the search bar`, () => {
+  describe(`when the user types input in the search bar,`, () => {
     let searchInput: HTMLInputElement;
     let params: any;
     beforeEach(() => {
@@ -285,6 +286,17 @@ describe('LogOutfitComponent', () => {
       fixture.detectChanges();
       let outfitSearchList = hostElement.querySelectorAll('.closet-search-box');
       expect(outfitSearchList.length).toEqual(3);
+    });
+    describe(`and user clicks a search result`, () => {
+      let searchResultButton;
+      beforeEach(() => {
+        searchResultButton = hostElement.querySelector('.closet-search-box');
+        searchResultButton.click();
+        fixture.detectChanges();
+      });
+      it(`should call the addSearchResult function with clothing`, () => {
+        expect(component.addSearchResult).toHaveBeenCalledWith(closetList[0]);
+      });
     });
   });
 
