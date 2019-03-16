@@ -6,15 +6,18 @@
           <div class="row">
               <div class="col-4">
                 <ui-back-button
+                  id="back-button"
                   [url]="'/dashboard'"
                 ></ui-back-button>
                 <h3>closet</h3>
               </div>
               <div class="col-8">
                 <ui-edit-button
+                  id="edit-button"
                   (click)="toggleEditMode()"
                 ></ui-edit-button>
                 <ui-text-button
+                  id="save-button"
                   [labelText]="'save'"
                   [type]="'top-right'"
                   [hidden]="!editMode"
@@ -25,6 +28,7 @@
           <div class="row mtb-4">
               <div class="col-12">
                 <ui-input-add-button
+                  id="search-input"
                   [addon]="'search'"
                   [(inputModel)]="searchText"
                   [placeholder]="'Search your closet...'"
@@ -60,6 +64,7 @@
               *ngFor="let clothing of closetList | filter:searchText:'clothingName' |keyvalue">
               <div class="closet-card mtb-10">
                 <app-closet-card
+                  class="closet-card-item"
                   [clothing]="clothing.value"
                   [editMode]="editMode"
                   (removeCardEmit)="removeClothing($event)"
