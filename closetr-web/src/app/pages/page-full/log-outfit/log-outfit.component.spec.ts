@@ -270,6 +270,22 @@ describe('LogOutfitComponent', () => {
       fixture.detectChanges();
       expect(searchFilterPipe.calls.allArgs()).toEqual(params);
     });
+    it(`should render results into closet-search-box components
+      (shirt input)`, () => {
+      searchInput.value = "shirt";
+      searchInput.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      let outfitSearchList = hostElement.querySelectorAll('.closet-search-box');
+      expect(outfitSearchList.length).toEqual(1);
+    });
+    it(`should render results into closet-search-box components
+      (blank input)`, () => {
+      searchInput.value = "";
+      searchInput.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      let outfitSearchList = hostElement.querySelectorAll('.closet-search-box');
+      expect(outfitSearchList.length).toEqual(3);
+    });
   });
 
 

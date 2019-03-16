@@ -142,7 +142,6 @@ export class LogOutfitComponent implements OnInit {
     this.logOutfitService.getAllOutfitClothes(params).subscribe(
       (data: any) => {
         this.outfitClothingList = data.data;
-        console.log("data from get all outfitclothes", data);
         for (let clothing of this.outfitClothingList) {
           clothing = new Clothing(clothing);
         };
