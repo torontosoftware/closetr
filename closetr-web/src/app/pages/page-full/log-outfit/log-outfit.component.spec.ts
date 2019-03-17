@@ -96,7 +96,7 @@ describe('LogOutfitComponent', () => {
   let logOutfitService: LogOutfitServiceMock;
   let dateFormatService: DateFormatService;
   let routesService: RoutesServiceMock;
-  let searchFilterPipe: SearchFilterPipeMock;
+  let searchFilterPipe;
   let hostElement;
 
   const routes = [

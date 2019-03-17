@@ -51,7 +51,7 @@ describe('EditClothingComponent', () => {
   let closetService: ClosetServiceMock;
   let router;
   let hostElement;
-  let saveButton: HTMLElement;
+  let saveButton;
   let nameInput: HTMLInputElement;
   let costInput: HTMLInputElement;
   let categoryInput: HTMLInputElement;
@@ -113,16 +113,17 @@ describe('EditClothingComponent', () => {
   describe(`the save button`, () => {
     beforeEach(() => {
       saveButton = hostElement.querySelector('#save-button button');
+      component.clothing = new Clothing();
     });
     describe(`should be disabled when`, () => {
-      describe(`clothing name field is filled,` () => {
+      describe(`clothing name field is filled,`, () => {
         beforeEach(() => {
           nameInput.value = "name";
           nameInput.dispatchEvent(new Event('input'));
           fixture.detectChanges();
         });
         it(`and all else is empty`, () => {});
-        describe(`and clothing worn field is filled,` () => {
+        describe(`and clothing worn field is filled,`, () => {
           beforeEach(() => {
             wornInput.value = "0";
             wornInput.dispatchEvent(new Event('input'));
@@ -139,6 +140,11 @@ describe('EditClothingComponent', () => {
           expect(saveButton.disabled).toBeTruthy();
         })
       });
+    });
+    it(`should be enabled when all fields are filled.`, () => {
+      component.clothing = clothingForEdit;
+      fixture.detectChanges();
+      expect(saveButton.disabled).toBeFalsy();
     });
   });
   describe(`from the init method,`, () => {
