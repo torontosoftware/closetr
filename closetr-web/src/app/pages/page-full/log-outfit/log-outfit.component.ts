@@ -56,7 +56,6 @@ export class LogOutfitComponent implements OnInit {
 
   save(): void {
     this.toggleEditMode();
-    this.logOutfitService.setAllOutfitClothes(this.outfitClothingList);
   }
 
   navTo(): void {

@@ -9,6 +9,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { ClosetService } from '../../../services/closet.service';
 import { LogOutfitService } from  '../../../services/log-outfit.service';
 import { DateFormatService } from '../../../services/utils/date-format.service';
+import { RoutesService } from '../../../services/routes.service';
 import { User } from '../../../models/user.model';
 import { Clothing } from '../../../models/clothing.model';
 import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
@@ -42,6 +43,7 @@ class AuthenticationServiceMock {
 })
 class ClosetServiceMock {
   getAllClothes = (user) => of({data: closetList});
+
 }
 
 @Injectable({
@@ -49,6 +51,14 @@ class ClosetServiceMock {
 })
 class LogOutfitServiceMock {
   getAllOutfitClothes = (params) => of({data: outfitClothingList});
+  addOutfitClothing = (params) => of({data: true});
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+class RoutesServiceMock {
+  setPrevUrl = (params) => { return };
 }
 
 @Component({
@@ -56,6 +66,12 @@ class LogOutfitServiceMock {
   template: '<p>Mock Dashboard Component</p>'
 })
 class MockDashboardComponent { }
+
+@Component({
+  selector: 'app-add-clothing',
+  template: '<p>Mock Add Clothing Component</p>'
+})
+class MockAddClothingComponent { }
 
 @Pipe({name: 'filter'})
 class SearchFilterPipeMock implements PipeTransform{
@@ -75,11 +91,13 @@ describe('LogOutfitComponent', () => {
   let closetService: ClosetServiceMock;
   let logOutfitService: LogOutfitServiceMock;
   let dateFormatService: DateFormatService;
+  let routesService: RoutesServiceMock;
   let searchFilterPipe: SearchFilterPipeMock;
   let hostElement;
 
   const routes = [
-    { path: 'dashboard', component: MockDashboardComponent }
+    { path: 'dashboard', component: MockDashboardComponent },
+    { path: 'add-clothing', component: MockAddClothingComponent }
   ];
 
   beforeEach(async(() => {
@@ -98,10 +116,12 @@ describe('LogOutfitComponent', () => {
         ClosetCardComponent,
         LogOutfitComponent,
         MockDashboardComponent,
+        MockAddClothingComponent,
         SearchFilterPipeMock
       ],
       providers: [
         DateFormatService,
+        {provide: RoutesService, useClass: RoutesServiceMock},
         {provide: ClosetService, useClass: ClosetServiceMock},
         {provide: LogOutfitService, useClass: LogOutfitServiceMock},
         {provide: AuthenticationService, useClass: AuthenticationServiceMock},
@@ -119,6 +139,7 @@ describe('LogOutfitComponent', () => {
     authenticationService = TestBed.get(AuthenticationService);
     closetService = TestBed.get(ClosetService);
     logOutfitService = TestBed.get(LogOutfitService);
+    routesService = TestBed.get(RoutesService);
     dateFormatService = TestBed.get(DateFormatService);
     spyOn(router, 'navigate').and.callThrough();
     spyOn(component, 'getAllClothes').and.callThrough();
@@ -127,8 +148,12 @@ describe('LogOutfitComponent', () => {
     spyOn(component, 'toggleEditMode').and.callThrough();
     spyOn(component, 'addSearchResult').and.callThrough();
     spyOn(component, 'addOutfitClothing').and.callThrough();
+    spyOn(component, 'navTo').and.callThrough();
+    spyOn(routesService, 'setPrevUrl');
     spyOn(closetService, 'getAllClothes').and.callThrough();
     spyOn(logOutfitService, 'getAllOutfitClothes').and.callThrough();
+    spyOn(logOutfitService, 'addOutfitClothing').and.callThrough();
+    console.log(component);
     fixture.detectChanges();
   });
 
@@ -318,5 +343,21 @@ describe('LogOutfitComponent', () => {
     });
   });
 
+  describe(`when the user clicks the 'add manually' button,`, () => {
+    let addManuallyButton;
+    beforeEach(() => {
+      addManuallyButton = hostElement.querySelector('#add-manually-button button');
+      addManuallyButton.click();
+      fixture.detectChanges();
+    });
+    it(`should call navTo() function`, () => {
+      expect(component.navTo).toHaveBeenCalled();
+    });
+    it(`should set prevUrl to log-outfit, and navigate
+      to the add-clothing page.`, () => {
+      expect(routesService.setPrevUrl).toHaveBeenCalledWith('/log-outfit');
+      expect(router.navigate).toHaveBeenCalledWith(['/add-clothing']);
+    });
+  });
 
 });
