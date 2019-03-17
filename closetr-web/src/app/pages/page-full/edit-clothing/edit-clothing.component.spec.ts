@@ -35,6 +35,7 @@ class MockClosetManageComponent {}
 })
 class ClosetServiceMock {
   getClothingForEdit = () => clothingForEdit;
+  editClothing = () => of(true);
 }
 
 @Injectable({
@@ -95,9 +96,11 @@ describe('EditClothingComponent', () => {
     closetService = TestBed.get(ClosetService);
     spyOn(router, 'navigate');
     spyOn(closetService, 'getClothingForEdit').and.callThrough();
+    spyOn(closetService, 'editClothing').and.callThrough();
+    spyOn(component, 'save').and.callThrough();
+    spyOn(component, 'back').and.callThrough();
     hostElement = fixture.nativeElement;
     fixture.detectChanges();
-
     saveButton = hostElement.querySelector('#save-button button');
     nameInput = hostElement.querySelector('#name-input input');
     costInput = hostElement.querySelector('#cost-input input')
@@ -139,6 +142,23 @@ describe('EditClothingComponent', () => {
         afterEach(() => {
           expect(saveButton.disabled).toBeTruthy();
         })
+      });
+    });
+    describe(`when clicked,`, () => {
+      beforeEach(() => {
+        component.clothing = clothingForEdit;
+        saveButton.click();
+        fixture.detectChanges();
+      })
+      it(`should call the save function`, () => {
+        expect(component.save).toHaveBeenCalled();
+      })
+      it(`should call closetService's editClothing method with
+        the clothing for edit.`, () => {
+        expect(closetService.editClothing).toHaveBeenCalledWith(clothingForEdit);
+      });
+      it(`should call the back function.`, () => {
+        expect(component.back).toHaveBeenCalled();
       });
     });
     it(`should be enabled when all fields are filled.`, () => {
