@@ -113,6 +113,15 @@ describe('EditClothingComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it(`should navigate to closet manage component when
+    back button is clicked`, () => {
+    component.ngOnInit();
+    let backButton = hostElement.querySelector('#back-button button');
+    backButton.click();
+    fixture.detectChanges();
+    expect(router.navigate).toHaveBeenCalledWith(['/closet-manage']);
+  });
+
   describe(`the save button`, () => {
     beforeEach(() => {
       saveButton = hostElement.querySelector('#save-button button');
