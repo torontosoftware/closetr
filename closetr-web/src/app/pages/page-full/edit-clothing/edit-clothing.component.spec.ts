@@ -97,23 +97,55 @@ describe('EditClothingComponent', () => {
     spyOn(closetService, 'getClothingForEdit').and.callThrough();
     hostElement = fixture.nativeElement;
     fixture.detectChanges();
+
+    saveButton = hostElement.querySelector('#save-button button');
+    nameInput = hostElement.querySelector('#name-input input');
+    costInput = hostElement.querySelector('#cost-input input')
+    categoryInput = hostElement.querySelector('#category-input select');
+    wornInput = hostElement.querySelector('#worn-input input');
+    purchaseDateInput = hostElement.querySelector('#purchase-date-input input');
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
+  describe(`the save button`, () => {
+    beforeEach(() => {
+      saveButton = hostElement.querySelector('#save-button button');
+    });
+    describe(`should be disabled when`, () => {
+      describe(`clothing name field is filled,` () => {
+        beforeEach(() => {
+          nameInput.value = "name";
+          nameInput.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+        });
+        it(`and all else is empty`, () => {});
+        describe(`and clothing worn field is filled,` () => {
+          beforeEach(() => {
+            wornInput.value = "0";
+            wornInput.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+          });
+          it(`and all else is empty`, () => {});
+          it(`and clothing cost field is filled, and all else is empty.`, () => {
+            costInput.value = "0";
+            costInput.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+          });
+        });
+        afterEach(() => {
+          expect(saveButton.disabled).toBeTruthy();
+        })
+      });
+    });
+  });
   describe(`from the init method,`, () => {
     describe(`if there is a clothing for edit,`, () => {
       beforeEach(() => {
         component.ngOnInit();
         fixture.detectChanges();
-        saveButton = hostElement.querySelector('#save-button button');
-        nameInput = hostElement.querySelector('#name-input input');
-        costInput = hostElement.querySelector('#cost-input input')
-        categoryInput = hostElement.querySelector('#category-input select');
-        wornInput = hostElement.querySelector('#worn-input input');
-        purchaseDateInput = hostElement.querySelector('#purchase-date-input input');
       });
       it(`should set the clothing variable with the returned data
         (if it exists).`, () => {
