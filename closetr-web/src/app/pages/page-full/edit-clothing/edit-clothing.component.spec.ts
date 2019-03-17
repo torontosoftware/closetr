@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { Component, OnInit, Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ClosetService } from '../../../services/closet.service';
 import { AuthenticationService } from '../../../services/authentication.service';
@@ -21,6 +22,7 @@ const clothingForEdit = new Clothing({
   clothingCategory: "Top",
   clothingPurchaseDate: "2019-02-03"
 });
+const currentUser = new User({userName: 'fides'});
 
 @Component({
   selector: 'app-closet-manage',
@@ -39,7 +41,7 @@ class ClosetServiceMock {
   providedIn: 'root'
 })
 class AuthenticationServiceMock {
-  currentUser = of(new User({userID: 'fideslinga'}));
+  currentUser = of(currentUser);
 }
 
 describe('EditClothingComponent', () => {
@@ -47,6 +49,14 @@ describe('EditClothingComponent', () => {
   let fixture: ComponentFixture<EditClothingComponent>;
   let authenticationService: AuthenticationServiceMock;
   let closetService: ClosetServiceMock;
+  let router;
+  let hostElement;
+  let saveButton: HTMLElement;
+  let nameInput: HTMLInputElement;
+  let costInput: HTMLInputElement;
+  let categoryInput: HTMLInputElement;
+  let wornInput: HTMLInputElement;
+  let purchaseDateInput: HTMLInputElement;
 
   const routes = [
     { path: 'closet-manage', component: MockClosetManageComponent }
@@ -80,8 +90,12 @@ describe('EditClothingComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EditClothingComponent);
     component = fixture.debugElement.componentInstance;
+    router = TestBed.get(Router);
     authenticationService = TestBed.get(AuthenticationService);
     closetService = TestBed.get(ClosetService);
+    spyOn(router, 'navigate');
+    spyOn(closetService, 'getClothingForEdit').and.callThrough();
+    hostElement = fixture.nativeElement;
     fixture.detectChanges();
   });
 
@@ -89,31 +103,58 @@ describe('EditClothingComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe(`from the init method`, () => {
-    it(`should call closetService's getClothingForEdit method.`, () => {
-
+  describe(`from the init method,`, () => {
+    describe(`if there is a clothing for edit,`, () => {
+      beforeEach(() => {
+        component.ngOnInit();
+        fixture.detectChanges();
+        saveButton = hostElement.querySelector('#save-button button');
+        nameInput = hostElement.querySelector('#name-input input');
+        costInput = hostElement.querySelector('#cost-input input')
+        categoryInput = hostElement.querySelector('#category-input select');
+        wornInput = hostElement.querySelector('#worn-input input');
+        purchaseDateInput = hostElement.querySelector('#purchase-date-input input');
+      });
+      it(`should set the clothing variable with the returned data
+        (if it exists).`, () => {
+        expect(closetService.getClothingForEdit).toHaveBeenCalled();
+        expect(component.clothing).toEqual(clothingForEdit);
+      });
+      it(`should retrieve the current user from the authentication
+        service.`, () => {
+        expect(component.currentUser).toEqual(currentUser);
+      });
+      it(`should retrieve clothing categories from clothing model,
+        and render the options in the category selector.`, () => {
+        expect(component.clothingCategories).toEqual(Clothing.clothingCategories);
+      });
+      it(`should render the clothing object on all fields properly.`, () => {
+        fixture.whenStable().then(() => {
+          expect(costInput.value).toEqual(clothingForEdit.clothingCost.toString());
+          expect(nameInput.value).toEqual(clothingForEdit.clothingName);
+          expect(categoryInput.value).toEqual(clothingForEdit.clothingCategory);
+          expect(wornInput.value).toEqual(clothingForEdit.clothingWorn.toString());
+          expect(purchaseDateInput.value).toEqual(clothingForEdit.clothingPurchaseDate);
+        });
+      });
+      it(`should have the save button enabled.`, () => {
+        expect(saveButton.disabled).toBeFalsy();
+      });
     });
-    it(`should navigate to closet manage page is there is no
-      clothing for edit.`, () => {
-
+    describe(`if there is no clothing for edit,`, () => {
+      beforeEach(() => {
+        closetService.getClothingForEdit = () => { return null };
+        spyOn(closetService, 'getClothingForEdit').and.callThrough();
+        component.ngOnInit();
+        fixture.detectChanges();
+      });
+      it(`should call closetService's getClothingForEdit method.`, () => {
+        expect(closetService.getClothingForEdit).toHaveBeenCalled();
+      });
+      it(`should navigate to closet manage page.`, () => {
+        expect(router.navigate).toHaveBeenCalledWith(['/closet-manage']);
+      });
     });
-    it(`should set the clothing variable with the returned data
-      (if it exists).`, () => {
 
-    });
-    it(`should retrieve the current user from the authentication
-      service.`, () => {
-
-    });
-    it(`should retrieve clothing categories from clothing model,
-      and render the options in the category selector.`, () => {
-
-    });
-    it(`should render the clothing object on all fields properly.`, () => {
-
-    });
-    it(`should have the save button enabled.`, () => {
-
-    });
   });
 });
