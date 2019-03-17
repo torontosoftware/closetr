@@ -23,6 +23,7 @@ export class LogOutfitComponent implements OnInit {
   searchText: String;
   currentUserSubscription: Subscription;
   currentUser: User;
+  params: any;
 
   constructor(private router: Router,
               private logOutfitService: LogOutfitService,
@@ -40,15 +41,13 @@ export class LogOutfitComponent implements OnInit {
         this.getAllClothes();
       }
     )
-    let params;
     if (this.currentUser) {
-      let params = {
+      this.params = {
         userID: this.currentUser.id,
         date: this.dateFormatService.formatDateString(new Date())
       };
     }
-    console.log("calling get outfit clothes");
-    this.getAllOutfitClothes(params);
+    this.getAllOutfitClothes(this.params);
   }
 
   toggleEditMode(): void {
@@ -57,11 +56,9 @@ export class LogOutfitComponent implements OnInit {
 
   save(): void {
     this.toggleEditMode();
-    this.logOutfitService.setAllOutfitClothes(this.outfitClothingList);
   }
 
   navTo(): void {
-    console.log(this);
     this.routesService.setPrevUrl('/log-outfit');
     this.router.navigate(['/add-clothing']);
   }
@@ -97,7 +94,7 @@ export class LogOutfitComponent implements OnInit {
         date: this.dateFormatService.formatDateString(new Date())
       };
       this.addOutfitClothing(params);
-      this.getAllOutfitClothes(params);
+      this.getAllOutfitClothes(this.params);
     }
   }
 
@@ -120,11 +117,7 @@ export class LogOutfitComponent implements OnInit {
   deleteOutfitClothing(outfitEntryID: any): void {
     this.logOutfitService.deleteOutfitClothing(outfitEntryID).subscribe(
       (data: any) => {
-        const params = {
-          userID: this.currentUser.id,
-          date: this.dateFormatService.formatDateString(new Date())
-        };
-        this.getAllOutfitClothes(params);
+        this.getAllOutfitClothes(this.params);
       },
       (err) => {
         console.log(err);
@@ -135,11 +128,7 @@ export class LogOutfitComponent implements OnInit {
   addOutfitClothing(params: any): void {
     this.logOutfitService.addOutfitClothing(params).subscribe(
       (data: any) => {
-        const params = {
-          userID: this.currentUser.id,
-          date: this.dateFormatService.formatDateString(new Date())
-        };
-        this.getAllOutfitClothes(params);
+        this.getAllOutfitClothes(this.params);
       },
       (err) => {
         console.log(err);

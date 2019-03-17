@@ -57,7 +57,6 @@ describe('EditClothingComponent', () => {
     fixture = TestBed.createComponent(EditClothingComponent);
     component = fixture.componentInstance;
     component.clothing = TestBed.get(Clothing);
-    console.log(component);
     fixture.detectChanges();
   });
 

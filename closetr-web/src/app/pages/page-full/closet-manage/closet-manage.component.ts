@@ -66,7 +66,6 @@ export class ClosetManageComponent implements OnInit {
 
   save(): void {
     this.toggleEditMode();
-    this.closetService.setAllClothes(this.closetList);
   }
 
   /*
