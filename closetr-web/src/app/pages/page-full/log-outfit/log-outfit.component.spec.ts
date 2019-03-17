@@ -27,7 +27,10 @@ const closetList = [
   new Clothing({clothingID: '3', clothingName: 'shoes'})
 ];
 const outfitClothingList = closetList.map((clothing) => {
-  return {clothing: clothing}
+  return {
+    outfitEntryID: clothing.clothingID,
+    clothing: clothing
+  }
 });
 const currentUser = new User({userName: 'fides', id: '1'});
 
@@ -52,6 +55,7 @@ class ClosetServiceMock {
 class LogOutfitServiceMock {
   getAllOutfitClothes = (params) => of({data: outfitClothingList});
   addOutfitClothing = (params) => of({data: true});
+  deleteOutfitClothing = (params) => of({data: true});
 }
 
 @Injectable({
@@ -148,11 +152,13 @@ describe('LogOutfitComponent', () => {
     spyOn(component, 'toggleEditMode').and.callThrough();
     spyOn(component, 'addSearchResult').and.callThrough();
     spyOn(component, 'addOutfitClothing').and.callThrough();
+    spyOn(component, 'deleteOutfitClothing').and.callThrough();
     spyOn(component, 'navTo').and.callThrough();
     spyOn(routesService, 'setPrevUrl');
     spyOn(closetService, 'getAllClothes').and.callThrough();
     spyOn(logOutfitService, 'getAllOutfitClothes').and.callThrough();
     spyOn(logOutfitService, 'addOutfitClothing').and.callThrough();
+    spyOn(logOutfitService, 'deleteOutfitClothing').and.callThrough();
     console.log(component);
     fixture.detectChanges();
   });
@@ -236,8 +242,25 @@ describe('LogOutfitComponent', () => {
       expect(logOutfitService.getAllOutfitClothes).toHaveBeenCalledWith(params);
     });
     it(`should set outfitClothingList as the result from
-      logOutfitService`, () => {
+      logOutfitService.`, () => {
       expect(component.outfitClothingList).toEqual(outfitClothingList);
+    });
+  });
+
+  describe(`the remove card method`, () => {
+    beforeEach(() => {
+      component.removeCard(outfitClothingList[0]);
+      fixture.detectChanges();
+    });
+    it(`should call deleteOutfitClothing with the correct
+      outfitEntry.`, () => {
+      expect(component.deleteOutfitClothing).toHaveBeenCalledWith(outfitClothingList[0].outfitEntryID);
+    });
+    it(`should call logOutfitService's deleteOutfitClothing
+      method, and call getAllOutfitClothes after data is
+      recieved.`, () => {
+      expect(logOutfitService.deleteOutfitClothing).toHaveBeenCalledWith(outfitClothingList[0].outfitEntryID);
+      expect(component.getAllOutfitClothes).toHaveBeenCalledTimes(2);
     });
   });
 
