@@ -20,8 +20,6 @@ export class UiTextButtonComponent implements OnInit {
 
 
   buttonClick(): void {
-    //this.click.emit();
-    console.log("emitted click");
     if (this.buttonLink && this.type == 'full-width') {
       this.router.navigate([this.buttonLink]);
     }

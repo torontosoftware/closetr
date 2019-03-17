@@ -159,13 +159,11 @@ describe('LogOutfitComponent', () => {
     spyOn(logOutfitService, 'getAllOutfitClothes').and.callThrough();
     spyOn(logOutfitService, 'addOutfitClothing').and.callThrough();
     spyOn(logOutfitService, 'deleteOutfitClothing').and.callThrough();
-    console.log(component);
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    console.log(component);
   });
 
   it(`should navigate to dashboard component when
@@ -206,7 +204,6 @@ describe('LogOutfitComponent', () => {
       into closet card components`, () => {
       let outfitCardList = hostElement.querySelectorAll('.closet-card-item');
       expect(outfitCardList.length).toEqual(outfitClothingList.length);
-      console.log("length of outfit clothing list", outfitClothingList.length);
     });
     it(`should have editMode as false.`, () => {
       expect(component.editMode).toBeFalsy();

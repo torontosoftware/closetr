@@ -171,7 +171,6 @@ describe('ClosetManageComponent', () => {
       searchInput.dispatchEvent(new Event('input'));
       fixture.detectChanges();
       let closetCardList = hostElement.querySelectorAll('.closet-card-item');
-      console.log("should render clsoet card components",fixture, hostElement, component);
       expect(closetCardList.length).toEqual(1);
     });
   });
