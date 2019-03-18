@@ -6,6 +6,7 @@
           <div class="row">
               <div class="col-12">
                 <ui-back-button
+                  id="back-button"
                   [url]="'/dashboard'"
                 ></ui-back-button>
                 <h3>spending</h3>
@@ -22,8 +23,9 @@
           <div class="row">
             <div class="col-12">
               <ui-text-button
+                id="add-new-button"
                 [labelText]="'add new'"
-                [buttonLink]="'/'"
+                [buttonLink]="'/dashboard'"
               ></ui-text-button>
             </div>
           </div>
@@ -104,6 +106,7 @@
           <div class="row">
             <div class="col-12">
               <ui-text-button
+                id="manage-budget-button"
                 [labelText]="'manage budget'"
                 [buttonLink]="'/budget-manage'"
               ></ui-text-button>

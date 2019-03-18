@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, Component, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
@@ -11,6 +12,18 @@ import { UiTableComponent } from '../../../shared/ui-table/ui-table.component';
 import { SpendingManageComponent } from './spending-manage.component';
 import { DateRangeFilterPipe } from '../../../pipes/date-range-filter.pipe';
 
+@Component({
+  selector: 'app-dashboard',
+  template: '<p>Mock Dashboard Component</p>'
+})
+class MockDashboardComponent { }
+
+@Component({
+  selector: 'app-budget-manage',
+  template: '<p>Mock Budget Manage Component</p>'
+})
+class MockBudgetManageComponent { }
+
 @Pipe({name: 'dateRangeFilter'})
 class DateRangeFilterPipeMock implements PipeTransform{
  transform(items: any, dateFrom: Date, dateTo: Date, property: string) {
@@ -21,16 +34,26 @@ class DateRangeFilterPipeMock implements PipeTransform{
 describe('SpendingManageComponent', () => {
   let component: SpendingManageComponent;
   let fixture: ComponentFixture<SpendingManageComponent>;
+  let hostElement;
+  let router: Router;
+  let addManuallyButton;
+  let backButton;
 
+  const routes = [
+    { path: 'dashboard', component: MockDashboardComponent },
+    { path: 'budget-manage', component: MockBudgetManageComponent }
+  ];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterTestingModule.withRoutes(routes),
         HttpClientTestingModule,
         FormsModule
       ],
       declarations: [
+        MockDashboardComponent,
+        MockBudgetManageComponent,
         UiBackButtonComponent,
         UiInputAddButtonComponent,
         UiTextButtonComponent,
@@ -40,6 +63,7 @@ describe('SpendingManageComponent', () => {
         DateRangeFilterPipeMock
       ],
       providers: [
+        SpendingManageComponent,
         {provide: DateRangeFilterPipe, useClass: DateRangeFilterPipeMock}
       ]
     })
@@ -48,7 +72,10 @@ describe('SpendingManageComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SpendingManageComponent);
-    component = fixture.componentInstance;
+    component = fixture.debugElement.componentInstance;
+    router = TestBed.get(Router);
+    hostElement = fixture.nativeElement;
+    spyOn(router, 'navigate').and.callThrough();
     fixture.detectChanges();
   });
 
@@ -58,17 +85,29 @@ describe('SpendingManageComponent', () => {
 
   it(`should navigate to dashboard component when
     back button is clicked`, () => {
-
+    component.ngOnInit();
+    let backButton = hostElement.querySelector('#back-button button');
+    backButton.click();
+    fixture.detectChanges();
+    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
   });
 
   it(`should navigate to budget manage page when
     'manage budget' button is clicked`, () => {
-
+    component.ngOnInit();
+    let manageBudgetButton = hostElement.querySelector('#manage-budget-button button');
+    manageBudgetButton.click();
+    fixture.detectChanges();
+    expect(router.navigate).toHaveBeenCalledWith(['/budget-manage']);
   });
 
   it(`should navigate to dashboard when 'add new'
     button is clicked.`, () => {
-
+    component.ngOnInit();
+    let addNewButton = hostElement.querySelector('#add-new-button button');
+    addNewButton.click();
+    fixture.detectChanges();
+    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
   });
 
   describe(`when the toggle button,`, () => {
@@ -187,6 +226,6 @@ describe('SpendingManageComponent', () => {
     it(`should set filterCriteria from
       searchCriteria`, () => {
 
-    });  
+    });
   });
 });
