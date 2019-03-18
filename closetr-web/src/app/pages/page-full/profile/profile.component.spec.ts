@@ -51,6 +51,8 @@ class UserServiceMock {
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
   let fixture: ComponentFixture<ProfileComponent>;
+  let userService: UserServiceMock;
+  let authenticationService: AuthenticationServiceMock;
   let hostElement;
   let saveButton;
   let editButton;
@@ -91,13 +93,17 @@ describe('ProfileComponent', () => {
     fixture = TestBed.createComponent(ProfileComponent);
     component = fixture.componentInstance;
     hostElement = fixture.nativeElement;
+    userService = TestBed.get(UserService);
+    authenticationService = TestBed.get(AuthenticationService);
     spyOn(component, 'toggleEditMode').and.callThrough();
+    spyOn(userService, 'update').and.callThrough();
+    spyOn(localStorage, 'setItem').and.callThrough();
     fixture.detectChanges();
     saveButton = hostElement.querySelector('#save-button button');
     editButton = hostElement.querySelector('#edit-button button');
     usernameInput = hostElement.querySelector('#username-input input');
     nameInput = hostElement.querySelector('#name-input input');
-    descriptionInput = hostElement.querySelector('#description-input input');
+    descriptionInput = hostElement.querySelector('#description-input textarea');
     passwordInput = hostElement.querySelector('#password-input input');
   });
 
@@ -107,6 +113,7 @@ describe('ProfileComponent', () => {
 
   describe(`from the init method`, () => {
     beforeEach(() => {
+
       component.ngOnInit();
       fixture.detectChanges();
     })
@@ -144,7 +151,7 @@ describe('ProfileComponent', () => {
       editButton.click();
       fixture.detectChanges();
     });
-    it(`should call toggleEdiMode method, and change the
+    it(`should call toggleEditMode method, and change the
       editMode variable (multiple toggles).`, () => {
       expect(component.toggleEditMode).toHaveBeenCalledTimes(1);
       expect(component.editMode).toBeTruthy();
@@ -175,24 +182,37 @@ describe('ProfileComponent', () => {
       fields disabled.`, () => {
       fixture.whenStable().then(() => {
         expect(usernameInput.disabled).toBeTruthy();
-        expect(descriptionInput.disabled).toBeTruthy();
+        expect(passwordInput.disabled).toBeTruthy();
       });
     });
   });
 
   describe(`when the save button is clicked`, () => {
+    beforeEach(() => {
+      component.ngOnInit();
+      editButton.click();
+      saveButton.click();
+      fixture.detectChanges();
+    });
     it(`should call the userService's update method
       with the current user variable.`, () => {
-
+      const currentUser = new User({
+        userID: 'fideslinga',
+        userName: 'Fides Linga',
+        userDesc: 'description',
+        userPassword: 'password'
+      });
+      expect(userService.update).toHaveBeenCalledWith(currentUser);
     });
     it(`should set the currentUser variable, and
       the local storage user equal to the data
       returned (when user is edited).`, () => {
-
+      expect(component.currentUser).toEqual(updatedUser);
+      expect(localStorage.setItem).toHaveBeenCalled();
     });
     it(`should call toggleEditMode after data
       is recieved`, () => {
-
+      expect(component.toggleEditMode).toHaveBeenCalledTimes(2);
     });
   });
 
