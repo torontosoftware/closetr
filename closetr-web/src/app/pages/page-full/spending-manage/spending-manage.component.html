@@ -30,7 +30,10 @@
             </div>
           </div>
           <div class="row mtb-4">
-            <div class="col-6 col-md-4 pad-right-0" [hidden]="isDateRange">
+            <div
+              id="date-range-for-select"
+              class="col-6 col-md-4 pad-right-0"
+              [hidden]="isDateRange">
               <ui-filter-select
                 [items]="availableDateRange"
                 [(inputModel)]="searchCriteria.dateRangeFor"
@@ -38,13 +41,19 @@
                 [labelText]="'from:'"
               ></ui-filter-select>
             </div>
-            <div class="col-6 col-md-4" [hidden]="!isDateRange">
+            <div
+              id="date-range-from-select"
+              class="col-6 col-md-4"
+              [hidden]="!isDateRange">
               <span class="date-picker-label">from:</span>
               <input class="mtb-4 date-picker-from" type="date"
               [(ngModel)]="searchCriteria.dateFromFormatted"
               (change)="searchCriteriaChangeHandler()">
             </div>
-            <div class="col-6 col-md-4" [hidden]="!isDateRange">
+            <div
+              id="date-range-to-select"
+              class="col-6 col-md-4"
+              [hidden]="!isDateRange">
               <span class="date-picker-label">to:</span>
               <input class="mtb-4 date-picker-to" type="date"
               [(ngModel)]="searchCriteria.dateToFormatted"

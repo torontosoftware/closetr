@@ -76,6 +76,7 @@ describe('SpendingManageComponent', () => {
     router = TestBed.get(Router);
     hostElement = fixture.nativeElement;
     spyOn(router, 'navigate').and.callThrough();
+    spyOn(component, 'searchCriteriaChangeHandler').and.callThrough();
     fixture.detectChanges();
   });
 
@@ -118,16 +119,53 @@ describe('SpendingManageComponent', () => {
   });
 
   describe(`the selectors`, () => {
+    let dateRangeForSelect;
+    let dateRangeFromSelect;
+    let dateRangeToSelect;
+    beforeEach(() => {
+      //component.ngOnInit();
+      fixture.detectChanges();
+      dateRangeForSelect = hostElement.querySelector('#date-range-for-select select');
+      dateRangeFromSelect = hostElement.querySelector('#date-range-from-select input');
+      dateRangeToSelect = hostElement.querySelector('#date-range-to-select input');
+    })
     describe(`for date range,`, () => {
+      let dateRangeFromContainer;
+      let dateRangeToContainer;
+      beforeEach(() => {
+        dateRangeFromContainer = hostElement.querySelector('#date-range-from-select');
+        dateRangeToContainer = hostElement.querySelector('#date-range-to-select');
+      });
       it(`should be visible when isDateRange is true.`, () => {
-
+        component.isDateRange = true;
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          expect(dateRangeFromContainer.hidden).toBeFalsy();
+          expect(dateRangeToContainer.hidden).toBeFalsy();
+        });
       });
       it(`should be hidden when isDateRange is false.`, () => {
-
+        component.isDateRange = false;
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          expect(dateRangeFromContainer.hidden).toBeTruthy();
+          expect(dateRangeToContainer.hidden).toBeTruthy();
+        });
       });
       describe(`when the values are changed,`, () => {
+        beforeEach(() => {
+          dateRangeFromSelect.value = "2019-01-01";
+          dateRangeFromSelect.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          dateRangeToSelect.value = "2019-02-01";
+          dateRangeToSelect.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+        });
         it(`should call searchCriteriaChangeHandler.`, () => {
-
+          fixture.whenStable().then(() => {
+            //console.log(hostElement, component);
+            //expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(2);
+          });
         });
         it(`should set the searchCriteria variable
           respectively.`, () => {
