@@ -14,13 +14,12 @@ import { Subscription } from 'rxjs';
 export class EditClothingComponent implements OnInit {
   clothing: Clothing = new Clothing();
   clothingCategories: Array<string>;
-  currentUserSubscription: Subscription;
   currentUser: User;
 
   constructor(private closetService: ClosetService,
               private router: Router,
               private authenticationService: AuthenticationService) {
-
+    this.currentUser;
   }
 
   ngOnInit() {
@@ -33,7 +32,7 @@ export class EditClothingComponent implements OnInit {
 
     this.clothingCategories = Clothing.getClothingCategories();
 
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
+    this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
       }
