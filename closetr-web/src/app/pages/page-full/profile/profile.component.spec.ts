@@ -105,18 +105,32 @@ describe('ProfileComponent', () => {
   });
 
   describe(`from the init method`, () => {
+    beforeEach(() => {
+      component.ngOnInit();
+      fixture.detectChanges();
+    })
     it(`should retrieve the current user from
       authentication service.`, () => {
-
+      expect(component.currentUser).toEqual(currentUser);
     });
     it(`should have editMode as false initially.`, () => {
-
+      expect(component.editMode).toBeFalsy();
     });
     it(`should populate the form fields properly.`, () => {
-
+      fixture.whenStable().then(() => {
+        expect(usernameInput.value).toEqual(currentUser.userID);
+        expect(nameInput.value).toEqual(currentUser.userName);
+        expect(descriptionInput.value).toEqual(currentUser.userDesc);
+        expect(passwordInput.value).toEqual(currentUser.userPassword);
+      });
     });
     it(`should have all fields disabled.`, () => {
-
+      fixture.whenStable().then(() => {
+        expect(usernameInput.disabled).toBeTruthy();
+        expect(nameInput.disabled).toBeTruthy();
+        expect(descriptionInput.disabled).toBeTruthy();
+        expect(passwordInput.disabled).toBeTruthy();
+      });
     });
   });
 
