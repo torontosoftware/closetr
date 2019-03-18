@@ -91,6 +91,7 @@ describe('ProfileComponent', () => {
     fixture = TestBed.createComponent(ProfileComponent);
     component = fixture.componentInstance;
     hostElement = fixture.nativeElement;
+    spyOn(component, 'toggleEditMode').and.callThrough();
     fixture.detectChanges();
     saveButton = hostElement.querySelector('#save-button button');
     editButton = hostElement.querySelector('#edit-button button');
@@ -138,21 +139,44 @@ describe('ProfileComponent', () => {
   });
 
   describe(`when edit button is clicked`, () => {
+    beforeEach(() => {
+      component.ngOnInit();
+      editButton.click();
+      fixture.detectChanges();
+    });
     it(`should call toggleEdiMode method, and change the
       editMode variable (multiple toggles).`, () => {
-
+      expect(component.toggleEditMode).toHaveBeenCalledTimes(1);
+      expect(component.editMode).toBeTruthy();
+      editButton.click();
+      fixture.detectChanges();
+      expect(component.toggleEditMode).toHaveBeenCalledTimes(2);
+      expect(component.editMode).toBeFalsy();
+      editButton.click();
+      fixture.detectChanges();
+      expect(component.toggleEditMode).toHaveBeenCalledTimes(3);
+      expect(component.editMode).toBeTruthy();
     });
     it(`should hide the save button when
       editMode is false.`, () => {
-
+      expect(saveButton.hidden).toBeFalsy();
+      editButton.click();
+      fixture.detectChanges();
+      expect(saveButton.hidden).toBeTruthy();
     });
     it(`should enable the name and description
       fields.`, () => {
-
+      fixture.whenStable().then(() => {
+        expect(nameInput.disabled).toBeFalsy();
+        expect(descriptionInput.disabled).toBeFalsy();
+      });
     });
     it(`should keep the username and password
       fields disabled.`, () => {
-
+      fixture.whenStable().then(() => {
+        expect(usernameInput.disabled).toBeTruthy();
+        expect(descriptionInput.disabled).toBeTruthy();
+      });
     });
   });
 
