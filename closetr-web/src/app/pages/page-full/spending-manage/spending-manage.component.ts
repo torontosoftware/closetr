@@ -35,7 +35,6 @@ export class SpendingManageComponent implements OnInit {
     };
 
     this.isDateRange = false;
-    this.searchCriteriaChangeHandler();
 
     this.availableDateRange = [
       'last week',
@@ -54,6 +53,7 @@ export class SpendingManageComponent implements OnInit {
         this.getAllClothes();
       }
     )
+    this.searchCriteriaChangeHandler();
   }
 
   searchCriteriaChangeHandler(): void {
