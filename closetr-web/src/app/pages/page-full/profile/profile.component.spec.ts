@@ -53,6 +53,7 @@ describe('ProfileComponent', () => {
   let fixture: ComponentFixture<ProfileComponent>;
   let userService: UserServiceMock;
   let authenticationService: AuthenticationServiceMock;
+  let router: Router;
   let hostElement;
   let saveButton;
   let editButton;
@@ -95,8 +96,10 @@ describe('ProfileComponent', () => {
     hostElement = fixture.nativeElement;
     userService = TestBed.get(UserService);
     authenticationService = TestBed.get(AuthenticationService);
+    router = TestBed.get(Router);
     spyOn(component, 'toggleEditMode').and.callThrough();
     spyOn(component, 'save').and.callThrough();
+    spyOn(router, 'navigate').and.callThrough();
     spyOn(userService, 'update').and.callThrough();
     spyOn(localStorage, 'setItem').and.callThrough();
     fixture.detectChanges();
@@ -112,9 +115,17 @@ describe('ProfileComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it(`should navigate to dashboard component when
+    back button is clicked`, () => {
+    component.ngOnInit();
+    let backButton = hostElement.querySelector('#back-button button');
+    backButton.click();
+    fixture.detectChanges();
+    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+  });
+
   describe(`from the init method`, () => {
     beforeEach(() => {
-
       component.ngOnInit();
       fixture.detectChanges();
     })
