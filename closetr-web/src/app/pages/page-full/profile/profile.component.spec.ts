@@ -132,6 +132,46 @@ describe('ProfileComponent', () => {
         expect(passwordInput.disabled).toBeTruthy();
       });
     });
+    it(`should hide the save button`, () => {
+      expect(saveButton.hidden).toBeTruthy();
+    });
   });
+
+  describe(`when edit button is clicked`, () => {
+    it(`should call toggleEdiMode method, and change the
+      editMode variable (multiple toggles).`, () => {
+
+    });
+    it(`should hide the save button when
+      editMode is false.`, () => {
+
+    });
+    it(`should enable the name and description
+      fields.`, () => {
+
+    });
+    it(`should keep the username and password
+      fields disabled.`, () => {
+
+    });
+  });
+
+  describe(`when the save button is clicked`, () => {
+    it(`should call the userService's update method
+      with the current user variable.`, () => {
+
+    });
+    it(`should set the currentUser variable, and
+      the local storage user equal to the data
+      returned (when user is edited).`, () => {
+
+    });
+    it(`should call toggleEditMode after data
+      is recieved`, () => {
+
+    });
+  });
+
+
 
 });
