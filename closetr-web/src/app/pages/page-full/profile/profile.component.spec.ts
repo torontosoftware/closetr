@@ -96,6 +96,7 @@ describe('ProfileComponent', () => {
     userService = TestBed.get(UserService);
     authenticationService = TestBed.get(AuthenticationService);
     spyOn(component, 'toggleEditMode').and.callThrough();
+    spyOn(component, 'save').and.callThrough();
     spyOn(userService, 'update').and.callThrough();
     spyOn(localStorage, 'setItem').and.callThrough();
     fixture.detectChanges();
@@ -194,14 +195,11 @@ describe('ProfileComponent', () => {
       saveButton.click();
       fixture.detectChanges();
     });
+    it(`should call the save method`, () => {
+      expect(component.save).toHaveBeenCalled();
+    });
     it(`should call the userService's update method
       with the current user variable.`, () => {
-      const currentUser = new User({
-        userID: 'fideslinga',
-        userName: 'Fides Linga',
-        userDesc: 'description',
-        userPassword: 'password'
-      });
       expect(userService.update).toHaveBeenCalledWith(currentUser);
     });
     it(`should set the currentUser variable, and
