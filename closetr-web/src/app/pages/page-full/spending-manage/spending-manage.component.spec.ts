@@ -1,10 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 import { Pipe, PipeTransform, Component, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AuthenticationService } from '../../../services/authentication.service';
 import { FormsModule } from '@angular/forms';
 import { DateFormatService } from '../../../services/utils/date-format.service';
+import { User } from '../../../models/user.model';
 import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
 import { UiInputAddButtonComponent } from '../../../shared/ui-input-add-button/ui-input-add-button.component';
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
@@ -13,6 +16,15 @@ import { UiFilterDateComponent } from '../../../shared/ui-filter-date/ui-filter-
 import { UiTableComponent } from '../../../shared/ui-table/ui-table.component';
 import { SpendingManageComponent } from './spending-manage.component';
 import { DateRangeFilterPipe } from '../../../pipes/date-range-filter.pipe';
+
+const currentUser = new User({userName: 'fides', id: '1'});
+
+@Injectable({
+  providedIn: 'root'
+})
+class AuthenticationServiceMock {
+  currentUser = of(currentUser);
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -37,6 +49,7 @@ describe('SpendingManageComponent', () => {
   let component: SpendingManageComponent;
   let fixture: ComponentFixture<SpendingManageComponent>;
   let dateFormatService: DateFormatService;
+  let authenticationService: AuthenticationServiceMock;
   let hostElement;
   let router: Router;
   let addManuallyButton;
@@ -68,6 +81,7 @@ describe('SpendingManageComponent', () => {
       ],
       providers: [
         SpendingManageComponent,
+        {provide: AuthenticationService, useClass: AuthenticationServiceMock},
         {provide: DateRangeFilterPipe, useClass: DateRangeFilterPipeMock}
       ]
     })
@@ -80,8 +94,10 @@ describe('SpendingManageComponent', () => {
     router = TestBed.get(Router);
     hostElement = fixture.nativeElement;
     dateFormatService = TestBed.get(DateFormatService);
+    authenticationService = TestBed.get(AuthenticationService);
     spyOn(router, 'navigate').and.callThrough();
     spyOn(component, 'searchCriteriaChangeHandler').and.callThrough();
+    spyOn(component, 'getAllClothes').and.callThrough();
     fixture.detectChanges();
   });
 
@@ -240,25 +256,46 @@ describe('SpendingManageComponent', () => {
   });
 
   describe(`from the init method,`, () => {
+    beforeEach(() => {
+      component.ngOnInit();
+      fixture.detectChanges();
+    });
     it(`should retrieve the current user from
       the authentication service.`, () => {
-
+      expect(component.currentUser).toEqual(currentUser);
     });
     it(`should call getAllClothes() method.`, () => {
-
+      expect(component.getAllClothes).toHaveBeenCalled();
     });
     it(`should call the searchCriteriaChangeHandler
       method.`, () => {
-
+      expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(2);
     });
     it(`should have the variable isDateRange as false.`, () => {
-
+      expect(component.isDateRange).toBeFalsy();
     });
-    it(`should set the searhCriteria properly.`, () => {
-
+    it(`should set the searchCriteria properly.`, () => {
+      let searchCriteria = {
+        property: "clothingPurchaseDate",
+        dateRangeFor: "last month",
+        dateFrom: dateFormatService.dateRangeForFrom("last month"),
+        dateTo: dateFormatService.newDate(),
+        dateFromFormatted: dateFormatService.formatDateString(
+          dateFormatService.dateRangeForFrom("last month")
+        ),
+        dateToFormatted: dateFormatService.formatDateString(new Date())
+      };
+      expect(component.searchCriteria).toEqual(searchCriteria);
     });
     it(`should initialize availableDateRange.`, () => {
-
+      let availableDateRange = [
+        'last week',
+        'last two weeks',
+        'last month',
+        'last 6 months',
+        'last year'
+      ];
+      expect(component.availableDateRange).toEqual(availableDateRange);
     });
   });
 
