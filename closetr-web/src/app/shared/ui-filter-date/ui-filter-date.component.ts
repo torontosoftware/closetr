@@ -14,10 +14,8 @@ export class UiFilterDateComponent implements OnInit {
   ngOnInit() {
   }
 
-  changeMiddle(e) {
-    console.log("filterdate",e, this.inputModel);
-
-    this.inputModelChange.emit(e);
+  changeHandler(inputModel = this.inputModel) {
+    this.inputModelChange.emit(inputModel);
   }
 
 }

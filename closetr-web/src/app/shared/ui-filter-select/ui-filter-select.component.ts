@@ -22,7 +22,6 @@ export class UiFilterSelectComponent implements OnInit {
 
   changeHandler(inputModel = this.inputModel): void {
     this.inputModelChange.emit(inputModel);
-    console.log("HELLO THIS IS FILTER SELECT",this.inputModel);
   }
 
 }

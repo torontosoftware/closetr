@@ -5,7 +5,7 @@
   class="mtb-4"
   type="date"
   [(ngModel)]="inputModel"
-  (ngModelChange)="changeMiddle($event)"
+  (ngModelChange)="changeHandler($event)"
   [ngClass]="{
     'date-picker-from' : labelText == 'from:',
     'date-picker-to' : labelText == 'to:'

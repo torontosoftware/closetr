@@ -18,7 +18,6 @@
     }"
     [(ngModel)]="inputModel"
     (ngModelChange)="changeHandler($event)"
-    (change)="changeHandler()"
   >
     <option
       *ngFor="let item of items"

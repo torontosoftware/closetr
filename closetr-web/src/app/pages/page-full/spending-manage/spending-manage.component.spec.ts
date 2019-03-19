@@ -175,8 +175,8 @@ describe('SpendingManageComponent', () => {
           let searchCriteria = {
             property: "clothingPurchaseDate",
             dateRangeFor: "last month",
-            dateFrom: new Date(2019, 1, 1),
-            dateTo: new Date(2019, 2, 1),
+            dateFrom: dateFormatService.newDate(2019, 1, 1),
+            dateTo: dateFormatService.newDate(2019, 2, 1),
             dateFromFormatted: dateFormatService.formatDateString(new Date(2019, 1, 1)),
             dateToFormatted: dateFormatService.formatDateString(new Date(2019, 2, 1))
           };
@@ -210,7 +210,6 @@ describe('SpendingManageComponent', () => {
           component.isDateRange = false;
           fixture.detectChanges();
           dateRangeForSelect.value = "last year";
-          dateRangeForSelect.dispatchEvent(new Event('input'));
           dateRangeForSelect.dispatchEvent(new Event('change'));
           fixture.detectChanges();
           console.log(dateRangeForSelect, dateRangeForSelect.value);
@@ -226,7 +225,7 @@ describe('SpendingManageComponent', () => {
             property: "clothingPurchaseDate",
             dateRangeFor: "last year",
             dateFrom: dateFormatService.dateRangeForFrom("last year"),
-            dateTo: new Date(),
+            dateTo: dateFormatService.newDate(),
             dateFromFormatted: dateFormatService.formatDateString(
               dateFormatService.dateRangeForFrom("last year")
             ),
