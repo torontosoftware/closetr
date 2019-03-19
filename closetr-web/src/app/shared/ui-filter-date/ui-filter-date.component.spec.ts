@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule } from '@angular/forms';
 import { UiFilterDateComponent } from './ui-filter-date.component';
 
 describe('UiFilterDateComponent', () => {
@@ -8,6 +8,7 @@ describe('UiFilterDateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ FormsModule ],
       declarations: [ UiFilterDateComponent ]
     })
     .compileComponents();

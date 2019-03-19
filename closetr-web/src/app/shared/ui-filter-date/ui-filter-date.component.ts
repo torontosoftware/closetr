@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-ui-filter-date',
+  selector: 'ui-filter-date',
   templateUrl: './ui-filter-date.component.html',
   styleUrls: ['./ui-filter-date.component.scss']
 })
 export class UiFilterDateComponent implements OnInit {
-
+  @Input() labelText: string;
+  @Input() inputModel: string;
+  @Output() inputModelChange: EventEmitter<string> = new EventEmitter<string>();
   constructor() { }
 
   ngOnInit() {
