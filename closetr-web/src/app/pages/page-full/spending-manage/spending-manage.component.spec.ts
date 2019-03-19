@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
+import { DateFormatService } from '../../../services/utils/date-format.service';
 import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
 import { UiInputAddButtonComponent } from '../../../shared/ui-input-add-button/ui-input-add-button.component';
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
@@ -34,6 +35,7 @@ class DateRangeFilterPipeMock implements PipeTransform{
 describe('SpendingManageComponent', () => {
   let component: SpendingManageComponent;
   let fixture: ComponentFixture<SpendingManageComponent>;
+  let dateFormatService: DateFormatService;
   let hostElement;
   let router: Router;
   let addManuallyButton;
@@ -75,6 +77,7 @@ describe('SpendingManageComponent', () => {
     component = fixture.debugElement.componentInstance;
     router = TestBed.get(Router);
     hostElement = fixture.nativeElement;
+    dateFormatService = TestBed.get(DateFormatService);
     spyOn(router, 'navigate').and.callThrough();
     spyOn(component, 'searchCriteriaChangeHandler').and.callThrough();
     fixture.detectChanges();
@@ -119,11 +122,11 @@ describe('SpendingManageComponent', () => {
   });
 
   describe(`the selectors`, () => {
-    let dateRangeForSelect;
-    let dateRangeFromSelect;
-    let dateRangeToSelect;
+    let dateRangeForSelect: HTMLInputElement;
+    let dateRangeFromSelect: HTMLInputElement;
+    let dateRangeToSelect: HTMLInputElement;
     beforeEach(() => {
-      //component.ngOnInit();
+      component.ngOnInit();
       fixture.detectChanges();
       dateRangeForSelect = hostElement.querySelector('#date-range-for-select select');
       dateRangeFromSelect = hostElement.querySelector('#date-range-from-select input');
@@ -154,26 +157,58 @@ describe('SpendingManageComponent', () => {
       });
       describe(`when the values are changed,`, () => {
         beforeEach(() => {
-          dateRangeFromSelect.value = "2019-01-01";
+          console.log("before values are changed");
+          dateRangeFromSelect.value = dateFormatService.formatDateString(new Date(2019, 1, 1));
           dateRangeFromSelect.dispatchEvent(new Event('input'));
+          dateRangeFromSelect.dispatchEvent(new Event('change'));
           fixture.detectChanges();
-          dateRangeToSelect.value = "2019-02-01";
+          console.log(dateRangeFromSelect, dateRangeFromSelect.value,"yaaaaaaaa");
+          dateRangeToSelect.value = dateFormatService.formatDateString(new Date(2019, 2, 1));
           dateRangeToSelect.dispatchEvent(new Event('input'));
+          dateRangeToSelect.dispatchEvent(new Event('change'));
+          console.log(dateRangeFromSelect, dateRangeToSelect);
           fixture.detectChanges();
         });
         it(`should call searchCriteriaChangeHandler.`, () => {
           fixture.whenStable().then(() => {
-            //console.log(hostElement, component);
-            //expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(2);
+            expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(3);
           });
         });
         it(`should set the searchCriteria variable
           respectively.`, () => {
-
+            dateRangeFromSelect.value = dateFormatService.formatDateString(new Date(2019, 1, 1));
+            dateRangeFromSelect.dispatchEvent(new Event('input'));
+            dateRangeFromSelect.dispatchEvent(new Event('change'));
+            fixture.detectChanges();
+            dateRangeToSelect.value = dateFormatService.formatDateString(new Date(2019, 2, 1));
+            dateRangeToSelect.dispatchEvent(new Event('input'));
+            dateRangeFromSelect.dispatchEvent(new Event('change'));
+            console.log(dateRangeFromSelect, dateRangeToSelect);
+          let searchCriteria = {
+            property: "clothingPurchaseDate",
+            dateRangeFor: "last month",
+            dateFrom: new Date(2019, 1, 1),
+            dateTo: new Date(2019, 2, 1),
+            dateFromFormatted: dateFormatService.formatDateString(new Date(2019, 1, 1)),
+            dateToFormatted: dateFormatService.formatDateString(new Date(2019, 2, 1))
+          };
+          fixture.whenStable().then(() => {
+            expect(component.searchCriteria).toEqual(searchCriteria);
+            console.log("test",component.searchCriteria, searchCriteria);
+            console.log(dateRangeFromSelect, dateRangeToSelect);
+          });
         });
       });
     });
     describe(`for date range for,`, () => {
+      beforeEach(() => {
+        dateRangeForSelect.value = "last year";
+        dateRangeForSelect.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          console.log(dateRangeForSelect);
+        });
+      });
       it(`should be visible when isDateRange is false.`, () => {
 
       });

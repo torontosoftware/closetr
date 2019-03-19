@@ -37,7 +37,7 @@
               <ui-filter-select
                 [items]="availableDateRange"
                 [(inputModel)]="searchCriteria.dateRangeFor"
-                (change)="searchCriteriaChangeHandler()"
+                (inputModelChange)="searchCriteriaChangeHandler()"
                 [labelText]="'from:'"
               ></ui-filter-select>
             </div>
@@ -46,18 +46,18 @@
               class="col-6 col-md-4"
               [hidden]="!isDateRange">
               <span class="date-picker-label">from:</span>
-              <input class="mtb-4 date-picker-from" type="date"
+              <input class="mtb-4 date-picker-from" type="string"
               [(ngModel)]="searchCriteria.dateFromFormatted"
-              (change)="searchCriteriaChangeHandler()">
+              (ngModelChange)="searchCriteriaChangeHandler()">
             </div>
             <div
               id="date-range-to-select"
               class="col-6 col-md-4"
               [hidden]="!isDateRange">
               <span class="date-picker-label">to:</span>
-              <input class="mtb-4 date-picker-to" type="date"
+              <input class="mtb-4 date-picker-to" type="string"
               [(ngModel)]="searchCriteria.dateToFormatted"
-              (change)="searchCriteriaChangeHandler()">
+              (ngModelChange)="searchCriteriaChangeHandler()">
             </div>
             <div [ngClass]="{'col-6 col-md-8':!isDateRange, 'col-12 col-md-4':isDateRange}">
               <input type="checkbox" id="switch" [(ngModel)]="isDateRange"/><label for="switch" class="toggle pull-right">Toggle</label>

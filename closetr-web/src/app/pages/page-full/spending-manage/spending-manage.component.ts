@@ -57,6 +57,7 @@ export class SpendingManageComponent implements OnInit {
   }
 
   searchCriteriaChangeHandler(): void {
+    console.log("search criteria change handler");
     if (this.isDateRange) {
       // choosing date range: turn string format to date object.
       this.searchCriteria.dateFrom = this.dateFormatService.formatStringDate(this.searchCriteria.dateFromFormatted);
@@ -70,6 +71,7 @@ export class SpendingManageComponent implements OnInit {
       this.searchCriteria.dateFromFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateFrom);
       this.searchCriteria.dateToFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateTo);
     }
+    //console.log("search criteria change handler", this.searchCriteria);
     this.updateFilterCriteria();
   }
 
