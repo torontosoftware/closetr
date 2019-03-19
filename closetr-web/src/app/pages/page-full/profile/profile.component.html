@@ -6,15 +6,18 @@
           <div class="row">
             <div class="col-6">
               <ui-back-button
+                id="back-button"
                 [url]="'/dashboard'"
               ></ui-back-button>
               <h3>my profile</h3>
             </div>
             <div class="col-6">
               <ui-edit-button
+                id="edit-button"
                 (click)="toggleEditMode()"
               ></ui-edit-button>
               <ui-text-button
+                id="save-button"
                 [labelText]="'save'"
                 [type]="'top-right'"
                 [hidden]="!editMode"
@@ -23,6 +26,7 @@
             </div>
           </div>
           <ui-input
+            id="username-input"
             [labelText]="'username'"
             [type]="'username'"
             [(inputModel)]="currentUser.userID"
@@ -30,6 +34,7 @@
             [disabled]="true"
           ></ui-input>
           <ui-input
+            id="name-input"
             [labelText]="'name'"
             [type]="'text'"
             [(inputModel)]="currentUser.userName"
@@ -37,6 +42,7 @@
             [disabled]="!editMode"
           ></ui-input>
           <ui-input
+            id="description-input"
             [labelText]="'description'"
             [type]="'textarea'"
             [rows]="5"
@@ -45,6 +51,7 @@
             [disabled]="!editMode"
           ></ui-input>
           <ui-input
+            id="password-input"
             [labelText]="'password'"
             [type]="'password'"
             [(inputModel)]="currentUser.userPassword"

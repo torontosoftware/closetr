@@ -11,7 +11,6 @@ import { Subscription } from 'rxjs';
 })
 export class ProfileComponent implements OnInit {
   editMode: boolean;
-  currentUserSubscription: Subscription;
   currentUser: User;
 
   constructor(private authenticationService: AuthenticationService,
@@ -21,7 +20,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
+    this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
       }
