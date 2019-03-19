@@ -69,6 +69,7 @@ export class SpendingManageComponent implements OnInit {
 
       this.searchCriteria.dateFromFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateFrom);
       this.searchCriteria.dateToFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateTo);
+
     }
     this.updateFilterCriteria();
   }

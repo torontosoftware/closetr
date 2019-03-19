@@ -13,7 +13,7 @@ export class DateFormatService {
   newDate(year = null, month = null, day = null): Date {
     let date = new Date();
     if (year && month && day) {
-      date = new Date(year, month, day);
+      date = new Date(year, month - 1, day);
     }
     date.setHours(0, 0, 0, 0);
     return date;
