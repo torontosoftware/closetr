@@ -1,13 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { Pipe, PipeTransform, Component, Injectable } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { FormsModule } from '@angular/forms';
 import { DateFormatService } from '../../../services/utils/date-format.service';
+import { ClosetService } from '../../../services/closet.service';
 import { User } from '../../../models/user.model';
+import { Clothing } from '../../../models/clothing.model';
 import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
 import { UiInputAddButtonComponent } from '../../../shared/ui-input-add-button/ui-input-add-button.component';
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
@@ -17,7 +19,21 @@ import { UiTableComponent } from '../../../shared/ui-table/ui-table.component';
 import { SpendingManageComponent } from './spending-manage.component';
 import { DateRangeFilterPipe } from '../../../pipes/date-range-filter.pipe';
 
+const closetList = [
+  new Clothing({clothingID: '1', clothingName: 'tshirt'}),
+  new Clothing({clothingID: '2', clothingName: 'jeans'}),
+  new Clothing({clothingID: '3', clothingName: 'shoes'})
+];
+
 const currentUser = new User({userName: 'fides', id: '1'});
+
+@Injectable({
+  providedIn: 'root'
+})
+class ClosetServiceMock {
+  getAllClothes = (user) => of({data: closetList});
+
+}
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +66,7 @@ describe('SpendingManageComponent', () => {
   let fixture: ComponentFixture<SpendingManageComponent>;
   let dateFormatService: DateFormatService;
   let authenticationService: AuthenticationServiceMock;
+  let closetService: ClosetServiceMock;
   let hostElement;
   let router: Router;
   let addManuallyButton;
@@ -95,9 +112,11 @@ describe('SpendingManageComponent', () => {
     hostElement = fixture.nativeElement;
     dateFormatService = TestBed.get(DateFormatService);
     authenticationService = TestBed.get(AuthenticationService);
+    closetService = TestBed.get(ClosetService);
     spyOn(router, 'navigate').and.callThrough();
     spyOn(component, 'searchCriteriaChangeHandler').and.callThrough();
     spyOn(component, 'getAllClothes').and.callThrough();
+    spyOn(closetService, 'getAllClothes').and.callThrough();
     fixture.detectChanges();
   });
 
@@ -306,13 +325,17 @@ describe('SpendingManageComponent', () => {
   });
 
   describe(`when the getAllClothes() method is called,`, () => {
+    beforeEach(() => {
+      component.getAllClothes();
+      fixture.detectChanges();
+    })
     it(`should call closetService's getAllClothes
       method with the currentUser.`, () => {
-
+      expect(closetService.getAllClothes).toHaveBeenCalledWith(currentUser);
     });
     it(`should set closetList to the returned data
       from closetService.`, () => {
-
+      expect(component.closetList).toEqual(closetList);
     });
   });
 
