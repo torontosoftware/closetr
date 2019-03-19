@@ -187,27 +187,54 @@ describe('SpendingManageComponent', () => {
       });
     });
     describe(`for date range for,`, () => {
+      let dateRangeForContainer;
       beforeEach(() => {
-        dateRangeForSelect.value = "last year";
-        dateRangeForSelect.dispatchEvent(new Event('input'));
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          console.log(dateRangeForSelect);
-        });
+        dateRangeForContainer = hostElement.querySelector('#date-range-for-select');
       });
       it(`should be visible when isDateRange is false.`, () => {
-
+        component.isDateRange = false;
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          expect(dateRangeForContainer.hidden).toBeFalsy();
+        });
       });
       it(`should be hidden when isDateRange is true.`, () => {
-
+        component.isDateRange = true;
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          expect(dateRangeForContainer.hidden).toBeTruthy();
+        });
       });
       describe(`when the values are changed,`, () => {
+        beforeEach(() => {
+          component.isDateRange = false;
+          fixture.detectChanges();
+          dateRangeForSelect.value = "last year";
+          dateRangeForSelect.dispatchEvent(new Event('input'));
+          dateRangeForSelect.dispatchEvent(new Event('change'));
+          fixture.detectChanges();
+          console.log(dateRangeForSelect, dateRangeForSelect.value);
+        });
         it(`should call searchCriteriaChangeHandler.`, () => {
-
+          fixture.whenStable().then(() => {
+            expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(2);
+          });
         });
         it(`should set the searchCriteria variable
           respectively.`, () => {
-
+          let searchCriteria = {
+            property: "clothingPurchaseDate",
+            dateRangeFor: "last year",
+            dateFrom: dateFormatService.dateRangeForFrom("last year"),
+            dateTo: new Date(),
+            dateFromFormatted: dateFormatService.formatDateString(
+              dateFormatService.dateRangeForFrom("last year")
+            ),
+            dateToFormatted: dateFormatService.formatDateString(new Date())
+          };
+          fixture.whenStable().then(() => {
+            expect(component.searchCriteria).toEqual(searchCriteria);
+          });
         });
       });
     });
