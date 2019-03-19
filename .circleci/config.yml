@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build_node:
+  build:
     docker:
       # specify the version you desire here
       - image: circleci/node:7.10
@@ -18,9 +18,6 @@ jobs:
 
     steps:
       - checkout
-
-      - run:
-          command: npm install -g @angular/cli
 
       # Download and cache dependencies
       - restore_cache:
@@ -44,3 +41,23 @@ jobs:
           command: |
             cd closetr-web
             npm build
+  deploy:
+    docker:
+      - image: buildpack-deps:trusty
+    steps:
+      - checkout
+      - run:
+        name: Deploy to Heroku
+        command: |
+          git subtree push --prefix closetr-web heroku master
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+        requires:
+          - build
+        filters:
+          branches:
+            only: master
