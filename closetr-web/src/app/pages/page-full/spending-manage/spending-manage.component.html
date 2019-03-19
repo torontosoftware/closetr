@@ -46,27 +46,18 @@
               class="col-6 col-md-4"
               [hidden]="!isDateRange">
               <ui-filter-date
-                [(inputModel)]="searchCriteria.dateRangeFrom"
+                [(inputModel)]="searchCriteria.dateFromFormatted"
                 (inputModelChange)="searchCriteriaChangeHandler()"
                 [labelText]="'from:'"
               ></ui-filter-date>
-              <!--
-              <span class="date-picker-label">from:</span>
-              <input class="mtb-4 date-picker-from" type="string"
-              [(ngModel)]="searchCriteria.dateFromFormatted"
-              (ngModelChange)="searchCriteriaChangeHandler()">-->
             </div>
             <div
               id="date-range-to-select"
               class="col-6 col-md-4"
               [hidden]="!isDateRange">
               <span class="date-picker-label">to:</span>
-              <!--
-              <input class="mtb-4 date-picker-to" type="string"
-              [(ngModel)]="searchCriteria.dateToFormatted"
-              (ngModelChange)="searchCriteriaChangeHandler()">-->
               <ui-filter-date
-                [(inputModel)]="searchCriteria.dateRangeTo"
+                [(inputModel)]="searchCriteria.dateToFormatted"
                 (inputModelChange)="searchCriteriaChangeHandler()"
                 [labelText]="'to:'"
               ></ui-filter-date>

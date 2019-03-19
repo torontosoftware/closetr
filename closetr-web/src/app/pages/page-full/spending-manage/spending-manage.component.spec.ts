@@ -128,7 +128,6 @@ describe('SpendingManageComponent', () => {
     let dateRangeFromSelect: HTMLInputElement;
     let dateRangeToSelect: HTMLInputElement;
     beforeEach(() => {
-      component.ngOnInit();
       fixture.detectChanges();
       dateRangeForSelect = hostElement.querySelector('#date-range-for-select select');
       dateRangeFromSelect = hostElement.querySelector('#date-range-from-select input');
@@ -159,16 +158,11 @@ describe('SpendingManageComponent', () => {
       });
       describe(`when the values are changed,`, () => {
         beforeEach(() => {
-          console.log("before values are changed");
+          component.isDateRange = true;
           dateRangeFromSelect.value = dateFormatService.formatDateString(new Date(2019, 1, 1));
           dateRangeFromSelect.dispatchEvent(new Event('input'));
-          dateRangeFromSelect.dispatchEvent(new Event('change'));
-          fixture.detectChanges();
-          console.log(dateRangeFromSelect, dateRangeFromSelect.value,"yaaaaaaaa");
           dateRangeToSelect.value = dateFormatService.formatDateString(new Date(2019, 2, 1));
           dateRangeToSelect.dispatchEvent(new Event('input'));
-          dateRangeToSelect.dispatchEvent(new Event('change'));
-          console.log(dateRangeFromSelect, dateRangeToSelect);
           fixture.detectChanges();
         });
         it(`should call searchCriteriaChangeHandler.`, () => {
@@ -178,14 +172,6 @@ describe('SpendingManageComponent', () => {
         });
         it(`should set the searchCriteria variable
           respectively.`, () => {
-            dateRangeFromSelect.value = dateFormatService.formatDateString(new Date(2019, 1, 1));
-            dateRangeFromSelect.dispatchEvent(new Event('input'));
-            dateRangeFromSelect.dispatchEvent(new Event('change'));
-            fixture.detectChanges();
-            dateRangeToSelect.value = dateFormatService.formatDateString(new Date(2019, 2, 1));
-            dateRangeToSelect.dispatchEvent(new Event('input'));
-            dateRangeFromSelect.dispatchEvent(new Event('change'));
-            console.log(dateRangeFromSelect, dateRangeToSelect);
           let searchCriteria = {
             property: "clothingPurchaseDate",
             dateRangeFor: "last month",
@@ -196,8 +182,6 @@ describe('SpendingManageComponent', () => {
           };
           fixture.whenStable().then(() => {
             expect(component.searchCriteria).toEqual(searchCriteria);
-            console.log("test",component.searchCriteria, searchCriteria);
-            console.log(dateRangeFromSelect, dateRangeToSelect);
           });
         });
       });
