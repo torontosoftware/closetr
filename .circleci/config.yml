@@ -36,7 +36,7 @@ jobs:
 
       - save_cache:
           paths:
-            - node_modules
+            - closetr-web/node_modules
           key: angular-dependencies-{{ checksum "closetr-web/package.json" }}
 
       - run:
@@ -60,7 +60,7 @@ jobs:
 
       - save_cache:
           paths:
-            - node_modules
+            - closetr-api/node_modules
           key: express-dependencies-{{ checksum "closetr-api/package.json" }}
 
   deploy:
