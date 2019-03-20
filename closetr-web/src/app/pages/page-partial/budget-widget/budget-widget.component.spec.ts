@@ -82,4 +82,50 @@ describe('BudgetWidgetComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it(`should navigate to budget manage component
+    when edit button is clicked`, () => {
+
+  });
+
+  it(`should navigate to spending manage component
+    when 'manage spending' button is clicked`, () => {
+
+  });
+
+  describe(`from the init method,`, () => {
+    it(`should retrieve the current user from
+      the authentication service.`, () => {
+
+    });
+    it(`should call getAllClothes() method.`, () => {
+
+    });
+    it(`should set the dateOptions with the
+      correct options`, () => {
+
+    });
+  });
+
+  describe(`the getAllClothes() method,`, () => {
+    it(`should call closet service's getAllClothes()
+      method`, () => {
+
+    });
+    it(`should set closetList to the returned
+      data from closetService`, () => {
+
+    });
+  });
+
+  describe(`the date selector,`, () => {
+    it(`should take dateOptions as items`, () => {
+
+    });
+  });
+
+  describe(`the table of purchases,`, () => {
+    it(`should render each item in closetList.`, () => {
+    });
+  });
 });
