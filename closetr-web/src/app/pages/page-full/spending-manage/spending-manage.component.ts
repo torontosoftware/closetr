@@ -28,14 +28,13 @@ export class SpendingManageComponent implements OnInit {
     this.searchCriteria = {
       property: "clothingPurchaseDate",
       dateRangeFor: "last month",
-      dateFrom: new Date(),
-      dateTo: new Date(),
+      dateFrom: this.dateFormatService.newDate(),
+      dateTo: this.dateFormatService.newDate(),
       dateFromFormatted: this.dateFormatService.formatDateString(new Date()),
       dateToFormatted: this.dateFormatService.formatDateString(new Date())
     };
 
     this.isDateRange = false;
-    this.searchCriteriaChangeHandler();
 
     this.availableDateRange = [
       'last week',
@@ -54,6 +53,7 @@ export class SpendingManageComponent implements OnInit {
         this.getAllClothes();
       }
     )
+    this.searchCriteriaChangeHandler();
   }
 
   searchCriteriaChangeHandler(): void {
@@ -65,10 +65,11 @@ export class SpendingManageComponent implements OnInit {
       // choosing date range up to today:
       // set date objects, then set string format from date objects.
       this.searchCriteria.dateFrom = this.dateFormatService.dateRangeForFrom(this.searchCriteria.dateRangeFor);
-      this.searchCriteria.dateTo = new Date();
+      this.searchCriteria.dateTo = this.dateFormatService.newDate();
 
       this.searchCriteria.dateFromFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateFrom);
       this.searchCriteria.dateToFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateTo);
+
     }
     this.updateFilterCriteria();
   }

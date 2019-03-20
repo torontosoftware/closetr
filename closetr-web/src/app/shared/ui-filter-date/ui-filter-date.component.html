@@ -1,0 +1,13 @@
+<span class="date-picker-label">
+  {{labelText}}
+</span>
+<input
+  class="mtb-4"
+  type="date"
+  [(ngModel)]="inputModel"
+  (ngModelChange)="changeHandler($event)"
+  [ngClass]="{
+    'date-picker-from' : labelText == 'from:',
+    'date-picker-to' : labelText == 'to:'
+  }"
+>

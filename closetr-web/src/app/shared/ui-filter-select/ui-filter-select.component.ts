@@ -20,4 +20,8 @@ export class UiFilterSelectComponent implements OnInit {
     }
   }
 
+  changeHandler(inputModel = this.inputModel): void {
+    this.inputModelChange.emit(inputModel);
+  }
+
 }

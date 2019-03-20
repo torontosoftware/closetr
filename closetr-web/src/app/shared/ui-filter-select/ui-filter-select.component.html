@@ -17,8 +17,7 @@
       'mrt-5': (className == 'mrt-5')
     }"
     [(ngModel)]="inputModel"
-    (ngModelChange)="inputModelChange.emit($event)"
-    (change)="inputModelChange.emit(inputModel)"
+    (ngModelChange)="changeHandler($event)"
   >
     <option
       *ngFor="let item of items"

@@ -6,6 +6,7 @@
           <div class="row">
               <div class="col-12">
                 <ui-back-button
+                  id="back-button"
                   [url]="'/dashboard'"
                 ></ui-back-button>
                 <h3>spending</h3>
@@ -22,33 +23,47 @@
           <div class="row">
             <div class="col-12">
               <ui-text-button
+                id="add-new-button"
                 [labelText]="'add new'"
-                [buttonLink]="'/'"
+                [buttonLink]="'/dashboard'"
               ></ui-text-button>
             </div>
           </div>
           <div class="row mtb-4">
-            <div class="col-6 col-md-4 pad-right-0" [hidden]="isDateRange">
+            <div
+              id="date-range-for-select"
+              class="col-6 col-md-4 pad-right-0"
+              [hidden]="isDateRange">
               <ui-filter-select
                 [items]="availableDateRange"
                 [(inputModel)]="searchCriteria.dateRangeFor"
-                (change)="searchCriteriaChangeHandler()"
+                (inputModelChange)="searchCriteriaChangeHandler()"
                 [labelText]="'from:'"
               ></ui-filter-select>
             </div>
-            <div class="col-6 col-md-4" [hidden]="!isDateRange">
-              <span class="date-picker-label">from:</span>
-              <input class="mtb-4 date-picker-from" type="date"
-              [(ngModel)]="searchCriteria.dateFromFormatted"
-              (change)="searchCriteriaChangeHandler()">
+            <div
+              id="date-range-from-select"
+              class="col-6 col-md-4"
+              [hidden]="!isDateRange">
+              <ui-filter-date
+                [(inputModel)]="searchCriteria.dateFromFormatted"
+                (inputModelChange)="searchCriteriaChangeHandler()"
+                [labelText]="'from:'"
+              ></ui-filter-date>
             </div>
-            <div class="col-6 col-md-4" [hidden]="!isDateRange">
-              <span class="date-picker-label">to:</span>
-              <input class="mtb-4 date-picker-to" type="date"
-              [(ngModel)]="searchCriteria.dateToFormatted"
-              (change)="searchCriteriaChangeHandler()">
+            <div
+              id="date-range-to-select"
+              class="col-6 col-md-4"
+              [hidden]="!isDateRange">
+              <ui-filter-date
+                [(inputModel)]="searchCriteria.dateToFormatted"
+                (inputModelChange)="searchCriteriaChangeHandler()"
+                [labelText]="'to:'"
+              ></ui-filter-date>
             </div>
-            <div [ngClass]="{'col-6 col-md-8':!isDateRange, 'col-12 col-md-4':isDateRange}">
+            <div
+              [ngClass]="{'col-6 col-md-8':!isDateRange, 'col-12 col-md-4':isDateRange}"
+              id="toggle-button">
               <input type="checkbox" id="switch" [(ngModel)]="isDateRange"/><label for="switch" class="toggle pull-right">Toggle</label>
               <span class="toggle-label pull-right">date range</span>
             </div>
@@ -56,6 +71,7 @@
           <div class="row mtb-10">
             <div class="col-12">
               <ui-table
+                id="purchase-table"
                 *ngIf="closetList"
                 [items]="closetList"
                 [bindBold]="'clothingCost'"
@@ -64,18 +80,6 @@
                 [filterBy]="'clothingPurchaseDate'"
                 [filterCriteria]="filterCriteria"
               ></ui-table>
-              <!--
-              <div class="purchase-list-table">
-                <table class="table table-sm table-borderless">
-                  <tbody>
-                    <tr *ngFor="let clothing of closetList | dateRangeFilter:searchCriteria.dateFrom:searchCriteria.dateTo:'clothingPurchaseDate' | keyvalue">
-                      <td class="purchase-list-cost">{{clothing.value.clothingCost}}</td>
-                      <td class="purchase-list-clothing">{{clothing.value.clothingName}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              -->
             </div>
           </div>
           <div class="row mtb-10">
@@ -104,6 +108,7 @@
           <div class="row">
             <div class="col-12">
               <ui-text-button
+                id="manage-budget-button"
                 [labelText]="'manage budget'"
                 [buttonLink]="'/budget-manage'"
               ></ui-text-button>
