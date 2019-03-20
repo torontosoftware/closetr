@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { Injectable, Pipe, PipeTransform } from '@angular/core';
+import { Component, Injectable, Pipe, PipeTransform } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
@@ -22,6 +22,18 @@ const closetList = [
 ];
 
 const currentUser = new User({userName: 'fides', id: '1'});
+
+@Component({
+  selector: 'app-dashboard',
+  template: '<p>Mock Spending Manage Component</p>'
+})
+class MockSpendingManageComponent { }
+
+@Component({
+  selector: 'app-dashboard',
+  template: '<p>Mock Budget Manage Component</p>'
+})
+class MockBudgetManageComponent { }
 
 @Pipe({name: 'dateRangeFilter'})
 class DateRangeFilterPipeMock implements PipeTransform {
@@ -47,16 +59,25 @@ class ClosetServiceMock {
 describe('BudgetWidgetComponent', () => {
   let component: BudgetWidgetComponent;
   let fixture: ComponentFixture<BudgetWidgetComponent>;
+  let closetService: ClosetServiceMock;
+  let authenticationService: AuthenticationServiceMock;
+
+  const routes = [
+    { path: 'spending-manage', component: MockSpendingManageComponent },
+    { path: 'budget-manage', component: MockBudgetManageComponent }
+  ];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterTestingModule.withRoutes(routes),
         HttpClientTestingModule,
         RouterTestingModule,
         FormsModule
       ],
       declarations: [
+        MockBudgetManageComponent,
+        MockSpendingManageComponent,
         DateRangeFilterPipeMock,
         UiTableComponent,
         UiFilterSelectComponent,
@@ -75,7 +96,11 @@ describe('BudgetWidgetComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BudgetWidgetComponent);
-    component = fixture.componentInstance;
+    component = fixture.debugElement.componentInstance;
+    closetService = TestBed.get(ClosetService);
+    authenticationService = TestBed.get(AuthenticationService);
+    spyOn(component, 'getAllClothes').and.callThrough();
+    spyOn(closetService, 'getAllClothes').and.callThrough();
     fixture.detectChanges();
   });
 
@@ -94,16 +119,24 @@ describe('BudgetWidgetComponent', () => {
   });
 
   describe(`from the init method,`, () => {
+    beforeEach(() => {
+      component.ngOnInit();
+      fixture.detectChanges();
+    });
     it(`should retrieve the current user from
       the authentication service.`, () => {
-
+      expect(component.currentUser).toEqual(currentUser);
     });
     it(`should call getAllClothes() method.`, () => {
-
+      expect(component.getAllClothes).toHaveBeenCalled();
     });
     it(`should set the dateOptions with the
       correct options`, () => {
-
+      let dateOptions = [
+        "last week",
+        "last month"
+      ];
+      expect(component.dateOptions).toEqual(dateOptions);
     });
   });
 
