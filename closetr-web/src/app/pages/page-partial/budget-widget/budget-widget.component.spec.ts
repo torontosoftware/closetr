@@ -7,6 +7,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { ClosetService } from '../../../services/closet.service';
+import { DateFormatService } from '../../../services/utils/date-format.service';
 import { User } from '../../../models/user.model';
 import { Clothing } from '../../../models/clothing.model';
 import { DateRangeFilterPipe } from '../../../pipes/date-range-filter.pipe';
@@ -61,6 +62,7 @@ describe('BudgetWidgetComponent', () => {
   let component: BudgetWidgetComponent;
   let fixture: ComponentFixture<BudgetWidgetComponent>;
   let closetService: ClosetServiceMock;
+  let dateFormatService: DateFormatService;
   let authenticationService: AuthenticationServiceMock;
   let router: Router;
   let hostElement;
@@ -104,6 +106,7 @@ describe('BudgetWidgetComponent', () => {
     hostElement = fixture.nativeElement;
     closetService = TestBed.get(ClosetService);
     authenticationService = TestBed.get(AuthenticationService);
+    dateFormatService = TestBed.get(DateFormatService);
     spyOn(router, 'navigate').and.callThrough();
     spyOn(component, 'getAllClothes').and.callThrough();
     spyOn(closetService, 'getAllClothes').and.callThrough();
@@ -150,6 +153,25 @@ describe('BudgetWidgetComponent', () => {
       ];
       expect(component.dateOptions).toEqual(dateOptions);
     });
+    it(`should set the filterCriteria properly`, () => {
+      let filterCriteria = {
+        dateRangeFor: "last week",
+        dateFrom: dateFormatService.dateRangeForFrom("last week"),
+        dateTo: dateFormatService.newDate()
+      };
+      expect(component.filterCriteria).toEqual(filterCriteria);
+    });
+  });
+
+  describe(`when changing date options selector,`, () => {
+    it(`should call updateFilterCriteria() method.`, () => {
+      let dateRangeSelect = hostElement.querySelector('#date-range-select select');
+      spyOn(component, 'updateFilterCriteria').and.callThrough();
+      dateRangeSelect.value = "last month";
+      dateRangeSelect.dispatchEvent(new Event('change'));
+      fixture.detectChanges();
+      expect(component.updateFilterCriteria).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe(`the getAllClothes() method,`, () => {
@@ -167,7 +189,7 @@ describe('BudgetWidgetComponent', () => {
     });
   });
 
-  describe(`the date selector,`, () => {
+  describe(`the date range selector,`, () => {
     it(`should take dateOptions as items`, () => {
 
     });
