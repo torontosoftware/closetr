@@ -18,7 +18,6 @@ export class SpendingManageComponent implements OnInit {
   searchCriteria: any;
   filterCriteria: any;
   availableDateRange: any;
-  currentUserSubscription: Subscription;
   currentUser: User;
 
   constructor(private closetService: ClosetService,
@@ -47,7 +46,7 @@ export class SpendingManageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
+    this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
         this.getAllClothes();

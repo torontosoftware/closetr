@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ClosetService } from '../../../services/closet.service';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { Clothing } from '../../../models/clothing.model';
+import { User } from '../../../models/user.model';
 
 @Component({
   selector: 'app-budget-widget',
@@ -8,15 +12,13 @@ import { Component, OnInit } from '@angular/core';
 export class BudgetWidgetComponent implements OnInit {
   purchaseList: object;
   dateOptions: Array<string>;
+  closetList: Array<Clothing>;
+  currentUser: User;
 
-  constructor() {
-    this.purchaseList = [
-      {price:'$15',name:'Aritzia TShirt'},
-      {price: '$399', name:'The Stowe Bag'},
-      {price: '13', name:'UO Blouse'},
-      {price:'$35',name:'Uniqlo Sweater'}
-    ];
-
+  constructor(
+    private closetService: ClosetService,
+    private authenticationService: AuthenticationService
+  ) {
     this.dateOptions = [
       "last week",
       "last month"
@@ -25,6 +27,23 @@ export class BudgetWidgetComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authenticationService.currentUser.subscribe(
+      user => {
+        this.currentUser = user;
+        this.getAllClothes();
+      }
+    );
+  }
+
+  getAllClothes(): void {
+    this.closetService.getAllClothes(this.currentUser).subscribe(
+      (data: any) => {
+        this.closetList = data.data.slice(0,3);
+        for (let i in this.closetList) {
+          this.closetList[i] = new Clothing(this.closetList[i]);
+        }
+      }, error => {}
+    )
   }
 
 }

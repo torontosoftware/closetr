@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Pipe, PipeTransform } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { DateRangeFilterPipe } from '../../../pipes/date-range-filter.pipe';
 import { UiTableComponent } from '../../../shared/ui-table/ui-table.component';
@@ -23,6 +24,8 @@ describe('BudgetWidgetComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule,
+        HttpClientTestingModule,
         RouterTestingModule,
         FormsModule
       ],
