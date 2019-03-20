@@ -15,6 +15,10 @@
   <div class="row mtb-10">
     <div class="col-12">
       <ui-table
+        id="purchase-table"
+        [filter]="'date'"
+        [filterBy]="'clothingPurchaseDate'"
+        [filterCriteria]="filterCriteria"
         [items]="closetList"
         [bindBold]="'clothingCost'"
         [bindRegular]="'clothingName'"

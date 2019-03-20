@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 import { Component, Injectable, Pipe, PipeTransform } from '@angular/core';
 import { Router } from '@angular/router';
@@ -191,12 +192,42 @@ describe('BudgetWidgetComponent', () => {
 
   describe(`the date range selector,`, () => {
     it(`should take dateOptions as items`, () => {
-
+      let dateOptions = [
+        "last week",
+        "last month"
+      ];
+      let dateRangeSelect = fixture.debugElement.query(
+        By.css('#date-range-select')
+      ).componentInstance;
+      expect(dateRangeSelect.items).toEqual(dateOptions);
     });
   });
 
   describe(`the table of purchases,`, () => {
     it(`should render each item in closetList.`, () => {
+      let mockPurchaseTable = {
+        bindBold: "clothingCost",
+        bindRegular: "clothingName",
+        filter: "date",
+        filterBy: "clothingPurchaseDate",
+        filterCriteria: {
+          dateRangeFor: "last week",
+          dateFrom: dateFormatService.dateRangeForFrom("last week"),
+          dateTo: dateFormatService.newDate()
+        },
+        items: closetList
+      };
+      let purchaseTable = fixture.debugElement.query(
+        By.css('#purchase-table')
+      ).componentInstance;
+      component.ngOnInit();
+      fixture.detectChanges();
+      expect(purchaseTable.bindBold).toEqual(mockPurchaseTable.bindBold);
+      expect(purchaseTable.bindRegular).toEqual(mockPurchaseTable.bindRegular);
+      expect(purchaseTable.filter).toEqual(mockPurchaseTable.filter);
+      expect(purchaseTable.filterBy).toEqual(mockPurchaseTable.filterBy);
+      expect(purchaseTable.filterCriteria).toEqual(mockPurchaseTable.filterCriteria);
+      expect(purchaseTable.items).toEqual(mockPurchaseTable.items);
     });
   });
 });
