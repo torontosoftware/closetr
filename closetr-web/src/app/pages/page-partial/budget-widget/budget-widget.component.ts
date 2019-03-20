@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClosetService } from '../../../services/closet.service';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { DateFormatService } from '../../../services/utils/date-format.service';
 import { Clothing } from '../../../models/clothing.model';
 import { User } from '../../../models/user.model';
 
@@ -18,12 +19,18 @@ export class BudgetWidgetComponent implements OnInit {
 
   constructor(
     private closetService: ClosetService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private dateFormatService: DateFormatService
   ) {
     this.dateOptions = [
       "last week",
       "last month"
     ];
+    this.filterCriteria = {
+      dateRangeFor: "last week",
+      dateFrom: this.dateFormatService.dateRangeForFrom("last week"),
+      dateTo: this.dateFormatService.newDate()
+    };
 
   }
 
@@ -33,6 +40,12 @@ export class BudgetWidgetComponent implements OnInit {
         this.currentUser = user;
         this.getAllClothes();
       }
+    );
+  }
+
+  updateFilterCriteria(): void {
+    this.filterCriteria.dateFrom = this.dateFormatService.dateRangeForFrom(
+      this.filterCriteria.dateRangeFor
     );
   }
 

@@ -6,6 +6,8 @@
       <div class="col-6">
         <ui-filter-select
           [items]="dateOptions"
+          [(inputModel)]="filterCriteria.dateRangeFor"
+          (inputModelChange)="updateFilterCriteria()"
         ></ui-filter-select>
       </div>
   </div>
