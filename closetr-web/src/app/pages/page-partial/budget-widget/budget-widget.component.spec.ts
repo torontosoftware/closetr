@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { Component, Injectable, Pipe, PipeTransform } from '@angular/core';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
@@ -61,6 +62,8 @@ describe('BudgetWidgetComponent', () => {
   let fixture: ComponentFixture<BudgetWidgetComponent>;
   let closetService: ClosetServiceMock;
   let authenticationService: AuthenticationServiceMock;
+  let router: Router;
+  let hostElement;
 
   const routes = [
     { path: 'spending-manage', component: MockSpendingManageComponent },
@@ -97,8 +100,11 @@ describe('BudgetWidgetComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BudgetWidgetComponent);
     component = fixture.debugElement.componentInstance;
+    router = TestBed.get(Router);
+    hostElement = fixture.nativeElement;
     closetService = TestBed.get(ClosetService);
     authenticationService = TestBed.get(AuthenticationService);
+    spyOn(router, 'navigate').and.callThrough();
     spyOn(component, 'getAllClothes').and.callThrough();
     spyOn(closetService, 'getAllClothes').and.callThrough();
     fixture.detectChanges();
@@ -110,12 +116,18 @@ describe('BudgetWidgetComponent', () => {
 
   it(`should navigate to budget manage component
     when edit button is clicked`, () => {
-
+    let editButton = hostElement.querySelector('#edit-button button');
+    editButton.click();
+    fixture.detectChanges();
+    expect(router.navigate).toHaveBeenCalledWith(['/budget-manage']);
   });
 
   it(`should navigate to spending manage component
     when 'manage spending' button is clicked`, () => {
-
+    let manageSpendingButton = hostElement.querySelector('#manage-spending-button button');
+    manageSpendingButton.click();
+    fixture.detectChanges();
+    expect(router.navigate).toHaveBeenCalledWith(['/spending-manage']);
   });
 
   describe(`from the init method,`, () => {
