@@ -153,13 +153,17 @@ describe('BudgetWidgetComponent', () => {
   });
 
   describe(`the getAllClothes() method,`, () => {
+    beforeEach(() => {
+      component.getAllClothes();
+      fixture.detectChanges();
+    });
     it(`should call closet service's getAllClothes()
       method`, () => {
-
+      expect(closetService.getAllClothes).toHaveBeenCalledWith(currentUser);
     });
     it(`should set closetList to the returned
       data from closetService`, () => {
-
+      expect(component.closetList).toEqual(closetList);
     });
   });
 

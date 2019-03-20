@@ -13,6 +13,7 @@ export class BudgetWidgetComponent implements OnInit {
   purchaseList: object;
   dateOptions: Array<string>;
   closetList: Array<Clothing>;
+  filterCriteria: any;
   currentUser: User;
 
   constructor(
