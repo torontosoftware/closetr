@@ -453,7 +453,21 @@ describe('SpendingManageComponent', () => {
     is called,`, () => {
     it(`should set filterCriteria from
       searchCriteria`, () => {
-
+      let searchCriteria = {
+        property: "clothingPurchaseDate",
+        dateRangeFor: "last month",
+        dateFromFormatted: '2018-02-09',
+        dateToFormatted: '2019-02-09',
+        dateFrom: dateFormatService.newDate(2018, 2, 9),
+        dateTo: dateFormatService.newDate(2019, 2, 9)
+      };
+      let filterCriteria = {
+        dateFrom: dateFormatService.newDate(2018, 2, 9),
+        dateTo: dateFormatService.newDate(2019, 2, 9)
+      };
+      component.searchCriteria = searchCriteria;
+      component.updateFilterCriteria();
+      expect(component.filterCriteria).toEqual(filterCriteria);
     });
   });
 });
