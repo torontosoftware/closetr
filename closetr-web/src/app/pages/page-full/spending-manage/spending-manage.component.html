@@ -61,7 +61,9 @@
                 [labelText]="'to:'"
               ></ui-filter-date>
             </div>
-            <div [ngClass]="{'col-6 col-md-8':!isDateRange, 'col-12 col-md-4':isDateRange}">
+            <div
+              [ngClass]="{'col-6 col-md-8':!isDateRange, 'col-12 col-md-4':isDateRange}"
+              id="toggle-button">
               <input type="checkbox" id="switch" [(ngModel)]="isDateRange"/><label for="switch" class="toggle pull-right">Toggle</label>
               <span class="toggle-label pull-right">date range</span>
             </div>

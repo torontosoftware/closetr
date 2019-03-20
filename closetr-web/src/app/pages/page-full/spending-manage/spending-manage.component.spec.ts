@@ -152,9 +152,26 @@ describe('SpendingManageComponent', () => {
   });
 
   describe(`when the toggle button,`, () => {
+    let toggleButton;
+    beforeEach(() => {
+      toggleButton = hostElement.querySelector('#toggle-button input');
+    });
     it(`should set isDateRange true or false
       (multiple toggles)`, () => {
-
+      expect(toggleButton.checked).toBeFalsy();
+      expect(component.isDateRange).toBeFalsy();
+      toggleButton.click();
+      fixture.detectChanges();
+      expect(toggleButton.checked).toBeTruthy();
+      expect(component.isDateRange).toBeTruthy();
+      toggleButton.click();
+      fixture.detectChanges();
+      expect(toggleButton.checked).toBeFalsy();
+      expect(component.isDateRange).toBeFalsy();
+      toggleButton.click();
+      fixture.detectChanges();
+      expect(toggleButton.checked).toBeTruthy();
+      expect(component.isDateRange).toBeTruthy();
     });
   });
 
