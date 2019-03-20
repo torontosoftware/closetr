@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 import { Pipe, PipeTransform, Component, Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -344,7 +345,28 @@ describe('SpendingManageComponent', () => {
 
   describe(`the table of purchases,`, () => {
     it(`should render each item in closetList.`, () => {
-
+      let mockPurchaseTable = {
+        bindBold: "clothingCost",
+        bindRegular: "clothingName",
+        filter: "date",
+        filterBy: "clothingPurchaseDate",
+        filterCriteria: {
+          dateFrom: dateFormatService.dateRangeForFrom("last month"),
+          dateTo: dateFormatService.newDate()
+        },
+        items: closetList
+      };
+      component.ngOnInit();
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        let purchaseTable = fixture.debugElement.query(By.directive(UiTableComponent)).componentInstance;
+        expect(purchaseTable.bindBold).toEqual(mockPurchaseTable.bindBold);
+        expect(purchaseTable.bindRegular).toEqual(mockPurchaseTable.bindRegular);
+        expect(purchaseTable.filter).toEqual(mockPurchaseTable.filter);
+        expect(purchaseTable.filterBy).toEqual(mockPurchaseTable.filterBy);
+        expect(purchaseTable.filterCriteria).toEqual(mockPurchaseTable.filterCriteria);
+        expect(purchaseTable.items).toEqual(mockPurchaseTable.items);
+      });
     });
   });
 

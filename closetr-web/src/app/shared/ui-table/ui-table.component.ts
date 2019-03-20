@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { DateRangeFilterPipe } from '../../pipes/date-range-filter.pipe';
 @Component({
   selector: 'ui-table',
   templateUrl: './ui-table.component.html',

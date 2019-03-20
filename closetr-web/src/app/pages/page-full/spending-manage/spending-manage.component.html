@@ -71,6 +71,7 @@
           <div class="row mtb-10">
             <div class="col-12">
               <ui-table
+                id="purchase-table"
                 *ngIf="closetList"
                 [items]="closetList"
                 [bindBold]="'clothingCost'"
@@ -79,18 +80,6 @@
                 [filterBy]="'clothingPurchaseDate'"
                 [filterCriteria]="filterCriteria"
               ></ui-table>
-              <!--
-              <div class="purchase-list-table">
-                <table class="table table-sm table-borderless">
-                  <tbody>
-                    <tr *ngFor="let clothing of closetList | dateRangeFilter:searchCriteria.dateFrom:searchCriteria.dateTo:'clothingPurchaseDate' | keyvalue">
-                      <td class="purchase-list-cost">{{clothing.value.clothingCost}}</td>
-                      <td class="purchase-list-clothing">{{clothing.value.clothingName}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              -->
             </div>
           </div>
           <div class="row mtb-10">
