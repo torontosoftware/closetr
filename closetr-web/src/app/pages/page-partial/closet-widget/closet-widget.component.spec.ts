@@ -98,9 +98,11 @@ describe('ClosetWidgetComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ClosetWidgetComponent);
     component = fixture.debugElement.componentInstance;
+    hostElement = fixture.nativeElement;
     router = TestBed.get(Router);
     authenticationService = TestBed.get(AuthenticationService);
     closetService = TestBed.get(ClosetService);
+    spyOn(router, 'navigate').and.callThrough();
     spyOn(component, 'getAllClothes').and.callThrough();
     spyOn(closetService, 'getAllClothes').and.callThrough();
     spyOn(closetService, 'getSortOptions').and.callThrough();
@@ -113,12 +115,18 @@ describe('ClosetWidgetComponent', () => {
   });
 
   it(`should be render closetList into closet card components.`, () => {
-
+    let closetCards = fixture.debugElement.queryAll(
+      By.directive(ClosetCardComponent)
+    ).map(closetCardFixture => closetCardFixture.componentInstance.clothing);
+    expect(closetCards).toEqual(closetList);
   });
 
   it(`should navigate to the closet manage component when the edit
     button is clicked.`, () => {
-
+    let editButton = hostElement.querySelector('#edit-button button');
+    editButton.click();
+    fixture.detectChanges();
+    expect(router.navigate).toHaveBeenCalledWith(['/closet-manage']);
   });
 
   it(`should render filterOptions into the filter selector.`, () => {
