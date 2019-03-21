@@ -26,6 +26,20 @@ const closetList = [
   new Clothing({clothingID: '2', clothingName: 'jeans'}),
   new Clothing({clothingID: '3', clothingName: 'shoes'})
 ];
+const filterOptions = [
+  "no filter",
+  "exclude Aritzia items",
+  "sweaters only",
+  "pants and sweaters only",
+  "pants only"
+];
+const sortOptions = [
+  "cost ascending",
+  "cost descending",
+  "most recently purchased",
+  "least recently purchased",
+  "most worn"
+];
 const currentUser = new User({userName: 'fides', id: '1'});
 
 @Injectable({
@@ -40,7 +54,8 @@ class AuthenticationServiceMock {
 })
 class ClosetServiceMock {
   getAllClothes = (user) => of({data: closetList});
-
+  getSortOptions = () => sortOptions;
+  getFilterOptions = () => filterOptions;
 }
 
 describe('ClosetWidgetComponent', () => {

@@ -12,35 +12,18 @@ import { Subscription } from 'rxjs';
 })
 export class ClosetWidgetComponent implements OnInit {
   closetList: Array<Clothing>;
-  closetService: ClosetService;
-  currentUserSubscription: Subscription;
   currentUser: User;
   filterOptions: Array<string>;
   sortOptions: Array<string>;
 
-  constructor(private closetservice: ClosetService,
+  constructor(private closetService: ClosetService,
               private authenticationService: AuthenticationService) {
-    this.closetService = closetservice;
-
-    this.filterOptions = [
-      "no filter",
-      "exclude Aritzia items",
-      "sweaters only",
-      "pants and sweaters only",
-      "pants only"
-    ];
-
-    this.sortOptions = [
-      "cost ascending",
-      "cost descending",
-      "most recently purchased",
-      "least recently purchased",
-      "most worn"
-    ];
+    this.filterOptions = this.closetService.getFilterOptions();
+    this.sortOptions = this.closetService.getSortOptions();
   }
 
   ngOnInit() {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
+    this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
         this.getAllClothes();
