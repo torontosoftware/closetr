@@ -1,30 +1,79 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { Component, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { ClosetService } from '../../../services/closet.service';
+import { User } from '../../../models/user.model';
+import { Clothing } from '../../../models/clothing.model';
 import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-button.component';
 import { UiFilterSelectComponent } from '../../../shared/ui-filter-select/ui-filter-select.component';
 import { ClosetCardComponent } from '../closet-card/closet-card.component';
 import { UiCloseButtonComponent } from '../../../shared/ui-close-button/ui-close-button.component';
 import { ClosetWidgetComponent } from './closet-widget.component';
 
+@Component({
+  selector: 'app-closet-manage',
+  template: '<p> Closet Manage Component </p>'
+})
+class MockClosetManageComponent { }
+
+const closetList = [
+  new Clothing({clothingID: '1', clothingName: 'tshirt'}),
+  new Clothing({clothingID: '2', clothingName: 'jeans'}),
+  new Clothing({clothingID: '3', clothingName: 'shoes'})
+];
+const currentUser = new User({userName: 'fides', id: '1'});
+
+@Injectable({
+  providedIn: 'root'
+})
+class AuthenticationServiceMock {
+  currentUser = of(currentUser);
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+class ClosetServiceMock {
+  getAllClothes = (user) => of({data: closetList});
+
+}
+
 describe('ClosetWidgetComponent', () => {
   let component: ClosetWidgetComponent;
   let fixture: ComponentFixture<ClosetWidgetComponent>;
+  let router: Router;
+  let authenticationService: AuthenticationServiceMock;
+  let closetService: ClosetServiceMock;
+  let hostElement;
+
+  const routes = [
+    { path: 'closet-manage', component: MockClosetManageComponent }
+  ];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterTestingModule.withRoutes(routes),
         HttpClientTestingModule,
         FormsModule
       ],
       declarations: [
+        MockClosetManageComponent,
         UiEditButtonComponent,
         UiFilterSelectComponent,
         ClosetCardComponent,
         UiCloseButtonComponent,
         ClosetWidgetComponent
+      ],
+      providers: [
+        ClosetWidgetComponent,
+        {provide: ClosetService, useClass: ClosetServiceMock},
+        {provide: AuthenticationService, useClass: AuthenticationServiceMock},
       ]
     })
     .compileComponents();
@@ -32,7 +81,10 @@ describe('ClosetWidgetComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ClosetWidgetComponent);
-    component = fixture.componentInstance;
+    component = fixture.debugElement.componentInstance;
+    router = TestBed.get(Router);
+    authenticationService = TestBed.get(AuthenticationService);
+    closetService = TestBed.get(ClosetService);
     fixture.detectChanges();
   });
 
