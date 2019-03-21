@@ -91,4 +91,49 @@ describe('ClosetWidgetComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it(`should be render closetList into closet card components.`, () => {
+
+  });
+
+  it(`should navigate to the closet manage component when the edit
+    button is clicked.`, () => {
+
+  });
+
+  it(`should render filterOptions into the filter selector.`, () => {
+
+  });
+
+  it(`should render sortOptions into the sort selector.`, () => {
+
+  });
+
+  describe(`from the init method,`, () => {
+    it(`should retrieve the current user from the authentication
+      service.`, () => {
+
+    });
+    it(`should call getAllClothes() method.`, () => {
+
+    });
+    it(`should retrieve filterOptions from closet service.`, () => {
+
+    });
+    it(`should retrieve sortOptions from closet service.`, () => {
+
+    });
+  });
+
+  describe(`when the getAllClothes() method is called,`, () => {
+    it(`should call closetService's getAllClothes() method.`, () => {
+
+    });
+    it(`should set closetList as equal to the returned data
+      from closet service.`, () => {
+
+    });
+  });
+
+
 });
