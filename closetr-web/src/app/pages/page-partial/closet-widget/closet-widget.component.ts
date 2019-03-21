@@ -17,10 +17,7 @@ export class ClosetWidgetComponent implements OnInit {
   sortOptions: Array<string>;
 
   constructor(private closetService: ClosetService,
-              private authenticationService: AuthenticationService) {
-    this.filterOptions = this.closetService.getFilterOptions();
-    this.sortOptions = this.closetService.getSortOptions();
-  }
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.authenticationService.currentUser.subscribe(
@@ -28,7 +25,9 @@ export class ClosetWidgetComponent implements OnInit {
         this.currentUser = user;
         this.getAllClothes();
       }
-    )
+    );
+    this.filterOptions = this.closetService.getFilterOptions();
+    this.sortOptions = this.closetService.getSortOptions();
   }
 
   getAllClothes(): void {

@@ -100,6 +100,9 @@ describe('ClosetWidgetComponent', () => {
     router = TestBed.get(Router);
     authenticationService = TestBed.get(AuthenticationService);
     closetService = TestBed.get(ClosetService);
+    spyOn(component, 'getAllClothes').and.callThrough();
+    spyOn(closetService, 'getSortOptions').and.callThrough();
+    spyOn(closetService, 'getFilterOptions').and.callThrough();
     fixture.detectChanges();
   });
 
@@ -125,18 +128,24 @@ describe('ClosetWidgetComponent', () => {
   });
 
   describe(`from the init method,`, () => {
+    beforeEach(() => {
+      component.ngOnInit();
+      fixture.detectChanges();
+    })
     it(`should retrieve the current user from the authentication
       service.`, () => {
-
+      expect(component.currentUser).toEqual(currentUser);
     });
     it(`should call getAllClothes() method.`, () => {
-
+      expect(component.getAllClothes).toHaveBeenCalled();
     });
     it(`should retrieve filterOptions from closet service.`, () => {
-
+      expect(closetService.getFilterOptions).toHaveBeenCalled();
+      expect(component.filterOptions).toEqual(filterOptions);
     });
     it(`should retrieve sortOptions from closet service.`, () => {
-
+      expect(closetService.getSortOptions).toHaveBeenCalled();
+      expect(component.sortOptions).toEqual(sortOptions);
     });
   });
 
