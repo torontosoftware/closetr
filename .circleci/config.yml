@@ -43,7 +43,7 @@ jobs:
           name: Building Frontend from Angular
           command: |
             cd closetr-web
-            npm build
+            npm run-script build
 
       ### NODE/EXPRESS PORTION ###
 
@@ -67,11 +67,17 @@ jobs:
     docker:
       - image: buildpack-deps:trusty
     steps:
+      ### NODE/EXPRESS PORTION ###
       - checkout
       - run:
           name: Deploy to Heroku
           command: |
             git subtree push --prefix closetr-web heroku master
+      ### ANGULAR PORTION ###
+      - add_ssh_keys:
+          fingerprints:
+            - "00:9b:cf:af:a9:51:89:f5:c0:7e:9e:9a:2e:de:fe:1b"
+
 workflows:
   version: 2
   build-deploy:
