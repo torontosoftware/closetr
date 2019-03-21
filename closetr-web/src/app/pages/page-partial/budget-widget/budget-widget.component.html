@@ -5,20 +5,28 @@
       </div>
       <div class="col-6">
         <ui-filter-select
+          id="date-range-select"
           [items]="dateOptions"
+          [(inputModel)]="filterCriteria.dateRangeFor"
+          (inputModelChange)="updateFilterCriteria()"
         ></ui-filter-select>
       </div>
   </div>
   <div class="row mtb-10">
     <div class="col-12">
       <ui-table
-        [items]="purchaseList"
-        [bindBold]="'price'"
-        [bindRegular]="'name'"
+        id="purchase-table"
+        [filter]="'date'"
+        [filterBy]="'clothingPurchaseDate'"
+        [filterCriteria]="filterCriteria"
+        [items]="closetList"
+        [bindBold]="'clothingCost'"
+        [bindRegular]="'clothingName'"
       ></ui-table>
     </div>
     <div class="col-12">
       <ui-text-button
+        id="manage-spending-button"
         [labelText]="'manage spending'"
         [buttonLink]="'/spending-manage'"
       ></ui-text-button>
@@ -29,8 +37,11 @@
         <h3>budget</h3>
       </div>
       <div class="col-6">
-        <ui-edit-button>
-        </ui-edit-button>
+        <ui-edit-button
+          id="edit-button"
+          [buttonLink]="'/budget-manage'"
+          [type]="'link'"
+        ></ui-edit-button>
       </div>
   </div>
   <div class="row">
