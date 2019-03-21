@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 import { Component, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -101,6 +102,7 @@ describe('ClosetWidgetComponent', () => {
     authenticationService = TestBed.get(AuthenticationService);
     closetService = TestBed.get(ClosetService);
     spyOn(component, 'getAllClothes').and.callThrough();
+    spyOn(closetService, 'getAllClothes').and.callThrough();
     spyOn(closetService, 'getSortOptions').and.callThrough();
     spyOn(closetService, 'getFilterOptions').and.callThrough();
     fixture.detectChanges();
@@ -120,11 +122,17 @@ describe('ClosetWidgetComponent', () => {
   });
 
   it(`should render filterOptions into the filter selector.`, () => {
-
+    let filterSelect = fixture.debugElement.query(
+      By.css('#filter-select')
+    ).componentInstance;
+    expect(filterSelect.items).toEqual(filterOptions);
   });
 
   it(`should render sortOptions into the sort selector.`, () => {
-
+    let sortSelect = fixture.debugElement.query(
+      By.css('#sort-select')
+    ).componentInstance;
+    expect(sortSelect.items).toEqual(sortOptions);
   });
 
   describe(`from the init method,`, () => {
@@ -150,12 +158,17 @@ describe('ClosetWidgetComponent', () => {
   });
 
   describe(`when the getAllClothes() method is called,`, () => {
+    beforeEach(() => {
+      component.getAllClothes();
+      fixture.detectChanges();
+    });
     it(`should call closetService's getAllClothes() method.`, () => {
-
+      expect(closetService.getAllClothes).toHaveBeenCalledTimes(2);
+      expect(closetService.getAllClothes).toHaveBeenCalledWith(currentUser);
     });
     it(`should set closetList as equal to the returned data
       from closet service.`, () => {
-
+      expect(component.closetList).toEqual(closetList);
     });
   });
 
