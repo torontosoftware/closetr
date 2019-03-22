@@ -38,7 +38,8 @@ describe('ClosetCardComponent', () => {
   let closetService: ClosetServiceMock;
 
   const routes = [
-    { path: 'edit-clothing/:id', component: MockEditClothingComponent }
+    { path: 'edit-clothing/:id', component: MockEditClothingComponent },
+    { path: 'closet-manage', component: ClosetCardComponent}
   ];
 
   beforeEach(async(() => {
@@ -192,11 +193,15 @@ describe('ClosetCardComponent', () => {
     describe(`the isClosetManage variable,`, () => {
       it(`should be true if the current url is
         /closet-manage.`, () => {
-
+        router.navigate(["/closet-manage"]).then(() => {
+          component.ngOnInit();
+          expect(component.isClosetManage).toBeTruthy();
+        });
       });
       it(`should be false if the current url is
         not /closet-manage.`, () => {
-
+        component.ngOnInit();
+        expect(component.isClosetManage).toBeFalsy();
       });
     });
   });
