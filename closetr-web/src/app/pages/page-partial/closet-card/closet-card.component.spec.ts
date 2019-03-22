@@ -55,7 +55,8 @@ describe('ClosetCardComponent', () => {
   });
 
   describe(`the edit button,`, () => {
-    it(`should call editCard method when clicked.`, () => {
+    it(`should call editCard method with clothingID,
+      when clicked.`, () => {
 
     });
     describe(`should be hidden when`, () => {
@@ -73,6 +74,37 @@ describe('ClosetCardComponent', () => {
       it(`when both editMode and isClosetManage is true.`, () => {
 
       });
+    });
+  });
+
+  describe(`the close button,`, () => {
+    it(`should be visible when editMode is true.`, () => {
+
+    });
+    it(`should be hidden when editMode is false.`, () => {
+
+    });
+    it(`should call removeCard method with clothingID,
+      when clicked.`, () => {
+
+    });
+  });
+
+  describe(`the editCard() method`, () => {
+    it(`should call closetService's setClothingForEdit
+      method with clothing.`, () => {
+
+    });
+    it(`should navigate to edit-clothing with the 
+      clothingID as additional parameter.`, () => {
+
+    });
+  });
+
+  describe(`the removeCard() method,`, () => {
+    it(`should call removeCardEmit's emit function with
+      clothingID`, () => {
+
     });
   });
 
