@@ -25,6 +25,7 @@ export class ClosetCardComponent implements OnInit {
   }
 
   editCard(clothing: Clothing): void {
+    console.log("calling edit card");
     this.closetService.setClothingForEdit(clothing);
     this.router.navigate(['/edit-clothing', clothing.clothingID]);
   }
