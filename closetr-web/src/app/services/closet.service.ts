@@ -97,4 +97,30 @@ export class ClosetService {
     return this.clothingForEdit;
   }
 
+  /*
+  Returns filter options for sorting (temporary)
+  */
+  getFilterOptions(): Array<string> {
+    return [
+      "no filter",
+      "exclude Aritzia items",
+      "sweaters only",
+      "pants and sweaters only",
+      "pants only"
+    ];
+  }
+
+  /*
+  Returns sorting options for sorting (temporary)
+  */
+  getSortOptions(): Array<string> {
+    return [
+      "cost ascending",
+      "cost descending",
+      "most recently purchased",
+      "least recently purchased",
+      "most worn"
+    ];
+  }
+
 }

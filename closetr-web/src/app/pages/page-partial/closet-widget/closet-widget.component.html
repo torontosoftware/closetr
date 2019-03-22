@@ -5,6 +5,7 @@
       </div>
       <div class="col-6">
         <ui-edit-button
+          id="edit-button"
           [type]="'link'"
           [buttonLink]="'/closet-manage'"
         ></ui-edit-button>
@@ -13,12 +14,14 @@
   <div class="row mtb-10">
       <div class="col-6 col-sm-4 col-md-3">
         <ui-filter-select
+          id="filter-select"
           [type]="'filter'"
           [items]="filterOptions"
         ></ui-filter-select>
       </div>
       <div class="col-6 col-sm-4 col-md-3">
         <ui-filter-select
+          id="sort-select"
           [type]="'sort'"
           [items]="sortOptions"
         ></ui-filter-select>
