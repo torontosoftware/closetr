@@ -12,12 +12,6 @@ describe('ClosetCardComponent', () => {
   let clothing: any;
 
   beforeEach(async(() => {
-    const mockClothing = {
-      clothingID: "12345",
-      clothingName: "Aritzia TShirt",
-      clothingCost: 140,
-      clothingWorn: 4
-    };
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -29,16 +23,15 @@ describe('ClosetCardComponent', () => {
         ClosetCardComponent
       ],
       providers: [
-        {provide: Clothing, useValue: mockClothing}
+        ClosetCardComponent
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    clothing = TestBed.get(Clothing);
     fixture = TestBed.createComponent(ClosetCardComponent);
-    component = fixture.componentInstance;
+    component = fixture.debugElement.componentInstance;
     component.clothing = clothing;
     fixture.detectChanges();
   });
@@ -48,4 +41,52 @@ describe('ClosetCardComponent', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });
+
+  describe(`the closet-card-caption,`, () => {
+    it(`should render clothingName.`, () => {
+
+    });
+    it(`should render clothingCost.`, () => {
+
+    });
+    it(`should render clothingWorn.`, () => {
+
+    });
+  });
+
+  describe(`the edit button,`, () => {
+    it(`should call editCard method when clicked.`, () => {
+
+    });
+    describe(`should be hidden when`, () => {
+      it(`isClosetManage is false, but editMode is false.`, () => {
+
+      });
+      it(`isClosetManage is false, but editMode is true.`, () => {
+
+      });
+      it(`both isClosetManage and editMode are false.`, () => {
+
+      });
+    });
+    describe(`should be visible`, () => {
+      it(`when both editMode and isClosetManage is true.`, () => {
+
+      });
+    });
+  });
+
+  describe(`from the init method,`, () => {
+    describe(`the isClosetManage variable,`, () => {
+      it(`should be true if the current url is
+        /closet-manage.`, () => {
+
+      });
+      it(`should be false if the current url is
+        not /closet-manage.`, () => {
+
+      });
+    });
+  });
+
 });
