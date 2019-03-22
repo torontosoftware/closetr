@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ClosetService } from '../../../services/closet.service';
 import { UiCloseButtonComponent } from '../../../shared/ui-close-button/ui-close-button.component';
 import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-button.component';
 import { ClosetCardComponent } from './closet-card.component';
@@ -22,11 +23,19 @@ const clothing = new Clothing({
 })
 class MockEditClothingComponent { }
 
+@Injectable({
+  providedIn: 'root'
+})
+class ClosetServiceMock {
+  setClothingForEdit = () => { return };
+}
+
 describe('ClosetCardComponent', () => {
   let component: ClosetCardComponent;
   let fixture: ComponentFixture<ClosetCardComponent>;
   let router: Router;
   let hostElement;
+  let closetService: ClosetServiceMock;
 
   const routes = [
     { path: 'edit-clothing/:id', component: MockEditClothingComponent }
@@ -45,7 +54,8 @@ describe('ClosetCardComponent', () => {
         ClosetCardComponent
       ],
       providers: [
-        ClosetCardComponent
+        ClosetCardComponent,
+        { provide: ClosetService, useClass: ClosetServiceMock }
       ]
     })
     .compileComponents();
@@ -56,8 +66,13 @@ describe('ClosetCardComponent', () => {
     hostElement = fixture.nativeElement;
     component = fixture.debugElement.componentInstance;
     router = TestBed.get(Router);
+    closetService = TestBed.get(ClosetService);
     component.clothing = clothing;
     spyOn(component, 'editCard').and.callThrough();
+    spyOn(component, 'removeCard').and.callThrough();
+    spyOn(component.removeCardEmit, 'emit').and.callThrough();
+    spyOn(router, 'navigate').and.callThrough();
+    spyOn(closetService, 'setClothingForEdit');
     fixture.detectChanges();
   });
 
@@ -128,33 +143,48 @@ describe('ClosetCardComponent', () => {
   });
 
   describe(`the close button,`, () => {
+    let closeButton;
+    beforeEach(() => {
+      closeButton = hostElement.querySelector('#close-button button');
+    });
     it(`should be visible when editMode is true.`, () => {
-
+      component.editMode = true;
+      fixture.detectChanges();
+      expect(closeButton.disabled).toBeFalsy();
     });
     it(`should be hidden when editMode is false.`, () => {
-
+      component.editMode = false;
+      fixture.detectChanges();
+      expect(closeButton.disabled).toBeTruthy();
     });
     it(`should call removeCard method with clothingID,
       when clicked.`, () => {
-
+      component.editMode = true;
+      fixture.detectChanges();
+      closeButton.click();
+      expect(component.removeCard).toHaveBeenCalledWith(clothing.clothingID);
     });
   });
 
   describe(`the editCard() method`, () => {
+    beforeEach(() => {
+      component.editCard(clothing);
+    });
     it(`should call closetService's setClothingForEdit
       method with clothing.`, () => {
-
+      expect(closetService.setClothingForEdit).toHaveBeenCalledWith(clothing);
     });
     it(`should navigate to edit-clothing with the
       clothingID as additional parameter.`, () => {
-
+      expect(router.navigate).toHaveBeenCalledTimes(1);
     });
   });
 
   describe(`the removeCard() method,`, () => {
     it(`should call removeCardEmit's emit function with
       clothingID`, () => {
-
+      component.removeCard(clothing.clothingID);
+      expect(component.removeCardEmit.emit).toHaveBeenCalledWith(clothing.clothingID);
     });
   });
 
