@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UiPopupMenuItemComponent } from '../../../shared/ui-popup-menu-item/ui-popup-menu-item.component';
@@ -36,39 +37,63 @@ describe('UserMenuComponent', () => {
   });
 
   describe(`the ui-popup-menu-item`, () => {
-    it(`should render from my-profile link.`, () => {
+    describe(`for my-profile link,`, () => {
+      it(`should render.`, () => {
+        let profileMenuItem = fixture.debugElement.query(
+          By.css('#profile-menu-item')
+        ).componentInstance;
+        expect(profileMenuItem).toBeTruthy();
+        expect(profileMenuItem.labelText).toEqual('My Profile');
+      });
+      it(`should be called with '/profile' when
+        clicked.`, () => {
 
+      });
     });
-    it(`should render from settings link.`, () => {
+    describe(`for settings link,`, () => {
+      it(`should render.`, () => {
+        let settingsMenuItem = fixture.debugElement.query(
+          By.css('#settings-menu-item')
+        ).componentInstance;
+        expect(settingsMenuItem).toBeTruthy();
+        expect(settingsMenuItem.labelText).toEqual('Settings');
+      });
+      it(`should be called with '/profile' when
+        clicked.`, () => {
 
+      });
     });
+    describe(`for sign-out link,`, () => {
+      it(`should render.`, () => {
+        let signoutMenuItem = fixture.debugElement.query(
+          By.css('#signout-menu-item')
+        ).componentInstance;
+        expect(signoutMenuItem).toBeTruthy();
+        expect(signoutMenuItem.labelText).toEqual('Sign Out');
+      });
+      it(`should be called with '/sign-out' when
+        clicked.`, () => {
+
+      });
+    });
+
     it(`should render from sign-out link.`, () => {
-
+      let signoutMenuItem = fixture.debugElement.query(
+        By.css('#signout-menu-item')
+      ).componentInstance;
+      expect(signoutMenuItem).toBeTruthy();
+      expect(signoutMenuItem.labelText).toEqual('Sign Out');
     });
   });
 
   describe(`the navClick() function,`, () => {
-    it(`should be called with '/profile' when
-      the profile link button is clicked.`, () => {
+    it(`should navigate to /profile and call close(),
+      when it is called with /profile.`, () => {
 
     });
-    it(`should be called with '/settings' when
-      the settings link button is clicked.`, () => {
+    it(`should call logout() and then close(),
+      when it is called with /sign-out.`, () => {
 
-    });
-    it(`should be called with '/sign-out' when
-      the sign-out link button is clicked.`, () => {
-
-    });
-    describe(`when called with a link,`, () => {
-      it(`should navigate to /profile and call close(),
-        when it is called with /profile.`, () => {
-
-      });
-      it(`should call logout() and then close(),
-        when it is called with /sign-out.`, () => {
-
-      });
     });
   });
 
@@ -84,7 +109,7 @@ describe('UserMenuComponent', () => {
 
   describe(`the close() function`, () => {
     it(`should call closeUserMenuEmit's
-      emit function,` () => {
+      emit function,`, () => {
 
     });
   });
