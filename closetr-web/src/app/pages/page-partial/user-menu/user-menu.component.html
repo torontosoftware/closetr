@@ -4,15 +4,18 @@
   <div class="row">
     <div class="col-12">
       <ul>
-        <li class="menu-item">
-          <button class="btn btn-transparent" (click)="navClick('/profile')">My Profile</button>
-        </li>
-        <li class="menu-item">
-          <button class="btn btn-transparent" (click)="navClick('/settings')">Settings</button>
-        </li>
-        <li class="menu-item">
-          <button class="btn btn-transparent" (click)="navClick('/sign-out')">Sign Out</button>
-        </li>
+        <ui-popup-menu-item
+          (click)="navClick('/profile')"
+          labelText="My Profile"
+        ></ui-popup-menu-item>
+        <ui-popup-menu-item
+          (click)="navClick('/settings')"
+          labelText="Settings"
+        ></ui-popup-menu-item>
+        <ui-popup-menu-item
+          (click)="navClick('/sign-out')"
+          labelText="Sign Out"
+        ></ui-popup-menu-item>
       </ul>
     </div>
   </div>
