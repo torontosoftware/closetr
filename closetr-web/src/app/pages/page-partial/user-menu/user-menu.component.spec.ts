@@ -8,6 +8,7 @@ import { UserMenuComponent } from './user-menu.component';
 describe('UserMenuComponent', () => {
   let component: UserMenuComponent;
   let fixture: ComponentFixture<UserMenuComponent>;
+  let hostElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -28,7 +29,9 @@ describe('UserMenuComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UserMenuComponent);
-    component = fixture.componentInstance;
+    component = fixture.debugElement.componentInstance;
+    hostElement = fixture.nativeElement;
+    spyOn(component, 'navClick');
     fixture.detectChanges();
   });
 
@@ -38,42 +41,60 @@ describe('UserMenuComponent', () => {
 
   describe(`the ui-popup-menu-item`, () => {
     describe(`for my-profile link,`, () => {
-      it(`should render.`, () => {
-        let profileMenuItem = fixture.debugElement.query(
+      let profileMenuItem;
+      beforeEach(() => {
+        profileMenuItem = fixture.debugElement.query(
           By.css('#profile-menu-item')
         ).componentInstance;
+      });
+      it(`should render.`, () => {
         expect(profileMenuItem).toBeTruthy();
         expect(profileMenuItem.labelText).toEqual('My Profile');
       });
-      it(`should be called with '/profile' when
+      it(`should call navClick() with '/profile' when
         clicked.`, () => {
-
+        let profileMenuItemButton = hostElement.querySelector('#profile-menu-item button');
+        profileMenuItemButton.click();
+        fixture.detectChanges();
+        expect(component.navClick).toHaveBeenCalledWith('/profile');
       });
     });
     describe(`for settings link,`, () => {
-      it(`should render.`, () => {
-        let settingsMenuItem = fixture.debugElement.query(
+      let settingsMenuItem;
+      beforeEach(() => {
+        settingsMenuItem = fixture.debugElement.query(
           By.css('#settings-menu-item')
         ).componentInstance;
+      })
+      it(`should render.`, () => {
         expect(settingsMenuItem).toBeTruthy();
         expect(settingsMenuItem.labelText).toEqual('Settings');
       });
-      it(`should be called with '/profile' when
+      it(`should call navClick() with '/settings' when
         clicked.`, () => {
-
+        let settingsMenuItemButton = hostElement.querySelector('#settings-menu-item button');
+        settingsMenuItemButton.click();
+        fixture.detectChanges();
+        expect(component.navClick).toHaveBeenCalledWith('/settings');
       });
     });
     describe(`for sign-out link,`, () => {
-      it(`should render.`, () => {
-        let signoutMenuItem = fixture.debugElement.query(
+      let signoutMenuItem;
+      beforeEach(() => {
+        signoutMenuItem = fixture.debugElement.query(
           By.css('#signout-menu-item')
         ).componentInstance;
+      });
+      it(`should render.`, () => {
         expect(signoutMenuItem).toBeTruthy();
         expect(signoutMenuItem.labelText).toEqual('Sign Out');
       });
-      it(`should be called with '/sign-out' when
+      it(`should call navClick() with '/sign-out' when
         clicked.`, () => {
-
+        let signoutMenuItemButton = hostElement.querySelector('#signout-menu-item button');
+        signoutMenuItemButton.click();
+        fixture.detectChanges();
+        expect(component.navClick).toHaveBeenCalledWith('/sign-out');
       });
     });
 
