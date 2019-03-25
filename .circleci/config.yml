@@ -80,8 +80,8 @@ jobs:
       - run:
           name: Cleanup Build Files from Target Directory
           command: |
-            ssh fideslinga@fideslinga.com
-            cd /home/fideslinga/public_html/closeter
+            ssh $SSH_USER@$SSH_HOST
+            cd $SSH_DEPLOY_PATH
             rm ./*.js
             rm ./*.css
             rm ./*.html
@@ -89,7 +89,7 @@ jobs:
           name: SCP Deploying Angular files
           command: |
             cd closetr-web
-            scp -r ./dist/closeter/* fideslinga@fideslinga.com:/home/fideslinga/public_html/closeter
+            scp -r ./dist/closeter/* $SSH_USER@$SSH_HOST:$SSH_DEPLOY_PATH
 
 workflows:
   version: 2
