@@ -77,6 +77,19 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "00:9b:cf:af:a9:51:89:f5:c0:7e:9e:9a:2e:de:fe:1b"
+      - run:
+          name: Cleanup Build Files from Target Directory
+          command: |
+            ssh fideslinga@fideslinga.com
+            cd /home/fideslinga/public_html/closeter
+            rm ./*.js
+            rm ./*.css
+            rm ./*.html
+      - run:
+          name: SCP Deploying Angular files
+          command: |
+            cd closetr-web
+            scp -r ./dist/closeter/* fideslinga@fideslinga.com:/home/fideslinga/public_html/closeter
 
 workflows:
   version: 2
