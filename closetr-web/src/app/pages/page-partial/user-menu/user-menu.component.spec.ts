@@ -1,11 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AuthenticationService } from '../../../services/authentication.service';
 import { UiPopupMenuItemComponent } from '../../../shared/ui-popup-menu-item/ui-popup-menu-item.component';
 import { UserMenuComponent } from './user-menu.component';
+
+@Injectable({
+  providedIn: 'root'
+})
+class AuthenticationServiceMock {
+  logout = () => { return };
+}
 
 @Component({
   selector: 'app-profile',
@@ -24,6 +32,7 @@ describe('UserMenuComponent', () => {
   let fixture: ComponentFixture<UserMenuComponent>;
   let router: Router;
   let hostElement;
+  let authenticationService: AuthenticationService;
 
   const routes = [
     { path: 'profile', component: MockProfileComponent },
@@ -43,7 +52,8 @@ describe('UserMenuComponent', () => {
         HttpClientTestingModule
       ],
       providers: [
-        UserMenuComponent
+        UserMenuComponent,
+        { provide: AuthenticationService, useClass: AuthenticationServiceMock }
       ]
     })
     .compileComponents();
@@ -54,10 +64,13 @@ describe('UserMenuComponent', () => {
     component = fixture.debugElement.componentInstance;
     router = TestBed.get(Router);
     hostElement = fixture.nativeElement;
+    authenticationService = TestBed.get(AuthenticationService);
     spyOn(component, 'navClick').and.callThrough();
     spyOn(component, 'close').and.callThrough();
-    spyOn(component, 'logout');
+    spyOn(component, 'logout').and.callThrough();
+    spyOn(component.closeUserMenuEmit, 'emit');
     spyOn(router, 'navigate').and.callThrough();
+    spyOn(authenticationService, 'logout');
     fixture.detectChanges();
   });
 
@@ -149,19 +162,25 @@ describe('UserMenuComponent', () => {
   });
 
   describe(`the logout() function,`, () => {
+    beforeEach(() => {
+      component.logout();
+    });
     it(`should call authentication service's
       logout function.`, () => {
-
+      expect(authenticationService.logout).toHaveBeenCalled();
     });
     it(`should navigate to login page.`, () => {
-
+      expect(router.navigate).toHaveBeenCalledWith(['/login']);
     });
   });
 
   describe(`the close() function`, () => {
+    beforeEach(() => {
+      component.close();
+    });
     it(`should call closeUserMenuEmit's
       emit function,`, () => {
-
+      expect(component.closeUserMenuEmit.emit).toHaveBeenCalled();
     });
   });
 
