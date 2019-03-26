@@ -40,9 +40,6 @@ mongo_connect_string = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB
 mongoose.connect(mongo_connect_string, { useNewUrlParser: true });
 var db = mongoose.connection;
 
-console.log(mongo_connect_string);
-console.log(process.env.DB_USER);
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -64,8 +61,6 @@ app.use(function(err, req, res, next) {
 
 // Setup server port
 var port = process.env.PORT || 9999;
-
-console.log(port)
 
 // Launch app to listen to specified port
 app.listen(port, function () {
