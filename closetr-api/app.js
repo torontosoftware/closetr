@@ -5,14 +5,16 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
-var cors = require('cors');
+const cors = require('cors');
 
 // routers from route folder
 const indexRouter = require('./components/index/index');
 const clothesRouter = require('./components/clothes/clothes');
 const usersRouter = require('./components/users/users');
 const outfitEntriesRouter = require('./components/outfit_entries/outfit_entries');
+
+// get config from file
+require('dotenv').config;
 
 // the express app
 var app = express();
@@ -41,6 +43,9 @@ mongo_connect_string = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB
 mongoose.connect(mongo_connect_string, { useNewUrlParser: true });
 var db = mongoose.connection;
 
+console.log(mongo_connect_string);
+console.log(process.env.DB_USER);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -61,7 +66,7 @@ app.use(function(err, req, res, next) {
 });
 
 // Setup server port
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 9999;
 
 console.log(port)
 
