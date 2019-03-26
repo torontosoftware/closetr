@@ -43,8 +43,7 @@ describe('LogOutfitService', () => {
         expect(outfitEntry._id).toEqual(newOutfitEntryID);
       });
       const req = httpTestingController.expectOne(
-        `http://localhost:8080/api/outfitEntries/entry/`,
-        newOutfitEntry
+        `http://localhost:8080/api/outfitEntries/entry/`
       );
       expect(req.request.method).toEqual('POST');
       const response = {
@@ -101,15 +100,17 @@ describe('LogOutfitService', () => {
       const params = new HttpParams({
         fromObject: criteria
       });
-      logOutfitService.getAllOutfitClothes(params)
+      logOutfitService.getAllOutfitClothes(criteria)
       .subscribe(data => {
         let outfitEntryList = data.data;
+        console.log("from log outfit test",data);
         expect(outfitEntryList).toEqual(outfitEntryListResult);
       });
+      console.log("HTTP TESTING CONTROLLER",httpTestingController);
       const req = httpTestingController.expectOne(
-        `http://localhost:8080/api/outfitEntries/entry/`,
-        { params }
+        `http://localhost:8080/api/outfitEntries/entry/`
       );
+      console.log("testing controller after",httpTestingController);
       expect(req.request.method).toEqual('GET');
       const response = {
         status: 'success',
