@@ -13,9 +13,6 @@ const clothesRouter = require('./components/clothes/clothes');
 const usersRouter = require('./components/users/users');
 const outfitEntriesRouter = require('./components/outfit_entries/outfit_entries');
 
-// get config from file
-require('dotenv').config;
-
 // the express app
 var app = express();
 
