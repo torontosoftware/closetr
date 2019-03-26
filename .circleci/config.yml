@@ -22,22 +22,85 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - angular-dependencies-{{ checksum "closetr-web/package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - angular-dependencies-
 
       - run:
+          name: Installing Node Modules for Angular
           command: |
             cd closetr-web
             npm install
 
       - save_cache:
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+            - closetr-web/node_modules
+          key: angular-dependencies-{{ checksum "closetr-web/package.json" }}
 
-      # build the Angular Project
       - run:
+          name: Building Frontend from Angular
           command: |
             cd closetr-web
-            npm build
+            npm run-script build
+
+      ### NODE/EXPRESS PORTION ###
+
+      - restore_cache:
+          keys:
+            - express-dependencies-{{ checksum "closetr-api/package.json" }}
+            - express-dependencies-
+
+      - run:
+          name: Installing Node Modules for Express
+          command: |
+            cd closetr-api
+            npm install
+
+      - save_cache:
+          paths:
+            - closetr-api/node_modules
+          key: express-dependencies-{{ checksum "closetr-api/package.json" }}
+
+  deploy:
+    docker:
+      - image: buildpack-deps:trusty
+    steps:
+      ### NODE/EXPRESS PORTION ###
+      - checkout
+      - run:
+          name: Deploy to Heroku
+          command: |
+            git subtree push --prefix closetr-web heroku master
+      ### ANGULAR PORTION ###
+      - add_ssh_keys:
+          fingerprints:
+            - "00:9b:cf:af:a9:51:89:f5:c0:7e:9e:9a:2e:de:fe:1b"
+      - run:
+          name: Cleanup Build Files from Target Directory
+          command: |
+            ssh $SSH_USER@$SSH_HOST
+            cd $SSH_DEPLOY_PATH
+            rm ./*.js
+            rm ./*.css
+            rm ./*.html
+      - run:
+          name: SCP Deploying Angular files
+          command: |
+            cd closetr-web
+            scp -r ./dist/closeter/* $SSH_USER@$SSH_HOST:$SSH_DEPLOY_PATH
+      - run:
+          name: Deploying API to Heroku
+          command: |
+            git subtree push --prefix closetr-api https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+        requires:
+          - build
+        filters:
+          branches:
+            only: master

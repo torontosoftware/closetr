@@ -2,6 +2,8 @@
 
 [LIVE PROJECT](http://fideslinga.com/closeter/)
 
+[![CircleCI](https://circleci.com/gh/wafffly/closetr.svg?style=svg)](https://circleci.com/gh/wafffly/closetr)
+
 ### What it is
 Closetr is a closet tracker that helps you have a better sense of your style,
 and spending. We want to make it easier to know what to wear next, and to give

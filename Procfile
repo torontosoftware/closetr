@@ -1,1 +1,0 @@
-web: cd closetr-api && npm start

@@ -60,7 +60,7 @@ app.use(function(err, req, res, next) {
 });
 
 // Setup server port
-var port = process.env.port || 8080;
+var port = process.env.PORT || 9999;
 
 // Launch app to listen to specified port
 app.listen(port, function () {
