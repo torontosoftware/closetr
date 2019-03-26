@@ -1,21 +1,54 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { LogOutfitService } from './log-outfit.service';
 
 describe('LogOutfitService', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [ HttpClientTestingModule ]
-  }));
+  let httpTestingController: HttpTestingController;
+  let logOutfitService: LogOutfitService;
+
+  const baseUrl = "http://localhost:8080/outfit"
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [ LogOutfitService ],
+      imports: [ HttpClientTestingModule ]
+    });
+    httpTestingController = TestBed.get(HttpTestingController);
+    logOutfitService = TestBed.get(LogOutfitService);
+  });
 
   it('should be created', () => {
-    const service: LogOutfitService = TestBed.get(LogOutfitService);
-    expect(service).toBeTruthy();
+    expect(logOutfitService).toBeTruthy();
   });
 
   describe(`calling addOutfitClothing(),`, () => {
     it(`should make a POST request to base url
       with given params.`, () => {
+      const newOutfitEntry = {
+        clothing: "clothingID",
+        date: "2019-03-26",
+        user: "userID"
+      };
 
+      logOutfitService.addOutfitClothing(newOutfitEntry)
+        .subscribe(data => {
+          let outfitEntry = data.data;
+          expect(outfitEntry.clothing).toEqual(newOutfitEntry.clothing);
+          expect(outfitEntry.date).toEqual(newOutfitEntry.date);
+          expect(outfitEntry.user).toEqual(newOutfitEntry.user);
+        });
+
+      const req = httpTestingController.expectOne(
+        `http://localhost:8080/api/outfitEntries/entry/`,
+        newOutfitEntry
+      );
+
+      const response = {
+        status: 'success',
+        data: newOutfitEntry
+      };
+
+      req.flush(response);
     });
     it(`should return the observable result.`, () => {
 

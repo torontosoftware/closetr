@@ -117,6 +117,7 @@ export class LogOutfitComponent implements OnInit {
   deleteOutfitClothing(outfitEntryID: any): void {
     this.logOutfitService.deleteOutfitClothing(outfitEntryID).subscribe(
       (data: any) => {
+        console.log(data);
         this.getAllOutfitClothes(this.params);
       },
       (err) => {
@@ -128,6 +129,7 @@ export class LogOutfitComponent implements OnInit {
   addOutfitClothing(params: any): void {
     this.logOutfitService.addOutfitClothing(params).subscribe(
       (data: any) => {
+        console.log(data);
         this.getAllOutfitClothes(this.params);
       },
       (err) => {
@@ -139,6 +141,7 @@ export class LogOutfitComponent implements OnInit {
   getAllOutfitClothes(params: any): void {
     this.logOutfitService.getAllOutfitClothes(params).subscribe(
       (data: any) => {
+        console.log(data);
         this.outfitClothingList = data.data;
         for (let clothing of this.outfitClothingList) {
           clothing = new Clothing(clothing);
