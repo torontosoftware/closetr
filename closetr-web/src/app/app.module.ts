@@ -54,6 +54,7 @@ import { UiFilterSelectComponent } from './shared/ui-filter-select/ui-filter-sel
 import { UiTableComponent } from './shared/ui-table/ui-table.component';
 import { ClosetStatsWidgetComponent } from './pages/page-partial/closet-stats-widget/closet-stats-widget.component';
 import { UiFilterDateComponent } from './shared/ui-filter-date/ui-filter-date.component';
+import { UiPopupMenuItemComponent } from './shared/ui-popup-menu-item/ui-popup-menu-item.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { UiFilterDateComponent } from './shared/ui-filter-date/ui-filter-date.co
     UiFilterSelectComponent,
     UiTableComponent,
     ClosetStatsWidgetComponent,
-    UiFilterDateComponent
+    UiFilterDateComponent,
+    UiPopupMenuItemComponent
   ],
   imports: [
     BrowserModule,

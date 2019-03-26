@@ -26,8 +26,7 @@ export class ClosetManageComponent implements OnInit {
   constructor(private closetService: ClosetService,
               private router: Router,
               private routesService: RoutesService,
-              private authenticationService: AuthenticationService,
-              private searchFilterPipe: SearchFilterPipe) {
+              private authenticationService: AuthenticationService) {
     this.editMode = false;
 
     this.filterOptions = [

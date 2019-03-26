@@ -11,10 +11,9 @@ import { User } from '../../../models/user.model';
   styleUrls: ['./budget-widget.component.scss']
 })
 export class BudgetWidgetComponent implements OnInit {
-  purchaseList: object;
-  dateOptions: Array<string>;
-  closetList: Array<Clothing>;
-  filterCriteria: any;
+  dateOptions: Array<string> = [];
+  closetList: Array<Clothing> = [];
+  filterCriteria: any = {};
   currentUser: User;
 
   constructor(
