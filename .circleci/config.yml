@@ -41,6 +41,7 @@ jobs:
           name: Building Frontend from Angular
           command: |
             cd closetr-web
+            npm rebuild node-sass
             npm run-script build
 
       ### NODE/EXPRESS PORTION ###
