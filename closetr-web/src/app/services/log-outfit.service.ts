@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ClosetService } from './closet.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,8 +9,7 @@ import { map } from 'rxjs/operators';
 
 export class LogOutfitService {
   baseUrl = 'http://localhost:8080/api/outfitEntries/entry/';
-  constructor(private closetService: ClosetService,
-              private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   /*
   Input: Outfit Entry object (generic for now)
@@ -45,6 +43,6 @@ export class LogOutfitService {
   }
 
   setAllOutfitClothes(outfitClothingList: any): void {
-    
+
   }
 }
