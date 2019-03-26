@@ -1,5 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController
+} from '@angular/common/http/testing';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { LogOutfitService } from './log-outfit.service';
 
 describe('LogOutfitService', () => {
@@ -86,7 +90,32 @@ describe('LogOutfitService', () => {
     it(`should make a GET request to base
       url with converted params, and return
       correct data.`, () => {
-
+      const criteria = {
+        date: "2019-03-26",
+        userID: "userID"
+      };
+      const outfitEntryListResult = [
+        { clothing: "1", user: "1" },
+        { clothing: "2", user: "2" }
+      ];
+      const params = new HttpParams({
+        fromObject: criteria
+      });
+      logOutfitService.getAllOutfitClothes(params)
+      .subscribe(data => {
+        let outfitEntryList = data.data;
+        expect(outfitEntryList).toEqual(outfitEntryListResult);
+      });
+      const req = httpTestingController.expectOne(
+        `http://localhost:8080/api/outfitEntries/entry/`,
+        { params }
+      );
+      expect(req.request.method).toEqual('GET');
+      const response = {
+        status: 'success',
+        data: outfitEntryListResult
+      };
+      req.flush(response);
     });
   });
 });
