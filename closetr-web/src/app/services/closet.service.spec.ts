@@ -4,6 +4,7 @@ import {
   HttpTestingController
 } from '@angular/common/http/testing';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { User } from '../models/user.model';
 import { Clothing } from '../models/clothing.model';
 import { ClosetService } from './closet.service';
 
@@ -109,6 +110,29 @@ describe('ClosetService', () => {
       const response = {
         status: 'success',
         data: deletedClothing
+      };
+      req.flush(response);
+    });
+  });
+
+  describe(`calling getAllClothes()`, () => {
+    it(`should make a GET request to base url
+      and return correct data.`, () => {
+      const user = new User({id: 'Fides'});
+      const closetListResult = [
+        { clothingID: "1", clothingName: "tshirt" },
+        { clothingID: "2", clothingName: "shorts" }
+      ];
+      closetService.getAllClothes(user)
+      .subscribe(data => {
+        let closetList = data.data;
+        expect(closetList).toEqual(closetListResult);
+      });
+      const req = httpTestingController.expectOne(`${baseUrl}/all?userID=${user.id}`);
+      expect(req.request.method).toEqual('GET');
+      const response = {
+        status: 'success',
+        data: closetListResult
       };
       req.flush(response);
     });
