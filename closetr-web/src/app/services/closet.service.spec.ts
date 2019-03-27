@@ -27,6 +27,32 @@ describe('ClosetService', () => {
     expect(closetService).toBeTruthy();
   });
 
+  it(`should return correct filter options from
+    calling getFilterOptions()`, () => {
+    let filterOptions = [
+      "no filter",
+      "exclude Aritzia items",
+      "sweaters only",
+      "pants and sweaters only",
+      "pants only"
+    ];
+    let filterOptionsResult = closetService.getFilterOptions();
+    expect(filterOptionsResult).toEqual(filterOptions);
+  });
+
+  it(`should return correct sort options from
+    calling getSortOptions()`, () => {
+    let sortOptions = [
+      "cost ascending",
+      "cost descending",
+      "most recently purchased",
+      "least recently purchased",
+      "most worn"
+    ];
+    let sortOptionsResult = closetService.getSortOptions();
+    expect(sortOptionsResult).toEqual(sortOptions); 
+  });
+
   describe(`calling addClothing()`, () => {
     it(`should make a POST request to base url with
       given params, and return correct data.`, () => {
