@@ -92,6 +92,10 @@ jobs:
           fingerprints:
             - "00:9b:cf:af:a9:51:89:f5:c0:7e:9e:9a:2e:de:fe:1b"
       - run:
+          name: Add SSH Host
+          command: |
+            ssh-keyscan $SSH_HOST >> $SSH_HOST_FILE
+      - run:
           name: Cleanup Build Files from Target Directory
           command: |
             ssh $SSH_USER@$SSH_HOST
