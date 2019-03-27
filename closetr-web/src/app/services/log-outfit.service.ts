@@ -39,7 +39,6 @@ export class LogOutfitService {
     const params = new HttpParams({
       fromObject: criteria
     });
-    console.log("at log outfit service",params);
     return this.http.get<any>(`${this.baseUrl}`, {params});
   }
 
