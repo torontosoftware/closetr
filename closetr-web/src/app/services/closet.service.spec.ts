@@ -10,6 +10,9 @@ import { ClosetService } from './closet.service';
 describe('ClosetService', () => {
   let httpTestingController: HttpTestingController;
   let closetService: ClosetService;
+
+  const baseUrl = `http://localhost:8080/api/clothes`;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule ],
@@ -43,15 +46,45 @@ describe('ClosetService', () => {
         expect(clothing.clothingPurchaseDate).toEqual(newClothing.clothingPurchaseDate);
         expect(clothing.clothingCategory).toEqual(newClothing.clothingCategory);
       });
-      const req = httpTestingController.expectOne(
-        `http://localhost:8080/api/clothes/clothing`
-      );
+      const req = httpTestingController.expectOne(`${baseUrl}/clothing`);
       expect(req.request.method).toEqual('POST');
       const response = {
         status: 'success',
         data: {
           ...newClothing,
           _id: newClothingID
+        }
+      };
+      req.flush(response);
+    });
+  });
+  describe(`calling editClothing()`, () => {
+    it(`should make a POST request to base url with
+      given params, and return correct data.`, () => {
+      const editedClothingID = 'editedClothingID';
+      const editedClothing = new Clothing({
+        clothingName: 'TShirt',
+        clothingCost: 10,
+        clothingWorn: 10,
+        clothingPurchaseDate: '2019-03-27',
+        clothingCategory: 'Top'
+      });
+      closetService.editClothing(editedClothing)
+      .subscribe(data => {
+        let clothing = data.data;
+        expect(clothing._id).toEqual(editedClothingID);
+        expect(clothing.clothingWorn).toEqual(editedClothing.clothingWorn);
+        expect(clothing.clothingCost).toEqual(editedClothing.clothingCost);
+        expect(clothing.clothingPurchaseDate).toEqual(editedClothing.clothingPurchaseDate);
+        expect(clothing.clothingCategory).toEqual(editedClothing.clothingCategory);
+      });
+      const req = httpTestingController.expectOne(`${baseUrl}/clothing`);
+      expect(req.request.method).toEqual('POST');
+      const response = {
+        status: 'success',
+        data: {
+          ...editedClothing,
+          _id: editedClothingID
         }
       };
       req.flush(response);
