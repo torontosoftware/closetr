@@ -100,17 +100,16 @@ describe('LogOutfitService', () => {
       const params = new HttpParams({
         fromObject: criteria
       });
+
       logOutfitService.getAllOutfitClothes(criteria)
       .subscribe(data => {
         let outfitEntryList = data.data;
-        console.log("from log outfit test",data);
         expect(outfitEntryList).toEqual(outfitEntryListResult);
       });
-      console.log("HTTP TESTING CONTROLLER",httpTestingController);
+
       const req = httpTestingController.expectOne(
-        `http://localhost:8080/api/outfitEntries/entry/`
+        `http://localhost:8080/api/outfitEntries/entry/?date=${criteria.date}&userID=${criteria.userID}`
       );
-      console.log("testing controller after",httpTestingController);
       expect(req.request.method).toEqual('GET');
       const response = {
         status: 'success',
