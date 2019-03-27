@@ -58,6 +58,7 @@ describe('ClosetService', () => {
       req.flush(response);
     });
   });
+
   describe(`calling editClothing()`, () => {
     it(`should make a POST request to base url with
       given params, and return correct data.`, () => {
@@ -90,4 +91,27 @@ describe('ClosetService', () => {
       req.flush(response);
     });
   });
+
+  describe(`calling removeClothing()`, () => {
+    it(`should make a DELETE request to base url
+      and return correct data.`, () => {
+      const deletedClothingID = "clothingID";
+      const deletedClothing = {
+        clothingID: "clothingID"
+      };
+      closetService.removeClothing(deletedClothingID)
+      .subscribe(data => {
+        let clothing = data.data;
+        expect(clothing).toEqual(deletedClothing);
+      });
+      const req = httpTestingController.expectOne(`${baseUrl}/clothing/${deletedClothingID}`);
+      expect(req.request.method).toEqual('DELETE');
+      const response = {
+        status: 'success',
+        data: deletedClothing
+      };
+      req.flush(response);
+    });
+  });
+
 });
