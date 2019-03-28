@@ -7,7 +7,7 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class ClosetService {
-  const baseUrl = 'http://localhost:8080/api/clothes';
+  baseUrl = 'http://localhost:8080/api/clothes';
   /*
   Generic closet service containing methods that help in updating and maintaining
   closet items accross all componenets.
