@@ -94,6 +94,7 @@ jobs:
       - run:
           name: Add SSH Host
           command: |
+            touch $SSH_HOST_FILE
             ssh-keyscan $SSH_HOST >> $SSH_HOST_FILE
       - run:
           name: Cleanup Build Files from Target Directory
