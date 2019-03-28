@@ -7,6 +7,7 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class ClosetService {
+  baseUrl = 'http://localhost:8080/api/clothes';
   /*
   Generic closet service containing methods that help in updating and maintaining
   closet items accross all componenets.
@@ -26,7 +27,7 @@ export class ClosetService {
     var params = {
       clothing: clothing
     };
-    return this.http.post('http://localhost:8080/api/clothes/clothing', params);
+    return this.http.post(`${this.baseUrl}/clothing`, params);
   }
 
   /*
@@ -35,8 +36,7 @@ export class ClosetService {
   the updated closetList is recieved via another API call to get all clothes.
   */
   removeClothing(clothingID: any): any {
-    var url = 'http://localhost:8080/api/clothes/clothing/' + clothingID;
-    return this.http.delete(url);
+    return this.http.delete(`${this.baseUrl}/clothing/${clothingID}`);
   }
 
   /*
@@ -50,7 +50,7 @@ export class ClosetService {
     var params = {
       clothing: editedClothing
     };
-    return this.http.post('http://localhost:8080/api/clothes/clothing', params);
+    return this.http.post(`${this.baseUrl}/clothing`, params);
     //this.closetList[editedClothing.clothingID] = editedClothing;
   }
 
@@ -67,7 +67,7 @@ export class ClosetService {
         'userID': userID
       }
     });
-    return this.http.get('http://localhost:8080/api/clothes/all', {params});
+    return this.http.get(`${this.baseUrl}/all`, {params});
   }
 
   /*
