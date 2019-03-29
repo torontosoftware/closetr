@@ -94,6 +94,7 @@ jobs:
       - run:
           name: Add SSH Host
           command: |
+            mkdir $SSH_HOST_DIR
             touch $SSH_HOST_FILE
             ssh-keyscan $SSH_HOST >> $SSH_HOST_FILE
       - run:
