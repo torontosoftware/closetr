@@ -21,28 +21,17 @@ import { ClosetManageComponent } from './closet-manage.component';
 import {
   MockDashboardComponent
 } from '../../../../test/components';
+import {
+  ClosetServiceMock,
+  AuthenticationServiceMock
+} from '../../../../test/services';
+import {
+  mockUserOne,
+  mockClosetList
+} from '../../../../test/objects';
 
-const closetList = [
-  new Clothing({clothingID: '1', clothingName: 'tshirt'}),
-  new Clothing({clothingID: '2', clothingName: 'jeans'}),
-  new Clothing({clothingID: '3', clothingName: 'shoes'})
-];
-const currentUser = new User({userName: 'fides'});
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceMock {
-  currentUser = of(currentUser);
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class ClosetServiceMock {
-  getAllClothes = (user) => of({data: closetList});
-  removeClothing = (id) => of({data: {closetList}});
-}
+const closetList = mockClosetList;
+const currentUser = mockUserOne;
 
 @Pipe({name: 'filter'})
 class SearchFilterPipeMock implements PipeTransform{
