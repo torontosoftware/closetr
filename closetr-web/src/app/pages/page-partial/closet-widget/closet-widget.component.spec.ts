@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
-import { Component, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -15,12 +15,9 @@ import { UiFilterSelectComponent } from '../../../shared/ui-filter-select/ui-fil
 import { ClosetCardComponent } from '../closet-card/closet-card.component';
 import { UiCloseButtonComponent } from '../../../shared/ui-close-button/ui-close-button.component';
 import { ClosetWidgetComponent } from './closet-widget.component';
-
-@Component({
-  selector: 'app-closet-manage',
-  template: '<p> Closet Manage Component </p>'
-})
-class MockClosetManageComponent { }
+import {
+  MockClosetManageComponent
+} from '../../../../test/components';
 
 const closetList = [
   new Clothing({clothingID: '1', clothingName: 'tshirt'}),
