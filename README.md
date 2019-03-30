@@ -3,6 +3,7 @@
 [LIVE PROJECT](http://fideslinga.com/closeter/)
 
 [![CircleCI](https://circleci.com/gh/wafffly/closetr.svg?style=svg)](https://circleci.com/gh/wafffly/closetr)
+[![Maintainability](https://api.codeclimate.com/v1/badges/88f324bc577c2fc63241/maintainability)](https://codeclimate.com/github/wafffly/closetr/maintainability)
 
 ### What it is
 Closetr is a closet tracker that helps you have a better sense of your style,
