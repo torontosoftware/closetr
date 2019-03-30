@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
-import { OnInit, Injectable } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Clothing } from '../../../models/clothing.model';
 import { ClosetService } from '../../../services/closet.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -11,36 +11,22 @@ import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-bu
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
 import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
 import { UiInputSelectComponent } from '../../../shared/ui-input-select/ui-input-select.component';
-import { Clothing } from '../../../models/clothing.model';
-import { User } from '../../../models/user.model';
 import { EditClothingComponent } from './edit-clothing.component';
 import {
   MockClosetManageComponent
 } from '../../../../test/components';
+import {
+  mockClothingOne,
+  mockUserOne,
+  mockClothingEmpty
+} from '../../../../test/objects';
+import {
+  AuthenticationServiceMock,
+  ClosetServiceMock
+} from '../../../../test/services';
 
-const clothingForEdit = new Clothing({
-  clothingName: "Zara Mockneck Tee",
-  clothingWorn: 4,
-  clothingCost: 10,
-  clothingCategory: "Top",
-  clothingPurchaseDate: "2019-02-03"
-});
-const currentUser = new User({userName: 'fides'});
-
-@Injectable({
-  providedIn: 'root'
-})
-class ClosetServiceMock {
-  getClothingForEdit = () => clothingForEdit;
-  editClothing = () => of(true);
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceMock {
-  currentUser = of(currentUser);
-}
+const clothingForEdit = mockClothingOne;
+const currentUser = mockUserOne;
 
 describe('EditClothingComponent', () => {
   let component: EditClothingComponent;
@@ -122,7 +108,7 @@ describe('EditClothingComponent', () => {
   describe(`the save button`, () => {
     beforeEach(() => {
       saveButton = hostElement.querySelector('#save-button button');
-      component.clothing = new Clothing();
+      component.clothing = mockClothingEmpty;
     });
     describe(`should be disabled when`, () => {
       describe(`clothing name field is filled,`, () => {

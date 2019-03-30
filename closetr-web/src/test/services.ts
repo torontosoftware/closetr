@@ -4,7 +4,6 @@ import {
   sortOptions,
   filterOptions,
   mockClothingOne,
-  mockUserTwo,
   mockClosetList,
   mockUserOne,
   mockUserTwo,

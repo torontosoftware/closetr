@@ -22,6 +22,8 @@ export const sortOptions = [
   "most worn"
 ];
 
+export const mockClothingEmpty = new Clothing();
+
 export const mockClothingOne = new Clothing({
   clothingID: '24681',
   clothingName: "Zara Mockneck Tee",
