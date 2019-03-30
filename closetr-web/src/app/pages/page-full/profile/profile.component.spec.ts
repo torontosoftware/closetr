@@ -16,34 +16,17 @@ import { ProfileComponent } from './profile.component';
 import {
   MockDashboardComponent
 } from '../../../../test/components';
+import {
+  mockUserOne,
+  mockUserTwo,
+} from '../../../../test/objects';
+import {
+  AuthenticationServiceMock,
+  UserServiceMock
+} from '../../../../test/services';
 
-const currentUser = new User({
-  userID: 'fideslinga',
-  userName: 'Fides Linga',
-  userDesc: 'description',
-  userPassword: 'password'
-});
-
-const updatedUser = new User({
-  userID: 'fideslinga',
-  userName: 'Fidessa Linga',
-  userDesc: 'a big chungus',
-  userPassword: 'password'
-});
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceMock {
-  currentUser = of(currentUser);
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class UserServiceMock {
-  update = (user) => of({data: updatedUser});
-}
+const currentUser = mockUserOne;
+const updatedUser = mockUserTwo;
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;

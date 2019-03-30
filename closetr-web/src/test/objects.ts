@@ -48,6 +48,14 @@ export const mockClosetList = [
   new Clothing({clothingID: '3', clothingName: 'shoes'})
 ];
 
+export const mockClosetListRenderedTable = mockClosetList.map((clothing) => {
+  return {
+    ...clothing,
+    bindBold: 0,
+    bindRegular: clothing.clothingName
+  }
+});
+
 export const mockUserOne = new User({
   id: '1',
   userID: 'fideslinga',

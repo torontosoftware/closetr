@@ -21,34 +21,25 @@ import {
   MockSpendingManageComponent,
   MockBudgetManageComponent
 } from '../../../../test/components';
+import {
+  mockClosetListRenderedTable,
+  mockClosetList,
+  mockUserOne
+} from '../../../../test/objects';
+import {
+  AuthenticationServiceMock,
+  ClosetServiceMock
+} from '../../../../test/services';
 
-const closetList = [
-  new Clothing({clothingID: '1', clothingName: 'tshirt'}),
-  new Clothing({clothingID: '2', clothingName: 'jeans'}),
-  new Clothing({clothingID: '3', clothingName: 'shoes'})
-];
-
-const currentUser = new User({userName: 'fides', id: '1'});
+const closetList = mockClosetList;
+const closetListRenderedTable = mockClosetListRenderedTable;
+const currentUser = mockUserOne;
 
 @Pipe({name: 'dateRangeFilter'})
 class DateRangeFilterPipeMock implements PipeTransform {
   transform(items: any, dateFrom: Date, dateTo: Date, property: string) {
    return items;
   }
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceMock {
-  currentUser = of(currentUser);
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class ClosetServiceMock {
-  getAllClothes = (user) => of({data: closetList});
 }
 
 describe('BudgetWidgetComponent', () => {
@@ -178,7 +169,7 @@ describe('BudgetWidgetComponent', () => {
     });
     it(`should set closetList to the returned
       data from closetService`, () => {
-      expect(component.closetList).toEqual(closetList);
+      expect(component.closetList).toEqual(closetListRenderedTable);
     });
   });
 
@@ -220,6 +211,7 @@ describe('BudgetWidgetComponent', () => {
       expect(purchaseTable.filterBy).toEqual(mockPurchaseTable.filterBy);
       expect(purchaseTable.filterCriteria).toEqual(mockPurchaseTable.filterCriteria);
       expect(purchaseTable.items).toEqual(mockPurchaseTable.items);
+      console.log(purchaseTable, mockPurchaseTable);
     });
   });
 });

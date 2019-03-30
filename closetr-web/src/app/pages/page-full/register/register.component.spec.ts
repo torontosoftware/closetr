@@ -15,22 +15,10 @@ import {
   MockLoginComponent,
   MockDashboardComponent,
 } from '../../../../test/components';
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceMock {
-  currentUserValue = null;
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class UserServiceMock {
-  register = jasmine.createSpy('userService.register').and.returnValue(
-    of({auth: true})
-  );
-}
+import {
+  UserServiceMock,
+  AuthenticationServiceMock
+} from '../../../../test/services';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;

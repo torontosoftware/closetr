@@ -23,28 +23,17 @@ import {
   MockDashboardComponent,
   MockBudgetManageComponent
 } from '../../../../test/components';
+import {
+  mockClosetList,
+  mockUserOne
+} from '../../../../test/objects';
+import {
+  ClosetServiceMock,
+  AuthenticationServiceMock
+} from '../../../../test/services';
 
-const closetList = [
-  new Clothing({clothingID: '1', clothingName: 'tshirt'}),
-  new Clothing({clothingID: '2', clothingName: 'jeans'}),
-  new Clothing({clothingID: '3', clothingName: 'shoes'})
-];
-
-const currentUser = new User({userName: 'fides', id: '1'});
-
-@Injectable({
-  providedIn: 'root'
-})
-class ClosetServiceMock {
-  getAllClothes = (user) => of({data: closetList});
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceMock {
-  currentUser = of(currentUser);
-}
+const closetList = mockClosetList;
+const currentUser = mockUserOne;
 
 @Pipe({name: 'dateRangeFilter'})
 class DateRangeFilterPipeMock implements PipeTransform{
