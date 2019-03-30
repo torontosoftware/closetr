@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { Injectable, Component, DebugElement } from '@angular/core';
+import { Injectable, DebugElement } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -15,24 +15,11 @@ import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
 import { UiInputSelectComponent } from '../../../shared/ui-input-select/ui-input-select.component';
 import { Clothing } from '../../../models/clothing.model';
 import { AddClothingComponent } from './add-clothing.component';
-
-@Component({
-  selector: 'app-login',
-  template: '<p>Mock Login Component</p>'
-})
-class MockLoginComponent {}
-
-@Component({
-  selector: 'app-closet-manage',
-  template: '<p>Mock Closet Manage Component</p>'
-})
-class MockClosetManageComponent {}
-
-@Component({
-  selector: 'app-log-outfit',
-  template: '<p>Mock Log Outfit Component</p>'
-})
-class MockLogOutfitComponent {}
+import {
+  MockLoginComponent,
+  MockClosetManageComponent,
+  MockLogOutfitComponent
+} from '../../../../test/components';
 
 @Injectable({
   providedIn: 'root'

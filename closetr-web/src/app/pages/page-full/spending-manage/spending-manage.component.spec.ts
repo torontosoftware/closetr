@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
-import { Pipe, PipeTransform, Component, Injectable } from '@angular/core';
+import { Pipe, PipeTransform, Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -19,6 +19,10 @@ import { UiFilterDateComponent } from '../../../shared/ui-filter-date/ui-filter-
 import { UiTableComponent } from '../../../shared/ui-table/ui-table.component';
 import { SpendingManageComponent } from './spending-manage.component';
 import { DateRangeFilterPipe } from '../../../pipes/date-range-filter.pipe';
+import {
+  MockDashboardComponent,
+  MockBudgetManageComponent
+} from '../../../../test/components';
 
 const closetList = [
   new Clothing({clothingID: '1', clothingName: 'tshirt'}),
@@ -41,18 +45,6 @@ class ClosetServiceMock {
 class AuthenticationServiceMock {
   currentUser = of(currentUser);
 }
-
-@Component({
-  selector: 'app-dashboard',
-  template: '<p>Mock Dashboard Component</p>'
-})
-class MockDashboardComponent { }
-
-@Component({
-  selector: 'app-budget-manage',
-  template: '<p>Mock Budget Manage Component</p>'
-})
-class MockBudgetManageComponent { }
 
 @Pipe({name: 'dateRangeFilter'})
 class DateRangeFilterPipeMock implements PipeTransform{

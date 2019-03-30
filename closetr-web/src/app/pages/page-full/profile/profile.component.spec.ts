@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -13,6 +13,9 @@ import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-bu
 import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
 import { User } from '../../../models/user.model';
 import { ProfileComponent } from './profile.component';
+import {
+  MockDashboardComponent
+} from '../../../../test/components';
 
 const currentUser = new User({
   userID: 'fideslinga',
@@ -27,12 +30,6 @@ const updatedUser = new User({
   userDesc: 'a big chungus',
   userPassword: 'password'
 });
-
-@Component({
-  selector: 'app-dashboard',
-  template: '<p>Mock Dashboard Component'
-})
-class MockDashboardComponent { }
 
 @Injectable({
   providedIn: 'root'

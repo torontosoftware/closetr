@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
-import { Injectable, Component, DebugElement, Pipe, PipeTransform } from '@angular/core';
+import { Injectable, DebugElement, Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { ClosetService } from '../../../services/closet.service';
@@ -18,6 +18,9 @@ import { UiFilterSelectComponent } from '../../../shared/ui-filter-select/ui-fil
 import { UiCloseButtonComponent } from '../../../shared/ui-close-button/ui-close-button.component';
 import { ClosetCardComponent } from '../../page-partial/closet-card/closet-card.component';
 import { ClosetManageComponent } from './closet-manage.component';
+import {
+  MockDashboardComponent
+} from '../../../../test/components';
 
 const closetList = [
   new Clothing({clothingID: '1', clothingName: 'tshirt'}),
@@ -40,12 +43,6 @@ class ClosetServiceMock {
   getAllClothes = (user) => of({data: closetList});
   removeClothing = (id) => of({data: {closetList}});
 }
-
-@Component({
-  selector: 'app-dashboard',
-  template: '<p>Mock Dashboard Component</p>'
-})
-class MockDashboardComponent { }
 
 @Pipe({name: 'filter'})
 class SearchFilterPipeMock implements PipeTransform{

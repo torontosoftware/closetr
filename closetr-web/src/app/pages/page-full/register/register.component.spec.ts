@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { Injectable, Component } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -11,7 +11,10 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
 import { RegisterComponent } from './register.component';
-
+import {
+  MockLoginComponent,
+  MockDashboardComponent,
+} from '../../../../test/components';
 
 @Injectable({
   providedIn: 'root'
@@ -28,18 +31,6 @@ class UserServiceMock {
     of({auth: true})
   );
 }
-
-@Component({
-  selector: 'app-login',
-  template: '<p>Mock Login Component</p>'
-})
-class MockLoginComponent {}
-
-@Component({
-  selector: 'app-dashboard',
-  template: '<p>Mock Dashboard Component</p>'
-})
-class MockDashboardComponent {}
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;

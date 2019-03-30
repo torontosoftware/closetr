@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -8,30 +8,12 @@ import { TodayWidgetComponent } from '../../page-partial/today-widget/today-widg
 import { ClosetStatsWidgetComponent } from '../../page-partial/closet-stats-widget/closet-stats-widget.component';
 import { ClosetWidgetComponent } from '../../page-partial/closet-widget/closet-widget.component';
 import { DashboardComponent } from './dashboard.component';
-
-@Component({
-  selector: 'app-budget-widget',
-  template: '<p>Mock Budget Widget</p>'
-})
-class MockBudgetWidgetComponent { }
-
-@Component({
-  selector: 'app-today-widget',
-  template: '<p>Mock Today Widget</p>'
-})
-class MockTodayWidgetComponent { }
-
-@Component({
-  selector: 'app-closet-widget',
-  template: '<p>Mock Closet Widget</p>'
-})
-class MockClosetWidgetComponent { }
-
-@Component({
-  selector: 'app-closet-stats-widget',
-  template: '<p>Mock Closet Stats Widget</p>'
-})
-class MockClosetStatsWidgetComponent { }
+import {
+  MockBudgetWidgetComponent,
+  MockTodayWidgetComponent,
+  MockClosetWidgetComponent,
+  MockClosetStatsWidgetComponent
+} from '../../../../test/components';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;

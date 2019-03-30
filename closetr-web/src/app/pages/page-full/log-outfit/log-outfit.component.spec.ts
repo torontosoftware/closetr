@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { Component, Injectable, DebugElement, Pipe, PipeTransform } from '@angular/core';
+import { Injectable, DebugElement, Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -20,6 +20,10 @@ import { UiCloseButtonComponent } from '../../../shared/ui-close-button/ui-close
 import { ClosetCardComponent } from '../../page-partial/closet-card/closet-card.component';
 import { SearchFilterPipe } from '../../../pipes/search-filter.pipe';
 import { LogOutfitComponent } from './log-outfit.component';
+import {
+  MockDashboardComponent,
+  MockAddClothingComponent
+} from '../../../../test/components';
 
 const closetList = [
   new Clothing({clothingID: '1', clothingName: 'tshirt'}),
@@ -64,18 +68,6 @@ class LogOutfitServiceMock {
 class RoutesServiceMock {
   setPrevUrl = (params) => { return };
 }
-
-@Component({
-  selector: 'app-dashboard',
-  template: '<p>Mock Dashboard Component</p>'
-})
-class MockDashboardComponent { }
-
-@Component({
-  selector: 'app-add-clothing',
-  template: '<p>Mock Add Clothing Component</p>'
-})
-class MockAddClothingComponent { }
 
 @Pipe({name: 'filter'})
 class SearchFilterPipeMock implements PipeTransform{

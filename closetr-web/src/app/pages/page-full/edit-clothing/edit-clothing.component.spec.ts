@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { Component, OnInit, Injectable } from '@angular/core';
+import { OnInit, Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -14,6 +14,9 @@ import { UiInputSelectComponent } from '../../../shared/ui-input-select/ui-input
 import { Clothing } from '../../../models/clothing.model';
 import { User } from '../../../models/user.model';
 import { EditClothingComponent } from './edit-clothing.component';
+import {
+  MockClosetManageComponent
+} from '../../../../test/components';
 
 const clothingForEdit = new Clothing({
   clothingName: "Zara Mockneck Tee",
@@ -23,12 +26,6 @@ const clothingForEdit = new Clothing({
   clothingPurchaseDate: "2019-02-03"
 });
 const currentUser = new User({userName: 'fides'});
-
-@Component({
-  selector: 'app-closet-manage',
-  template: '<p>Mock Closet Manage Component</p>'
-})
-class MockClosetManageComponent {}
 
 @Injectable({
   providedIn: 'root'
