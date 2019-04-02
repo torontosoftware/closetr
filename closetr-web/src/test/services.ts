@@ -56,7 +56,7 @@ export class ClosetServiceMock {
 })
 export class UserServiceMock {
   update = (user) => of({data: mockUserTwo});
-  register = of({auth: true});
+  register = (params) => of({auth: true});
 }
 
 @Injectable({
