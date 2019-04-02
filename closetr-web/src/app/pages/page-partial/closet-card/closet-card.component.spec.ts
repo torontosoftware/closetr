@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -11,21 +10,14 @@ import { Clothing } from '../../../models/clothing.model';
 import {
   MockEditClothingComponent
 } from '../../../../test/components';
+import {
+  mockClothingOne
+} from '../../../../test/objects';
+import {
+  ClosetServiceMock
+} from '../../../../test/services';
 
-const clothing = new Clothing({
-  clothingID: '12345',
-  clothingName: 'White Button Down Shirt',
-  clothingCost: 45,
-  clothingWorn: 12,
-  clothingPurchaseDate: '2018-03-14'
-});
-
-@Injectable({
-  providedIn: 'root'
-})
-class ClosetServiceMock {
-  setClothingForEdit = () => { return };
-}
+const clothing = mockClothingOne;
 
 describe('ClosetCardComponent', () => {
   let component: ClosetCardComponent;

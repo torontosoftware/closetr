@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Injectable } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -11,13 +10,9 @@ import {
   MockProfileComponent,
   MockLoginComponent
 } from '../../../../test/components';
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceMock {
-  logout = () => { return };
-}
+import {
+  AuthenticationServiceMock
+} from '../../../../test/services';
 
 describe('UserMenuComponent', () => {
   let component: UserMenuComponent;

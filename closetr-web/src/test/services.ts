@@ -39,9 +39,11 @@ export class AuthenticationServiceNoUserMock {
   providedIn: 'root'
 })
 export class ClosetServiceMock {
+  addClothing = (clothing) => of({data: {_id: 'id'}});
   getAllClothes = (user) => of({data: mockClosetList});
   removeClothing = (id) => of({data: mockClosetList});
   getClothingForEdit = () => mockClothingOne;
+  setClothingForEdit = () => { return };
   editClothing = () => of(true);
   getSortOptions = () => sortOptions;
   getFilterOptions = () => filterOptions;
