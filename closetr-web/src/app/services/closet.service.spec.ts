@@ -50,7 +50,25 @@ describe('ClosetService', () => {
       "most worn"
     ];
     let sortOptionsResult = closetService.getSortOptions();
-    expect(sortOptionsResult).toEqual(sortOptions); 
+    expect(sortOptionsResult).toEqual(sortOptions);
+  });
+
+  describe(`when trying to set and get clothing
+    for edit,`, () => {
+    let clothingForEdit;
+    beforeEach(() => {
+      clothingForEdit = new Clothing({clothingID: 'id'});
+      closetService.setClothingForEdit(clothingForEdit);
+    });
+    it(`should set clothingForEdit when calling
+      setClothingForEdit().`, () => {
+      expect(closetService.clothingForEdit).toEqual(clothingForEdit);
+    });
+    it(`should get clothingForEdit when calling
+      getClothingForEdit().`, () => {
+      let clothingForEditResult = closetService.getClothingForEdit();
+      expect(clothingForEditResult).toEqual(clothingForEdit);
+    });
   });
 
   describe(`calling addClothing()`, () => {

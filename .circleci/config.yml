@@ -18,6 +18,7 @@ jobs:
 
     steps:
       - checkout
+      ### ANGULAR PORTION ###
 
       # Download and cache dependencies
       - restore_cache:
@@ -43,6 +44,13 @@ jobs:
             cd closetr-web
             npm rebuild node-sass
             npm run-script build
+      
+      - save_cache:
+          name: Cache the dist folder for the deploy job
+          key: angular-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - closetr-web/dist
+
 
       ### NODE/EXPRESS PORTION ###
 
@@ -62,20 +70,33 @@ jobs:
             - closetr-api/node_modules
           key: express-dependencies-{{ checksum "closetr-api/package.json" }}
 
+      - save_cache:
+          name: Caching API Manifest for the deploy job
+          paths:
+            - closetr-api
+          key: express-manifest-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+
   deploy:
     docker:
       - image: buildpack-deps:trusty
+    working_directory: ~/repo
     steps:
-      ### NODE/EXPRESS PORTION ###
-      - checkout
-      - run:
-          name: Deploy to Heroku
-          command: |
-            git subtree push --prefix closetr-web heroku master
       ### ANGULAR PORTION ###
+      - restore_cache:
+          name: Restoring dist folder
+          keys: 
+            - angular-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+            # fallback to using the latest cache if no exact match is found
+            - angular-dist-
       - add_ssh_keys:
           fingerprints:
             - "00:9b:cf:af:a9:51:89:f5:c0:7e:9e:9a:2e:de:fe:1b"
+      - run:
+          name: Add SSH Host
+          command: |
+            mkdir $SSH_HOST_DIR
+            touch $SSH_HOST_FILE
+            ssh-keyscan $SSH_HOST >> $SSH_HOST_FILE
       - run:
           name: Cleanup Build Files from Target Directory
           command: |
@@ -84,11 +105,19 @@ jobs:
             rm ./*.js
             rm ./*.css
             rm ./*.html
+      
       - run:
           name: SCP Deploying Angular files
           command: |
             cd closetr-web
             scp -r ./dist/closeter/* $SSH_USER@$SSH_HOST:$SSH_DEPLOY_PATH
+      ### NODE/EXPRESS PORTION ###
+      - restore_cache:
+          name: Restoring API manifest from the build job
+          keys:
+            - express-manifest-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+            # fallback to using the latest cache if no exact match is found
+            - express-manifest-
       - run:
           name: Deploying API to Heroku
           command: |
