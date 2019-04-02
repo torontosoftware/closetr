@@ -22,6 +22,7 @@ export class AuthenticationServiceMock {
   baseUrl = `http://localhost:8080/`;
   currentUser = of(mockUserOne);
   currentUserValue = of(mockUserOne);
+  login = () => of(true);
   logout = () => { return };
 }
 
@@ -32,6 +33,7 @@ export class AuthenticationServiceNoUserMock {
   baseUrl = `http://localhost:8080/`;
   currentUser = null;
   currentUserValue = null;
+  login = () => of(true);
   logout = () => { return };
 }
 

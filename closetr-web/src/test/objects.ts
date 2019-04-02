@@ -1,5 +1,6 @@
 import { Clothing } from '../app/models/clothing.model';
 import { User } from '../app/models/user.model';
+import { DateFormatService } from '../services/utils/date-format.service';
 
 /*
 Contains mock objects used for

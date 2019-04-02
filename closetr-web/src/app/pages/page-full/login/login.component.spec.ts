@@ -13,20 +13,13 @@ import { LoginComponent } from './login.component';
 import {
   MockDashboardComponent
 } from '../../../../test/components';
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceMock {
-  currentUserValue = null;
-  login = jasmine.createSpy('authenticationService.login').and.returnValue(
-    of(true)
-  );
-}
+import {
+  AuthenticationServiceNoUserMock
+} from '../../../../test/services';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
-  let authenticationService: AuthenticationServiceMock;
+  let authenticationService: AuthenticationServiceNoUserMock;
   let fixture: ComponentFixture<LoginComponent>;
   let location: Location;
   let router: Router;
@@ -57,14 +50,15 @@ describe('LoginComponent', () => {
       providers: [
         Location,
         LoginComponent,
-        { provide: AuthenticationService, useClass: AuthenticationServiceMock }
+        { provide: AuthenticationService, useClass: AuthenticationServiceNoUserMock }
       ]
     });
     fixture = TestBed.createComponent(LoginComponent);
     component = TestBed.get(LoginComponent);
     authenticationService = TestBed.get(AuthenticationService);
     router = TestBed.get(Router);
-    navSpy = spyOn(router, "navigate");
+    spyOn(router, "navigate");
+    spyOn(authenticationService, 'login').and.callThrough();
     fixture.detectChanges();
     hostElement = fixture.nativeElement;
     errorLabel = hostElement.querySelector('#password-input .input-clean-error-label');
@@ -76,10 +70,10 @@ describe('LoginComponent', () => {
 
   describe('when there is a user logged in', () => {
     it('should redirect to dashboard.', () => {
-      authenticationService.currentUserValue = "fides";
+      component.authenticationService.currentUserValue = "fides";
       component.ngOnInit();
       fixture.detectChanges();
-      expect(navSpy).toHaveBeenCalledWith(['/dashboard']);
+      expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
     });
   });
 
@@ -87,7 +81,7 @@ describe('LoginComponent', () => {
     it('should not redirect to dashboard.', () => {
       fixture.detectChanges();
       component.ngOnInit();
-      expect(navSpy).not.toHaveBeenCalledWith(['/dashboard']);
+      expect(router.navigate).not.toHaveBeenCalledWith(['/dashboard']);
     });
 
     describe('when user attempts to click "log in" button,', () => {
@@ -115,9 +109,6 @@ describe('LoginComponent', () => {
 
       describe('and both fields are filled,', () => {
         beforeEach(() => {
-          authenticationService.login = jasmine.createSpy('authenticationService.login').and.returnValue(
-            of(false)
-          );
           component.ngOnInit();
           usernameInput.value = 'input';
           usernameInput.dispatchEvent(new Event('input'));
@@ -143,12 +134,14 @@ describe('LoginComponent', () => {
 
         describe('with incorrect credentials', () => {
           beforeEach(() => {
+            authenticationService.login = of(false);
+            spyOn(authenticationService, 'login').and.returnValue(of(false));
             loginButton.click();
             fixture.detectChanges();
           });
 
           it(`should display an error message.`, () => {
-            expect(navSpy).not.toHaveBeenCalledWith(['/dashboard']);
+            expect(router.navigate).not.toHaveBeenCalledWith(['/dashboard']);
             expect(errorLabel.hidden).toBeFalsy();
           });
 
@@ -164,12 +157,9 @@ describe('LoginComponent', () => {
         describe('with correct credentials,', () => {
           it(`should redirect to dashboard when the authentication
             service returns success on login function.`, () => {
-            authenticationService.login = jasmine.createSpy('authenticationService.login').and.returnValue(
-              of(true)
-            );
             loginButton.click();
             fixture.detectChanges();
-            expect(navSpy).toHaveBeenCalledWith(['/dashboard']);
+            expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
           });
         });
 
