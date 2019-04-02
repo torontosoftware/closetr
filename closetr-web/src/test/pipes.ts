@@ -7,7 +7,6 @@ export class DateRangeFilterPipeMock implements PipeTransform {
   }
 }
 
-
 @Pipe({name: 'filter'})
 export class SearchFilterPipeMock implements PipeTransform{
   transform(items: any, searchText: String, property: string) {
