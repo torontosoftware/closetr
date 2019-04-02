@@ -169,7 +169,7 @@ describe('BudgetWidgetComponent', () => {
     });
     it(`should set closetList to the returned
       data from closetService`, () => {
-      expect(component.closetList).toEqual(closetListRenderedTable);
+      expect(component.closetList).toEqual(mockClosetListRenderedTable);
     });
   });
 
@@ -198,7 +198,7 @@ describe('BudgetWidgetComponent', () => {
           dateFrom: dateFormatService.dateRangeForFrom("last week"),
           dateTo: dateFormatService.newDate()
         },
-        items: closetList
+        items: closetListRenderedTable
       };
       let purchaseTable = fixture.debugElement.query(
         By.css('#purchase-table')
@@ -211,7 +211,6 @@ describe('BudgetWidgetComponent', () => {
       expect(purchaseTable.filterBy).toEqual(mockPurchaseTable.filterBy);
       expect(purchaseTable.filterCriteria).toEqual(mockPurchaseTable.filterCriteria);
       expect(purchaseTable.items).toEqual(mockPurchaseTable.items);
-      console.log(purchaseTable, mockPurchaseTable);
     });
   });
 });

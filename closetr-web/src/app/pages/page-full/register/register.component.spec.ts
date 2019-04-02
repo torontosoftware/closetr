@@ -17,12 +17,12 @@ import {
 } from '../../../../test/components';
 import {
   UserServiceMock,
-  AuthenticationServiceMock
+  AuthenticationServiceNoUserMock
 } from '../../../../test/services';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
-  let authenticationService: AuthenticationServiceMock;
+  let authenticationService: AuthenticationServiceNoUserMock;
   let userService: UserServiceMock;
   let fixture: ComponentFixture<RegisterComponent>;
   let router: Router;
@@ -50,14 +50,14 @@ describe('RegisterComponent', () => {
       ],
       providers: [
         RegisterComponent,
-        { provide: AuthenticationService, useClass: AuthenticationServiceMock },
+        { provide: AuthenticationService, useClass: AuthenticationServiceNoUserMock },
         { provide: UserService, useClass: UserServiceMock }
       ]
     });
 
     fixture = TestBed.createComponent(RegisterComponent);
-    component = TestBed.get(RegisterComponent);
-    authenticationService = TestBed.get(AuthenticationService);
+    component = fixture.debugElement.componentInstance;
+    authenticationService = TestBed.get(AuthenticationServiceNoUserMock);
     userService = TestBed.get(UserService);
     router = TestBed.get(Router);
     routerSpy = spyOn(router, "navigate");
@@ -71,7 +71,8 @@ describe('RegisterComponent', () => {
 
   describe('when there is a user logged in,', () => {
     it('should redirect to dashboard.', () => {
-      authenticationService.currentUserValue = 'fides';
+      component.authenticationService.currentUserValue = of('fides');
+      fixture.detectChanges();
       component.ngOnInit();
       fixture.detectChanges();
       expect(routerSpy).toHaveBeenCalledWith(['/dashboard']);

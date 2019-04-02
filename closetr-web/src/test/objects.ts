@@ -49,11 +49,11 @@ export const mockClosetList = [
 ];
 
 export const mockClosetListRenderedTable = mockClosetList.map((clothing) => {
-  return {
+  return new Clothing({
     ...clothing,
     bindBold: 0,
     bindRegular: clothing.clothingName
-  }
+  });
 });
 
 export const mockUserOne = new User({

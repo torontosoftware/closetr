@@ -19,7 +19,19 @@ testing purposes.
   providedIn: 'root'
 })
 export class AuthenticationServiceMock {
+  baseUrl = `http://localhost:8080/`;
   currentUser = of(mockUserOne);
+  currentUserValue = of(mockUserOne);
+  logout = () => { return };
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthenticationServiceNoUserMock {
+  baseUrl = `http://localhost:8080/`;
+  currentUser = null;
+  currentUserValue = null;
   logout = () => { return };
 }
 
