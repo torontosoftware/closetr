@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -29,17 +28,13 @@ import {
   AuthenticationServiceMock,
   ClosetServiceMock
 } from '../../../../test/services';
+import {
+  DateRangeFilterPipeMock
+} from '../../../../test/pipes';
 
 const closetList = mockClosetList;
 const closetListRenderedTable = mockClosetListRenderedTable;
 const currentUser = mockUserOne;
-
-@Pipe({name: 'dateRangeFilter'})
-class DateRangeFilterPipeMock implements PipeTransform {
-  transform(items: any, dateFrom: Date, dateTo: Date, property: string) {
-   return items;
-  }
-}
 
 describe('BudgetWidgetComponent', () => {
   let component: BudgetWidgetComponent;

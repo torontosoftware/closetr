@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { DebugElement, Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { ClosetService } from '../../../services/closet.service';
@@ -26,22 +25,14 @@ import {
   mockUserOne,
   mockClosetList
 } from '../../../../test/objects';
+import {
+  SearchFilterPipeMock
+} from '../../../../test/pipes';
 
 const closetList = mockClosetList;
 const currentUser = mockUserOne;
 
-@Pipe({name: 'filter'})
-class SearchFilterPipeMock implements PipeTransform{
-  transform(items: any, searchText: String, property: string) {
-    if (searchText == 'shirt') {
-      return [items[0]];
-    }
-    return items;
-  }
-}
-
 describe('ClosetManageComponent', () => {
-  let debugElement: DebugElement;
   let component: ClosetManageComponent;
   let fixture: ComponentFixture<ClosetManageComponent>;
   let authenticationService: AuthenticationServiceMock;
@@ -86,8 +77,7 @@ describe('ClosetManageComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ClosetManageComponent);
-    debugElement = fixture.debugElement;
-    component = debugElement.componentInstance;
+    component = fixture.debugElement.componentInstance;
     authenticationService = TestBed.get(AuthenticationService);
     closetService = TestBed.get(ClosetService);
     router = TestBed.get(Router);
@@ -220,8 +210,4 @@ describe('ClosetManageComponent', () => {
       expect(component.editMode).toBeFalsy();
     })
   });
-
-
-
-
 });
