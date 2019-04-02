@@ -70,7 +70,7 @@ describe('LoginComponent', () => {
 
   describe('when there is a user logged in', () => {
     it('should redirect to dashboard.', () => {
-      component.authenticationService.currentUserValue = "fides";
+      authenticationService.currentUserValue = "fides";
       component.ngOnInit();
       fixture.detectChanges();
       expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
@@ -134,7 +134,7 @@ describe('LoginComponent', () => {
 
         describe('with incorrect credentials', () => {
           beforeEach(() => {
-            authenticationService.login = of(false);
+            authenticationService.login = () => of(false);
             spyOn(authenticationService, 'login').and.returnValue(of(false));
             loginButton.click();
             fixture.detectChanges();

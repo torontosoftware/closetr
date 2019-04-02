@@ -26,7 +26,6 @@ describe('RegisterComponent', () => {
   let userService: UserServiceMock;
   let fixture: ComponentFixture<RegisterComponent>;
   let router: Router;
-  let routerSpy;
   let hostElement;
 
   const routes = [
@@ -57,10 +56,11 @@ describe('RegisterComponent', () => {
 
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.debugElement.componentInstance;
-    authenticationService = TestBed.get(AuthenticationServiceNoUserMock);
+    authenticationService = TestBed.get(AuthenticationService);
     userService = TestBed.get(UserService);
     router = TestBed.get(Router);
-    routerSpy = spyOn(router, "navigate");
+    spyOn(router, "navigate");
+    spyOn(userService, 'register').and.callThrough();
     hostElement = fixture.nativeElement;
     fixture.detectChanges();
   });
@@ -71,11 +71,11 @@ describe('RegisterComponent', () => {
 
   describe('when there is a user logged in,', () => {
     it('should redirect to dashboard.', () => {
-      component.authenticationService.currentUserValue = of('fides');
+      authenticationService.currentUserValue = of('fides');
       fixture.detectChanges();
       component.ngOnInit();
       fixture.detectChanges();
-      expect(routerSpy).toHaveBeenCalledWith(['/dashboard']);
+      expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
     });
   });
 
@@ -107,14 +107,14 @@ describe('RegisterComponent', () => {
     it('should not redirect to dashboard', () => {
       component.ngOnInit();
       fixture.detectChanges();
-      expect(routerSpy).not.toHaveBeenCalledWith(['/dashboard']);
+      expect(router.navigate).not.toHaveBeenCalledWith(['/dashboard']);
     });
 
     it('should navigate to login page when `login` button is clicked', () => {
       component.ngOnInit();
       loginButton.click();
       fixture.detectChanges();
-      expect(routerSpy).toHaveBeenCalledWith(['/login']);
+      expect(router.navigate).toHaveBeenCalledWith(['/login']);
     });
 
     it('should have all fields empty on load.', () => {
@@ -274,16 +274,15 @@ describe('RegisterComponent', () => {
           });
           describe('with username that is already registered', () => {
             beforeEach(() => {
-              userService.register = jasmine.createSpy('userService.register').and.returnValue(
-                of({auth: false})
-              );
+              userService.register = () => of({auth: false});
+              spyOn(userService, 'register').and.callThrough();
               usernameInput.value = "newfides";
               usernameInput.dispatchEvent(new Event('input'));
               registerButton.click();
               fixture.detectChanges();
             });
             it('should not redirect to dashboard.', () => {
-              expect(routerSpy).not.toHaveBeenCalledWith(['/dashboard']);
+              expect(router.navigate).not.toHaveBeenCalledWith(['/dashboard']);
             });
             it('should show error on username.', () => {
               expect(usernameInputErrorLabel.hidden).toBeFalsy();
@@ -291,10 +290,11 @@ describe('RegisterComponent', () => {
           });
           describe('with username that has not been registered', () => {
             it('should redirect to dashboard component.', () => {
+              userService.register = () => of({auth: true});
               registerButton.click();
               fixture.detectChanges();
               expect(usernameInputErrorLabel.hidden).toBeTruthy();
-              expect(routerSpy).toHaveBeenCalledWith(['/dashboard']);
+              expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
             });
           });
         });

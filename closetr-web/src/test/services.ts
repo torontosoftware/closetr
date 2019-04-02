@@ -56,9 +56,7 @@ export class ClosetServiceMock {
 })
 export class UserServiceMock {
   update = (user) => of({data: mockUserTwo});
-  register = jasmine.createSpy('userService.register').and.returnValue(
-    of({auth: true})
-  );
+  register = of({auth: true});
 }
 
 @Injectable({
