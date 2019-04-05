@@ -27,6 +27,9 @@ import {
 import {
   mockClothingOne
 } from '../../../../test/objects';
+import {
+  inputDispatch
+} from '../../../../test/utils';
 
 const clothing = mockClothingOne;
 
@@ -158,10 +161,8 @@ describe('AddClothingComponent', () => {
         all fields filled,`, () => {
         beforeEach(() => {
           component.ngOnInit();
-          nameInput.value = "name";
-          nameInput.dispatchEvent(new Event('input'));
-          purchaseDateInput.value = "2019-01-02";
-          purchaseDateInput.dispatchEvent(new Event('input'));
+          inputDispatch(nameInput, 'name');
+          inputDispatch(purchaseDateInput, '2019-01-02');
           fixture.detectChanges();
         });
         it(`should enable submit.`, () => {

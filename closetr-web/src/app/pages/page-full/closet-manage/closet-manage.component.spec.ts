@@ -28,6 +28,9 @@ import {
 import {
   SearchFilterPipeMock
 } from '../../../../test/pipes';
+import {
+  inputDispatch
+} from '../../../../test/utils';
 
 const closetList = mockClosetList;
 const currentUser = mockUserOne;
@@ -133,15 +136,13 @@ describe('ClosetManageComponent', () => {
         closetList, 'shirt', 'clothingName'
       ]];
       searchFilterPipe = spyOn(SearchFilterPipeMock.prototype, 'transform');
-      searchInput.value = "shirt";
-      searchInput.dispatchEvent(new Event('input'));
+      inputDispatch(searchInput, 'shirt');
       fixture.detectChanges();
       expect(searchFilterPipe.calls.allArgs()).toEqual(params);
     });
     it(`should render changed results into closet card
       components.`, () => {
-      searchInput.value = "shirt";
-      searchInput.dispatchEvent(new Event('input'));
+      inputDispatch(searchInput, 'shirt');
       fixture.detectChanges();
       let closetCardList = hostElement.querySelectorAll('.closet-card-item');
       expect(closetCardList.length).toEqual(1);

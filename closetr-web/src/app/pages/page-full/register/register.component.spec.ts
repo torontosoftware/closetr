@@ -19,6 +19,9 @@ import {
   UserServiceMock,
   AuthenticationServiceNoUserMock
 } from '../../../../test/services';
+import {
+  inputDispatch
+} from '../../../../test/utils';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -150,8 +153,7 @@ describe('RegisterComponent', () => {
         field is empty but`, () => {
         describe('username input field is filled,', () => {
           beforeEach(() => {
-            usernameInput.value = "username";
-            usernameInput.dispatchEvent(new Event('input'));
+            inputDispatch(usernameInput, 'username');
             fixture.detectChanges();
           });
           afterEach(() => {
@@ -161,13 +163,11 @@ describe('RegisterComponent', () => {
           it('and no other fields are.', () => {});
           describe('and password input is filled', () => {
             beforeEach(() => {
-              passwordInput.value = "password";
-              passwordInput.dispatchEvent(new Event('input'));
+              inputDispatch(passwordInput, 'password');
             });
             it('and no other fields are.', () => {});
             it('and password confirm input field is filled.', () => {
-              passwordConfirmInput.value = "password confirm";
-              passwordConfirmInput.dispatchEvent(new Event('input'));
+              inputDispatch(passwordConfirmInput, 'password confirm');
             });
           })
         });
@@ -177,8 +177,7 @@ describe('RegisterComponent', () => {
         username input field is empty but`, () => {
           describe('password input field is filled,', () => {
             beforeEach(() => {
-              passwordInput.value = "password";
-              passwordInput.dispatchEvent(new Event('input'));
+              inputDispatch(passwordInput, 'password');
               fixture.detectChanges();
             });
             afterEach(() => {
@@ -187,8 +186,7 @@ describe('RegisterComponent', () => {
             })
             it(`and no other fields (after username) are.`, () => {});
             it('and password confirm input field is filled.', () => {
-              passwordConfirmInput.value = "password confirm";
-              passwordConfirmInput.dispatchEvent(new Event('input'));
+              inputDispatch(passwordConfirmInput, 'password confirm');
             });
           });
       });
@@ -196,8 +194,7 @@ describe('RegisterComponent', () => {
       describe(`should display error on password input field when
         password input field is empty but`, () => {
           it('password confirm input field is filled.', () => {
-            passwordConfirmInput.value = "password confirm";
-            passwordConfirmInput.dispatchEvent(new Event('input'));
+            inputDispatch(passwordConfirmInput, 'password confirm');
             fixture.detectChanges();
             expect(passwordInputErrorLabel.hidden).toBeFalsy();
           });
@@ -206,10 +203,8 @@ describe('RegisterComponent', () => {
       describe('should display error on password confirm input field when', () => {
         it(`password confirm field is filled and not the same
           as password field,`, () => {
-            passwordConfirmInput.value = "password confirm";
-            passwordConfirmInput.dispatchEvent(new Event('input'));
-            passwordInput.value = "password";
-            passwordInput.dispatchEvent(new Event('input'));
+            inputDispatch(passwordConfirmInput, 'password confirm');
+            inputDispatch(passwordInput, 'password');
             fixture.detectChanges();
             expect(passwordConfirmInputErrorLabel.hidden).toBeFalsy();
           });
@@ -225,25 +220,21 @@ describe('RegisterComponent', () => {
         });
         describe('name field is filled,', () => {
           beforeEach(() => {
-            nameInput.value = "name";
-            nameInput.dispatchEvent(new Event('input'));
+            inputDispatch(nameInput, 'name');
           })
           it('and no other fields.', () => {});
           describe('and username field is filled,', () => {
             beforeEach(() => {
-              usernameInput.value = "username";
-              usernameInput.dispatchEvent(new Event('input'));
+              inputDispatch(usernameInput, 'username');
             })
             it('and no other fields.', () => {});
             describe('and password field is filled,', () => {
               beforeEach(() => {
-                passwordInput.value = "password";
-                passwordInput.dispatchEvent(new Event('input'));
+                inputDispatch(passwordInput, 'password');
               })
               it('and no other fields.', () => {});
               it('and password confirm field is filled.', () => {
-                passwordConfirmInput.value = "password";
-                passwordConfirmInput.dispatchEvent(new Event('input'));
+                inputDispatch(passwordConfirmInput, 'password');
               });
             });
           });
@@ -253,14 +244,10 @@ describe('RegisterComponent', () => {
       describe(`when all fields are filled, and password is the
         same as password confirm,`, () => {
         beforeEach(() => {
-          nameInput.value = "name";
-          nameInput.dispatchEvent(new Event('input'));
-          usernameInput.value = "usernameeeeee";
-          usernameInput.dispatchEvent(new Event('input'));
-          passwordInput.value = "password";
-          passwordInput.dispatchEvent(new Event('input'));
-          passwordConfirmInput.value = "password";
-          passwordConfirmInput.dispatchEvent(new Event('input'));
+          inputDispatch(nameInput, 'name');
+          inputDispatch(usernameInput, 'username');
+          inputDispatch(passwordInput, 'password');
+          inputDispatch(passwordConfirmInput, 'password');
           fixture.detectChanges();
         });
         it('should enable the register button', () => {
@@ -276,8 +263,7 @@ describe('RegisterComponent', () => {
             beforeEach(() => {
               userService.register = () => of({auth: false});
               spyOn(userService, 'register').and.callThrough();
-              usernameInput.value = "newfides";
-              usernameInput.dispatchEvent(new Event('input'));
+              inputDispatch(usernameInput, 'new fides');
               registerButton.click();
               fixture.detectChanges();
             });

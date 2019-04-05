@@ -32,6 +32,9 @@ import {
 import {
   DateRangeFilterPipeMock
 } from '../../../../test/pipes';
+import {
+  inputDispatch
+} from '../../../../test/utils';
 
 const closetList = mockClosetList;
 const currentUser = mockUserOne;
@@ -187,14 +190,12 @@ describe('SpendingManageComponent', () => {
       describe(`when the values are changed,`, () => {
         beforeEach(() => {
           component.isDateRange = true;
-          dateRangeFromSelect.value = dateFormatService.formatDateString(
+          inputDispatch(dateRangeFromSelect, dateFormatService.formatDateString(
             dateFormatService.newDate(2019, 1, 1)
-          );
-          dateRangeFromSelect.dispatchEvent(new Event('input'));
-          dateRangeToSelect.value = dateFormatService.formatDateString(
+          ));
+          inputDispatch(dateRangeToSelect, dateRangeToSelect.value = dateFormatService.formatDateString(
             dateFormatService.newDate(2019, 2, 1)
-          );
-          dateRangeToSelect.dispatchEvent(new Event('input'));
+          ));
           fixture.detectChanges();
         });
         it(`should call searchCriteriaChangeHandler.`, () => {
@@ -246,7 +247,7 @@ describe('SpendingManageComponent', () => {
           component.isDateRange = false;
           fixture.detectChanges();
           dateRangeForSelect.value = "last year";
-          dateRangeForSelect.dispatchEvent(new Event('change'));
+          inputDispatch(dateRangeForSelect, 'last year', 'change');
           fixture.detectChanges();
         });
         it(`should call searchCriteriaChangeHandler.`, () => {

@@ -16,6 +16,9 @@ import {
 import {
   AuthenticationServiceNoUserMock
 } from '../../../../test/services';
+import {
+  inputDispatch
+} from '../../../../test/utils';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -93,15 +96,13 @@ describe('LoginComponent', () => {
         });
         it('username field is empty, yet password field is filled.', () => {
           component.ngOnInit();
-          usernameInput.value = 'input';
-          usernameInput.dispatchEvent(new Event('input'));
+          inputDispatch(usernameInput, 'input');
           fixture.detectChanges();
           expect(loginButton.disabled).toBeTruthy();
         });
         it(`password field is empty, yet username field is filled.`, () => {
           component.ngOnInit();
-          passwordInput.value = 'input';
-          passwordInput.dispatchEvent(new Event('input'));
+          inputDispatch(passwordInput, 'input');
           fixture.detectChanges();
           expect(loginButton.disabled).toBeTruthy();
         });
@@ -110,10 +111,8 @@ describe('LoginComponent', () => {
       describe('and both fields are filled,', () => {
         beforeEach(() => {
           component.ngOnInit();
-          usernameInput.value = 'input';
-          usernameInput.dispatchEvent(new Event('input'));
-          passwordInput.value = 'input';
-          passwordInput.dispatchEvent(new Event('input'));
+          inputDispatch(usernameInput, 'input');
+          inputDispatch(passwordInput, 'input');
           fixture.detectChanges();
         });
 
@@ -147,8 +146,7 @@ describe('LoginComponent', () => {
 
           it(`should display an error message, which disappears
             when user types new value.`, () => {
-            usernameInput.value = 'new input';
-            usernameInput.dispatchEvent(new Event('input'));
+            inputDispatch(usernameInput, 'new input');
             fixture.detectChanges();
             expect(errorLabel.hidden).toBeTruthy();
           });
