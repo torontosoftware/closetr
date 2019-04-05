@@ -20,7 +20,9 @@ import {
   AuthenticationServiceNoUserMock
 } from '../../../../test/services';
 import {
-  inputDispatch
+  inputDispatch,
+  multTestCompare,
+  multInputDispatchAndChange
 } from '../../../../test/utils';
 import {
   loggedUserRedirectDashboard,
@@ -131,17 +133,21 @@ describe('RegisterComponent', () => {
     });
 
     it('should have all fields empty on load.', () => {
-      expect(nameInput.value).toEqual('');
-      expect(usernameInput.value).toEqual('');
-      expect(passwordInput.value).toEqual('');
-      expect(passwordConfirmInput.value).toEqual('');
+      multTestCompare([
+        nameInput,
+        usernameInput,
+        passwordInput,
+        passwordConfirmInput
+      ], 'value', '');
     });
 
     it('should have no errors on load.', () => {
-      expect(nameInputErrorLabel.hidden).toBeTruthy();
-      expect(usernameInputErrorLabel.hidden).toBeTruthy();
-      expect(passwordInputErrorLabel.hidden).toBeTruthy();
-      expect(passwordConfirmInputErrorLabel.hidden).toBeTruthy();
+      multTestCompare([
+        nameInputErrorLabel,
+        usernameInputErrorLabel,
+        passwordInputErrorLabel,
+        passwordConfirmInputErrorLabel
+      ], 'hidden', true);
     });
 
     it('should disable register button on load.', () => {
@@ -209,10 +215,12 @@ describe('RegisterComponent', () => {
       describe('should not display error on any input fields when', () => {
         afterEach(() => {
           fixture.detectChanges();
-          expect(nameInputErrorLabel.hidden).toBeTruthy();
-          expect(usernameInputErrorLabel.hidden).toBeTruthy();
-          expect(passwordInputErrorLabel.hidden).toBeTruthy();
-          expect(passwordConfirmInputErrorLabel.hidden).toBeTruthy();
+          multTestCompare([
+            nameInputErrorLabel,
+            usernameInputErrorLabel,
+            passwordInputErrorLabel,
+            passwordConfirmInputErrorLabel
+          ], 'hidden', true);
         });
         describe('name field is filled,', () => {
           beforeEach(() => {
@@ -232,11 +240,15 @@ describe('RegisterComponent', () => {
       describe(`when all fields are filled, and password is the
         same as password confirm,`, () => {
         beforeEach(() => {
-          inputDispatch(nameInput, 'name');
-          inputDispatch(usernameInput, 'username');
-          inputDispatch(passwordInput, 'password');
-          inputDispatch(passwordConfirmInput, 'password');
-          fixture.detectChanges();
+          multInputDispatchAndChange(
+            [
+              {input: nameInput, value: 'name'},
+              {input: usernameInput, value: 'username'},
+              {input: passwordInput, value: 'password'},
+              {input: passwordConfirmInput, value: 'password'}
+            ],
+            fixture
+          );
         });
         it('should enable the register button', () => {
           expect(registerButton.disabled).toBeFalsy();

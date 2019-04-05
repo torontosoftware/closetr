@@ -24,6 +24,9 @@ import {
   AuthenticationServiceMock,
   UserServiceMock
 } from '../../../../test/services';
+import {
+  multTestCompare
+} from '../../../../test/utils';
 
 const currentUser = mockUserOne;
 const updatedUser = mockUserTwo;
@@ -126,10 +129,12 @@ describe('ProfileComponent', () => {
     });
     it(`should have all fields disabled.`, () => {
       fixture.whenStable().then(() => {
-        expect(usernameInput.disabled).toBeTruthy();
-        expect(nameInput.disabled).toBeTruthy();
-        expect(descriptionInput.disabled).toBeTruthy();
-        expect(passwordInput.disabled).toBeTruthy();
+        multTestCompare([
+          usernameInput,
+          nameInput,
+          descriptionInput,
+          passwordInput
+        ], 'disabled', true);
       });
     });
     it(`should hide the save button`, () => {
@@ -166,15 +171,19 @@ describe('ProfileComponent', () => {
     it(`should enable the name and description
       fields.`, () => {
       fixture.whenStable().then(() => {
-        expect(nameInput.disabled).toBeFalsy();
-        expect(descriptionInput.disabled).toBeFalsy();
+        multTestCompare([
+          nameInput,
+          descriptionInput
+        ], 'disabled', false);
       });
     });
     it(`should keep the username and password
       fields disabled.`, () => {
       fixture.whenStable().then(() => {
-        expect(usernameInput.disabled).toBeTruthy();
-        expect(passwordInput.disabled).toBeTruthy();
+        multTestCompare([
+          usernameInput,
+          passwordInput
+        ], 'disabled', true);
       });
     });
   });

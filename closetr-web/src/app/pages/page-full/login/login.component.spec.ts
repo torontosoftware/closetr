@@ -17,7 +17,8 @@ import {
   AuthenticationServiceNoUserMock
 } from '../../../../test/services';
 import {
-  inputDispatch
+  inputDispatch,
+  multInputDispatchAndChange
 } from '../../../../test/utils';
 import {
   loggedUserRedirectDashboard,
@@ -88,26 +89,33 @@ describe('LoginComponent', () => {
 
     describe('when user attempts to click "log in" button,', () => {
       describe('should be disabled when,', () => {
-        it('both fields are empty.', () => {
+        afterEach(() => {
           expect(loginButton.disabled).toBeTruthy();
-        });
+        })
+        it('both fields are empty.', () => {});
         it('username field is empty, yet password field is filled.', () => {
-          inputDispatch(usernameInput, 'input');
-          fixture.detectChanges();
-          expect(loginButton.disabled).toBeTruthy();
+          multInputDispatchAndChange(
+            [{input: usernameInput, value: 'input'}],
+            fixture
+          );
         });
         it(`password field is empty, yet username field is filled.`, () => {
-          inputDispatch(passwordInput, 'input');
-          fixture.detectChanges();
-          expect(loginButton.disabled).toBeTruthy();
+          multInputDispatchAndChange(
+            [{input: passwordInput, value: 'input'}],
+            fixture
+          );
         });
       });
 
       describe('and both fields are filled,', () => {
         beforeEach(() => {
-          inputDispatch(usernameInput, 'input');
-          inputDispatch(passwordInput, 'input');
-          fixture.detectChanges();
+          multInputDispatchAndChange(
+            [
+              {input: usernameInput, value: 'input'},
+              {input: passwordInput, value: 'input'}
+            ],
+            fixture
+          );
         });
 
         it(`should allow login button to be clicked.`, () => {
