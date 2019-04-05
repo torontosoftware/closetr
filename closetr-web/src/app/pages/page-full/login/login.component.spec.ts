@@ -18,7 +18,8 @@ import {
 } from '../../../../test/services';
 import {
   inputDispatch,
-  multInputDispatchAndChange
+  multInputDispatchAndChange,
+  clickAndTestNavigate
 } from '../../../../test/utils';
 import {
   loggedUserRedirectDashboard,
@@ -157,9 +158,7 @@ describe('LoginComponent', () => {
         describe('with correct credentials,', () => {
           it(`should redirect to dashboard when the authentication
             service returns success on login function.`, () => {
-            loginButton.click();
-            fixture.detectChanges();
-            expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+            clickAndTestNavigate(loginButton, router, '/dashboard', fixture);
           });
         });
 

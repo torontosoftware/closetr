@@ -26,4 +26,15 @@ export const multInputDispatchAndChange = (
     inputDispatch(input, value, dispatch);
   }
   fixture.detectChanges();
-}
+};
+
+export const clickAndTestNavigate = (
+  button: any,
+  router: any,
+  result: any,
+  fixture: any
+) => {
+  button.click();
+  fixture.detectChanges();
+  expect(router.navigate).toHaveBeenCalledWith([result]);
+};

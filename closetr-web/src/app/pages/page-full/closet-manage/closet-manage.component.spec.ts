@@ -29,7 +29,8 @@ import {
   SearchFilterPipeMock
 } from '../../../../test/pipes';
 import {
-  inputDispatch
+  inputDispatch,
+  clickAndTestNavigate
 } from '../../../../test/utils';
 
 const closetList = mockClosetList;
@@ -103,9 +104,7 @@ describe('ClosetManageComponent', () => {
     back button is clicked`, () => {
     component.ngOnInit();
     let backButton = hostElement.querySelector('#back-button button');
-    backButton.click();
-    fixture.detectChanges();
-    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+    clickAndTestNavigate(backButton, router, '/dashboard', fixture);
   });
 
   describe(`when removeClothing function is called`, () => {

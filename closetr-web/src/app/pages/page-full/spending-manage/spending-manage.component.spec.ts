@@ -33,7 +33,8 @@ import {
   DateRangeFilterPipeMock
 } from '../../../../test/pipes';
 import {
-  inputDispatch
+  inputDispatch,
+  clickAndTestNavigate
 } from '../../../../test/utils';
 
 const closetList = mockClosetList;
@@ -105,29 +106,20 @@ describe('SpendingManageComponent', () => {
 
   it(`should navigate to dashboard component when
     back button is clicked`, () => {
-    component.ngOnInit();
     let backButton = hostElement.querySelector('#back-button button');
-    backButton.click();
-    fixture.detectChanges();
-    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+    clickAndTestNavigate(backButton, router, '/dashboard', fixture);
   });
 
   it(`should navigate to budget manage page when
     'manage budget' button is clicked`, () => {
-    component.ngOnInit();
     let manageBudgetButton = hostElement.querySelector('#manage-budget-button button');
-    manageBudgetButton.click();
-    fixture.detectChanges();
-    expect(router.navigate).toHaveBeenCalledWith(['/budget-manage']);
+    clickAndTestNavigate(manageBudgetButton, router, '/manage-budget', fixture);
   });
 
   it(`should navigate to dashboard when 'add new'
     button is clicked.`, () => {
-    component.ngOnInit();
     let addNewButton = hostElement.querySelector('#add-new-button button');
-    addNewButton.click();
-    fixture.detectChanges();
-    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+    clickAndTestNavigate(addNewButton, router, '/dashboard', fixture);
   });
 
   describe(`when the toggle button,`, () => {

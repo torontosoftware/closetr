@@ -22,7 +22,8 @@ import {
 import {
   inputDispatch,
   multTestCompare,
-  multInputDispatchAndChange
+  multInputDispatchAndChange,
+  clickAndTestNavigate
 } from '../../../../test/utils';
 import {
   loggedUserRedirectDashboard,
@@ -127,9 +128,7 @@ describe('RegisterComponent', () => {
     });
 
     it('should navigate to login page when `login` button is clicked', () => {
-      loginButton.click();
-      fixture.detectChanges();
-      expect(router.navigate).toHaveBeenCalledWith(['/login']);
+      clickAndTestNavigate(loginButton, router, '/login', fixture);
     });
 
     it('should have all fields empty on load.', () => {
@@ -277,10 +276,8 @@ describe('RegisterComponent', () => {
           describe('with username that has not been registered', () => {
             it('should redirect to dashboard component.', () => {
               userService.register = () => of({auth: true});
-              registerButton.click();
-              fixture.detectChanges();
+              clickAndTestNavigate(registerButton, router, '/dashboard', fixture);
               expect(usernameInputErrorLabel.hidden).toBeTruthy();
-              expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
             });
           });
         });
