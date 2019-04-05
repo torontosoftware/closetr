@@ -5,6 +5,7 @@
     "types": []
   },
   "exclude": [
+    "./test/*.ts",
     "test.ts",
     "**/*.spec.ts"
   ]

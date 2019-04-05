@@ -77,15 +77,13 @@ describe('LoginComponent', () => {
 
   describe('when there is a user logged in', () => {
     it('should redirect to dashboard.', () => {
-      loggedUserRedirectDashboard(authenticationService, component, fixture);
-      expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+      loggedUserRedirectDashboard(authenticationService, component, fixture, router);
     });
   });
 
   describe('when there is no user logged in,', () => {
     it('should not redirect to dashboard.', () => {
-      userNotRedirectDashboard(component, fixture);
-      expect(router.navigate).not.toHaveBeenCalledWith(['/dashboard']);
+      userNotRedirectDashboard(router);
     });
 
     describe('when user attempts to click "log in" button,', () => {

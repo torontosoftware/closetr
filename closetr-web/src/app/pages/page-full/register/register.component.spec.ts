@@ -78,8 +78,7 @@ describe('RegisterComponent', () => {
 
   describe('when there is a user logged in,', () => {
     it('should redirect to dashboard.', () => {
-      loggedUserRedirectDashboard(authenticationService, component, fixture);
-      expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+      loggedUserRedirectDashboard(authenticationService, component, fixture, router);
     });
   });
 
@@ -122,20 +121,16 @@ describe('RegisterComponent', () => {
     };
 
     it('should not redirect to dashboard', () => {
-      userNotRedirectDashboard(component, fixture);
-      expect(router.navigate).not.toHaveBeenCalledWith(['/dashboard']);
+      userNotRedirectDashboard(router);
     });
 
     it('should navigate to login page when `login` button is clicked', () => {
-      component.ngOnInit();
       loginButton.click();
       fixture.detectChanges();
       expect(router.navigate).toHaveBeenCalledWith(['/login']);
     });
 
     it('should have all fields empty on load.', () => {
-      component.ngOnInit();
-      fixture.detectChanges();
       expect(nameInput.value).toEqual('');
       expect(usernameInput.value).toEqual('');
       expect(passwordInput.value).toEqual('');
@@ -143,8 +138,6 @@ describe('RegisterComponent', () => {
     });
 
     it('should have no errors on load.', () => {
-      component.ngOnInit();
-      fixture.detectChanges();
       expect(nameInputErrorLabel.hidden).toBeTruthy();
       expect(usernameInputErrorLabel.hidden).toBeTruthy();
       expect(passwordInputErrorLabel.hidden).toBeTruthy();
@@ -152,8 +145,6 @@ describe('RegisterComponent', () => {
     });
 
     it('should disable register button on load.', () => {
-      component.ngOnInit();
-      fixture.detectChanges();
       expect(registerButton.disabled).toBeTruthy();
     });
 
