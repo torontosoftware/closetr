@@ -19,6 +19,10 @@ import {
 import {
   inputDispatch
 } from '../../../../test/utils';
+import {
+  loggedUserRedirectDashboard,
+  userNotRedirectDashboard
+} from '../../../../test/common-tests';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -73,18 +77,13 @@ describe('LoginComponent', () => {
 
   describe('when there is a user logged in', () => {
     it('should redirect to dashboard.', () => {
-      authenticationService.currentUserValue = "fides";
-      component.ngOnInit();
-      fixture.detectChanges();
-      expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+      loggedUserRedirectDashboard(authenticationService, component, fixture, router);
     });
   });
 
   describe('when there is no user logged in,', () => {
     it('should not redirect to dashboard.', () => {
-      fixture.detectChanges();
-      component.ngOnInit();
-      expect(router.navigate).not.toHaveBeenCalledWith(['/dashboard']);
+      userNotRedirectDashboard(component, fixture, router);
     });
 
     describe('when user attempts to click "log in" button,', () => {

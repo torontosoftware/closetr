@@ -22,6 +22,10 @@ import {
 import {
   inputDispatch
 } from '../../../../test/utils';
+import {
+  loggedUserRedirectDashboard,
+  userNotRedirectDashboard
+} from '../../../../test/common-tests';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -74,11 +78,7 @@ describe('RegisterComponent', () => {
 
   describe('when there is a user logged in,', () => {
     it('should redirect to dashboard.', () => {
-      authenticationService.currentUserValue = of('fides');
-      fixture.detectChanges();
-      component.ngOnInit();
-      fixture.detectChanges();
-      expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+      loggedUserRedirectDashboard(authenticationService, component, fixture, router);
     });
   });
 
@@ -108,9 +108,7 @@ describe('RegisterComponent', () => {
     });
 
     it('should not redirect to dashboard', () => {
-      component.ngOnInit();
-      fixture.detectChanges();
-      expect(router.navigate).not.toHaveBeenCalledWith(['/dashboard']);
+      userNotRedirectDashboard(component, fixture, router);
     });
 
     it('should navigate to login page when `login` button is clicked', () => {
