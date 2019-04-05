@@ -113,7 +113,7 @@ describe('SpendingManageComponent', () => {
   it(`should navigate to budget manage page when
     'manage budget' button is clicked`, () => {
     let manageBudgetButton = hostElement.querySelector('#manage-budget-button button');
-    clickAndTestNavigate(manageBudgetButton, router, '/manage-budget', fixture);
+    clickAndTestNavigate(manageBudgetButton, router, '/budget-manage', fixture);
   });
 
   it(`should navigate to dashboard when 'add new'
