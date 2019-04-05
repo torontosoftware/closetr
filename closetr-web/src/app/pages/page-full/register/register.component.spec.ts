@@ -165,10 +165,10 @@ describe('RegisterComponent', () => {
             beforeEach(() => {
               inputDispatch(passwordInput, 'password');
             });
-            it('and no other fields are.', () => {});
             it('and password confirm input field is filled.', () => {
               inputDispatch(passwordConfirmInput, 'password confirm');
             });
+            it('and no other fields are.', () => {});
           })
         });
       });
@@ -184,10 +184,10 @@ describe('RegisterComponent', () => {
               fixture.detectChanges();
               expect(usernameInputErrorLabel.hidden).toBeFalsy();
             })
-            it(`and no other fields (after username) are.`, () => {});
             it('and password confirm input field is filled.', () => {
               inputDispatch(passwordConfirmInput, 'password confirm');
             });
+            it(`and no other fields (after username) are.`, () => {});
           });
       });
 
@@ -232,10 +232,10 @@ describe('RegisterComponent', () => {
               beforeEach(() => {
                 inputDispatch(passwordInput, 'password');
               })
-              it('and no other fields.', () => {});
               it('and password confirm field is filled.', () => {
                 inputDispatch(passwordConfirmInput, 'password');
               });
+              it('and no other fields.', () => {});
             });
           });
         });
