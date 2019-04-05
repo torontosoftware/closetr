@@ -1,7 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { of } from 'rxjs';
-import { Pipe, PipeTransform, Component, Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -19,47 +17,28 @@ import { UiFilterDateComponent } from '../../../shared/ui-filter-date/ui-filter-
 import { UiTableComponent } from '../../../shared/ui-table/ui-table.component';
 import { SpendingManageComponent } from './spending-manage.component';
 import { DateRangeFilterPipe } from '../../../pipes/date-range-filter.pipe';
+import {
+  MockDashboardComponent,
+  MockBudgetManageComponent
+} from '../../../../test/components';
+import {
+  mockClosetList,
+  mockUserOne
+} from '../../../../test/objects';
+import {
+  ClosetServiceMock,
+  AuthenticationServiceMock
+} from '../../../../test/services';
+import {
+  DateRangeFilterPipeMock
+} from '../../../../test/pipes';
+import {
+  inputDispatch,
+  clickAndTestNavigate
+} from '../../../../test/utils';
 
-const closetList = [
-  new Clothing({clothingID: '1', clothingName: 'tshirt'}),
-  new Clothing({clothingID: '2', clothingName: 'jeans'}),
-  new Clothing({clothingID: '3', clothingName: 'shoes'})
-];
-
-const currentUser = new User({userName: 'fides', id: '1'});
-
-@Injectable({
-  providedIn: 'root'
-})
-class ClosetServiceMock {
-  getAllClothes = (user) => of({data: closetList});
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceMock {
-  currentUser = of(currentUser);
-}
-
-@Component({
-  selector: 'app-dashboard',
-  template: '<p>Mock Dashboard Component</p>'
-})
-class MockDashboardComponent { }
-
-@Component({
-  selector: 'app-budget-manage',
-  template: '<p>Mock Budget Manage Component</p>'
-})
-class MockBudgetManageComponent { }
-
-@Pipe({name: 'dateRangeFilter'})
-class DateRangeFilterPipeMock implements PipeTransform{
- transform(items: any, dateFrom: Date, dateTo: Date, property: string) {
-  return items;
- }
-}
+const closetList = mockClosetList;
+const currentUser = mockUserOne;
 
 describe('SpendingManageComponent', () => {
   let component: SpendingManageComponent;
@@ -127,29 +106,20 @@ describe('SpendingManageComponent', () => {
 
   it(`should navigate to dashboard component when
     back button is clicked`, () => {
-    component.ngOnInit();
     let backButton = hostElement.querySelector('#back-button button');
-    backButton.click();
-    fixture.detectChanges();
-    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+    clickAndTestNavigate(backButton, router, '/dashboard', fixture);
   });
 
   it(`should navigate to budget manage page when
     'manage budget' button is clicked`, () => {
-    component.ngOnInit();
     let manageBudgetButton = hostElement.querySelector('#manage-budget-button button');
-    manageBudgetButton.click();
-    fixture.detectChanges();
-    expect(router.navigate).toHaveBeenCalledWith(['/budget-manage']);
+    clickAndTestNavigate(manageBudgetButton, router, '/budget-manage', fixture);
   });
 
   it(`should navigate to dashboard when 'add new'
     button is clicked.`, () => {
-    component.ngOnInit();
     let addNewButton = hostElement.querySelector('#add-new-button button');
-    addNewButton.click();
-    fixture.detectChanges();
-    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+    clickAndTestNavigate(addNewButton, router, '/dashboard', fixture);
   });
 
   describe(`when the toggle button,`, () => {
@@ -212,14 +182,12 @@ describe('SpendingManageComponent', () => {
       describe(`when the values are changed,`, () => {
         beforeEach(() => {
           component.isDateRange = true;
-          dateRangeFromSelect.value = dateFormatService.formatDateString(
+          inputDispatch(dateRangeFromSelect, dateFormatService.formatDateString(
             dateFormatService.newDate(2019, 1, 1)
-          );
-          dateRangeFromSelect.dispatchEvent(new Event('input'));
-          dateRangeToSelect.value = dateFormatService.formatDateString(
+          ));
+          inputDispatch(dateRangeToSelect, dateRangeToSelect.value = dateFormatService.formatDateString(
             dateFormatService.newDate(2019, 2, 1)
-          );
-          dateRangeToSelect.dispatchEvent(new Event('input'));
+          ));
           fixture.detectChanges();
         });
         it(`should call searchCriteriaChangeHandler.`, () => {
@@ -271,7 +239,7 @@ describe('SpendingManageComponent', () => {
           component.isDateRange = false;
           fixture.detectChanges();
           dateRangeForSelect.value = "last year";
-          dateRangeForSelect.dispatchEvent(new Event('change'));
+          inputDispatch(dateRangeForSelect, 'last year', 'change');
           fixture.detectChanges();
         });
         it(`should call searchCriteriaChangeHandler.`, () => {

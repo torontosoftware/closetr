@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -8,27 +7,17 @@ import { UiCloseButtonComponent } from '../../../shared/ui-close-button/ui-close
 import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-button.component';
 import { ClosetCardComponent } from './closet-card.component';
 import { Clothing } from '../../../models/clothing.model';
+import {
+  MockEditClothingComponent
+} from '../../../../test/components';
+import {
+  mockClothingOne
+} from '../../../../test/objects';
+import {
+  ClosetServiceMock
+} from '../../../../test/services';
 
-const clothing = new Clothing({
-  clothingID: '12345',
-  clothingName: 'White Button Down Shirt',
-  clothingCost: 45,
-  clothingWorn: 12,
-  clothingPurchaseDate: '2018-03-14'
-});
-
-@Component({
-  selector: 'app-edit-clothing',
-  template: '<p> Mock Edit Clothing Component </p>'
-})
-class MockEditClothingComponent { }
-
-@Injectable({
-  providedIn: 'root'
-})
-class ClosetServiceMock {
-  setClothingForEdit = () => { return };
-}
+const clothing = mockClothingOne;
 
 describe('ClosetCardComponent', () => {
   let component: ClosetCardComponent;

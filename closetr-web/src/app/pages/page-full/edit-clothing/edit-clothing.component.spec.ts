@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
-import { Component, OnInit, Injectable } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Clothing } from '../../../models/clothing.model';
 import { ClosetService } from '../../../services/closet.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -11,39 +11,25 @@ import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-bu
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
 import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
 import { UiInputSelectComponent } from '../../../shared/ui-input-select/ui-input-select.component';
-import { Clothing } from '../../../models/clothing.model';
-import { User } from '../../../models/user.model';
 import { EditClothingComponent } from './edit-clothing.component';
+import {
+  MockClosetManageComponent
+} from '../../../../test/components';
+import {
+  mockClothingOne,
+  mockUserOne,
+  mockClothingEmpty
+} from '../../../../test/objects';
+import {
+  AuthenticationServiceMock,
+  ClosetServiceMock
+} from '../../../../test/services';
+import {
+  inputDispatch
+} from '../../../../test/utils';
 
-const clothingForEdit = new Clothing({
-  clothingName: "Zara Mockneck Tee",
-  clothingWorn: 4,
-  clothingCost: 10,
-  clothingCategory: "Top",
-  clothingPurchaseDate: "2019-02-03"
-});
-const currentUser = new User({userName: 'fides'});
-
-@Component({
-  selector: 'app-closet-manage',
-  template: '<p>Mock Closet Manage Component</p>'
-})
-class MockClosetManageComponent {}
-
-@Injectable({
-  providedIn: 'root'
-})
-class ClosetServiceMock {
-  getClothingForEdit = () => clothingForEdit;
-  editClothing = () => of(true);
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceMock {
-  currentUser = of(currentUser);
-}
+const clothingForEdit = mockClothingOne;
+const currentUser = mockUserOne;
 
 describe('EditClothingComponent', () => {
   let component: EditClothingComponent;
@@ -125,26 +111,23 @@ describe('EditClothingComponent', () => {
   describe(`the save button`, () => {
     beforeEach(() => {
       saveButton = hostElement.querySelector('#save-button button');
-      component.clothing = new Clothing();
+      component.clothing = mockClothingEmpty;
     });
     describe(`should be disabled when`, () => {
       describe(`clothing name field is filled,`, () => {
         beforeEach(() => {
-          nameInput.value = "name";
-          nameInput.dispatchEvent(new Event('input'));
+          inputDispatch(nameInput, 'name');
           fixture.detectChanges();
         });
         it(`and all else is empty`, () => {});
         describe(`and clothing worn field is filled,`, () => {
           beforeEach(() => {
-            wornInput.value = "0";
-            wornInput.dispatchEvent(new Event('input'));
+            inputDispatch(wornInput, '0');
             fixture.detectChanges();
           });
           it(`and all else is empty`, () => {});
           it(`and clothing cost field is filled, and all else is empty.`, () => {
-            costInput.value = "0";
-            costInput.dispatchEvent(new Event('input'));
+            inputDispatch(costInput, '0');
             fixture.detectChanges();
           });
         });

@@ -2,13 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { of } from 'rxjs';
-import { Injectable, Component, DebugElement, Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { ClosetService } from '../../../services/closet.service';
-import { User } from '../../../models/user.model';
-import { Clothing } from '../../../models/clothing.model';
 import { SearchFilterPipe } from '../../../pipes/search-filter.pipe';
 import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
 import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-button.component';
@@ -18,47 +14,29 @@ import { UiFilterSelectComponent } from '../../../shared/ui-filter-select/ui-fil
 import { UiCloseButtonComponent } from '../../../shared/ui-close-button/ui-close-button.component';
 import { ClosetCardComponent } from '../../page-partial/closet-card/closet-card.component';
 import { ClosetManageComponent } from './closet-manage.component';
+import {
+  MockDashboardComponent
+} from '../../../../test/components';
+import {
+  ClosetServiceMock,
+  AuthenticationServiceMock
+} from '../../../../test/services';
+import {
+  mockUserOne,
+  mockClosetList
+} from '../../../../test/objects';
+import {
+  SearchFilterPipeMock
+} from '../../../../test/pipes';
+import {
+  inputDispatch,
+  clickAndTestNavigate
+} from '../../../../test/utils';
 
-const closetList = [
-  new Clothing({clothingID: '1', clothingName: 'tshirt'}),
-  new Clothing({clothingID: '2', clothingName: 'jeans'}),
-  new Clothing({clothingID: '3', clothingName: 'shoes'})
-];
-const currentUser = new User({userName: 'fides'});
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceMock {
-  currentUser = of(currentUser);
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class ClosetServiceMock {
-  getAllClothes = (user) => of({data: closetList});
-  removeClothing = (id) => of({data: {closetList}});
-}
-
-@Component({
-  selector: 'app-dashboard',
-  template: '<p>Mock Dashboard Component</p>'
-})
-class MockDashboardComponent { }
-
-@Pipe({name: 'filter'})
-class SearchFilterPipeMock implements PipeTransform{
-  transform(items: any, searchText: String, property: string) {
-    if (searchText == 'shirt') {
-      return [items[0]];
-    }
-    return items;
-  }
-}
+const closetList = mockClosetList;
+const currentUser = mockUserOne;
 
 describe('ClosetManageComponent', () => {
-  let debugElement: DebugElement;
   let component: ClosetManageComponent;
   let fixture: ComponentFixture<ClosetManageComponent>;
   let authenticationService: AuthenticationServiceMock;
@@ -103,8 +81,7 @@ describe('ClosetManageComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ClosetManageComponent);
-    debugElement = fixture.debugElement;
-    component = debugElement.componentInstance;
+    component = fixture.debugElement.componentInstance;
     authenticationService = TestBed.get(AuthenticationService);
     closetService = TestBed.get(ClosetService);
     router = TestBed.get(Router);
@@ -127,9 +104,7 @@ describe('ClosetManageComponent', () => {
     back button is clicked`, () => {
     component.ngOnInit();
     let backButton = hostElement.querySelector('#back-button button');
-    backButton.click();
-    fixture.detectChanges();
-    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+    clickAndTestNavigate(backButton, router, '/dashboard', fixture);
   });
 
   describe(`when removeClothing function is called`, () => {
@@ -160,15 +135,13 @@ describe('ClosetManageComponent', () => {
         closetList, 'shirt', 'clothingName'
       ]];
       searchFilterPipe = spyOn(SearchFilterPipeMock.prototype, 'transform');
-      searchInput.value = "shirt";
-      searchInput.dispatchEvent(new Event('input'));
+      inputDispatch(searchInput, 'shirt');
       fixture.detectChanges();
       expect(searchFilterPipe.calls.allArgs()).toEqual(params);
     });
     it(`should render changed results into closet card
       components.`, () => {
-      searchInput.value = "shirt";
-      searchInput.dispatchEvent(new Event('input'));
+      inputDispatch(searchInput, 'shirt');
       fixture.detectChanges();
       let closetCardList = hostElement.querySelectorAll('.closet-card-item');
       expect(closetCardList.length).toEqual(1);
@@ -237,8 +210,4 @@ describe('ClosetManageComponent', () => {
       expect(component.editMode).toBeFalsy();
     })
   });
-
-
-
-
 });

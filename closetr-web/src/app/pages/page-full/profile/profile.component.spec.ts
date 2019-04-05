@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -13,40 +13,23 @@ import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-bu
 import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
 import { User } from '../../../models/user.model';
 import { ProfileComponent } from './profile.component';
+import {
+  MockDashboardComponent
+} from '../../../../test/components';
+import {
+  mockUserOne,
+  mockUserTwo,
+} from '../../../../test/objects';
+import {
+  AuthenticationServiceMock,
+  UserServiceMock
+} from '../../../../test/services';
+import {
+  multTestCompare
+} from '../../../../test/utils';
 
-const currentUser = new User({
-  userID: 'fideslinga',
-  userName: 'Fides Linga',
-  userDesc: 'description',
-  userPassword: 'password'
-});
-
-const updatedUser = new User({
-  userID: 'fideslinga',
-  userName: 'Fidessa Linga',
-  userDesc: 'a big chungus',
-  userPassword: 'password'
-});
-
-@Component({
-  selector: 'app-dashboard',
-  template: '<p>Mock Dashboard Component'
-})
-class MockDashboardComponent { }
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceMock {
-  currentUser = of(currentUser);
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class UserServiceMock {
-  update = (user) => of({data: updatedUser});
-}
+const currentUser = mockUserOne;
+const updatedUser = mockUserTwo;
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -146,10 +129,12 @@ describe('ProfileComponent', () => {
     });
     it(`should have all fields disabled.`, () => {
       fixture.whenStable().then(() => {
-        expect(usernameInput.disabled).toBeTruthy();
-        expect(nameInput.disabled).toBeTruthy();
-        expect(descriptionInput.disabled).toBeTruthy();
-        expect(passwordInput.disabled).toBeTruthy();
+        multTestCompare([
+          usernameInput,
+          nameInput,
+          descriptionInput,
+          passwordInput
+        ], 'disabled', true);
       });
     });
     it(`should hide the save button`, () => {
@@ -183,19 +168,20 @@ describe('ProfileComponent', () => {
       fixture.detectChanges();
       expect(saveButton.hidden).toBeTruthy();
     });
+
+    const fixtureStableInputTest = (inputs, property, result) => {
+      fixture.whenStable().then(() => {
+        multTestCompare(inputs, property, result);
+      });
+    };
+
     it(`should enable the name and description
       fields.`, () => {
-      fixture.whenStable().then(() => {
-        expect(nameInput.disabled).toBeFalsy();
-        expect(descriptionInput.disabled).toBeFalsy();
-      });
+      fixtureStableInputTest([nameInput, descriptionInput], 'disabled', false);
     });
     it(`should keep the username and password
       fields disabled.`, () => {
-      fixture.whenStable().then(() => {
-        expect(usernameInput.disabled).toBeTruthy();
-        expect(passwordInput.disabled).toBeTruthy();
-      });
+      fixtureStableInputTest([usernameInput, passwordInput], 'disabled', true);
     });
   });
 

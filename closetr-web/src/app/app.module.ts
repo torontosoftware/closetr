@@ -56,6 +56,9 @@ import { ClosetStatsWidgetComponent } from './pages/page-partial/closet-stats-wi
 import { UiFilterDateComponent } from './shared/ui-filter-date/ui-filter-date.component';
 import { UiPopupMenuItemComponent } from './shared/ui-popup-menu-item/ui-popup-menu-item.component';
 
+//test
+import { TestModule } from '../test/test.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -98,7 +101,8 @@ import { UiPopupMenuItemComponent } from './shared/ui-popup-menu-item/ui-popup-m
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    TestModule
   ],
   providers: [
     ClosetService,

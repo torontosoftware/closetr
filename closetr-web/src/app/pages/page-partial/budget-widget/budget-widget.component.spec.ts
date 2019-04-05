@@ -1,7 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { of } from 'rxjs';
-import { Component, Injectable, Pipe, PipeTransform } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -17,47 +15,26 @@ import { UiFilterSelectComponent } from '../../../shared/ui-filter-select/ui-fil
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
 import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-button.component';
 import { BudgetWidgetComponent } from './budget-widget.component';
+import {
+  MockSpendingManageComponent,
+  MockBudgetManageComponent
+} from '../../../../test/components';
+import {
+  mockClosetListRenderedTable,
+  mockClosetList,
+  mockUserOne
+} from '../../../../test/objects';
+import {
+  AuthenticationServiceMock,
+  ClosetServiceMock
+} from '../../../../test/services';
+import {
+  DateRangeFilterPipeMock
+} from '../../../../test/pipes';
 
-const closetList = [
-  new Clothing({clothingID: '1', clothingName: 'tshirt'}),
-  new Clothing({clothingID: '2', clothingName: 'jeans'}),
-  new Clothing({clothingID: '3', clothingName: 'shoes'})
-];
-
-const currentUser = new User({userName: 'fides', id: '1'});
-
-@Component({
-  selector: 'app-dashboard',
-  template: '<p>Mock Spending Manage Component</p>'
-})
-class MockSpendingManageComponent { }
-
-@Component({
-  selector: 'app-dashboard',
-  template: '<p>Mock Budget Manage Component</p>'
-})
-class MockBudgetManageComponent { }
-
-@Pipe({name: 'dateRangeFilter'})
-class DateRangeFilterPipeMock implements PipeTransform {
-  transform(items: any, dateFrom: Date, dateTo: Date, property: string) {
-   return items;
-  }
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceMock {
-  currentUser = of(currentUser);
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class ClosetServiceMock {
-  getAllClothes = (user) => of({data: closetList});
-}
+const closetList = mockClosetList;
+const closetListRenderedTable = mockClosetListRenderedTable;
+const currentUser = mockUserOne;
 
 describe('BudgetWidgetComponent', () => {
   let component: BudgetWidgetComponent;
@@ -186,7 +163,7 @@ describe('BudgetWidgetComponent', () => {
     });
     it(`should set closetList to the returned
       data from closetService`, () => {
-      expect(component.closetList).toEqual(closetList);
+      expect(component.closetList).toEqual(mockClosetListRenderedTable);
     });
   });
 
@@ -215,7 +192,7 @@ describe('BudgetWidgetComponent', () => {
           dateFrom: dateFormatService.dateRangeForFrom("last week"),
           dateTo: dateFormatService.newDate()
         },
-        items: closetList
+        items: closetListRenderedTable
       };
       let purchaseTable = fixture.debugElement.query(
         By.css('#purchase-table')

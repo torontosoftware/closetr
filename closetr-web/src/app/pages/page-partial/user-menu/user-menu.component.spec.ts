@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, Injectable } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -7,25 +6,13 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { UiPopupMenuItemComponent } from '../../../shared/ui-popup-menu-item/ui-popup-menu-item.component';
 import { UserMenuComponent } from './user-menu.component';
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceMock {
-  logout = () => { return };
-}
-
-@Component({
-  selector: 'app-profile',
-  template: '<p> Mock Profile Component </p>'
-})
-class MockProfileComponent { }
-
-@Component({
-  selector: 'app-login',
-  template: '<p> Mock Login Component </p>'
-})
-class MockLoginComponent { }
+import {
+  MockProfileComponent,
+  MockLoginComponent
+} from '../../../../test/components';
+import {
+  AuthenticationServiceMock
+} from '../../../../test/services';
 
 describe('UserMenuComponent', () => {
   let component: UserMenuComponent;

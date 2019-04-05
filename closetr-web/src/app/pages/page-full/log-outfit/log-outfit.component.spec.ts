@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
-import { Component, Injectable, DebugElement, Pipe, PipeTransform } from '@angular/core';
+import { DebugElement, Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -10,8 +9,6 @@ import { ClosetService } from '../../../services/closet.service';
 import { LogOutfitService } from  '../../../services/log-outfit.service';
 import { DateFormatService } from '../../../services/utils/date-format.service';
 import { RoutesService } from '../../../services/routes.service';
-import { User } from '../../../models/user.model';
-import { Clothing } from '../../../models/clothing.model';
 import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
 import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-button.component';
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
@@ -20,62 +17,25 @@ import { UiCloseButtonComponent } from '../../../shared/ui-close-button/ui-close
 import { ClosetCardComponent } from '../../page-partial/closet-card/closet-card.component';
 import { SearchFilterPipe } from '../../../pipes/search-filter.pipe';
 import { LogOutfitComponent } from './log-outfit.component';
+import {
+  MockDashboardComponent,
+  MockAddClothingComponent
+} from '../../../../test/components';
+import {
+  mockOutfitClothingList,
+  mockClosetList,
+  mockUserOne
+} from '../../../../test/objects';
+import {
+  ClosetServiceMock,
+  LogOutfitServiceMock,
+  RoutesServiceMock,
+  AuthenticationServiceMock
+} from '../../../../test/services';
 
-const closetList = [
-  new Clothing({clothingID: '1', clothingName: 'tshirt'}),
-  new Clothing({clothingID: '2', clothingName: 'jeans'}),
-  new Clothing({clothingID: '3', clothingName: 'shoes'})
-];
-const outfitClothingList = closetList.map((clothing) => {
-  return {
-    outfitEntryID: clothing.clothingID,
-    clothing: clothing
-  }
-});
-const currentUser = new User({userName: 'fides', id: '1'});
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceMock {
-  currentUser = of(currentUser);
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class ClosetServiceMock {
-  getAllClothes = (user) => of({data: closetList});
-
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class LogOutfitServiceMock {
-  getAllOutfitClothes = (params) => of({data: outfitClothingList});
-  addOutfitClothing = (params) => of({data: true});
-  deleteOutfitClothing = (params) => of({data: true});
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class RoutesServiceMock {
-  setPrevUrl = (params) => { return };
-}
-
-@Component({
-  selector: 'app-dashboard',
-  template: '<p>Mock Dashboard Component</p>'
-})
-class MockDashboardComponent { }
-
-@Component({
-  selector: 'app-add-clothing',
-  template: '<p>Mock Add Clothing Component</p>'
-})
-class MockAddClothingComponent { }
+const closetList = mockClosetList;
+const outfitClothingList = mockOutfitClothingList;
+const currentUser = mockUserOne;
 
 @Pipe({name: 'filter'})
 class SearchFilterPipeMock implements PipeTransform{

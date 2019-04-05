@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { Injectable, Component } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -11,43 +11,31 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
 import { RegisterComponent } from './register.component';
-
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceMock {
-  currentUserValue = null;
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-class UserServiceMock {
-  register = jasmine.createSpy('userService.register').and.returnValue(
-    of({auth: true})
-  );
-}
-
-@Component({
-  selector: 'app-login',
-  template: '<p>Mock Login Component</p>'
-})
-class MockLoginComponent {}
-
-@Component({
-  selector: 'app-dashboard',
-  template: '<p>Mock Dashboard Component</p>'
-})
-class MockDashboardComponent {}
+import {
+  MockLoginComponent,
+  MockDashboardComponent,
+} from '../../../../test/components';
+import {
+  UserServiceMock,
+  AuthenticationServiceNoUserMock
+} from '../../../../test/services';
+import {
+  inputDispatch,
+  multTestCompare,
+  multInputDispatchAndChange,
+  clickAndTestNavigate
+} from '../../../../test/utils';
+import {
+  loggedUserRedirectDashboard,
+  userNotRedirectDashboard
+} from '../../../../test/common-tests';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
-  let authenticationService: AuthenticationServiceMock;
+  let authenticationService: AuthenticationServiceNoUserMock;
   let userService: UserServiceMock;
   let fixture: ComponentFixture<RegisterComponent>;
   let router: Router;
-  let routerSpy;
   let hostElement;
 
   const routes = [
@@ -71,17 +59,18 @@ describe('RegisterComponent', () => {
       ],
       providers: [
         RegisterComponent,
-        { provide: AuthenticationService, useClass: AuthenticationServiceMock },
+        { provide: AuthenticationService, useClass: AuthenticationServiceNoUserMock },
         { provide: UserService, useClass: UserServiceMock }
       ]
     });
 
     fixture = TestBed.createComponent(RegisterComponent);
-    component = TestBed.get(RegisterComponent);
+    component = fixture.debugElement.componentInstance;
     authenticationService = TestBed.get(AuthenticationService);
     userService = TestBed.get(UserService);
     router = TestBed.get(Router);
-    routerSpy = spyOn(router, "navigate");
+    spyOn(router, "navigate");
+    spyOn(userService, 'register').and.callThrough();
     hostElement = fixture.nativeElement;
     fixture.detectChanges();
   });
@@ -92,10 +81,7 @@ describe('RegisterComponent', () => {
 
   describe('when there is a user logged in,', () => {
     it('should redirect to dashboard.', () => {
-      authenticationService.currentUserValue = 'fides';
-      component.ngOnInit();
-      fixture.detectChanges();
-      expect(routerSpy).toHaveBeenCalledWith(['/dashboard']);
+      loggedUserRedirectDashboard(authenticationService, component, fixture, router);
     });
   });
 
@@ -124,40 +110,46 @@ describe('RegisterComponent', () => {
       passwordConfirmInputErrorLabel = hostElement.querySelector('#password-confirm-input .input-clean-error-label');
     });
 
+    const passwordAndConfirmTest = () =>
+    {
+      describe('and password field is filled,', () => {
+        beforeEach(() => {
+          inputDispatch(passwordInput, 'password');
+        })
+        it('and password confirm field is filled.', () => {
+          inputDispatch(passwordConfirmInput, 'password');
+        });
+        it('and no other fields.', () => {});
+      });
+    };
+
     it('should not redirect to dashboard', () => {
-      component.ngOnInit();
-      fixture.detectChanges();
-      expect(routerSpy).not.toHaveBeenCalledWith(['/dashboard']);
+      userNotRedirectDashboard(router);
     });
 
     it('should navigate to login page when `login` button is clicked', () => {
-      component.ngOnInit();
-      loginButton.click();
-      fixture.detectChanges();
-      expect(routerSpy).toHaveBeenCalledWith(['/login']);
+      clickAndTestNavigate(loginButton, router, '/login', fixture);
     });
 
     it('should have all fields empty on load.', () => {
-      component.ngOnInit();
-      fixture.detectChanges();
-      expect(nameInput.value).toEqual('');
-      expect(usernameInput.value).toEqual('');
-      expect(passwordInput.value).toEqual('');
-      expect(passwordConfirmInput.value).toEqual('');
+      multTestCompare([
+        nameInput,
+        usernameInput,
+        passwordInput,
+        passwordConfirmInput
+      ], 'value', '');
     });
 
     it('should have no errors on load.', () => {
-      component.ngOnInit();
-      fixture.detectChanges();
-      expect(nameInputErrorLabel.hidden).toBeTruthy();
-      expect(usernameInputErrorLabel.hidden).toBeTruthy();
-      expect(passwordInputErrorLabel.hidden).toBeTruthy();
-      expect(passwordConfirmInputErrorLabel.hidden).toBeTruthy();
+      multTestCompare([
+        nameInputErrorLabel,
+        usernameInputErrorLabel,
+        passwordInputErrorLabel,
+        passwordConfirmInputErrorLabel
+      ], 'hidden', true);
     });
 
     it('should disable register button on load.', () => {
-      component.ngOnInit();
-      fixture.detectChanges();
       expect(registerButton.disabled).toBeTruthy();
     });
 
@@ -170,8 +162,7 @@ describe('RegisterComponent', () => {
         field is empty but`, () => {
         describe('username input field is filled,', () => {
           beforeEach(() => {
-            usernameInput.value = "username";
-            usernameInput.dispatchEvent(new Event('input'));
+            inputDispatch(usernameInput, 'username');
             fixture.detectChanges();
           });
           afterEach(() => {
@@ -179,17 +170,7 @@ describe('RegisterComponent', () => {
             expect(nameInputErrorLabel.hidden).toBeFalsy();
           });
           it('and no other fields are.', () => {});
-          describe('and password input is filled', () => {
-            beforeEach(() => {
-              passwordInput.value = "password";
-              passwordInput.dispatchEvent(new Event('input'));
-            });
-            it('and no other fields are.', () => {});
-            it('and password confirm input field is filled.', () => {
-              passwordConfirmInput.value = "password confirm";
-              passwordConfirmInput.dispatchEvent(new Event('input'));
-            });
-          })
+          passwordAndConfirmTest();
         });
       });
 
@@ -197,27 +178,24 @@ describe('RegisterComponent', () => {
         username input field is empty but`, () => {
           describe('password input field is filled,', () => {
             beforeEach(() => {
-              passwordInput.value = "password";
-              passwordInput.dispatchEvent(new Event('input'));
+              inputDispatch(passwordInput, 'password');
               fixture.detectChanges();
             });
             afterEach(() => {
               fixture.detectChanges();
               expect(usernameInputErrorLabel.hidden).toBeFalsy();
             })
-            it(`and no other fields (after username) are.`, () => {});
             it('and password confirm input field is filled.', () => {
-              passwordConfirmInput.value = "password confirm";
-              passwordConfirmInput.dispatchEvent(new Event('input'));
+              inputDispatch(passwordConfirmInput, 'password confirm');
             });
+            it(`and no other fields (after username) are.`, () => {});
           });
       });
 
       describe(`should display error on password input field when
         password input field is empty but`, () => {
           it('password confirm input field is filled.', () => {
-            passwordConfirmInput.value = "password confirm";
-            passwordConfirmInput.dispatchEvent(new Event('input'));
+            inputDispatch(passwordConfirmInput, 'password confirm');
             fixture.detectChanges();
             expect(passwordInputErrorLabel.hidden).toBeFalsy();
           });
@@ -226,10 +204,8 @@ describe('RegisterComponent', () => {
       describe('should display error on password confirm input field when', () => {
         it(`password confirm field is filled and not the same
           as password field,`, () => {
-            passwordConfirmInput.value = "password confirm";
-            passwordConfirmInput.dispatchEvent(new Event('input'));
-            passwordInput.value = "password";
-            passwordInput.dispatchEvent(new Event('input'));
+            inputDispatch(passwordConfirmInput, 'password confirm');
+            inputDispatch(passwordInput, 'password');
             fixture.detectChanges();
             expect(passwordConfirmInputErrorLabel.hidden).toBeFalsy();
           });
@@ -238,34 +214,24 @@ describe('RegisterComponent', () => {
       describe('should not display error on any input fields when', () => {
         afterEach(() => {
           fixture.detectChanges();
-          expect(nameInputErrorLabel.hidden).toBeTruthy();
-          expect(usernameInputErrorLabel.hidden).toBeTruthy();
-          expect(passwordInputErrorLabel.hidden).toBeTruthy();
-          expect(passwordConfirmInputErrorLabel.hidden).toBeTruthy();
+          multTestCompare([
+            nameInputErrorLabel,
+            usernameInputErrorLabel,
+            passwordInputErrorLabel,
+            passwordConfirmInputErrorLabel
+          ], 'hidden', true);
         });
         describe('name field is filled,', () => {
           beforeEach(() => {
-            nameInput.value = "name";
-            nameInput.dispatchEvent(new Event('input'));
+            inputDispatch(nameInput, 'name');
           })
           it('and no other fields.', () => {});
           describe('and username field is filled,', () => {
             beforeEach(() => {
-              usernameInput.value = "username";
-              usernameInput.dispatchEvent(new Event('input'));
+              inputDispatch(usernameInput, 'username');
             })
             it('and no other fields.', () => {});
-            describe('and password field is filled,', () => {
-              beforeEach(() => {
-                passwordInput.value = "password";
-                passwordInput.dispatchEvent(new Event('input'));
-              })
-              it('and no other fields.', () => {});
-              it('and password confirm field is filled.', () => {
-                passwordConfirmInput.value = "password";
-                passwordConfirmInput.dispatchEvent(new Event('input'));
-              });
-            });
+            passwordAndConfirmTest();
           });
         });
       });
@@ -273,15 +239,15 @@ describe('RegisterComponent', () => {
       describe(`when all fields are filled, and password is the
         same as password confirm,`, () => {
         beforeEach(() => {
-          nameInput.value = "name";
-          nameInput.dispatchEvent(new Event('input'));
-          usernameInput.value = "usernameeeeee";
-          usernameInput.dispatchEvent(new Event('input'));
-          passwordInput.value = "password";
-          passwordInput.dispatchEvent(new Event('input'));
-          passwordConfirmInput.value = "password";
-          passwordConfirmInput.dispatchEvent(new Event('input'));
-          fixture.detectChanges();
+          multInputDispatchAndChange(
+            [
+              {input: nameInput, value: 'name'},
+              {input: usernameInput, value: 'username'},
+              {input: passwordInput, value: 'password'},
+              {input: passwordConfirmInput, value: 'password'}
+            ],
+            fixture
+          );
         });
         it('should enable the register button', () => {
           expect(registerButton.disabled).toBeFalsy();
@@ -294,16 +260,14 @@ describe('RegisterComponent', () => {
           });
           describe('with username that is already registered', () => {
             beforeEach(() => {
-              userService.register = jasmine.createSpy('userService.register').and.returnValue(
-                of({auth: false})
-              );
-              usernameInput.value = "newfides";
-              usernameInput.dispatchEvent(new Event('input'));
+              userService.register = () => of({auth: false});
+              spyOn(userService, 'register').and.callThrough();
+              inputDispatch(usernameInput, 'new fides');
               registerButton.click();
               fixture.detectChanges();
             });
             it('should not redirect to dashboard.', () => {
-              expect(routerSpy).not.toHaveBeenCalledWith(['/dashboard']);
+              expect(router.navigate).not.toHaveBeenCalledWith(['/dashboard']);
             });
             it('should show error on username.', () => {
               expect(usernameInputErrorLabel.hidden).toBeFalsy();
@@ -311,18 +275,13 @@ describe('RegisterComponent', () => {
           });
           describe('with username that has not been registered', () => {
             it('should redirect to dashboard component.', () => {
-              registerButton.click();
-              fixture.detectChanges();
+              userService.register = () => of({auth: true});
+              clickAndTestNavigate(registerButton, router, '/dashboard', fixture);
               expect(usernameInputErrorLabel.hidden).toBeTruthy();
-              expect(routerSpy).toHaveBeenCalledWith(['/dashboard']);
             });
           });
         });
       });
-
     });
-
-
   });
-
 });

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { Location } from '@angular/common';
-import { Injectable, Component } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -10,26 +10,25 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
 import { LoginComponent } from './login.component';
-
-@Injectable({
-  providedIn: 'root'
-})
-class AuthenticationServiceMock {
-  currentUserValue = null;
-  login = jasmine.createSpy('authenticationService.login').and.returnValue(
-    of(true)
-  );
-}
-
-@Component({
-  selector: 'app-dashboard',
-  template: '<p>Mock Dashboard Component</p>'
-})
-class MockDashboardComponent {}
+import {
+  MockDashboardComponent
+} from '../../../../test/components';
+import {
+  AuthenticationServiceNoUserMock
+} from '../../../../test/services';
+import {
+  inputDispatch,
+  multInputDispatchAndChange,
+  clickAndTestNavigate
+} from '../../../../test/utils';
+import {
+  loggedUserRedirectDashboard,
+  userNotRedirectDashboard
+} from '../../../../test/common-tests';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
-  let authenticationService: AuthenticationServiceMock;
+  let authenticationService: AuthenticationServiceNoUserMock;
   let fixture: ComponentFixture<LoginComponent>;
   let location: Location;
   let router: Router;
@@ -60,14 +59,15 @@ describe('LoginComponent', () => {
       providers: [
         Location,
         LoginComponent,
-        { provide: AuthenticationService, useClass: AuthenticationServiceMock }
+        { provide: AuthenticationService, useClass: AuthenticationServiceNoUserMock }
       ]
     });
     fixture = TestBed.createComponent(LoginComponent);
     component = TestBed.get(LoginComponent);
     authenticationService = TestBed.get(AuthenticationService);
     router = TestBed.get(Router);
-    navSpy = spyOn(router, "navigate");
+    spyOn(router, "navigate");
+    spyOn(authenticationService, 'login').and.callThrough();
     fixture.detectChanges();
     hostElement = fixture.nativeElement;
     errorLabel = hostElement.querySelector('#password-input .input-clean-error-label');
@@ -79,54 +79,44 @@ describe('LoginComponent', () => {
 
   describe('when there is a user logged in', () => {
     it('should redirect to dashboard.', () => {
-      authenticationService.currentUserValue = "fides";
-      component.ngOnInit();
-      fixture.detectChanges();
-      expect(navSpy).toHaveBeenCalledWith(['/dashboard']);
+      loggedUserRedirectDashboard(authenticationService, component, fixture, router);
     });
   });
 
   describe('when there is no user logged in,', () => {
     it('should not redirect to dashboard.', () => {
-      fixture.detectChanges();
-      component.ngOnInit();
-      expect(navSpy).not.toHaveBeenCalledWith(['/dashboard']);
+      userNotRedirectDashboard(router);
     });
 
     describe('when user attempts to click "log in" button,', () => {
       describe('should be disabled when,', () => {
-        it('both fields are empty.', () => {
-          component.ngOnInit();
-          fixture.detectChanges();
+        afterEach(() => {
           expect(loginButton.disabled).toBeTruthy();
-        });
+        })
+        it('both fields are empty.', () => {});
         it('username field is empty, yet password field is filled.', () => {
-          component.ngOnInit();
-          usernameInput.value = 'input';
-          usernameInput.dispatchEvent(new Event('input'));
-          fixture.detectChanges();
-          expect(loginButton.disabled).toBeTruthy();
+          multInputDispatchAndChange(
+            [{input: usernameInput, value: 'input'}],
+            fixture
+          );
         });
         it(`password field is empty, yet username field is filled.`, () => {
-          component.ngOnInit();
-          passwordInput.value = 'input';
-          passwordInput.dispatchEvent(new Event('input'));
-          fixture.detectChanges();
-          expect(loginButton.disabled).toBeTruthy();
+          multInputDispatchAndChange(
+            [{input: passwordInput, value: 'input'}],
+            fixture
+          );
         });
       });
 
       describe('and both fields are filled,', () => {
         beforeEach(() => {
-          authenticationService.login = jasmine.createSpy('authenticationService.login').and.returnValue(
-            of(false)
+          multInputDispatchAndChange(
+            [
+              {input: usernameInput, value: 'input'},
+              {input: passwordInput, value: 'input'}
+            ],
+            fixture
           );
-          component.ngOnInit();
-          usernameInput.value = 'input';
-          usernameInput.dispatchEvent(new Event('input'));
-          passwordInput.value = 'input';
-          passwordInput.dispatchEvent(new Event('input'));
-          fixture.detectChanges();
         });
 
         it(`should allow login button to be clicked.`, () => {
@@ -146,19 +136,20 @@ describe('LoginComponent', () => {
 
         describe('with incorrect credentials', () => {
           beforeEach(() => {
+            authenticationService.login = () => of(false);
+            spyOn(authenticationService, 'login').and.returnValue(of(false));
             loginButton.click();
             fixture.detectChanges();
           });
 
           it(`should display an error message.`, () => {
-            expect(navSpy).not.toHaveBeenCalledWith(['/dashboard']);
+            expect(router.navigate).not.toHaveBeenCalledWith(['/dashboard']);
             expect(errorLabel.hidden).toBeFalsy();
           });
 
           it(`should display an error message, which disappears
             when user types new value.`, () => {
-            usernameInput.value = 'new input';
-            usernameInput.dispatchEvent(new Event('input'));
+            inputDispatch(usernameInput, 'new input');
             fixture.detectChanges();
             expect(errorLabel.hidden).toBeTruthy();
           });
@@ -167,12 +158,7 @@ describe('LoginComponent', () => {
         describe('with correct credentials,', () => {
           it(`should redirect to dashboard when the authentication
             service returns success on login function.`, () => {
-            authenticationService.login = jasmine.createSpy('authenticationService.login').and.returnValue(
-              of(true)
-            );
-            loginButton.click();
-            fixture.detectChanges();
-            expect(navSpy).toHaveBeenCalledWith(['/dashboard']);
+            clickAndTestNavigate(loginButton, router, '/dashboard', fixture);
           });
         });
 
