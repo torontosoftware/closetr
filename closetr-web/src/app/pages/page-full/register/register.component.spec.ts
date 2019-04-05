@@ -108,6 +108,19 @@ describe('RegisterComponent', () => {
       passwordConfirmInputErrorLabel = hostElement.querySelector('#password-confirm-input .input-clean-error-label');
     });
 
+    const passwordAndConfirmTest = () =>
+    {
+      describe('and password field is filled,', () => {
+        beforeEach(() => {
+          inputDispatch(passwordInput, 'password');
+        })
+        it('and password confirm field is filled.', () => {
+          inputDispatch(passwordConfirmInput, 'password');
+        });
+        it('and no other fields.', () => {});
+      });
+    };
+
     it('should not redirect to dashboard', () => {
       userNotRedirectDashboard(component, fixture);
       expect(router.navigate).not.toHaveBeenCalledWith(['/dashboard']);
@@ -161,15 +174,7 @@ describe('RegisterComponent', () => {
             expect(nameInputErrorLabel.hidden).toBeFalsy();
           });
           it('and no other fields are.', () => {});
-          describe('and password input is filled', () => {
-            beforeEach(() => {
-              inputDispatch(passwordInput, 'password');
-            });
-            it('and password confirm input field is filled.', () => {
-              inputDispatch(passwordConfirmInput, 'password confirm');
-            });
-            it('and no other fields are.', () => {});
-          })
+          passwordAndConfirmTest();
         });
       });
 
@@ -228,15 +233,7 @@ describe('RegisterComponent', () => {
               inputDispatch(usernameInput, 'username');
             })
             it('and no other fields.', () => {});
-            describe('and password field is filled,', () => {
-              beforeEach(() => {
-                inputDispatch(passwordInput, 'password');
-              })
-              it('and password confirm field is filled.', () => {
-                inputDispatch(passwordConfirmInput, 'password');
-              });
-              it('and no other fields.', () => {});
-            });
+            passwordAndConfirmTest();
           });
         });
       });
@@ -285,10 +282,6 @@ describe('RegisterComponent', () => {
           });
         });
       });
-
     });
-
-
   });
-
 });
