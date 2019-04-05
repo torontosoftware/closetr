@@ -24,6 +24,9 @@ import {
   AuthenticationServiceMock,
   ClosetServiceMock
 } from '../../../../test/services';
+import {
+  inputDispatch
+} from '../../../../test/utils';
 
 const clothingForEdit = mockClothingOne;
 const currentUser = mockUserOne;
@@ -113,21 +116,18 @@ describe('EditClothingComponent', () => {
     describe(`should be disabled when`, () => {
       describe(`clothing name field is filled,`, () => {
         beforeEach(() => {
-          nameInput.value = "name";
-          nameInput.dispatchEvent(new Event('input'));
+          inputDispatch(nameInput, 'name');
           fixture.detectChanges();
         });
         it(`and all else is empty`, () => {});
         describe(`and clothing worn field is filled,`, () => {
           beforeEach(() => {
-            wornInput.value = "0";
-            wornInput.dispatchEvent(new Event('input'));
+            inputDispatch(wornInput, '0');
             fixture.detectChanges();
           });
           it(`and all else is empty`, () => {});
           it(`and clothing cost field is filled, and all else is empty.`, () => {
-            costInput.value = "0";
-            costInput.dispatchEvent(new Event('input'));
+            inputDispatch(costInput, '0');
             fixture.detectChanges();
           });
         });

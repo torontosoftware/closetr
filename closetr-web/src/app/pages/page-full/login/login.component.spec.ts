@@ -77,30 +77,29 @@ describe('LoginComponent', () => {
 
   describe('when there is a user logged in', () => {
     it('should redirect to dashboard.', () => {
-      loggedUserRedirectDashboard(authenticationService, component, fixture, router);
+      loggedUserRedirectDashboard(authenticationService, component, fixture);
+      expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
     });
   });
 
   describe('when there is no user logged in,', () => {
     it('should not redirect to dashboard.', () => {
-      userNotRedirectDashboard(component, fixture, router);
+      userNotRedirectDashboard(component, fixture);
+      expect(router.navigate).not.toHaveBeenCalledWith(['/dashboard']);
     });
 
     describe('when user attempts to click "log in" button,', () => {
       describe('should be disabled when,', () => {
         it('both fields are empty.', () => {
-          component.ngOnInit();
           fixture.detectChanges();
           expect(loginButton.disabled).toBeTruthy();
         });
         it('username field is empty, yet password field is filled.', () => {
-          component.ngOnInit();
           inputDispatch(usernameInput, 'input');
           fixture.detectChanges();
           expect(loginButton.disabled).toBeTruthy();
         });
         it(`password field is empty, yet username field is filled.`, () => {
-          component.ngOnInit();
           inputDispatch(passwordInput, 'input');
           fixture.detectChanges();
           expect(loginButton.disabled).toBeTruthy();
@@ -109,7 +108,6 @@ describe('LoginComponent', () => {
 
       describe('and both fields are filled,', () => {
         beforeEach(() => {
-          component.ngOnInit();
           inputDispatch(usernameInput, 'input');
           inputDispatch(passwordInput, 'input');
           fixture.detectChanges();
