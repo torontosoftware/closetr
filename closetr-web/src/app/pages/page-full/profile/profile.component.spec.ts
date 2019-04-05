@@ -168,23 +168,20 @@ describe('ProfileComponent', () => {
       fixture.detectChanges();
       expect(saveButton.hidden).toBeTruthy();
     });
+
+    const fixtureStableInputTest = (inputs, property, result) => {
+      fixture.whenStable().then(() => {
+        multTestCompare(inputs, property, result);
+      });
+    };
+
     it(`should enable the name and description
       fields.`, () => {
-      fixture.whenStable().then(() => {
-        multTestCompare([
-          nameInput,
-          descriptionInput
-        ], 'disabled', false);
-      });
+      fixtureStableInputTest([nameInput, descriptionInput], 'disabled', false);
     });
     it(`should keep the username and password
       fields disabled.`, () => {
-      fixture.whenStable().then(() => {
-        multTestCompare([
-          usernameInput,
-          passwordInput
-        ], 'disabled', true);
-      });
+      fixtureStableInputTest([usernameInput, passwordInput], 'disabled', true);
     });
   });
 
