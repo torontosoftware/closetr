@@ -124,8 +124,6 @@ describe('AddClothingComponent', () => {
     describe('for prevUrl,', () => {
       it(`should retrieve the prevUrl as /log-outfit
         if the previous component was log outfit`, () => {
-          component.ngOnInit();
-          fixture.detectChanges();
           expect(component.prevUrl).toEqual('/log-outfit');
           backButton.click();
           expect(router.navigate).toHaveBeenCalledWith(['/log-outfit']);
@@ -160,7 +158,6 @@ describe('AddClothingComponent', () => {
       describe(`and the user attempts to click save with
         all fields filled,`, () => {
         beforeEach(() => {
-          component.ngOnInit();
           inputDispatch(nameInput, 'name');
           inputDispatch(purchaseDateInput, '2019-01-02');
           fixture.detectChanges();

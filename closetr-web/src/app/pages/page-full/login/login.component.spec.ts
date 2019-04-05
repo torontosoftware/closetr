@@ -89,18 +89,14 @@ describe('LoginComponent', () => {
     describe('when user attempts to click "log in" button,', () => {
       describe('should be disabled when,', () => {
         it('both fields are empty.', () => {
-          component.ngOnInit();
-          fixture.detectChanges();
           expect(loginButton.disabled).toBeTruthy();
         });
         it('username field is empty, yet password field is filled.', () => {
-          component.ngOnInit();
           inputDispatch(usernameInput, 'input');
           fixture.detectChanges();
           expect(loginButton.disabled).toBeTruthy();
         });
         it(`password field is empty, yet username field is filled.`, () => {
-          component.ngOnInit();
           inputDispatch(passwordInput, 'input');
           fixture.detectChanges();
           expect(loginButton.disabled).toBeTruthy();
