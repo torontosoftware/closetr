@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { LogOutfitService } from '../../../services/log-outfit.service';
 import { ClosetService } from '../../../services/closet.service';
@@ -102,12 +103,8 @@ export class LogOutfitComponent implements OnInit {
     this.deleteOutfitClothing(outfitEntry.outfitEntryID);
   }
 
-  getAllClothes(): void {
-    this.closetService.getAllClothes(this.currentUser).subscribe(
-      data => this.closetList = data,
-      error => console.log('error', error)
-    );
-  }
+  getAllClothes = (): Observable<any> => this.closetService.getAllClothes(this.currentUser)
+    .subscribe(data => this.closetList = data);
 
   deleteOutfitClothing(outfitEntryID: any): void {
     this.logOutfitService.deleteOutfitClothing(outfitEntryID).subscribe(

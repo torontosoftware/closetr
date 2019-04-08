@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ClosetService } from '../../../services/closet.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { DateFormatService } from '../../../services/utils/date-format.service';
@@ -47,11 +48,7 @@ export class BudgetWidgetComponent implements OnInit {
     );
   }
 
-  getAllClothes(): void {
-    this.closetService.getAllClothes(this.currentUser).subscribe(
-      data => this.closetList = data,
-      error => console.log('error', error)
-    );
-  }
+  getAllClothes = (): Observable<any> => this.closetService.getAllClothes(this.currentUser)
+    .subscribe(data => this.closetList = data);
 
 }

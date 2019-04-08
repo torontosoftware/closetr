@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { ClosetService } from '../../../services/closet.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { DateFormatService } from '../../../services/utils/date-format.service';
 import { DateRangeFilterPipe } from '../../../pipes/date-range-filter.pipe';
 import { Clothing } from '../../../models/clothing.model';
 import { User } from '../../../models/user.model';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-spending-manage',
@@ -84,11 +84,7 @@ export class SpendingManageComponent implements OnInit {
   Helper function to get all clothes from database and update local
   closetList.
   */
-  getAllClothes(): void {
-    this.closetService.getAllClothes(this.currentUser).subscribe(
-      data => this.closetList = data,
-      error => console.log('error', error)
-    );
-  }
+  getAllClothes = (): Observable<any> => this.closetService.getAllClothes(this.currentUser)
+    .subscribe(data => this.closetList = data);
 
 }

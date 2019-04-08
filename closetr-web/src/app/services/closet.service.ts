@@ -70,11 +70,14 @@ export class ClosetService {
       }
     });
     return this.http.get(`${this.baseUrl}/all`, {params})
-      .pipe(map((data: any) => {
-        let closetList = data.data;
-        closetList.map((clothing) => new Clothing(clothing));
-        return closetList;
-      }));
+      .pipe(map(
+        (data: any) => {
+          let closetList = data.data;
+          closetList.map((clothing) => new Clothing(clothing));
+          return closetList;
+        },
+        error => { console.log(error) }
+    ));
   }
 
   /*
