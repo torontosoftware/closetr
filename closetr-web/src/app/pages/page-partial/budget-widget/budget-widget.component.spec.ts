@@ -163,7 +163,7 @@ describe('BudgetWidgetComponent', () => {
     });
     it(`should set closetList to the returned
       data from closetService`, () => {
-      expect(component.closetList).toEqual(mockClosetListRenderedTable);
+      expect(component.closetList).toEqual(closetListRenderedTable);
     });
   });
 

@@ -69,7 +69,7 @@ export class ClosetService {
         'userID': userID
       }
     });
-    return this.http.get<any>(`${this.baseUrl}/all`, {params})
+    return this.http.get(`${this.baseUrl}/all`, {params})
       .pipe(map((data: any) => {
         let closetList = data.data;
         closetList.map((clothing) => new Clothing(clothing));

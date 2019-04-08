@@ -42,7 +42,7 @@ export class AuthenticationServiceNoUserMock {
 })
 export class ClosetServiceMock {
   addClothing = (clothing) => of({data: {_id: 'id'}});
-  getAllClothes = (user) => of({data: mockClosetList});
+  getAllClothes = (user) => of(mockClosetList);
   removeClothing = (id) => of({data: mockClosetList});
   getClothingForEdit = () => mockClothingOne;
   setClothingForEdit = () => { return };
