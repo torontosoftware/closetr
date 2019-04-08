@@ -29,22 +29,8 @@ export class ClosetManageComponent implements OnInit {
               private routesService: RoutesService,
               private authenticationService: AuthenticationService) {
     this.editMode = false;
-
-    this.filterOptions = [
-      "no filter",
-      "exclude Aritzia items",
-      "sweaters only",
-      "pants and sweaters only",
-      "pants only"
-    ];
-
-    this.sortOptions = [
-      "cost ascending",
-      "cost descending",
-      "most recently purchased",
-      "least recently purchased",
-      "most worn"
-    ];
+    this.filterOptions = this.closetService.getFilterOptions();
+    this.sortOptions = this.closetService.getFilterOptions();
   }
 
   ngOnInit() {
@@ -71,13 +57,7 @@ export class ClosetManageComponent implements OnInit {
   /*
   Remove clothing item.
   */
-  removeClothing(clothingID: any): void {
-    this.closetService.removeClothing(clothingID).subscribe(
-      (data: any) => {
-        this.getAllClothes();
-      }, error => {}
-    );
-  }
+  removeClothing = (clothingID: any): Observable<any> => ClosetFactory.removeClothing(this, clothingID);
 
   getAllClothes = (): Observable<any> => ClosetFactory.getAllClothes(this);
 }
