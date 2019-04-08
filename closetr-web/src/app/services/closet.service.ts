@@ -24,12 +24,8 @@ export class ClosetService {
   Adds the clothing parameter and all of it's properties in the closetList.
   Format {name, cost, category}
   */
-
   addClothing(clothing: Clothing): any {
-    var params = {
-      clothing: clothing
-    };
-    return this.http.post(`${this.baseUrl}/clothing`, params);
+    return this.genericHandler(this.http.post(`${this.baseUrl}/clothing`, {clothing: clothing}));
   }
 
   /*
@@ -38,7 +34,7 @@ export class ClosetService {
   the updated closetList is recieved via another API call to get all clothes.
   */
   removeClothing(clothingID: any): any {
-    return this.http.delete(`${this.baseUrl}/clothing/${clothingID}`);
+    return this.genericHandler(this.http.delete(`${this.baseUrl}/clothing/${clothingID}`));
   }
 
   /*
@@ -49,11 +45,7 @@ export class ClosetService {
   clothes.
   */
   editClothing(editedClothing: Clothing): any {
-    var params = {
-      clothing: editedClothing
-    };
-    return this.http.post(`${this.baseUrl}/clothing`, params);
-    //this.closetList[editedClothing.clothingID] = editedClothing;
+    return this.genericHandler(this.http.post(`${this.baseUrl}/clothing`, {clothing: editedClothing}));
   }
 
   /*
@@ -132,5 +124,11 @@ export class ClosetService {
       "most worn"
     ];
   }
+
+  genericHandler = (apiCall: any) => apiCall
+    .pipe(map(
+      (data: any) => data,
+      error => { console.log(error) }
+    ));
 
 }

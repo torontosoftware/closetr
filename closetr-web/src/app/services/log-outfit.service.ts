@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { Clothing } from '../models/clothing.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class LogOutfitService {
   Parameters include userID, date, and clothingID.
   */
   addOutfitClothing(params: any): any {
-    return this.http.post(`${this.baseUrl}`, params);
+    return this.genericHandler(this.http.post(`${this.baseUrl}`, params));
   }
 
   /*
@@ -27,7 +28,7 @@ export class LogOutfitService {
   the id.
   */
   deleteOutfitClothing(outfitEntryID: any): any {
-    return this.http.delete(`${this.baseUrl}${outfitEntryID}`);
+    return this.genericHandler(this.http.delete(`${this.baseUrl}${outfitEntryID}`));
   }
 
   /*
@@ -37,10 +38,22 @@ export class LogOutfitService {
   criteria provided.
   */
   getAllOutfitClothes(criteria: any): any {
-    const params = new HttpParams({
-      fromObject: criteria
-    });
-    return this.http.get<any>(`${this.baseUrl}`, {params});
+    const params = new HttpParams({ fromObject: criteria });
+    return this.http.get<any>(`${this.baseUrl}`, {params})
+      .pipe(map(
+        (data: any) => {
+          let outfitEntryList = data.data;
+          outfitEntryList.map((clothing) => new Clothing(clothing));
+          return outfitEntryList;
+        },
+        error => { console.log(error) }
+    ));
   }
+
+  genericHandler = (apiCall: any) => apiCall
+    .pipe(map(
+      (data: any) => data,
+      error => { console.log(error) }
+    ));
 
 }
