@@ -111,10 +111,10 @@ select {
 
 .date-picker-from {
   @extend .date-picker;
-  width: calc(100% - 40px);
+  width: calc(100% - 44px);
 }
 
 .date-picker-to {
   @extend .date-picker;
-  width: calc(100% - 23px);
+  width: calc(100% - 27px);
 }

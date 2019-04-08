@@ -17,7 +17,16 @@ export class UiTableComponent implements OnInit {
 
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.closetList = changes.items.currentValue;
+    this.bindItems();
+  }
+
   ngOnInit() {
+    this.bindItems();
+  }
+
+  bindItems(items: Array<any>): void {
     for (let item of (this.items)) {
       item.bindBold = item[this.bindBold];
       item.bindRegular = item[this.bindRegular];

@@ -26,11 +26,10 @@ export class BudgetWidgetComponent implements OnInit {
       "last month"
     ];
     this.filterCriteria = {
-      dateRangeFor: "last week",
-      dateFrom: this.dateFormatService.dateRangeForFrom("last week"),
+      dateRangeFor: "last month",
+      dateFrom: this.dateFormatService.dateRangeForFrom("last month"),
       dateTo: this.dateFormatService.newDate()
     };
-
   }
 
   ngOnInit() {
@@ -51,7 +50,7 @@ export class BudgetWidgetComponent implements OnInit {
   getAllClothes(): void {
     this.closetService.getAllClothes(this.currentUser).subscribe(
       (data: any) => {
-        this.closetList = data.data.slice(0,3);
+        this.closetList = data.data;
         for (let i in this.closetList) {
           this.closetList[i] = new Clothing(this.closetList[i]);
         }
