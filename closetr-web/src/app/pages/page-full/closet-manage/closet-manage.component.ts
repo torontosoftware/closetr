@@ -51,7 +51,7 @@ export class ClosetManageComponent implements OnInit {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
-        ClosetFactory.getAllClothes(this);
+        this.getAllClothes();
       }
     )
   }
@@ -78,4 +78,6 @@ export class ClosetManageComponent implements OnInit {
       }, error => {}
     );
   }
+
+  getAllClothes: Observable<any> = () => ClosetFactory.getAllClothes(this);
 }

@@ -38,7 +38,7 @@ export class BudgetWidgetComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
-        ClosetFactory.getAllClothes(this);
+        this.getAllClothes();
       }
     );
   }
@@ -48,5 +48,7 @@ export class BudgetWidgetComponent implements OnInit {
       this.filterCriteria.dateRangeFor
     );
   }
+
+  getAllClothes: Observable<any> = () => ClosetFactory.getAllClothes(this);
 
 }

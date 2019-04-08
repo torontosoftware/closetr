@@ -40,7 +40,7 @@ export class LogOutfitComponent implements OnInit {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
-        ClosetFactory.getAllClothes(this);
+        this.getAllClothes();
       }
     )
     if (this.currentUser) {
@@ -137,7 +137,8 @@ export class LogOutfitComponent implements OnInit {
       err => {
       }
     );
-
   }
+
+  getAllClothes: Observable<any> = () => ClosetFactory.getAllClothes(this);
 
 }

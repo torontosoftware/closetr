@@ -50,7 +50,7 @@ export class SpendingManageComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
-        ClosetFactory.getAllClothes(this);
+        this.getAllClothes();
       }
     )
     this.searchCriteriaChangeHandler();
@@ -80,5 +80,7 @@ export class SpendingManageComponent implements OnInit {
       dateTo: this.searchCriteria.dateTo
     };
   }
+
+  getAllClothes: Observable<any> = () => ClosetFactory.getAllClothes(this);
 
 }

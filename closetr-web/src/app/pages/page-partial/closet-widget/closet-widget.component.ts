@@ -24,10 +24,12 @@ export class ClosetWidgetComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
-        ClosetFactory.getAllClothes(this);
+        this.getAllClothes();
       }
     );
     this.filterOptions = this.closetService.getFilterOptions();
     this.sortOptions = this.closetService.getSortOptions();
   }
+
+  getAllClothes: Observable<any> = () => ClosetFactory.getAllClothes(this);
 }
