@@ -13,17 +13,11 @@ export class UserService {
   }
 
   register(user: User) {
-    var params = {
-      user: user
-    };
-    return this.http.post(`${this.baseUrl}/register`, params);
+    return this.http.post(`${this.baseUrl}/register`, {user: user});
   }
 
   update(user: User) {
-    var params = {
-      user: user
-    };
-    return this.http.post(`${this.baseUrl}/update`, params);
+    return this.http.post(`${this.baseUrl}/update`, {user: user});
   }
 
 }

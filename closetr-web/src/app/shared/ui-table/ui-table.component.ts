@@ -14,9 +14,7 @@ export class UiTableComponent implements OnInit {
   @Input() bindBold: string;
   @Input() bindRegular: string;
 
-  constructor() {
-
-  }
+  constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.items) {
