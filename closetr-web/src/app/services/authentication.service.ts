@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments';
 
-@Injectable({ 
+@Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
@@ -13,7 +14,7 @@ export class AuthenticationService {
   public currentUser: Observable<User>;
 
   constructor(private http: HttpClient) {
-    this.baseUrl = 'http://localhost:8080/';
+    this.baseUrl = `${environment.baseUrl}/users/login`;
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -28,7 +29,7 @@ export class AuthenticationService {
     };
     var currUser;
 
-    return this.http.post<any>(this.baseUrl + 'api/users/login', params)
+    return this.http.post<any>(this.baseUrl, params)
       .pipe(map(user => {
           if (user && user.token) {
             currUser = new User(user.data);

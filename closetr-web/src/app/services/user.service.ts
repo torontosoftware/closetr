@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user.model';
+import { environment } from '../../environements';
 
 @Injectable({
   providedIn: 'root'
@@ -8,21 +9,21 @@ import { User } from '../models/user.model';
 export class UserService {
   baseUrl: string;
   constructor(private http: HttpClient) {
-    this.baseUrl = 'http://localhost:8080/';
+    this.baseUrl = `${environment.baseUrl}/users`;
   }
 
   register(user: User) {
     var params = {
       user: user
     };
-    return this.http.post(this.baseUrl + 'api/users/register', params);
+    return this.http.post(`${this.baseUrl}/register`, params);
   }
 
   update(user: User) {
     var params = {
       user: user
     };
-    return this.http.post(this.baseUrl + 'api/users/update', params);
+    return this.http.post(`${this.baseUrl}/update`, params);
   }
 
 }

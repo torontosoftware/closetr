@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Clothing } from '../models/clothing.model';
 import { User } from '../models/user.model';
+import { environment } from '../../environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClosetService {
-  baseUrl = 'http://localhost:8080/api/clothes';
+  baseUrl = `${environment.baseUrl}/clothes`;
   /*
   Generic closet service containing methods that help in updating and maintaining
   closet items accross all componenets.
