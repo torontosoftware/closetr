@@ -81,6 +81,7 @@ jobs:
       - image: buildpack-deps:trusty
     working_directory: ~/repo
     steps:
+      - checkout
       ### ANGULAR PORTION ###
       - restore_cache:
           name: Restoring dist folder
