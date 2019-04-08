@@ -79,5 +79,5 @@ export class ClosetManageComponent implements OnInit {
     );
   }
 
-  getAllClothes: Observable<any> = () => ClosetFactory.getAllClothes(this);
+  getAllClothes = (): Observable<any> => ClosetFactory.getAllClothes(this);
 }

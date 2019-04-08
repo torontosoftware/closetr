@@ -49,6 +49,6 @@ export class BudgetWidgetComponent implements OnInit {
     );
   }
 
-  getAllClothes: Observable<any> = () => ClosetFactory.getAllClothes(this);
+  getAllClothes = (): Observable<any> => ClosetFactory.getAllClothes(this);
 
 }
