@@ -71,16 +71,16 @@ select {
 
 // select with to-from
 .select-with-label {
-  width: 110%;
-  display: table-cell;
+  width: 80%;
+  display: inline;
 }
 
 .select-label {
   @extend .f-med-blue;
-  display: table-cell;
+  display: inline;
   position: relative;
   margin-right: -5px;
-  top: -11px;
+  top: 4px;
 }
 
 .date-picker-label {
