@@ -18,9 +18,7 @@ export class EditClothingComponent implements OnInit {
 
   constructor(private closetService: ClosetService,
               private router: Router,
-              private authenticationService: AuthenticationService) {
-    this.currentUser;
-  }
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     let clothingForEdit = this.closetService.getClothingForEdit();
