@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 import { Clothing } from '../models/clothing.model';
 import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
@@ -68,7 +69,12 @@ export class ClosetService {
         'userID': userID
       }
     });
-    return this.http.get(`${this.baseUrl}/all`, {params});
+    return this.http.get<any>(`${this.baseUrl}/all`, {params})
+      .pipe(map((data: any) => {
+        let closetList = data.data;
+        closetList.map((clothing) => new Clothing(clothing));
+        return closetList;
+      }));
   }
 
   /*

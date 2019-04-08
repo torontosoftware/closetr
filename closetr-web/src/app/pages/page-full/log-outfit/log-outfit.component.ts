@@ -104,13 +104,8 @@ export class LogOutfitComponent implements OnInit {
 
   getAllClothes(): void {
     this.closetService.getAllClothes(this.currentUser).subscribe(
-      (data: any) => {
-        this.closetList = data.data;
-        for (let clothing of this.closetList) {
-          clothing = new Clothing(clothing);
-        }
-      },
-      error => { }
+      data => this.closetList = data,
+      error => console.log('error', error)
     );
   }
 

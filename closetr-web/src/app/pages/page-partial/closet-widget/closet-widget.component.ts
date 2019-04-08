@@ -32,13 +32,8 @@ export class ClosetWidgetComponent implements OnInit {
 
   getAllClothes(): void {
     this.closetService.getAllClothes(this.currentUser).subscribe(
-      (data: any) => {
-        this.closetList = data.data;
-        for (let i in this.closetList) {
-          this.closetList[i] = new Clothing(this.closetList[i]);
-        }
-      },
-      error => { }
+      data => this.closetList = data,
+      error => console.log('error', error)
     );
   }
 
