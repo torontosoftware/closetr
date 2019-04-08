@@ -13,8 +13,12 @@ export class UserService {
     this.baseUrl = `${environment.baseUrl}/users`;
   }
 
-  register = (user: User): Observable<any> => this.http.post(`${this.baseUrl}/register`, {user: user});
+  helper = (user: User, type: string): Observable<any> => {
+    return this.http.post(`${this.baseUrl}/${type}`, {user: user});
+  };
 
-  update = (user: User): Observable<any> => this.http.post(`${this.baseUrl}/update`, {user: user});
+  register = (user: User): Observable<any> => this.helper(user, 'register');
+
+  update = (user: User): Observable<any> => this.helper(user, 'update');
 
 }

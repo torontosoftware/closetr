@@ -7,6 +7,7 @@ import { RouterModule, Routes, Router } from '@angular/router';
 import { SearchFilterPipe } from '../../../pipes/search-filter.pipe';
 import { Clothing } from '../../../models/clothing.model';
 import { User } from '../../../models/user.model';
+import { ClosetFactory } from '../../../factories/closet.factory';
 
 @Component({
   selector: 'app-closet-manage',
@@ -50,7 +51,7 @@ export class ClosetManageComponent implements OnInit {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
-        this.getAllClothes();
+        ClosetFactory.getAllClothes(this);
       }
     )
   }
@@ -66,13 +67,6 @@ export class ClosetManageComponent implements OnInit {
   save(): void {
     this.toggleEditMode();
   }
-
-  /*
-  Helper function to get all clothes from database and update local
-  closetList.
-  */
-  getAllClothes = (): Observable<any> => this.closetService.getAllClothes(this.currentUser)
-    .subscribe(data => this.closetList = data);
 
   /*
   Remove clothing item.

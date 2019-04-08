@@ -6,6 +6,7 @@ import { DateFormatService } from '../../../services/utils/date-format.service';
 import { DateRangeFilterPipe } from '../../../pipes/date-range-filter.pipe';
 import { Clothing } from '../../../models/clothing.model';
 import { User } from '../../../models/user.model';
+import { ClosetFactory } from '../../../factories/closet.factory';
 
 @Component({
   selector: 'app-spending-manage',
@@ -49,7 +50,7 @@ export class SpendingManageComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
-        this.getAllClothes();
+        ClosetFactory.getAllClothes(this);
       }
     )
     this.searchCriteriaChangeHandler();
@@ -79,12 +80,5 @@ export class SpendingManageComponent implements OnInit {
       dateTo: this.searchCriteria.dateTo
     };
   }
-
-  /*
-  Helper function to get all clothes from database and update local
-  closetList.
-  */
-  getAllClothes = (): Observable<any> => this.closetService.getAllClothes(this.currentUser)
-    .subscribe(data => this.closetList = data);
 
 }

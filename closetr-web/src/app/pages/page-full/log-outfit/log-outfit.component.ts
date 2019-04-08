@@ -10,6 +10,7 @@ import { Clothing } from '../../../models/clothing.model';
 import { User } from '../../../models/user.model';
 import { Subscription } from 'rxjs';
 import { DateFormatService } from '../../../services/utils/date-format.service';
+import { ClosetFactory } from '../../../factories/closet.factory';
 
 @Component({
   selector: 'app-log-outfit',
@@ -39,7 +40,7 @@ export class LogOutfitComponent implements OnInit {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
-        this.getAllClothes();
+        ClosetFactory.getAllClothes(this);
       }
     )
     if (this.currentUser) {
@@ -102,9 +103,6 @@ export class LogOutfitComponent implements OnInit {
   removeCard(outfitEntry: any): void {
     this.deleteOutfitClothing(outfitEntry.outfitEntryID);
   }
-
-  getAllClothes = (): Observable<any> => this.closetService.getAllClothes(this.currentUser)
-    .subscribe(data => this.closetList = data);
 
   deleteOutfitClothing(outfitEntryID: any): void {
     this.logOutfitService.deleteOutfitClothing(outfitEntryID).subscribe(

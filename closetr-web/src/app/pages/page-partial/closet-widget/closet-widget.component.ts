@@ -4,6 +4,7 @@ import { ClosetService } from '../../../services/closet.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Clothing } from '../../../models/clothing.model';
 import { User } from '../../../models/user.model';
+import { ClosetFactory } from '../../../factories/closet.factory';
 
 @Component({
   selector: 'app-closet-widget',
@@ -23,14 +24,10 @@ export class ClosetWidgetComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
-        this.getAllClothes();
+        ClosetFactory.getAllClothes(this);
       }
     );
     this.filterOptions = this.closetService.getFilterOptions();
     this.sortOptions = this.closetService.getSortOptions();
   }
-
-  getAllClothes = (): Observable<any> => this.closetService.getAllClothes(this.currentUser)
-    .subscribe(data => this.closetList = data);
-
 }

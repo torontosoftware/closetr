@@ -5,6 +5,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { DateFormatService } from '../../../services/utils/date-format.service';
 import { Clothing } from '../../../models/clothing.model';
 import { User } from '../../../models/user.model';
+import { ClosetFactory } from '../../../factories/closet.factory';
 
 @Component({
   selector: 'app-budget-widget',
@@ -37,7 +38,7 @@ export class BudgetWidgetComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
-        this.getAllClothes();
+        ClosetFactory.getAllClothes(this);
       }
     );
   }
@@ -47,8 +48,5 @@ export class BudgetWidgetComponent implements OnInit {
       this.filterCriteria.dateRangeFor
     );
   }
-
-  getAllClothes = (): Observable<any> => this.closetService.getAllClothes(this.currentUser)
-    .subscribe(data => this.closetList = data);
 
 }
