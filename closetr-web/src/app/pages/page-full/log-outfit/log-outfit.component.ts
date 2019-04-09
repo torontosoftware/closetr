@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { LogOutfitService } from '../../../services/log-outfit.service';
 import { ClosetService } from '../../../services/closet.service';
@@ -9,6 +10,7 @@ import { Clothing } from '../../../models/clothing.model';
 import { User } from '../../../models/user.model';
 import { Subscription } from 'rxjs';
 import { DateFormatService } from '../../../services/utils/date-format.service';
+import { ClosetFactory } from '../../../factories/closet.factory';
 
 @Component({
   selector: 'app-log-outfit',
@@ -102,18 +104,6 @@ export class LogOutfitComponent implements OnInit {
     this.deleteOutfitClothing(outfitEntry.outfitEntryID);
   }
 
-  getAllClothes(): void {
-    this.closetService.getAllClothes(this.currentUser).subscribe(
-      (data: any) => {
-        this.closetList = data.data;
-        for (let clothing of this.closetList) {
-          clothing = new Clothing(clothing);
-        }
-      },
-      error => { }
-    );
-  }
-
   deleteOutfitClothing(outfitEntryID: any): void {
     this.logOutfitService.deleteOutfitClothing(outfitEntryID).subscribe(
       (data: any) => {
@@ -147,7 +137,8 @@ export class LogOutfitComponent implements OnInit {
       err => {
       }
     );
-
   }
+
+  getAllClothes = (): Observable<any> => ClosetFactory.getAllClothes(this);
 
 }

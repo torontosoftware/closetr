@@ -3,6 +3,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController
 } from '@angular/common/http/testing';
+import { map } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { User } from '../models/user.model';
 import { Clothing } from '../models/clothing.model';
@@ -169,7 +170,7 @@ describe('ClosetService', () => {
       ];
       closetService.getAllClothes(user)
       .subscribe(data => {
-        let closetList = data.data;
+        let closetList = data;
         expect(closetList).toEqual(closetListResult);
       });
       const req = httpTestingController.expectOne(`${baseUrl}/all?userID=${user.id}`);

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ClosetService } from '../../../services/closet.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { DateFormatService } from '../../../services/utils/date-format.service';
 import { Clothing } from '../../../models/clothing.model';
 import { User } from '../../../models/user.model';
+import { ClosetFactory } from '../../../factories/closet.factory';
 
 @Component({
   selector: 'app-budget-widget',
@@ -26,11 +28,10 @@ export class BudgetWidgetComponent implements OnInit {
       "last month"
     ];
     this.filterCriteria = {
-      dateRangeFor: "last week",
-      dateFrom: this.dateFormatService.dateRangeForFrom("last week"),
+      dateRangeFor: "last month",
+      dateFrom: this.dateFormatService.dateRangeForFrom("last month"),
       dateTo: this.dateFormatService.newDate()
     };
-
   }
 
   ngOnInit() {
@@ -48,15 +49,6 @@ export class BudgetWidgetComponent implements OnInit {
     );
   }
 
-  getAllClothes(): void {
-    this.closetService.getAllClothes(this.currentUser).subscribe(
-      (data: any) => {
-        this.closetList = data.data.slice(0,3);
-        for (let i in this.closetList) {
-          this.closetList[i] = new Clothing(this.closetList[i]);
-        }
-      }, error => {}
-    )
-  }
+  getAllClothes = (): Observable<any> => ClosetFactory.getAllClothes(this);
 
 }

@@ -6,6 +6,8 @@ export class Clothing {
   clothingCategory: string;
   clothingPurchaseDate: string;
   userID: string;
+  bindBold: any;
+  bindRegular: any;
 
   static clothingCategories = [
     "Top",
@@ -26,7 +28,9 @@ export class Clothing {
       clothingCost = 0,
       clothingCategory = 'Top',
       clothingPurchaseDate = '',
-      userID = ''
+      userID = '',
+      bindBold = '',
+      bindRegular = ''
     } = clothing;
 
     this.clothingID = clothingID;
@@ -36,6 +40,8 @@ export class Clothing {
     this.clothingCategory = clothingCategory;
     this.clothingPurchaseDate = clothingPurchaseDate;
     this.userID = userID;
+    this.bindBold = bindBold;
+    this.bindRegular = bindRegular;
   }
 
   /*

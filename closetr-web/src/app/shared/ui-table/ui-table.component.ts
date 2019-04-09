@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { DateRangeFilterPipe } from '../../pipes/date-range-filter.pipe';
+
 @Component({
   selector: 'ui-table',
   templateUrl: './ui-table.component.html',
@@ -13,11 +14,20 @@ export class UiTableComponent implements OnInit {
   @Input() bindBold: string;
   @Input() bindRegular: string;
 
-  constructor() {
+  constructor() { }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.items) {
+      this.items = changes.items.currentValue;
+      this.bindItems();
+    }
   }
 
   ngOnInit() {
+    this.bindItems();
+  }
+
+  bindItems(): void {
     for (let item of (this.items)) {
       item.bindBold = item[this.bindBold];
       item.bindRegular = item[this.bindRegular];

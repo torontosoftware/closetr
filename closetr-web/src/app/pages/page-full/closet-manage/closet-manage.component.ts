@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { ClosetService } from '../../../services/closet.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { RoutesService } from '../../../services/routes.service';
@@ -6,7 +7,7 @@ import { RouterModule, Routes, Router } from '@angular/router';
 import { SearchFilterPipe } from '../../../pipes/search-filter.pipe';
 import { Clothing } from '../../../models/clothing.model';
 import { User } from '../../../models/user.model';
-import { Subscription } from 'rxjs';
+import { ClosetFactory } from '../../../factories/closet.factory';
 
 @Component({
   selector: 'app-closet-manage',
@@ -68,21 +69,6 @@ export class ClosetManageComponent implements OnInit {
   }
 
   /*
-  Helper function to get all clothes from database and update local
-  closetList.
-  */
-  getAllClothes(): void {
-    this.closetService.getAllClothes(this.currentUser).subscribe(
-      (data: any) => {
-        this.closetList = data.data;
-        for (let i in this.closetList) {
-          this.closetList[i] = new Clothing(this.closetList[i]);
-        }
-      }, error => {}
-    );
-  }
-
-  /*
   Remove clothing item.
   */
   removeClothing(clothingID: any): void {
@@ -92,4 +78,6 @@ export class ClosetManageComponent implements OnInit {
       }, error => {}
     );
   }
+
+  getAllClothes = (): Observable<any> => ClosetFactory.getAllClothes(this);
 }

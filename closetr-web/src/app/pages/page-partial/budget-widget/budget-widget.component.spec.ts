@@ -133,8 +133,8 @@ describe('BudgetWidgetComponent', () => {
     });
     it(`should set the filterCriteria properly`, () => {
       let filterCriteria = {
-        dateRangeFor: "last week",
-        dateFrom: dateFormatService.dateRangeForFrom("last week"),
+        dateRangeFor: "last month",
+        dateFrom: dateFormatService.dateRangeForFrom("last month"),
         dateTo: dateFormatService.newDate()
       };
       expect(component.filterCriteria).toEqual(filterCriteria);
@@ -163,7 +163,7 @@ describe('BudgetWidgetComponent', () => {
     });
     it(`should set closetList to the returned
       data from closetService`, () => {
-      expect(component.closetList).toEqual(mockClosetListRenderedTable);
+      expect(component.closetList).toEqual(closetListRenderedTable);
     });
   });
 
@@ -188,8 +188,8 @@ describe('BudgetWidgetComponent', () => {
         filter: "date",
         filterBy: "clothingPurchaseDate",
         filterCriteria: {
-          dateRangeFor: "last week",
-          dateFrom: dateFormatService.dateRangeForFrom("last week"),
+          dateRangeFor: "last month",
+          dateFrom: dateFormatService.dateRangeForFrom("last month"),
           dateTo: dateFormatService.newDate()
         },
         items: closetListRenderedTable
