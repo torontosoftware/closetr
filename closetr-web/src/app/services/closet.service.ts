@@ -4,7 +4,11 @@ import { map } from 'rxjs/operators';
 import { Clothing } from '../models/clothing.model';
 import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
-import { httpHandlerDefault } from './utils/utils';
+import {
+  httpHandlerDefault,
+  httpHandlerPipeMap,
+  httpParams
+} from './utils/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +61,8 @@ export class ClosetService {
   getAllClothes = (user: User): any => {
     let userID = '';
     if (user) userID = user.id;
+
+
     const params = new HttpParams({
       fromObject: {
         'userID': userID
@@ -70,6 +76,7 @@ export class ClosetService {
         },
         error => { console.log(error) }
     ));
+    
   }
 
   /*
