@@ -6,7 +6,7 @@ import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
 import {
   httpHandlerDefault,
-  httpHandlerPipeMap,
+  httpHandlerPipeMapClothing,
   httpParams
 } from './utils/utils';
 
@@ -30,7 +30,9 @@ export class ClosetService {
   Format {name, cost, category}
   */
   addClothing = (clothing: Clothing): any => {
-    return httpHandlerDefault(this.http.post(`${this.baseUrl}/clothing`, {clothing: clothing}));
+    return httpHandlerDefault(
+      this.http.post(`${this.baseUrl}/clothing`, {clothing: clothing})
+    );
   }
 
   /*
@@ -39,7 +41,9 @@ export class ClosetService {
   the updated closetList is recieved via another API call to get all clothes.
   */
   removeClothing = (clothingID: any): any => {
-    return httpHandlerDefault(this.http.delete(`${this.baseUrl}/clothing/${clothingID}`));
+    return httpHandlerDefault(
+      this.http.delete(`${this.baseUrl}/clothing/${clothingID}`)
+    );
   }
 
   /*
@@ -50,7 +54,9 @@ export class ClosetService {
   clothes.
   */
   editClothing = (editedClothing: Clothing): any => {
-    return httpHandlerDefault(this.http.post(`${this.baseUrl}/clothing`, {clothing: editedClothing}));
+    return httpHandlerDefault(
+      this.http.post(`${this.baseUrl}/clothing`, {clothing: editedClothing})
+    );
   }
 
   /*
@@ -59,24 +65,9 @@ export class ClosetService {
   clothing in the closet).
   */
   getAllClothes = (user: User): any => {
-    let userID = '';
-    if (user) userID = user.id;
-
-
-    const params = new HttpParams({
-      fromObject: {
-        'userID': userID
-      }
-    });
-    return this.http.get(`${this.baseUrl}/all`, {params})
-      .pipe(map(
-        (data: any) => {
-          let closetList = data.data;
-          return closetList.map((clothing) => new Clothing(clothing));
-        },
-        error => { console.log(error) }
-    ));
-    
+    let userID = (user ? user.id : '');
+    const params = httpParams({ 'userID': userID });
+    return httpHandlerPipeMapClothing(this.http.get(`${this.baseUrl}/all`, { params }));
   }
 
   /*
@@ -130,13 +121,6 @@ export class ClosetService {
       "least recently purchased",
       "most worn"
     ];
-  }
-
-  genericHandler = (apiCall: any) => {
-    return apiCall.pipe(map(
-      (data: any) => data,
-      error => { console.log(error) }
-    ));
   }
 
 }

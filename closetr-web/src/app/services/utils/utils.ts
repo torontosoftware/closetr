@@ -1,5 +1,6 @@
 import { map } from 'rxjs/operators';
 import { HttpParams } from '@angular/common/http';
+import { Clothing } from '../../models/clothing.model';
 
 export const httpHandlerDefault = (apiCall: any) => {
   return apiCall.pipe(map(
@@ -8,18 +9,12 @@ export const httpHandlerDefault = (apiCall: any) => {
   ));
 }
 
-export const httpHandlerPipeMap = (
-  apiCall: any,
-  object: any
-) => {
-  console.log(method);
+export const httpHandlerPipeMapClothing = (apiCall: any) => {
   return apiCall
     .pipe(map(
       (data: any) => {
-        console.log(data);
         let resultList = data.data;
-        console.log(resultList.map((result) => new object(result)));
-        return resultList.map((result) => new object(result));
+        return resultList.map((result) => new Clothing(result));
       },
       error => { console.log(error) }
   ));

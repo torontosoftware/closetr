@@ -4,7 +4,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Clothing } from '../models/clothing.model';
-import { httpHandlerDefault } from './utils/utils';
+import {
+  httpHandlerDefault,
+  httpHandlerPipeMapClothing,
+  httpParams
+} from './utils/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -39,15 +43,8 @@ export class LogOutfitService {
   criteria provided.
   */
   getAllOutfitClothes = (criteria: any): any => {
-    const params = new HttpParams({ fromObject: criteria });
-    return this.http.get<any>(`${this.baseUrl}`, {params})
-      .pipe(map(
-        (data: any) => {
-          let outfitEntryList = data.data;
-          return outfitEntryList.map((clothing) => new Clothing(clothing));
-        },
-        error => { console.log(error) }
-    ));
+    const params = httpParams(criteria);
+    return httpHandlerPipeMapClothing(this.http.get(`${this.baseUrl}`, { params }));
   }
 
 }
