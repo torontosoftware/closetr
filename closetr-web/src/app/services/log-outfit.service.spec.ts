@@ -46,7 +46,7 @@ describe('LogOutfitService', () => {
     it(`should make a DELETE request to base url
       with given param, and return correct data.`, () => {
       logOutfitService.deleteOutfitClothing(mockOutfitEntryID)
-      .subscribe(outfitEntry => expect(outfitEntry).toEqual(mockOutfitEntry));
+        .subscribe(outfitEntry => expect(outfitEntry).toEqual(mockOutfitEntry));
       const req = httpTestingController.expectOne(
         `${baseUrl}/${mockOutfitEntryID}`
       );
@@ -62,8 +62,9 @@ describe('LogOutfitService', () => {
         .subscribe(outfitEntryList => {
           expect(outfitEntryList).toEqual(mockOutfitEntryList);
       });
+      let { date, userID } = mockOutfitEntryCriteria;
       const req = httpTestingController.expectOne(
-        `${baseUrl}/?date=${mockOutfitEntryCriteria.date}&userID=${mockOutfitEntryCriteria.userID}`
+        `${baseUrl}/?date=${date}&userID=${userID}`
       );
       expect(req.request.method).toEqual('GET');
       req.flush({data: mockOutfitEntryList});
