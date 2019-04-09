@@ -12,6 +12,9 @@ import {
   mockOutfitEntryCriteria,
   mockOutfitEntryList
 } from '../../test/objects';
+import {
+  httpTestHelper
+} from '../../test/utils';
 
 describe('LogOutfitService', () => {
   let httpTestingController: HttpTestingController;
@@ -32,42 +35,40 @@ describe('LogOutfitService', () => {
     expect(logOutfitService).toBeTruthy();
   });
 
-  describe(`calling addOutfitClothing(),`, () => {
-    it(`should make a POST request to base url
-      with given params, and return correct data.`, () => {
-      logOutfitService.addOutfitClothing(mockOutfitEntry)
-        .subscribe(outfitEntry => expect(outfitEntry).toEqual(mockOutfitEntry));
-      const req = httpTestingController.expectOne(`${baseUrl}/`);
-      expect(req.request.method).toEqual('POST');
-      req.flush(mockOutfitEntry);
-    });
-  });
-  describe(`calling deleteOutfitClothing(),`, () => {
-    it(`should make a DELETE request to base url
-      with given param, and return correct data.`, () => {
-      logOutfitService.deleteOutfitClothing(mockOutfitEntryID)
-        .subscribe(outfitEntry => expect(outfitEntry).toEqual(mockOutfitEntry));
-      const req = httpTestingController.expectOne(
-        `${baseUrl}/${mockOutfitEntryID}`
+  it(`calling addOutfitClothing() should make a
+      POST request and return correct data.`, () => {
+      httpTestHelper(
+        httpTestingController,
+        logOutfitService.addOutfitClothing,
+        mockOutfitEntry,
+        `${baseUrl}/`,
+        'POST'
       );
-      expect(req.request.method).toEqual('DELETE');
-      req.flush(mockOutfitEntry);
-    });
   });
-  describe(`calling getAllOutfitClothes(),`, () => {
-    it(`should make a GET request to base
-      url with converted params, and return
-      correct data.`, () => {
-      logOutfitService.getAllOutfitClothes(mockOutfitEntryCriteria)
-        .subscribe(outfitEntryList => {
-          expect(outfitEntryList).toEqual(mockOutfitEntryList);
-      });
+
+  it(`calling deleteOutfitClothing() should make a
+      DELETE request and return correct data.`, () => {
+      httpTestHelper(
+        httpTestingController,
+        logOutfitService.deleteOutfitClothing,
+        mockOutfitEntry,
+        `${baseUrl}/${mockOutfitEntryID}`,
+        'DELETE',
+        mockOutfitEntryID
+      );
+  });
+
+  it(`calling getAllOutfitClothes() should make a
+      GET request and return correct data.`, () => {
       let { date, userID } = mockOutfitEntryCriteria;
-      const req = httpTestingController.expectOne(
-        `${baseUrl}/?date=${date}&userID=${userID}`
+      httpTestHelper(
+        httpTestingController,
+        logOutfitService.getAllOutfitClothes,
+        mockOutfitEntryList,
+        `${baseUrl}/?date=${date}&userID=${userID}`,
+        'GET',
+        mockOutfitEntryCriteria,
+        { data: mockOutfitEntryList }
       );
-      expect(req.request.method).toEqual('GET');
-      req.flush({data: mockOutfitEntryList});
-    });
   });
 });

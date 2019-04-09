@@ -19,6 +19,9 @@ import {
    filterOptions,
    sortOptions
  } from '../../test/objects';
+ import {
+   httpTestHelper
+ } from '../../test/utils';
 
 describe('ClosetService', () => {
   let httpTestingController: HttpTestingController;
@@ -64,24 +67,11 @@ describe('ClosetService', () => {
     });
   });
 
-  const httpTestHelper = (
-    method: any,
-    subject: any,
-    url: string,
-    type: string,
-    methodParam: any = subject,
-    subjectFlush: any = subject
-  ) => {
-    method(methodParam).subscribe(clothing => expect(clothing).toEqual(subject));
-    const req = httpTestingController.expectOne(url);
-    expect(req.request.method).toEqual(type);
-    req.flush(subjectFlush);
-  }
-
   it(`calling addClothing() should make a POST request
       and return correct data.`, () => {
       httpTestHelper(
-        closetService.addClothing
+        httpTestingController,
+        () => closetService.addClothing,
         mockClothingOne,
         `${baseUrl}/clothing`,
         'POST'
@@ -91,7 +81,8 @@ describe('ClosetService', () => {
   it(`calling editClothing() should make a POST request
       and return correct data.`, () => {
       httpTestHelper(
-        closetService.editClothing
+        httpTestingController,
+        () => closetService.editClothing,
         mockClothingTwo,
         `${baseUrl}/clothing`,
         'POST'
@@ -101,7 +92,8 @@ describe('ClosetService', () => {
   it(`calling removeClothing() should make a DELETE request
       and return correct data.`, () => {
       httpTestHelper(
-        closetService.removeClothing
+        httpTestingController,
+        () => closetService.removeClothing,
         mockClothingOne,
         `${baseUrl}/clothing/${mockClothingID}`,
         'DELETE',
@@ -112,7 +104,8 @@ describe('ClosetService', () => {
   it(`calling getAllClothes() should make a get request
       and return correct data.`, () => {
       httpTestHelper(
-        closetService.getAllClothes
+        httpTestingController,
+        () => closetService.getAllClothes,
         mockClosetList,
         `${baseUrl}/all?userID=${mockUserOne.id}`,
         'GET',
