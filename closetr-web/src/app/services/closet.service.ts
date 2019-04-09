@@ -24,7 +24,7 @@ export class ClosetService {
   Adds the clothing parameter and all of it's properties in the closetList.
   Format {name, cost, category}
   */
-  addClothing(clothing: Clothing): any {
+  addClothing = (clothing: Clothing): any => {
     return this.genericHandler(this.http.post(`${this.baseUrl}/clothing`, {clothing: clothing}));
   }
 
@@ -33,7 +33,7 @@ export class ClosetService {
   Future: RESTful API for deleting a single clothing object is called, and then
   the updated closetList is recieved via another API call to get all clothes.
   */
-  removeClothing(clothingID: any): any {
+  removeClothing = (clothingID: any): any => {
     return this.genericHandler(this.http.delete(`${this.baseUrl}/clothing/${clothingID}`));
   }
 
@@ -44,7 +44,7 @@ export class ClosetService {
   Then the updated closetList is recieved via another API call to get all
   clothes.
   */
-  editClothing(editedClothing: Clothing): any {
+  editClothing = (editedClothing: Clothing): any => {
     return this.genericHandler(this.http.post(`${this.baseUrl}/clothing`, {clothing: editedClothing}));
   }
 
@@ -53,7 +53,7 @@ export class ClosetService {
   The observer will be able to recieve the data (which is a json of all
   clothing in the closet).
   */
-  getAllClothes(user: User): any {
+  getAllClothes = (user: User): any => {
     let userID = '';
     if (user) userID = user.id;
     const params = new HttpParams({
@@ -86,7 +86,7 @@ export class ClosetService {
   Manage view. This clothing object is retrieved in the Edit Closet page, where
   the user may edit the clothing.
   */
-  setClothingForEdit(clothing: Clothing): any {
+  setClothingForEdit = (clothing: Clothing): any => {
     this.clothingForEdit = clothing;
   }
 
@@ -94,14 +94,14 @@ export class ClosetService {
   Returns the clothing object chosen by the user for display in the Edit
   Clothing page.
   */
-  getClothingForEdit(): Clothing {
+  getClothingForEdit = (): Clothing => {
     return this.clothingForEdit;
   }
 
   /*
   Returns filter options for sorting (temporary)
   */
-  getFilterOptions(): Array<string> {
+  getFilterOptions = (): Array<string> => {
     return [
       "no filter",
       "exclude Aritzia items",
@@ -114,7 +114,7 @@ export class ClosetService {
   /*
   Returns sorting options for sorting (temporary)
   */
-  getSortOptions(): Array<string> {
+  getSortOptions = (): Array<string> => {
     return [
       "cost ascending",
       "cost descending",

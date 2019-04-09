@@ -18,7 +18,7 @@ export class LogOutfitService {
   Adds the outfit entry into the list of entries for this user.
   Parameters include userID, date, and clothingID.
   */
-  addOutfitClothing(params: any): any {
+  addOutfitClothing = (params: any): any => {
     return this.genericHandler(this.http.post(`${this.baseUrl}`, params));
   }
 
@@ -27,7 +27,7 @@ export class LogOutfitService {
   Deletes outfit entry from the list of entries for
   the id.
   */
-  deleteOutfitClothing(outfitEntryID: any): any {
+  deleteOutfitClothing = (outfitEntryID: any): any => {
     return this.genericHandler(this.http.delete(`${this.baseUrl}${outfitEntryID}`));
   }
 
@@ -37,7 +37,7 @@ export class LogOutfitService {
   and userID. Returns all outfit entries if no
   criteria provided.
   */
-  getAllOutfitClothes(criteria: any): any {
+  getAllOutfitClothes = (criteria: any): any => {
     const params = new HttpParams({ fromObject: criteria });
     return this.http.get<any>(`${this.baseUrl}`, {params})
       .pipe(map(

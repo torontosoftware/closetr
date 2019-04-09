@@ -71,7 +71,7 @@ describe('ClosetService', () => {
       and return correct data.`, () => {
       httpTestHelper(
         httpTestingController,
-        () => closetService.addClothing,
+        closetService.addClothing,
         mockClothingOne,
         `${baseUrl}/clothing`,
         'POST'
@@ -82,7 +82,7 @@ describe('ClosetService', () => {
       and return correct data.`, () => {
       httpTestHelper(
         httpTestingController,
-        () => closetService.editClothing,
+        closetService.editClothing,
         mockClothingTwo,
         `${baseUrl}/clothing`,
         'POST'
@@ -93,7 +93,7 @@ describe('ClosetService', () => {
       and return correct data.`, () => {
       httpTestHelper(
         httpTestingController,
-        () => closetService.removeClothing,
+        closetService.removeClothing,
         mockClothingOne,
         `${baseUrl}/clothing/${mockClothingID}`,
         'DELETE',
@@ -105,7 +105,7 @@ describe('ClosetService', () => {
       and return correct data.`, () => {
       httpTestHelper(
         httpTestingController,
-        () => closetService.getAllClothes,
+        closetService.getAllClothes,
         mockClosetList,
         `${baseUrl}/all?userID=${mockUserOne.id}`,
         'GET',
