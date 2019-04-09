@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Clothing } from '../models/clothing.model';
+import { httpHandlerDefault } from './utils/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class LogOutfitService {
   Parameters include userID, date, and clothingID.
   */
   addOutfitClothing = (params: any): any => {
-    return this.genericHandler(this.http.post(`${this.baseUrl}`, params));
+    return httpHandlerDefault(this.http.post(`${this.baseUrl}`, params));
   }
 
   /*
@@ -28,7 +29,7 @@ export class LogOutfitService {
   the id.
   */
   deleteOutfitClothing = (outfitEntryID: any): any => {
-    return this.genericHandler(this.http.delete(`${this.baseUrl}${outfitEntryID}`));
+    return httpHandlerDefault(this.http.delete(`${this.baseUrl}${outfitEntryID}`));
   }
 
   /*
@@ -46,13 +47,6 @@ export class LogOutfitService {
           return outfitEntryList.map((clothing) => new Clothing(clothing));
         },
         error => { console.log(error) }
-    ));
-  }
-
-  genericHandler = (apiCall: any) => {
-    return apiCall.pipe(map(
-      (data: any) => data,
-      error => { console.log(error) }
     ));
   }
 

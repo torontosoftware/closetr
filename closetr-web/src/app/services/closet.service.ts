@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { Clothing } from '../models/clothing.model';
 import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
+import { httpHandlerDefault } from './utils/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class ClosetService {
   Format {name, cost, category}
   */
   addClothing = (clothing: Clothing): any => {
-    return this.genericHandler(this.http.post(`${this.baseUrl}/clothing`, {clothing: clothing}));
+    return httpHandlerDefault(this.http.post(`${this.baseUrl}/clothing`, {clothing: clothing}));
   }
 
   /*
@@ -34,7 +35,7 @@ export class ClosetService {
   the updated closetList is recieved via another API call to get all clothes.
   */
   removeClothing = (clothingID: any): any => {
-    return this.genericHandler(this.http.delete(`${this.baseUrl}/clothing/${clothingID}`));
+    return httpHandlerDefault(this.http.delete(`${this.baseUrl}/clothing/${clothingID}`));
   }
 
   /*
@@ -45,7 +46,7 @@ export class ClosetService {
   clothes.
   */
   editClothing = (editedClothing: Clothing): any => {
-    return this.genericHandler(this.http.post(`${this.baseUrl}/clothing`, {clothing: editedClothing}));
+    return httpHandlerDefault(this.http.post(`${this.baseUrl}/clothing`, {clothing: editedClothing}));
   }
 
   /*
