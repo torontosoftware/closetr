@@ -54,7 +54,6 @@ export class EditClothingComponent implements OnInit {
   none of the fields are empty.
   */
   checkSubmit = (): boolean => {
-    console.log(this);
     return (this.clothing ? this.clothing.enableClothingSave() : false);
   }
 

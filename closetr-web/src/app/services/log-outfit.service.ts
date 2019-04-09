@@ -19,7 +19,6 @@ export class LogOutfitService {
   Parameters include userID, date, and clothingID.
   */
   addOutfitClothing(params: any): any {
-    console.log(`${this.baseUrl}`);
     return this.genericHandler(this.http.post(`${this.baseUrl}`, params));
   }
 

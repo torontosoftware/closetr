@@ -10,7 +10,9 @@ import { Clothing } from '../models/clothing.model';
 import { ClosetService } from './closet.service';
 import { environment } from '../../environments/environment';
 import {
+   mockUserOne,
    mockClosetList,
+   mockClothingID,
    mockClothingOne,
    mockClothingTwo,
    mockClothingEmpty,
@@ -51,73 +53,61 @@ describe('ClosetService', () => {
 
   describe(`when trying to set and get clothing
     for edit,`, () => {
-    let clothingForEdit;
     beforeEach(() => {
-      clothingForEdit = mockClothingEmpty;
-      closetService.setClothingForEdit(clothingForEdit);
+      closetService.setClothingForEdit(mockClothingEmpty);
     });
     it(`should set clothingForEdit when calling
       setClothingForEdit().`, () => {
-      expect(closetService.clothingForEdit).toEqual(clothingForEdit);
+      expect(closetService.clothingForEdit).toEqual(mockClothingEmpty);
     });
     it(`should get clothingForEdit when calling
       getClothingForEdit().`, () => {
       let clothingForEditResult = closetService.getClothingForEdit();
-      expect(clothingForEditResult).toEqual(clothingForEdit);
+      expect(clothingForEditResult).toEqual(mockClothingEmpty);
     });
   });
 
   describe(`calling addClothing()`, () => {
     it(`should make a POST request to base url with
       given params, and return correct data.`, () => {
-      const newClothingID = "clothingID";
-      const newClothing = mockClothingOne;
-      closetService.addClothing(newClothing)
-        .subscribe(clothing => expect(clothing).toEqual(newClothing));
+      closetService.addClothing(mockClothingOne)
+        .subscribe(clothing => expect(clothing).toEqual(mockClothingOne));
       const req = httpTestingController.expectOne(`${baseUrl}/clothing`);
       expect(req.request.method).toEqual('POST');
-      req.flush(newClothing);
+      req.flush(mockClothingOne);
     });
   });
 
   describe(`calling editClothing()`, () => {
     it(`should make a POST request to base url with
       given params, and return correct data.`, () => {
-      const editedClothingID = 'editedClothingID';
-      const editedClothing = mockClothingTwo;
-      closetService.editClothing(editedClothing)
-        .subscribe(clothing => expect(clothing).toEqual(editedClothing));
+      closetService.editClothing(mockClothingTwo)
+        .subscribe(clothing => expect(clothing).toEqual(mockClothingTwo));
       const req = httpTestingController.expectOne(`${baseUrl}/clothing`);
       expect(req.request.method).toEqual('POST');
-      req.flush(editedClothing);
+      req.flush(mockClothingTwo);
     });
   });
 
   describe(`calling removeClothing()`, () => {
     it(`should make a DELETE request to base url
       and return correct data.`, () => {
-      const deletedClothingID = "clothingID";
-      const deletedClothing = mockClothingOne;
-      closetService.removeClothing(deletedClothingID)
-        .subscribe(clothing => expect(clothing).toEqual(deletedClothing));
-      const req = httpTestingController.expectOne(`${baseUrl}/clothing/${deletedClothingID}`);
+      closetService.removeClothing(mockClothingID)
+        .subscribe(clothing => expect(clothing).toEqual(mockClothingOne));
+      const req = httpTestingController.expectOne(`${baseUrl}/clothing/${mockClothingID}`);
       expect(req.request.method).toEqual('DELETE');
-      const response = deletedClothing;
-      req.flush(response);
+      req.flush(mockClothingOne);
     });
   });
 
   describe(`calling getAllClothes()`, () => {
     it(`should make a GET request to base url
       and return correct data.`, () => {
-      const user = new User({id: 'Fides'});
-      const closetListResult = mockClosetList;
-      closetService.getAllClothes(user)
-        .subscribe(closetList => expect(closetList).toEqual(closetListResult));
-      const req = httpTestingController.expectOne(`${baseUrl}/all?userID=${user.id}`);
+      closetService.getAllClothes(mockUserOne)
+        .subscribe(closetList => expect(closetList).toEqual(mockClosetList));
+      const req = httpTestingController.expectOne(`${baseUrl}/all?userID=${mockUserOne.id}`);
       expect(req.request.method).toEqual('GET');
-      const response = closetListResult;
-      req.flush(response);
+      req.flush({data: mockClosetList});
     });
   });
 

@@ -65,7 +65,6 @@ export class ClosetService {
       .pipe(map(
         (data: any) => {
           let closetList = data.data;
-          console.log("closet service",data);
           return closetList.map((clothing) => new Clothing(clothing));
         },
         error => { console.log(error) }
