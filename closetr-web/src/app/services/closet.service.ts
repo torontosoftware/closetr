@@ -65,8 +65,8 @@ export class ClosetService {
       .pipe(map(
         (data: any) => {
           let closetList = data.data;
-          closetList.map((clothing) => new Clothing(clothing));
-          return closetList;
+          console.log("closet service",data);
+          return closetList.map((clothing) => new Clothing(clothing));
         },
         error => { console.log(error) }
     ));
@@ -125,10 +125,11 @@ export class ClosetService {
     ];
   }
 
-  genericHandler = (apiCall: any) => apiCall
-    .pipe(map(
+  genericHandler = (apiCall: any) => {
+    return apiCall.pipe(map(
       (data: any) => data,
       error => { console.log(error) }
     ));
+  }
 
 }

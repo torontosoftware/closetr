@@ -163,6 +163,7 @@ describe('LogOutfitComponent', () => {
     it(`should render each item in outfitClothingList
       into closet card components`, () => {
       let outfitCardList = hostElement.querySelectorAll('.closet-card-item');
+      console.log(outfitCardList)
       expect(outfitCardList.length).toEqual(outfitClothingList.length);
     });
     it(`should have editMode as false.`, () => {

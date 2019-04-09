@@ -8,12 +8,13 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { User } from '../models/user.model';
 import { Clothing } from '../models/clothing.model';
 import { ClosetService } from './closet.service';
+import { environment } from '../../environments/environment';
 
 describe('ClosetService', () => {
   let httpTestingController: HttpTestingController;
   let closetService: ClosetService;
 
-  const baseUrl = `http://localhost:8080/api/clothes`;
+  const baseUrl = `${environment.baseUrl}/clothes`;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -84,9 +85,7 @@ describe('ClosetService', () => {
         clothingCategory: 'Top'
       });
       closetService.addClothing(newClothing)
-      .subscribe(data => {
-        let clothing = data.data;
-        expect(clothing._id).toEqual(newClothingID);
+      .subscribe(clothing => {
         expect(clothing.clothingWorn).toEqual(newClothing.clothingWorn);
         expect(clothing.clothingCost).toEqual(newClothing.clothingCost);
         expect(clothing.clothingPurchaseDate).toEqual(newClothing.clothingPurchaseDate);
@@ -94,13 +93,7 @@ describe('ClosetService', () => {
       });
       const req = httpTestingController.expectOne(`${baseUrl}/clothing`);
       expect(req.request.method).toEqual('POST');
-      const response = {
-        status: 'success',
-        data: {
-          ...newClothing,
-          _id: newClothingID
-        }
-      };
+      const response = newClothing;
       req.flush(response);
     });
   });
@@ -117,9 +110,7 @@ describe('ClosetService', () => {
         clothingCategory: 'Top'
       });
       closetService.editClothing(editedClothing)
-      .subscribe(data => {
-        let clothing = data.data;
-        expect(clothing._id).toEqual(editedClothingID);
+      .subscribe(clothing => {
         expect(clothing.clothingWorn).toEqual(editedClothing.clothingWorn);
         expect(clothing.clothingCost).toEqual(editedClothing.clothingCost);
         expect(clothing.clothingPurchaseDate).toEqual(editedClothing.clothingPurchaseDate);
@@ -127,13 +118,7 @@ describe('ClosetService', () => {
       });
       const req = httpTestingController.expectOne(`${baseUrl}/clothing`);
       expect(req.request.method).toEqual('POST');
-      const response = {
-        status: 'success',
-        data: {
-          ...editedClothing,
-          _id: editedClothingID
-        }
-      };
+      const response = editedClothing;
       req.flush(response);
     });
   });
@@ -146,16 +131,10 @@ describe('ClosetService', () => {
         clothingID: "clothingID"
       };
       closetService.removeClothing(deletedClothingID)
-      .subscribe(data => {
-        let clothing = data.data;
-        expect(clothing).toEqual(deletedClothing);
-      });
+        .subscribe(clothing => expect(clothing).toEqual(deletedClothing));
       const req = httpTestingController.expectOne(`${baseUrl}/clothing/${deletedClothingID}`);
       expect(req.request.method).toEqual('DELETE');
-      const response = {
-        status: 'success',
-        data: deletedClothing
-      };
+      const response = deletedClothing;
       req.flush(response);
     });
   });
@@ -164,21 +143,17 @@ describe('ClosetService', () => {
     it(`should make a GET request to base url
       and return correct data.`, () => {
       const user = new User({id: 'Fides'});
-      const closetListResult = [
-        { clothingID: "1", clothingName: "tshirt" },
-        { clothingID: "2", clothingName: "shorts" }
-      ];
+      const closetListResult = {
+        data: [
+          { clothingID: "1", clothingName: "tshirt" },
+          { clothingID: "2", clothingName: "shorts" }
+        ]
+      };
       closetService.getAllClothes(user)
-      .subscribe(data => {
-        let closetList = data;
-        expect(closetList).toEqual(closetListResult);
-      });
+        .subscribe(closetList => expect(closetList).toEqual(closetListResult));
       const req = httpTestingController.expectOne(`${baseUrl}/all?userID=${user.id}`);
       expect(req.request.method).toEqual('GET');
-      const response = {
-        status: 'success',
-        data: closetListResult
-      };
+      const response = closetListResult;
       req.flush(response);
     });
   });

@@ -19,6 +19,7 @@ export class LogOutfitService {
   Parameters include userID, date, and clothingID.
   */
   addOutfitClothing(params: any): any {
+    console.log(`${this.baseUrl}`);
     return this.genericHandler(this.http.post(`${this.baseUrl}`, params));
   }
 
@@ -43,17 +44,17 @@ export class LogOutfitService {
       .pipe(map(
         (data: any) => {
           let outfitEntryList = data.data;
-          outfitEntryList.map((clothing) => new Clothing(clothing));
-          return outfitEntryList;
+          return outfitEntryList.map((clothing) => new Clothing(clothing));
         },
         error => { console.log(error) }
     ));
   }
 
-  genericHandler = (apiCall: any) => apiCall
-    .pipe(map(
+  genericHandler = (apiCall: any) => {
+    return apiCall.pipe(map(
       (data: any) => data,
       error => { console.log(error) }
     ));
+  }
 
 }

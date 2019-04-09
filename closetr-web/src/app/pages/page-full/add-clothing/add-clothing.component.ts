@@ -70,18 +70,15 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   */
   save(): void {
     this.closetService.addClothing(this.clothing).subscribe(
-      (data: any) => {
+      (newClothing: any) => {
         if (this.prevUrl == '/log-outfit') {
-          let newClothing = data.data;
           const params = {
             clothingID: newClothing._id,
             userID: this.currentUser.id,
             date: this.dateFormatService.formatDateString(new Date())
           };
           this.logOutfitService.addOutfitClothing(params).subscribe(
-            (data: any) => {
-              this.back();
-            }
+            (data: any) => this.back()
           );
         } else {
           this.back();

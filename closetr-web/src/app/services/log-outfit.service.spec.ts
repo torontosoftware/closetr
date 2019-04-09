@@ -5,12 +5,13 @@ import {
 } from '@angular/common/http/testing';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { LogOutfitService } from './log-outfit.service';
+import { environment } from '../../environments/environment';
 
 describe('LogOutfitService', () => {
   let httpTestingController: HttpTestingController;
   let logOutfitService: LogOutfitService;
 
-  const baseUrl = "http://localhost:8080/outfit"
+  const baseUrl = `${environment.baseUrl}/outfitEntries/entry`;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -35,24 +36,14 @@ describe('LogOutfitService', () => {
         user: "userID"
       };
       logOutfitService.addOutfitClothing(newOutfitEntry)
-      .subscribe(data => {
-        let outfitEntry = data.data;
+      .subscribe(outfitEntry => {
         expect(outfitEntry.clothing).toEqual(newOutfitEntry.clothing);
         expect(outfitEntry.date).toEqual(newOutfitEntry.date);
         expect(outfitEntry.user).toEqual(newOutfitEntry.user);
-        expect(outfitEntry._id).toEqual(newOutfitEntryID);
       });
-      const req = httpTestingController.expectOne(
-        `http://localhost:8080/api/outfitEntries/entry/`
-      );
+      const req = httpTestingController.expectOne(`${baseUrl}/`);
       expect(req.request.method).toEqual('POST');
-      const response = {
-        status: 'success',
-        data: {
-          ...newOutfitEntry,
-          _id: newOutfitEntryID
-        }
-      };
+      const response = newOutfitEntry;
       req.flush(response);
     });
   });
@@ -67,21 +58,16 @@ describe('LogOutfitService', () => {
         _id: deleteOutfitEntryID
       };
       logOutfitService.deleteOutfitClothing(deleteOutfitEntryID)
-      .subscribe(data => {
-        let outfitEntry = data.data;
+      .subscribe(outfitEntry => {
         expect(outfitEntry.clothing).toEqual(deleteOutfitEntry.clothing);
         expect(outfitEntry.date).toEqual(deleteOutfitEntry.date);
         expect(outfitEntry.user).toEqual(deleteOutfitEntry.user);
-        expect(outfitEntry._id).toEqual(deleteOutfitEntry._id);
       });
       const req = httpTestingController.expectOne(
-        `http://localhost:8080/api/outfitEntries/entry/${deleteOutfitEntryID}`
+        `${baseUrl}/${deleteOutfitEntryID}`
       );
       expect(req.request.method).toEqual('DELETE');
-      const response = {
-        status: 'success',
-        data: deleteOutfitEntry
-      };
+      const response = deleteOutfitEntry;
       req.flush(response);
     });
   });
@@ -93,28 +79,26 @@ describe('LogOutfitService', () => {
         date: "2019-03-26",
         userID: "userID"
       };
-      const outfitEntryListResult = [
-        { clothing: "1", user: "1" },
-        { clothing: "2", user: "2" }
-      ];
+      const outfitEntryListResult = {
+        data: [
+          { clothing: "1", user: "1" },
+          { clothing: "2", user: "2" }
+        ]
+      };
       const params = new HttpParams({
         fromObject: criteria
       });
 
       logOutfitService.getAllOutfitClothes(criteria)
-      .subscribe(data => {
-        let outfitEntryList = data.data;
+      .subscribe(outfitEntryList => {
         expect(outfitEntryList).toEqual(outfitEntryListResult);
       });
 
       const req = httpTestingController.expectOne(
-        `http://localhost:8080/api/outfitEntries/entry/?date=${criteria.date}&userID=${criteria.userID}`
+        `${baseUrl}/?date=${criteria.date}&userID=${criteria.userID}`
       );
       expect(req.request.method).toEqual('GET');
-      const response = {
-        status: 'success',
-        data: outfitEntryListResult
-      };
+      const response = outfitEntryListResult;
       req.flush(response);
     });
   });
