@@ -41,14 +41,12 @@ describe('ClosetService', () => {
 
   it(`should return correct filter options from
     calling getFilterOptions()`, () => {
-    let filterOptionsResult = closetService.getFilterOptions();
-    expect(filterOptionsResult).toEqual(filterOptions);
+    expect(closetService.getFilterOptions()).toEqual(filterOptions);
   });
 
   it(`should return correct sort options from
     calling getSortOptions()`, () => {
-    let sortOptionsResult = closetService.getSortOptions();
-    expect(sortOptionsResult).toEqual(sortOptions);
+    expect(closetService.getSortOptions()).toEqual(sortOptions);
   });
 
   describe(`when trying to set and get clothing
@@ -62,53 +60,65 @@ describe('ClosetService', () => {
     });
     it(`should get clothingForEdit when calling
       getClothingForEdit().`, () => {
-      let clothingForEditResult = closetService.getClothingForEdit();
-      expect(clothingForEditResult).toEqual(mockClothingEmpty);
+      expect(closetService.getClothingForEdit()).toEqual(mockClothingEmpty);
     });
   });
 
-  describe(`calling addClothing()`, () => {
-    it(`should make a POST request to base url with
-      given params, and return correct data.`, () => {
-      closetService.addClothing(mockClothingOne)
-        .subscribe(clothing => expect(clothing).toEqual(mockClothingOne));
-      const req = httpTestingController.expectOne(`${baseUrl}/clothing`);
-      expect(req.request.method).toEqual('POST');
-      req.flush(mockClothingOne);
-    });
-  });
+  const httpTestHelper = (
+    method: any,
+    subject: any,
+    url: string,
+    type: string,
+    methodParam: any = subject,
+    subjectFlush: any = subject
+  ) => {
+    method(methodParam).subscribe(clothing => expect(clothing).toEqual(subject));
+    const req = httpTestingController.expectOne(url);
+    expect(req.request.method).toEqual(type);
+    req.flush(subjectFlush);
+  }
 
-  describe(`calling editClothing()`, () => {
-    it(`should make a POST request to base url with
-      given params, and return correct data.`, () => {
-      closetService.editClothing(mockClothingTwo)
-        .subscribe(clothing => expect(clothing).toEqual(mockClothingTwo));
-      const req = httpTestingController.expectOne(`${baseUrl}/clothing`);
-      expect(req.request.method).toEqual('POST');
-      req.flush(mockClothingTwo);
-    });
-  });
-
-  describe(`calling removeClothing()`, () => {
-    it(`should make a DELETE request to base url
+  it(`calling addClothing() should make a POST request
       and return correct data.`, () => {
-      closetService.removeClothing(mockClothingID)
-        .subscribe(clothing => expect(clothing).toEqual(mockClothingOne));
-      const req = httpTestingController.expectOne(`${baseUrl}/clothing/${mockClothingID}`);
-      expect(req.request.method).toEqual('DELETE');
-      req.flush(mockClothingOne);
-    });
+      httpTestHelper(
+        closetService.addClothing
+        mockClothingOne,
+        `${baseUrl}/clothing`,
+        'POST'
+      );
   });
 
-  describe(`calling getAllClothes()`, () => {
-    it(`should make a GET request to base url
+  it(`calling editClothing() should make a POST request
       and return correct data.`, () => {
-      closetService.getAllClothes(mockUserOne)
-        .subscribe(closetList => expect(closetList).toEqual(mockClosetList));
-      const req = httpTestingController.expectOne(`${baseUrl}/all?userID=${mockUserOne.id}`);
-      expect(req.request.method).toEqual('GET');
-      req.flush({data: mockClosetList});
-    });
+      httpTestHelper(
+        closetService.editClothing
+        mockClothingTwo,
+        `${baseUrl}/clothing`,
+        'POST'
+      );
+  });
+
+  it(`calling removeClothing() should make a DELETE request
+      and return correct data.`, () => {
+      httpTestHelper(
+        closetService.removeClothing
+        mockClothingOne,
+        `${baseUrl}/clothing/${mockClothingID}`,
+        'DELETE',
+        mockClothingID
+      );
+  });
+
+  it(`calling getAllClothes() should make a get request
+      and return correct data.`, () => {
+      httpTestHelper(
+        closetService.getAllClothes
+        mockClosetList,
+        `${baseUrl}/all?userID=${mockUserOne.id}`,
+        'GET',
+        mockUserOne,
+        { data: mockClosetList }
+      );
   });
 
 });
