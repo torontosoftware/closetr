@@ -9,6 +9,14 @@ import { User } from '../models/user.model';
 import { Clothing } from '../models/clothing.model';
 import { ClosetService } from './closet.service';
 import { environment } from '../../environments/environment';
+import {
+   mockClosetList,
+   mockClothingOne,
+   mockClothingTwo,
+   mockClothingEmpty,
+   filterOptions,
+   sortOptions
+ } from '../../test/objects';
 
 describe('ClosetService', () => {
   let httpTestingController: HttpTestingController;
@@ -31,26 +39,12 @@ describe('ClosetService', () => {
 
   it(`should return correct filter options from
     calling getFilterOptions()`, () => {
-    let filterOptions = [
-      "no filter",
-      "exclude Aritzia items",
-      "sweaters only",
-      "pants and sweaters only",
-      "pants only"
-    ];
     let filterOptionsResult = closetService.getFilterOptions();
     expect(filterOptionsResult).toEqual(filterOptions);
   });
 
   it(`should return correct sort options from
     calling getSortOptions()`, () => {
-    let sortOptions = [
-      "cost ascending",
-      "cost descending",
-      "most recently purchased",
-      "least recently purchased",
-      "most worn"
-    ];
     let sortOptionsResult = closetService.getSortOptions();
     expect(sortOptionsResult).toEqual(sortOptions);
   });
@@ -59,7 +53,7 @@ describe('ClosetService', () => {
     for edit,`, () => {
     let clothingForEdit;
     beforeEach(() => {
-      clothingForEdit = new Clothing({clothingID: 'id'});
+      clothingForEdit = mockClothingEmpty;
       closetService.setClothingForEdit(clothingForEdit);
     });
     it(`should set clothingForEdit when calling
@@ -77,24 +71,12 @@ describe('ClosetService', () => {
     it(`should make a POST request to base url with
       given params, and return correct data.`, () => {
       const newClothingID = "clothingID";
-      const newClothing = new Clothing({
-        clothingName: 'TShirt',
-        clothingCost: 10,
-        clothingWorn: 10,
-        clothingPurchaseDate: '2019-03-27',
-        clothingCategory: 'Top'
-      });
+      const newClothing = mockClothingOne;
       closetService.addClothing(newClothing)
-      .subscribe(clothing => {
-        expect(clothing.clothingWorn).toEqual(newClothing.clothingWorn);
-        expect(clothing.clothingCost).toEqual(newClothing.clothingCost);
-        expect(clothing.clothingPurchaseDate).toEqual(newClothing.clothingPurchaseDate);
-        expect(clothing.clothingCategory).toEqual(newClothing.clothingCategory);
-      });
+        .subscribe(clothing => expect(clothing).toEqual(newClothing));
       const req = httpTestingController.expectOne(`${baseUrl}/clothing`);
       expect(req.request.method).toEqual('POST');
-      const response = newClothing;
-      req.flush(response);
+      req.flush(newClothing);
     });
   });
 
@@ -102,24 +84,12 @@ describe('ClosetService', () => {
     it(`should make a POST request to base url with
       given params, and return correct data.`, () => {
       const editedClothingID = 'editedClothingID';
-      const editedClothing = new Clothing({
-        clothingName: 'TShirt',
-        clothingCost: 10,
-        clothingWorn: 10,
-        clothingPurchaseDate: '2019-03-27',
-        clothingCategory: 'Top'
-      });
+      const editedClothing = mockClothingTwo;
       closetService.editClothing(editedClothing)
-      .subscribe(clothing => {
-        expect(clothing.clothingWorn).toEqual(editedClothing.clothingWorn);
-        expect(clothing.clothingCost).toEqual(editedClothing.clothingCost);
-        expect(clothing.clothingPurchaseDate).toEqual(editedClothing.clothingPurchaseDate);
-        expect(clothing.clothingCategory).toEqual(editedClothing.clothingCategory);
-      });
+        .subscribe(clothing => expect(clothing).toEqual(editedClothing));
       const req = httpTestingController.expectOne(`${baseUrl}/clothing`);
       expect(req.request.method).toEqual('POST');
-      const response = editedClothing;
-      req.flush(response);
+      req.flush(editedClothing);
     });
   });
 
@@ -127,9 +97,7 @@ describe('ClosetService', () => {
     it(`should make a DELETE request to base url
       and return correct data.`, () => {
       const deletedClothingID = "clothingID";
-      const deletedClothing = {
-        clothingID: "clothingID"
-      };
+      const deletedClothing = mockClothingOne;
       closetService.removeClothing(deletedClothingID)
         .subscribe(clothing => expect(clothing).toEqual(deletedClothing));
       const req = httpTestingController.expectOne(`${baseUrl}/clothing/${deletedClothingID}`);
@@ -143,12 +111,7 @@ describe('ClosetService', () => {
     it(`should make a GET request to base url
       and return correct data.`, () => {
       const user = new User({id: 'Fides'});
-      const closetListResult = {
-        data: [
-          { clothingID: "1", clothingName: "tshirt" },
-          { clothingID: "2", clothingName: "shorts" }
-        ]
-      };
+      const closetListResult = mockClosetList;
       closetService.getAllClothes(user)
         .subscribe(closetList => expect(closetList).toEqual(closetListResult));
       const req = httpTestingController.expectOne(`${baseUrl}/all?userID=${user.id}`);
