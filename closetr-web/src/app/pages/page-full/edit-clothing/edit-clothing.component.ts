@@ -21,14 +21,14 @@ export class EditClothingComponent implements OnInit {
               private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    let clothingForEdit = this.closetService.getClothingForEdit();
-    if (clothingForEdit) {
+    let clothingForEdit;
+    if (clothingForEdit = this.closetService.getClothingForEdit()) {
       this.clothing = clothingForEdit;
     } else {
       this.router.navigate(['/closet-manage']);
     }
 
-    this.clothingCategories = Clothing.getClothingCategories();
+    ({ clothingCategories: this.clothingCategories } = Clothing);
 
     this.authenticationService.currentUser.subscribe(
       user => {
