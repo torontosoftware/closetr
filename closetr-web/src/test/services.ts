@@ -47,8 +47,8 @@ export class ClosetServiceMock {
   getClothingForEdit = () => mockClothingOne;
   setClothingForEdit = () => { return };
   editClothing = () => of(true);
-  getSortOptions = () => sortOptions;
-  getFilterOptions = () => filterOptions;
+  sortOptions = sortOptions;
+  filterOptions = filterOptions;
 }
 
 @Injectable({

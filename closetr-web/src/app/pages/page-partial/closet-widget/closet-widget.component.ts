@@ -27,8 +27,11 @@ export class ClosetWidgetComponent implements OnInit {
         this.getAllClothes();
       }
     );
-    this.filterOptions = this.closetService.getFilterOptions();
-    this.sortOptions = this.closetService.getSortOptions();
+
+    ({
+      filterOptions: this.filterOptions,
+      sortOptions: this.sortOptions
+    } = this.closetService);
   }
 
   getAllClothes = (): Observable<any> => ClosetFactory.getAllClothes(this);

@@ -29,8 +29,10 @@ export class ClosetManageComponent implements OnInit {
               private routesService: RoutesService,
               private authenticationService: AuthenticationService) {
     this.editMode = false;
-    this.filterOptions = this.closetService.getFilterOptions();
-    this.sortOptions = this.closetService.getFilterOptions();
+    ({
+      filterOptions: this.filterOptions,
+      sortOptions: this.sortOptions
+    } = this.closetService);
   }
 
   ngOnInit() {
@@ -57,7 +59,8 @@ export class ClosetManageComponent implements OnInit {
   /*
   Remove clothing item.
   */
-  removeClothing = (clothingID: any): Observable<any> => ClosetFactory.removeClothing(this, clothingID);
+  removeClothing = (clothingID: any): Observable<any> =>
+    ClosetFactory.removeClothing(this, clothingID);
 
   getAllClothes = (): Observable<any> => ClosetFactory.getAllClothes(this);
 }

@@ -26,6 +26,28 @@ export class ClosetService {
   }
 
   /*
+  Filter options for sorting (temporary)
+  */
+  public filterOptions = [
+    "no filter",
+    "exclude Aritzia items",
+    "sweaters only",
+    "pants and sweaters only",
+    "pants only"
+  ];
+
+  /*
+  Sorting options for sorting (temporary)
+  */
+  public sortOptions = [
+    "cost ascending",
+    "cost descending",
+    "most recently purchased",
+    "least recently purchased",
+    "most worn"
+  ];
+
+  /*
   Input: clothing object (generic for now)
   Adds the clothing parameter and all of it's properties in the closetList.
   Format {name, cost, category}
@@ -86,28 +108,5 @@ export class ClosetService {
   */
   getClothingForEdit = (): Clothing => this.clothingForEdit;
 
-  /*
-  Returns filter options for sorting (temporary)
-  */
-  getFilterOptions = (): Array<string> =>
-    [
-      "no filter",
-      "exclude Aritzia items",
-      "sweaters only",
-      "pants and sweaters only",
-      "pants only"
-    ];
-
-  /*
-  Returns sorting options for sorting (temporary)
-  */
-  getSortOptions = (): Array<string> =>
-    [
-      "cost ascending",
-      "cost descending",
-      "most recently purchased",
-      "least recently purchased",
-      "most worn"
-    ];
 
 }
