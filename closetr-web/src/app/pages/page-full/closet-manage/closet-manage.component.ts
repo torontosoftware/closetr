@@ -44,17 +44,11 @@ export class ClosetManageComponent implements OnInit {
     )
   }
 
-  navTo(): void {
-    this.routesService.setPrevUrl(this.router.url);
-  }
+  navTo = (): void => this.routesService.setPrevUrl(this.router.url);
 
-  toggleEditMode(): void {
-    this.editMode = !this.editMode;
-  }
+  toggleEditMode = (): boolean => this.editMode = !this.editMode;
 
-  save(): void {
-    this.toggleEditMode();
-  }
+  save = (): void => this.toggleEditMode();
 
   /*
   Remove clothing item.

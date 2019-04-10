@@ -52,20 +52,13 @@ export class LogOutfitComponent implements OnInit {
     this.getAllOutfitClothes(this.params);
   }
 
-  toggleEditMode(): void {
-    this.editMode = !this.editMode;
-  }
+  toggleEditMode = (): void => this.editMode = !this.editMode;
 
-  save(): void {
-    this.toggleEditMode();
-  }
+  save = (): void => this.toggleEditMode();
 
-  navTo(): void {
+  navTo = (): void => {
     this.routesService.setPrevUrl('/log-outfit');
     this.router.navigate(['/add-clothing']);
-  }
-
-  search(): void {
   }
 
   /*
@@ -100,34 +93,27 @@ export class LogOutfitComponent implements OnInit {
     }
   }
 
-  removeCard(outfitEntry: any): void {
+  removeCard = (outfitEntry: any): Observable<any> =>
     this.deleteOutfitClothing(outfitEntry.outfitEntryID);
-  }
 
-  deleteOutfitClothing = (outfitEntryID: any): Observable<any> => {
-    return this.subscribeAndGetAllOutfitClothes(
+  deleteOutfitClothing = (outfitEntryID: any): Observable<any> =>
+    this.subscribeAndGetAllOutfitClothes(
       this.logOutfitService.deleteOutfitClothing(outfitEntryID)
     );
-  }
 
-  addOutfitClothing = (params: any): Observable<any> => {
-    return this.subscribeAndGetAllOutfitClothes(
+  addOutfitClothing = (params: any): Observable<any> =>
+    this.subscribeAndGetAllOutfitClothes(
       this.logOutfitService.addOutfitClothing(params)
     );
-  }
 
-  getAllOutfitClothes = (params: any): Observable<any> => {
-    return this.logOutfitService.getAllOutfitClothes(params).subscribe(
+  getAllOutfitClothes = (params: any): Observable<any> =>
+    this.logOutfitService.getAllOutfitClothes(params).subscribe(
       (data: any) => this.outfitClothingList = data
     );
-  }
 
   getAllClothes = (): Observable<any> => ClosetFactory.getAllClothes(this);
 
-  subscribeAndGetAllOutfitClothes = (apiCall: any): Observable<any> => {
-    return apiCall.subscribe(
-      (data: any) => this.getAllOutfitClothes(this.params)
-    );
-  }
+  subscribeAndGetAllOutfitClothes = (apiCall: any): Observable<any> =>
+    apiCall.subscribe((data: any) => this.getAllOutfitClothes(this.params));
 
 }
