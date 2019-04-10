@@ -52,9 +52,9 @@ export class LogOutfitComponent implements OnInit {
     this.getAllOutfitClothes(this.params);
   }
 
-  toggleEditMode = (): void => this.editMode = !this.editMode;
+  toggleEditMode = (): boolean => this.editMode = !this.editMode;
 
-  save = (): void => this.toggleEditMode();
+  save = (): boolean => this.toggleEditMode();
 
   navTo = (): void => {
     this.routesService.setPrevUrl('/log-outfit');

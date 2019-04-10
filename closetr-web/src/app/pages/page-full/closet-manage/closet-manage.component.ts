@@ -48,7 +48,7 @@ export class ClosetManageComponent implements OnInit {
 
   toggleEditMode = (): boolean => this.editMode = !this.editMode;
 
-  save = (): void => this.toggleEditMode();
+  save = (): boolean => this.toggleEditMode();
 
   /*
   Remove clothing item.
