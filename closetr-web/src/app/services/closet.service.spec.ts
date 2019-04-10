@@ -44,13 +44,12 @@ describe('ClosetService', () => {
 
   it(`should return correct filter options from
     calling getFilterOptions()`, () => {
-    console.log(closetService);
-    //expect((closetService.filterOptions).toEqual(filterOptions);
+    expect(closetService.filterOptions).toEqual(filterOptions);
   });
 
   it(`should return correct sort options from
     calling getSortOptions()`, () => {
-    //expect((closetService.sortOptions).toEqual(sortOptions);
+    expect(closetService.sortOptions).toEqual(sortOptions);
   });
 
   describe(`when trying to set and get clothing
@@ -68,51 +67,45 @@ describe('ClosetService', () => {
     });
   });
 
-  it(`calling addClothing() should make a POST request
-      and return correct data.`, () => {
-      httpTestHelper(
-        httpTestingController,
-        closetService.addClothing,
-        mockClothingOne,
-        `${baseUrl}/clothing`,
-        'POST'
-      );
+  describe(`when creating http requests,`, () => {
+    let httpTestHelperController;
+    beforeEach(() => {
+      httpTestHelperController = httpTestHelper(httpTestingController);
+    });
+    it(`calling addClothing() should make a POST request.`, () => {
+        httpTestHelperController(
+          closetService.addClothing,
+          mockClothingOne,
+          `${baseUrl}/clothing`,
+          'POST'
+        );
+    });
+    it(`calling editClothing() should make a POST request.`, () => {
+        httpTestHelperController(
+          closetService.editClothing,
+          mockClothingTwo,
+          `${baseUrl}/clothing`,
+          'POST'
+        );
+    });
+    it(`calling removeClothing() should make a DELETE request.`, () => {
+        httpTestHelperController(
+          closetService.removeClothing,
+          mockClothingOne,
+          `${baseUrl}/clothing/${mockClothingID}`,
+          'DELETE',
+          mockClothingID
+        );
+    });
+    it(`calling getAllClothes() should make a get request.`, () => {
+        httpTestHelperController(
+          closetService.getAllClothes,
+          mockClosetList,
+          `${baseUrl}/all?userID=${mockUserOne.id}`,
+          'GET',
+          mockUserOne,
+          { data: mockClosetList }
+        );
+    });
   });
-
-  it(`calling editClothing() should make a POST request
-      and return correct data.`, () => {
-      httpTestHelper(
-        httpTestingController,
-        closetService.editClothing,
-        mockClothingTwo,
-        `${baseUrl}/clothing`,
-        'POST'
-      );
-  });
-
-  it(`calling removeClothing() should make a DELETE request
-      and return correct data.`, () => {
-      httpTestHelper(
-        httpTestingController,
-        closetService.removeClothing,
-        mockClothingOne,
-        `${baseUrl}/clothing/${mockClothingID}`,
-        'DELETE',
-        mockClothingID
-      );
-  });
-
-  it(`calling getAllClothes() should make a get request
-      and return correct data.`, () => {
-      httpTestHelper(
-        httpTestingController,
-        closetService.getAllClothes,
-        mockClosetList,
-        `${baseUrl}/all?userID=${mockUserOne.id}`,
-        'GET',
-        mockUserOne,
-        { data: mockClosetList }
-      );
-  });
-
 });

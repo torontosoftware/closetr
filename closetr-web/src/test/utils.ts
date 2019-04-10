@@ -42,7 +42,8 @@ export const clickAndTestNavigate = (
 };
 
 export const httpTestHelper = (
-  httpTestingController: HttpTestingController,
+  httpTestingController: HttpTestingController
+) => (
   method: any,
   subject: any,
   url: string,
@@ -50,6 +51,7 @@ export const httpTestHelper = (
   methodParam: any = subject,
   subjectFlush: any = subject
 ) => {
+  console.log("from test helper",url, httpTestingController);
   method(methodParam).subscribe(result => expect(result).toEqual(subject));
   const req = httpTestingController.expectOne(url);
   expect(req.request.method).toEqual(type);

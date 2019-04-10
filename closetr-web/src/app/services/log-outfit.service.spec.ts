@@ -35,40 +35,38 @@ describe('LogOutfitService', () => {
     expect(logOutfitService).toBeTruthy();
   });
 
-  it(`calling addOutfitClothing() should make a
-      POST request and return correct data.`, () => {
-      httpTestHelper(
-        httpTestingController,
-        logOutfitService.addOutfitClothing,
-        mockOutfitEntry,
-        `${baseUrl}/`,
-        'POST'
-      );
-  });
-
-  it(`calling deleteOutfitClothing() should make a
-      DELETE request and return correct data.`, () => {
-      httpTestHelper(
-        httpTestingController,
-        logOutfitService.deleteOutfitClothing,
-        mockOutfitEntry,
-        `${baseUrl}/${mockOutfitEntryID}`,
-        'DELETE',
-        mockOutfitEntryID
-      );
-  });
-
-  it(`calling getAllOutfitClothes() should make a
-      GET request and return correct data.`, () => {
-      let { date, userID } = mockOutfitEntryCriteria;
-      httpTestHelper(
-        httpTestingController,
-        logOutfitService.getAllOutfitClothes,
-        mockOutfitEntryList,
-        `${baseUrl}/?date=${date}&userID=${userID}`,
-        'GET',
-        mockOutfitEntryCriteria,
-        { data: mockOutfitEntryList }
-      );
+  describe(`when creating http requests,`, () => {
+    let httpTestHelperController;
+    beforeEach(() => {
+      httpTestHelperController = httpTestHelper(httpTestingController);
+    });
+    it(`calling addOutfitClothing() should make a POST request.`, () => {
+        httpTestHelperController(
+          logOutfitService.addOutfitClothing,
+          mockOutfitEntry,
+          `${baseUrl}/`,
+          'POST'
+        );
+    });
+    it(`calling deleteOutfitClothing() should make a DELETE request.`, () => {
+        httpTestHelperController(
+          logOutfitService.deleteOutfitClothing,
+          mockOutfitEntry,
+          `${baseUrl}/${mockOutfitEntryID}`,
+          'DELETE',
+          mockOutfitEntryID
+        );
+    });
+    it(`calling getAllOutfitClothes() should make a GET request.`, () => {
+        let { date, userID } = mockOutfitEntryCriteria;
+        httpTestHelperController(
+          logOutfitService.getAllOutfitClothes,
+          mockOutfitEntryList,
+          `${baseUrl}/?date=${date}&userID=${userID}`,
+          'GET',
+          mockOutfitEntryCriteria,
+          { data: mockOutfitEntryList }
+        );
+    });
   });
 });
