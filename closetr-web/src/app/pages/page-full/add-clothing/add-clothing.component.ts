@@ -40,11 +40,9 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
-        this.clothing = new Clothing({
-          userID: this.currentUser.id
-        });
+        this.clothing = new Clothing({ userID: this.currentUser.id });
       }
-    )
+    );
 
     // items
     this.clothingCategories = Clothing.getClothingCategories();
@@ -83,8 +81,7 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
         } else {
           this.back();
         }
-      },
-      error => { }
+      }
     );
   }
 
@@ -93,12 +90,18 @@ export class AddClothingComponent extends BaseGeneralComponent implements OnInit
   none of the fields are empty.
   */
   checkSubmit(): void {
-    let result = !(this.clothing.clothingName.length === 0
-        || !this.clothing.clothingCost === null
-        || this.clothing.clothingCategory.length === 0
-        || !this.clothing.clothingWorn === null
-        || this.clothing.clothingPurchaseDate.length === 0);
-
+    let {
+      clothingName,
+      clothingCost,
+      clothingCategory,
+      clothingWorn,
+      clothingPurchaseDate
+    } = this.clothing;
+    let result = !(clothingName.length === 0
+        || clothingCost === null
+        || clothingCategory.length === 0
+        || !clothingWorn === null
+        || clothingPurchaseDate.length === 0);
     this.enableSave = result;
   }
 

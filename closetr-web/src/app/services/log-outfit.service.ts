@@ -5,7 +5,8 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Clothing } from '../models/clothing.model';
 import {
-  httpHandlerDefault,
+  httpPostHandlerDefault,
+  httpDeleteHandlerDefault,
   httpHandlerPipeMapClothing,
   httpParams
 } from './utils/utils';
@@ -23,18 +24,16 @@ export class LogOutfitService {
   Adds the outfit entry into the list of entries for this user.
   Parameters include userID, date, and clothingID.
   */
-  addOutfitClothing = (params: any): any => {
-    return httpHandlerDefault(this.http.post(`${this.baseUrl}`, params));
-  }
+  addOutfitClothing = (params: any): any =>
+     httpPostHandlerDefault(this, `${this.baseUrl}`, params);
 
   /*
   Input: outfitEntryID
   Deletes outfit entry from the list of entries for
   the id.
   */
-  deleteOutfitClothing = (outfitEntryID: any): any => {
-    return httpHandlerDefault(this.http.delete(`${this.baseUrl}${outfitEntryID}`));
-  }
+  deleteOutfitClothing = (outfitEntryID: any): any =>
+    httpDeleteHandlerDefault(this, `${this.baseUrl}${outfitEntryID}`);
 
   /*
   Input: criteria, including date, userID.

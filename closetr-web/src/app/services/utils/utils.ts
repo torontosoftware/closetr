@@ -9,6 +9,17 @@ export const httpHandlerDefault = (apiCall: any) => {
   ));
 }
 
+export const httpPostHandlerDefault = (
+  component: any,
+  url: string,
+  params: any
+) => httpHandlerDefault(component.http.post(url, params));
+
+export const httpDeleteHandlerDefault = (
+  component: any,
+  url: string
+) => httpHandlerDefault(component.http.delete(url));
+
 export const httpHandlerPipeMapClothing = (apiCall: any) => {
   return apiCall
     .pipe(map(
