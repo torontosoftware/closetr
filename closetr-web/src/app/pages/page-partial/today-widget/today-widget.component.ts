@@ -9,18 +9,12 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./today-widget.component.scss']
 })
 export class TodayWidgetComponent implements OnInit {
-  currentUserSubscription: Subscription;
   currentUser: User = new User();
 
-  constructor(private authenticationService: AuthenticationService) {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
-      user => {
-        if (user) this.currentUser = user;
-      }
-    )
-  }
+  constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+    this.currentUser = this.authenticationService.currentUserValue;
   }
 
 }

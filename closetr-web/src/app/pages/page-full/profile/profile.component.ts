@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user.model';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -17,8 +16,7 @@ export class ProfileComponent implements OnInit {
               private userService: UserService) { }
 
   ngOnInit() {
-    this.authenticationService.currentUser
-      .subscribe(user => this.currentUser = user);
+    this.currentUser = this.authenticationService.currentUserValue;
   }
 
   checkSubmit = (): boolean => true;

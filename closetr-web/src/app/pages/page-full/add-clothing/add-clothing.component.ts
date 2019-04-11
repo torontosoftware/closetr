@@ -16,7 +16,7 @@ import { User } from '../../../models/user.model';
 })
 
 export class AddClothingComponent implements OnInit {
-  clothing: Clothing = new Clothing();;
+  clothing: Clothing = new Clothing();
   prevUrl: String;
   clothingCategories: Array<string>;
   currentUser: User;
@@ -31,12 +31,8 @@ export class AddClothingComponent implements OnInit {
               private location: Location) { }
 
   ngOnInit() {
-    this.authenticationService.currentUser.subscribe(
-      user => {
-        this.currentUser = user;
-        this.clothing = new Clothing({ userID: this.currentUser.id });
-      }
-    );
+    this.currentUser = this.authenticationService.currentUserValue;
+    this.clothing = new Clothing({ userID: this.currentUser.id });
 
     ({ clothingCategories: this.clothingCategories } = Clothing);
 

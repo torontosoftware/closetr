@@ -47,12 +47,8 @@ export class SpendingManageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authenticationService.currentUser.subscribe(
-      user => {
-        this.currentUser = user;
-        this.getAllClothes();
-      }
-    )
+    this.currentUser = this.authenticationService.currentUserValue;
+    this.getAllClothes();
     this.searchCriteriaChangeHandler();
   }
 

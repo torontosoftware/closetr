@@ -10,16 +10,18 @@ import { User } from '../models/user.model';
 })
 export class AuthenticationService {
   baseUrl: string;
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  private currentUserSubject: User = new User();
 
   constructor(private http: HttpClient) {
     this.baseUrl = `${environment.baseUrl}/users/login`;
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue(): User { return this.currentUserSubject.value };
+  public get currentUserValue(): User {
+    if (let currentUser = JSON.parse(localStorage.getItem('currentUser')).value) {
+      return new User(currentUser);
+    }
+    return null;
+  };
 
   login(loginData: any) {
     let params = {
@@ -30,8 +32,7 @@ export class AuthenticationService {
       .pipe(map(user => {
           if (user && user.token) {
             currUser = new User(user.data);
-            localStorage.setItem('currentUser', JSON.stringify(currUser));
-            this.currentUserSubject.next(currUser);
+            localStorage.setItem('currentUser', currUser);
             return currUser;
           } else {
             console.log('error on login', user);
@@ -41,7 +42,7 @@ export class AuthenticationService {
 
   logout() {
     localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
+    this.currentUserSubject = null;
   }
 
 }

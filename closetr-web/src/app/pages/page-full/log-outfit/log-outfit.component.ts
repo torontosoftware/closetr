@@ -34,12 +34,8 @@ export class LogOutfitComponent implements OnInit {
               private dateFormatService: DateFormatService) { }
 
   ngOnInit() {
-    this.authenticationService.currentUser.subscribe(
-      user => {
-        this.currentUser = user;
-        this.getAllClothes();
-      }
-    );
+    this.currentUser = this.authenticationService.currentUserValue;
+    this.getAllClothes();
     if (this.currentUser) {
       this.params = {
         userID: this.currentUser.id,

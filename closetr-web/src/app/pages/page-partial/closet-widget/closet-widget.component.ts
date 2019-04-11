@@ -21,12 +21,8 @@ export class ClosetWidgetComponent implements OnInit {
               private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    this.authenticationService.currentUser.subscribe(
-      user => {
-        this.currentUser = user;
-        this.getAllClothes();
-      }
-    );
+    this.currentUser = this.authenticationService.currentUserValue;
+    this.getAllClothes();
 
     ({
       filterOptions: this.filterOptions,

@@ -30,8 +30,7 @@ export class EditClothingComponent implements OnInit {
 
     ({ clothingCategories: this.clothingCategories } = Clothing);
 
-    this.authenticationService.currentUser
-      .subscribe(user => this.currentUser = user);
+    this.currentUser = this.authenticationService.currentUserValue;
   }
 
   /*

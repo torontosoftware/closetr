@@ -19,7 +19,6 @@ export class ClosetManageComponent implements OnInit {
   closetList: Array<Clothing>;
   editMode : boolean;
   searchText: String;
-  currentUserSubscription: Subscription;
   currentUser: User;
   filterOptions: Array<string>;
   sortOptions: Array<string>;
@@ -36,12 +35,8 @@ export class ClosetManageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
-      user => {
-        this.currentUser = user;
-        this.getAllClothes();
-      }
-    )
+    this.currentUser = this.authenticationService.currentUserValue;
+    this.getAllClothes();
   }
 
   navTo = (): void => this.routesService.setPrevUrl(this.router.url);

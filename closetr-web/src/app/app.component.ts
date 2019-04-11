@@ -9,10 +9,8 @@ import { fadeAnimation } from './animations/animations';
   animations: [fadeAnimation],
 })
 
-export class AppComponent {
-  title = 'closeter';
+export class AppComponent{
+  title: string = 'Closetr';
 
-  constructor(private router: Router ) {
-    router = router;
-  }
+  constructor(private router: Router) { }
 }
