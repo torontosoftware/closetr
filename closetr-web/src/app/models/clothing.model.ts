@@ -9,7 +9,7 @@ export class Clothing {
   bindBold: any;
   bindRegular: any;
 
-  static clothingCategories = [
+  public static clothingCategories = [
     "Top",
     "Blouse",
     "Sweater",
@@ -43,112 +43,6 @@ export class Clothing {
     this.bindBold = bindBold;
     this.bindRegular = bindRegular;
   }
-
-  /*
-  get clothingID
-  */
-  getClothingID(): string {
-    return this.clothingID;
-  }
-
-  /*
-  set clothingID
-  */
-  setClothingID(clothingID: string): void {
-    this.clothingID = clothingID;
-  }
-
-  /*
-  get clothingName
-  */
-  getClothingName(): string {
-    return this.clothingName;
-  }
-
-  /*
-  set clothingName
-  */
-  setClothingName(clothingName: string): void {
-    this.clothingName = clothingName;
-  }
-
-  /*
-  get clothingWorn (number of times clothing item has been worn)
-  */
-  getClothingWorn(): number {
-    return this.clothingWorn;
-  }
-
-  /*
-  set clothingWorn (number of times clothing item has been worn)
-  */
-  setClothingWorn(clothingWorn: number): void {
-    this.clothingWorn = clothingWorn;
-  }
-
-  /*
-  get clothingCost
-  */
-  getClothingCost(): number {
-    return this.clothingCost;
-  }
-
-  /*
-  set clothingCost
-  */
-  setClothingCost(clothingCost: number): void {
-    this.clothingCost = clothingCost;
-  }
-
-  /*
-  get clothingCategory
-  */
-  getClothingCategory(): string {
-    return this.clothingCategory;
-  }
-
-  /*
-  set clothingCategory
-  */
-  setClothingCategory(clothingCategory: string): void {
-    this.clothingCategory = clothingCategory;
-  }
-
-  /*
-  get clothingPurchaseDate
-  */
-  getClothingPurchaseDate(): string {
-    return this.clothingPurchaseDate;
-  }
-
-  /*
-  set clothingPurchaseDate
-  */
-  setClothingPurchaseDate(clothingPurchaseDate: string): void {
-    this.clothingPurchaseDate = clothingPurchaseDate;
-  }
-
-  /*
-  set userID
-  */
-  setUserID(userID: string): void {
-    this.userID = userID;
-  }
-
-  /*
-  get userID
-  */
-  getUserID(): string {
-    return this.userID;
-  }
-
-  /*
-  return clothing categories
-  */
-  static getClothingCategories(): Array<string> {
-    return this.clothingCategories;
-  }
-
 
   /*
   Returns true if clothing object should be able to be saved.

@@ -10,20 +10,14 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  username: string;
-  password: string;
-  enableLogin: boolean;
-  showLoginError: boolean;
-  show : boolean;
+  username: string = '';
+  password: string = '';
+  enableLogin: boolean = false;
+  showLoginError: boolean = false;
+  show : boolean = false;
 
   constructor(private router: Router,
-              private authenticationService: AuthenticationService) {
-    this.username = "";
-    this.password = "";
-    this.enableLogin = false;
-    this.showLoginError = false;
-    this.show = false;
-  }
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     if (this.authenticationService.currentUserValue) {
@@ -33,26 +27,19 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  checkEnableLogin(): void {
-    if (this.username.length == 0 || this.password.length == 0) {
-      this.enableLogin = false;
-    } else {
-      this.enableLogin = true;
-    }
-  }
+  checkEnableLogin = (): boolean =>
+    this.enableLogin = !(this.username.length == 0 || this.password.length == 0);
 
-  loginChangeHandler(): void {
+  loginChangeHandler = (): void => {
     this.showLoginError = false;
     this.checkEnableLogin();
   }
 
-  toSignUp(): void {
-    this.router.navigate(['/register']);
-  }
+  toSignUp = (): Promise<boolean> => this.router.navigate(['/register']);
 
   login(): void {
     this.showLoginError = false;
-    var loginData = {
+    let loginData = {
       userID: this.username,
       userPassword: this.password
     };
@@ -64,10 +51,8 @@ export class LoginComponent implements OnInit {
           } else {
             this.showLoginError = true;
           }
-        },
-        error => { }
+        }
       );
-
   }
 
 }

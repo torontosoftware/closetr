@@ -20,8 +20,7 @@ testing purposes.
 })
 export class AuthenticationServiceMock {
   baseUrl = `http://localhost:8080/`;
-  currentUser = of(mockUserOne);
-  currentUserValue = of(mockUserOne);
+  currentUserValue = mockUserOne;
   login = () => of(true);
   logout = () => { return };
 }
@@ -31,7 +30,6 @@ export class AuthenticationServiceMock {
 })
 export class AuthenticationServiceNoUserMock {
   baseUrl = `http://localhost:8080/`;
-  currentUser = null;
   currentUserValue = null;
   login = () => of(true);
   logout = () => { return };
@@ -41,21 +39,21 @@ export class AuthenticationServiceNoUserMock {
   providedIn: 'root'
 })
 export class ClosetServiceMock {
-  addClothing = (clothing) => of({data: {_id: 'id'}});
+  addClothing = (clothing) => of(clothing);
   getAllClothes = (user) => of(mockClosetList);
-  removeClothing = (id) => of({data: mockClosetList});
+  removeClothing = (id) => of(mockClosetList);
   getClothingForEdit = () => mockClothingOne;
   setClothingForEdit = () => { return };
   editClothing = () => of(true);
-  getSortOptions = () => sortOptions;
-  getFilterOptions = () => filterOptions;
+  sortOptions = sortOptions;
+  filterOptions = filterOptions;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserServiceMock {
-  update = (user) => of({data: mockUserTwo});
+  update = (user) => of(mockUserTwo);
   register = (params) => of({auth: true});
 }
 
@@ -63,9 +61,9 @@ export class UserServiceMock {
   providedIn: 'root'
 })
 export class LogOutfitServiceMock {
-  getAllOutfitClothes = (params) => of({data: mockOutfitClothingList});
-  addOutfitClothing = (params) => of({data: true});
-  deleteOutfitClothing = (params) => of({data: true});
+  getAllOutfitClothes = (params) => of(mockOutfitClothingList);
+  addOutfitClothing = (params) => of(true);
+  deleteOutfitClothing = (params) => of(true);
 }
 
 @Injectable({

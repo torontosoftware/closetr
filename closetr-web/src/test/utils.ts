@@ -1,3 +1,5 @@
+import { HttpTestingController } from '@angular/common/http/testing';
+
 export const inputDispatch = (
   input: HTMLInputElement,
   value: any,
@@ -38,3 +40,19 @@ export const clickAndTestNavigate = (
   fixture.detectChanges();
   expect(router.navigate).toHaveBeenCalledWith([result]);
 };
+
+export const httpTestHelper = (
+  httpTestingController: HttpTestingController
+) => (
+  method: any,
+  subject: any,
+  url: string,
+  type: string,
+  methodParam: any = subject,
+  subjectFlush: any = subject
+) => {
+  method(methodParam).subscribe(result => expect(result).toEqual(subject));
+  const req = httpTestingController.expectOne(url);
+  expect(req.request.method).toEqual(type);
+  req.flush(subjectFlush);
+}

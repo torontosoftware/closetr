@@ -21,9 +21,8 @@ import { ClosetFactory } from '../../../factories/closet.factory';
 export class LogOutfitComponent implements OnInit {
   outfitClothingList: any;
   closetList: any;
-  editMode : boolean;
+  editMode : boolean = false;
   searchText: String;
-  currentUserSubscription: Subscription;
   currentUser: User;
   params: any;
 
@@ -32,17 +31,11 @@ export class LogOutfitComponent implements OnInit {
               private closetService: ClosetService,
               private authenticationService: AuthenticationService,
               private routesService: RoutesService,
-              private dateFormatService: DateFormatService) {
-    this.editMode = false;
-  }
+              private dateFormatService: DateFormatService) { }
 
   ngOnInit() {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
-      user => {
-        this.currentUser = user;
-        this.getAllClothes();
-      }
-    )
+    this.currentUser = this.authenticationService.currentUserValue;
+    this.getAllClothes();
     if (this.currentUser) {
       this.params = {
         userID: this.currentUser.id,
@@ -52,37 +45,22 @@ export class LogOutfitComponent implements OnInit {
     this.getAllOutfitClothes(this.params);
   }
 
-  toggleEditMode(): void {
-    this.editMode = !this.editMode;
-  }
+  toggleEditMode = (): boolean => this.editMode = !this.editMode;
 
-  save(): void {
-    this.toggleEditMode();
-  }
+  save = (): boolean => this.toggleEditMode();
 
-  navTo(): void {
+  navTo = (): void => {
     this.routesService.setPrevUrl('/log-outfit');
     this.router.navigate(['/add-clothing']);
-  }
-
-  search(): void {
   }
 
   /*
   Checks if the given clothing's ID is contained in the current outfit
   clothing list. Returns true if it is present.
   */
-  outfitClothingListContains(clothing: any): boolean {
-    var clothingID = clothing.clothingID;
-    var contains = false;
-    for (let i in this.outfitClothingList) {
-      if (this.outfitClothingList[i].clothingID === clothingID) {
-        contains = true;
-        break;
-      }
-    }
-    return contains;
-  }
+  outfitClothingListContains = (clothing: any): boolean =>
+    this.outfitClothingList.some(outfitEntry =>
+      outfitEntry.clothingID === clothing.clothingID);
 
   /*
   Adds clothing selected from search results to the outfit clothing list.
@@ -100,45 +78,27 @@ export class LogOutfitComponent implements OnInit {
     }
   }
 
-  removeCard(outfitEntry: any): void {
+  removeCard = (outfitEntry: any): Observable<any> =>
     this.deleteOutfitClothing(outfitEntry.outfitEntryID);
-  }
 
-  deleteOutfitClothing(outfitEntryID: any): void {
-    this.logOutfitService.deleteOutfitClothing(outfitEntryID).subscribe(
-      (data: any) => {
-        this.getAllOutfitClothes(this.params);
-      },
-      (err) => {
-        console.log(err);
-      }
+  deleteOutfitClothing = (outfitEntryID: any): Observable<any> =>
+    this.subscribeAndGetAllOutfitClothes(
+      this.logOutfitService.deleteOutfitClothing(outfitEntryID)
     );
-  }
 
-  addOutfitClothing(params: any): void {
-    this.logOutfitService.addOutfitClothing(params).subscribe(
-      (data: any) => {
-        this.getAllOutfitClothes(this.params);
-      },
-      (err) => {
-        console.log(err);
-      }
+  addOutfitClothing = (params: any): Observable<any> =>
+    this.subscribeAndGetAllOutfitClothes(
+      this.logOutfitService.addOutfitClothing(params)
     );
-  }
 
-  getAllOutfitClothes(params: any): void {
+  getAllOutfitClothes = (params: any): Observable<any> =>
     this.logOutfitService.getAllOutfitClothes(params).subscribe(
-      (data: any) => {
-        this.outfitClothingList = data.data;
-        for (let clothing of this.outfitClothingList) {
-          clothing = new Clothing(clothing);
-        };
-      },
-      err => {
-      }
+      (data: any) => this.outfitClothingList = data
     );
-  }
 
   getAllClothes = (): Observable<any> => ClosetFactory.getAllClothes(this);
+
+  subscribeAndGetAllOutfitClothes = (apiCall: any): Observable<any> =>
+    apiCall.subscribe((data: any) => this.getAllOutfitClothes(this.params));
 
 }

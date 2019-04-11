@@ -10,41 +10,40 @@ import { User } from '../models/user.model';
 })
 export class AuthenticationService {
   baseUrl: string;
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  private currentUserSubject: User = new User();
 
   constructor(private http: HttpClient) {
     this.baseUrl = `${environment.baseUrl}/users/login`;
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentUser = this.currentUserSubject.asObservable();
   }
 
   public get currentUserValue(): User {
-    return this.currentUserSubject.value;
-  }
+    let currentUser;
+    if (currentUser = JSON.parse(localStorage.getItem('currentUser'))) {
+      return new User(currentUser.value);
+    }
+    return null;
+  };
 
   login(loginData: any) {
-    var params = {
+    let params = {
       user: loginData
     };
-    var currUser;
-
+    let currUser;
     return this.http.post<any>(this.baseUrl, params)
       .pipe(map(user => {
           if (user && user.token) {
             currUser = new User(user.data);
-            localStorage.setItem('currentUser', JSON.stringify(currUser));
-            this.currentUserSubject.next(currUser);
+            localStorage.setItem('currentUser', currUser);
             return currUser;
           } else {
-            return false;
+            console.log('error on login', user);
           }
       }));
   }
 
   logout() {
     localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
+    this.currentUserSubject = null;
   }
 
 }

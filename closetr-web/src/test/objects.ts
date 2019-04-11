@@ -24,6 +24,8 @@ export const sortOptions = [
 
 export const mockClothingEmpty = new Clothing();
 
+export const mockClothingID = 'clothingID';
+
 export const mockClothingOne = new Clothing({
   clothingID: '24681',
   clothingName: "Zara Mockneck Tee",
@@ -76,3 +78,19 @@ export const mockOutfitClothingList = mockClosetList.map((clothing) => {
     clothing: clothing
   }
 });
+
+export const mockOutfitEntryID = "outfitEntryID";
+
+export const mockOutfitEntry = {
+  clothing: mockClothingOne,
+  date: "2019-03-26",
+  user: "userID",
+  _id: mockOutfitEntryID
+}
+
+export const mockOutfitEntryCriteria = {
+  date: "2019-03-26",
+  userID: "userID"
+}
+
+export const mockOutfitEntryList = mockClosetList;

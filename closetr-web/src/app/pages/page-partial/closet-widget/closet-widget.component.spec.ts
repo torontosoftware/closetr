@@ -74,8 +74,6 @@ describe('ClosetWidgetComponent', () => {
     spyOn(router, 'navigate').and.callThrough();
     spyOn(component, 'getAllClothes').and.callThrough();
     spyOn(closetService, 'getAllClothes').and.callThrough();
-    spyOn(closetService, 'getSortOptions').and.callThrough();
-    spyOn(closetService, 'getFilterOptions').and.callThrough();
     fixture.detectChanges();
   });
 
@@ -125,11 +123,9 @@ describe('ClosetWidgetComponent', () => {
       expect(component.getAllClothes).toHaveBeenCalled();
     });
     it(`should retrieve filterOptions from closet service.`, () => {
-      expect(closetService.getFilterOptions).toHaveBeenCalled();
       expect(component.filterOptions).toEqual(filterOptions);
     });
     it(`should retrieve sortOptions from closet service.`, () => {
-      expect(closetService.getSortOptions).toHaveBeenCalled();
       expect(component.sortOptions).toEqual(sortOptions);
     });
   });

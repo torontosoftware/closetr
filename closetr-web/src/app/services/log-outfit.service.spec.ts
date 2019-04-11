@@ -5,12 +5,22 @@ import {
 } from '@angular/common/http/testing';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { LogOutfitService } from './log-outfit.service';
+import { environment } from '../../environments/environment';
+import {
+  mockOutfitEntryID,
+  mockOutfitEntry,
+  mockOutfitEntryCriteria,
+  mockOutfitEntryList
+} from '../../test/objects';
+import {
+  httpTestHelper
+} from '../../test/utils';
 
 describe('LogOutfitService', () => {
   let httpTestingController: HttpTestingController;
   let logOutfitService: LogOutfitService;
 
-  const baseUrl = "http://localhost:8080/outfit"
+  const baseUrl = `${environment.baseUrl}/outfitEntries/entry`;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -25,97 +35,38 @@ describe('LogOutfitService', () => {
     expect(logOutfitService).toBeTruthy();
   });
 
-  describe(`calling addOutfitClothing(),`, () => {
-    it(`should make a POST request to base url
-      with given params, and return correct data.`, () => {
-      const newOutfitEntryID = "outfitEntryID";
-      const newOutfitEntry = {
-        clothing: "clothingID",
-        date: "2019-03-26",
-        user: "userID"
-      };
-      logOutfitService.addOutfitClothing(newOutfitEntry)
-      .subscribe(data => {
-        let outfitEntry = data.data;
-        expect(outfitEntry.clothing).toEqual(newOutfitEntry.clothing);
-        expect(outfitEntry.date).toEqual(newOutfitEntry.date);
-        expect(outfitEntry.user).toEqual(newOutfitEntry.user);
-        expect(outfitEntry._id).toEqual(newOutfitEntryID);
-      });
-      const req = httpTestingController.expectOne(
-        `http://localhost:8080/api/outfitEntries/entry/`
-      );
-      expect(req.request.method).toEqual('POST');
-      const response = {
-        status: 'success',
-        data: {
-          ...newOutfitEntry,
-          _id: newOutfitEntryID
-        }
-      };
-      req.flush(response);
+  describe(`when creating http requests,`, () => {
+    let httpTestHelperController;
+    beforeEach(() => {
+      httpTestHelperController = httpTestHelper(httpTestingController);
     });
-  });
-  describe(`calling deleteOutfitClothing(),`, () => {
-    it(`should make a DELETE request to base url
-      with given param, and return correct data.`, () => {
-      const deleteOutfitEntryID = "outfitEntryID";
-      const deleteOutfitEntry = {
-        clothing: "clothingID",
-        date: "2019-03-26",
-        user: "userID",
-        _id: deleteOutfitEntryID
-      };
-      logOutfitService.deleteOutfitClothing(deleteOutfitEntryID)
-      .subscribe(data => {
-        let outfitEntry = data.data;
-        expect(outfitEntry.clothing).toEqual(deleteOutfitEntry.clothing);
-        expect(outfitEntry.date).toEqual(deleteOutfitEntry.date);
-        expect(outfitEntry.user).toEqual(deleteOutfitEntry.user);
-        expect(outfitEntry._id).toEqual(deleteOutfitEntry._id);
-      });
-      const req = httpTestingController.expectOne(
-        `http://localhost:8080/api/outfitEntries/entry/${deleteOutfitEntryID}`
-      );
-      expect(req.request.method).toEqual('DELETE');
-      const response = {
-        status: 'success',
-        data: deleteOutfitEntry
-      };
-      req.flush(response);
+    it(`calling addOutfitClothing() should make a POST request.`, () => {
+        httpTestHelperController(
+          logOutfitService.addOutfitClothing,
+          mockOutfitEntry,
+          `${baseUrl}/`,
+          'POST'
+        );
     });
-  });
-  describe(`calling getAllOutfitClothes(),`, () => {
-    it(`should make a GET request to base
-      url with converted params, and return
-      correct data.`, () => {
-      const criteria = {
-        date: "2019-03-26",
-        userID: "userID"
-      };
-      const outfitEntryListResult = [
-        { clothing: "1", user: "1" },
-        { clothing: "2", user: "2" }
-      ];
-      const params = new HttpParams({
-        fromObject: criteria
-      });
-
-      logOutfitService.getAllOutfitClothes(criteria)
-      .subscribe(data => {
-        let outfitEntryList = data.data;
-        expect(outfitEntryList).toEqual(outfitEntryListResult);
-      });
-
-      const req = httpTestingController.expectOne(
-        `http://localhost:8080/api/outfitEntries/entry/?date=${criteria.date}&userID=${criteria.userID}`
-      );
-      expect(req.request.method).toEqual('GET');
-      const response = {
-        status: 'success',
-        data: outfitEntryListResult
-      };
-      req.flush(response);
+    it(`calling deleteOutfitClothing() should make a DELETE request.`, () => {
+        httpTestHelperController(
+          logOutfitService.deleteOutfitClothing,
+          mockOutfitEntry,
+          `${baseUrl}/${mockOutfitEntryID}`,
+          'DELETE',
+          mockOutfitEntryID
+        );
+    });
+    it(`calling getAllOutfitClothes() should make a GET request.`, () => {
+        let { date, userID } = mockOutfitEntryCriteria;
+        httpTestHelperController(
+          logOutfitService.getAllOutfitClothes,
+          mockOutfitEntryList,
+          `${baseUrl}/?date=${date}&userID=${userID}`,
+          'GET',
+          mockOutfitEntryCriteria,
+          { data: mockOutfitEntryList }
+        );
     });
   });
 });

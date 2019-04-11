@@ -19,7 +19,6 @@ export class ClosetManageComponent implements OnInit {
   closetList: Array<Clothing>;
   editMode : boolean;
   searchText: String;
-  currentUserSubscription: Subscription;
   currentUser: User;
   filterOptions: Array<string>;
   sortOptions: Array<string>;
@@ -29,55 +28,28 @@ export class ClosetManageComponent implements OnInit {
               private routesService: RoutesService,
               private authenticationService: AuthenticationService) {
     this.editMode = false;
-
-    this.filterOptions = [
-      "no filter",
-      "exclude Aritzia items",
-      "sweaters only",
-      "pants and sweaters only",
-      "pants only"
-    ];
-
-    this.sortOptions = [
-      "cost ascending",
-      "cost descending",
-      "most recently purchased",
-      "least recently purchased",
-      "most worn"
-    ];
+    ({
+      filterOptions: this.filterOptions,
+      sortOptions: this.sortOptions
+    } = this.closetService);
   }
 
   ngOnInit() {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
-      user => {
-        this.currentUser = user;
-        this.getAllClothes();
-      }
-    )
+    this.currentUser = this.authenticationService.currentUserValue;
+    this.getAllClothes();
   }
 
-  navTo(): void {
-    this.routesService.setPrevUrl(this.router.url);
-  }
+  navTo = (): void => this.routesService.setPrevUrl(this.router.url);
 
-  toggleEditMode(): void {
-    this.editMode = !this.editMode;
-  }
+  toggleEditMode = (): boolean => this.editMode = !this.editMode;
 
-  save(): void {
-    this.toggleEditMode();
-  }
+  save = (): boolean => this.toggleEditMode();
 
   /*
   Remove clothing item.
   */
-  removeClothing(clothingID: any): void {
-    this.closetService.removeClothing(clothingID).subscribe(
-      (data: any) => {
-        this.getAllClothes();
-      }, error => {}
-    );
-  }
+  removeClothing = (clothingID: any): Observable<any> =>
+    ClosetFactory.removeClothing(this, clothingID);
 
   getAllClothes = (): Observable<any> => ClosetFactory.getAllClothes(this);
 }
