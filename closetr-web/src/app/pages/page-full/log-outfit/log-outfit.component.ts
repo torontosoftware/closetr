@@ -63,8 +63,8 @@ export class LogOutfitComponent implements OnInit {
   clothing list. Returns true if it is present.
   */
   outfitClothingListContains = (clothing: any): boolean =>
-    this.outfitClothingList.some((outfitEntry) =>
-      outfitEntry.clothing.clothingID === clothing.clothingID));
+    this.outfitClothingList.some(outfitEntry =>
+      outfitEntry.clothingID === clothing.clothingID);
 
   /*
   Adds clothing selected from search results to the outfit clothing list.

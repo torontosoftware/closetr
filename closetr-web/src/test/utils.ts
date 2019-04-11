@@ -51,7 +51,6 @@ export const httpTestHelper = (
   methodParam: any = subject,
   subjectFlush: any = subject
 ) => {
-  console.log("from test helper",url, httpTestingController);
   method(methodParam).subscribe(result => expect(result).toEqual(subject));
   const req = httpTestingController.expectOne(url);
   expect(req.request.method).toEqual(type);

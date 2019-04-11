@@ -19,16 +19,13 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
-  }
+  public get currentUserValue(): User { return this.currentUserSubject.value };
 
   login(loginData: any) {
-    var params = {
+    let params = {
       user: loginData
     };
-    var currUser;
-
+    let currUser;
     return this.http.post<any>(this.baseUrl, params)
       .pipe(map(user => {
           if (user && user.token) {
@@ -37,7 +34,7 @@ export class AuthenticationService {
             this.currentUserSubject.next(currUser);
             return currUser;
           } else {
-            return false;
+            console.log('error on login', user);
           }
       }));
   }

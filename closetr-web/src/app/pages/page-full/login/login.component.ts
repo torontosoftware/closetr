@@ -27,15 +27,15 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  checkEnableLogin = (): void =>
-    this.enableLogin = (this.username.length == 0 || this.password.length == 0);
+  checkEnableLogin = (): boolean =>
+    this.enableLogin = !(this.username.length == 0 || this.password.length == 0);
 
   loginChangeHandler = (): void => {
     this.showLoginError = false;
     this.checkEnableLogin();
   }
 
-  toSignUp = (): void => this.router.navigate(['/register']);
+  toSignUp = (): Promise<boolean> => this.router.navigate(['/register']);
 
   login(): void {
     this.showLoginError = false;
@@ -51,10 +51,8 @@ export class LoginComponent implements OnInit {
           } else {
             this.showLoginError = true;
           }
-        },
-        error => { }
+        }
       );
-
   }
 
 }
