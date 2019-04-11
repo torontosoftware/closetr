@@ -4,28 +4,31 @@ const mongoose = require('mongoose');
 
 function add_new_entry(req, res, next) {
   // gather attributes
-  const req_obj = req.body;
-  const new_entry = {
-    clothing: req_obj.clothingID,
-    user: req_obj.userID,
-    date: req_obj.date,
-    outfitEntryID: req_obj.outfitEntryID
-  };
-
-  // assigning id
-  if(req_obj.outfitEntryID == null){
-    new_entry['_id'] = mongoose.Types.ObjectId();
-  } else {
-    new_entry['_id'] = req_obj.outfitEntryID
-  }
-
+  const outfit_entry_object = req.body;
+  const outfit_entry_payload = extract_outfit_entry_payload_from_object(outfit_entry_object)
   // create new entry from schema
   outfit_entries_model.findOneAndUpdate(
-    {_id: new_entry._id},
+    {_id: outfit_entry_payload._id},
     new_entry,
     {upsert: true, new: true, runValidators: true},
     (err, doc) => generic_error_handling(err, doc, res)
   );
+}
+
+function extract_outfit_entry_payload_from_object(outfit_entry_object) {
+  let new_entry = {
+    clothing: outfit_entry_object.clothingID,
+    user: outfit_entry_object.userID,
+    date: outfit_entry_object.date,
+    outfitEntryID: outfit_entry_object.outfitEntryID
+  };
+
+  // assigning id
+  if(outfit_entry_object.outfitEntryID == null){
+    new_entry['_id'] = mongoose.Types.ObjectId();
+  } else {
+    new_entry['_id'] = outfit_entry_object.outfitEntryID
+  }
 }
 
 function delete_entry(req, res, next) {
