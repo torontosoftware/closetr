@@ -20,7 +20,6 @@ import { AddClothingComponent } from './pages/page-full/add-clothing/add-clothin
 import { ClosetManageComponent } from './pages/page-full/closet-manage/closet-manage.component';
 import { EditClothingComponent } from './pages/page-full/edit-clothing/edit-clothing.component';
 import { SpendingManageComponent } from './pages/page-full/spending-manage/spending-manage.component';
-import { BaseGeneralComponent } from './pages/page-full/base-general/base-general.component';
 import { BudgetManageComponent } from './pages/page-full/budget-manage/budget-manage.component';
 import { LoginComponent } from './pages/page-full/login/login.component';
 import { HeaderComponent } from './shared/header/header.component';
@@ -73,7 +72,6 @@ import { TestModule } from '../test/test.module';
     EditClothingComponent,
     SearchFilterPipe,
     SpendingManageComponent,
-    BaseGeneralComponent,
     BudgetManageComponent,
     LoginComponent,
     HeaderComponent,

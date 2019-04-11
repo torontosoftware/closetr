@@ -55,7 +55,7 @@ export class ClosetServiceMock {
   providedIn: 'root'
 })
 export class UserServiceMock {
-  update = (user) => of({data: mockUserTwo});
+  update = (user) => of(mockUserTwo);
   register = (params) => of({auth: true});
 }
 

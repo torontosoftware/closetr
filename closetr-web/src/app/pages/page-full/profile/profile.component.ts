@@ -28,8 +28,7 @@ export class ProfileComponent implements OnInit {
   */
   save(): void {
     this.userService.update(new User(this.currentUser)).subscribe(
-      (data: any) => {
-        let user = data.data;
+      (user: any) => {
         this.currentUser.userName = user.userName;
         this.currentUser.userDesc = user.userDesc;
         localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
