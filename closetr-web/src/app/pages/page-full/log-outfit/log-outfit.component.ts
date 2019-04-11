@@ -21,9 +21,8 @@ import { ClosetFactory } from '../../../factories/closet.factory';
 export class LogOutfitComponent implements OnInit {
   outfitClothingList: any;
   closetList: any;
-  editMode : boolean;
+  editMode : boolean = false;
   searchText: String;
-  currentUserSubscription: Subscription;
   currentUser: User;
   params: any;
 
@@ -32,17 +31,15 @@ export class LogOutfitComponent implements OnInit {
               private closetService: ClosetService,
               private authenticationService: AuthenticationService,
               private routesService: RoutesService,
-              private dateFormatService: DateFormatService) {
-    this.editMode = false;
-  }
+              private dateFormatService: DateFormatService) { }
 
   ngOnInit() {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
+    this.authenticationService.currentUser.subscribe(
       user => {
         this.currentUser = user;
         this.getAllClothes();
       }
-    )
+    );
     if (this.currentUser) {
       this.params = {
         userID: this.currentUser.id,
@@ -65,17 +62,9 @@ export class LogOutfitComponent implements OnInit {
   Checks if the given clothing's ID is contained in the current outfit
   clothing list. Returns true if it is present.
   */
-  outfitClothingListContains(clothing: any): boolean {
-    let clothingID = clothing.clothingID;
-    let contains = false;
-    for (let i in this.outfitClothingList) {
-      if (this.outfitClothingList[i].clothingID === clothingID) {
-        contains = true;
-        break;
-      }
-    }
-    return contains;
-  }
+  outfitClothingListContains = (clothing: any): boolean =>
+    this.outfitClothingList.some((outfitEntry) =>
+      outfitEntry.clothing.clothingID === clothing.clothingID));
 
   /*
   Adds clothing selected from search results to the outfit clothing list.

@@ -30,11 +30,8 @@ export class EditClothingComponent implements OnInit {
 
     ({ clothingCategories: this.clothingCategories } = Clothing);
 
-    this.authenticationService.currentUser.subscribe(
-      user => {
-        this.currentUser = user;
-      }
-    )
+    this.authenticationService.currentUser
+      .subscribe(user => this.currentUser = user);
   }
 
   /*
@@ -53,8 +50,7 @@ export class EditClothingComponent implements OnInit {
   Called every time user changes any one of the input fields. Ensures that
   none of the fields are empty.
   */
-  checkSubmit = (): boolean => {
-    return (this.clothing ? this.clothing.enableClothingSave() : false);
-  }
+  checkSubmit = (): boolean =>
+    (this.clothing ? this.clothing.enableClothingSave() : false);
 
 }
