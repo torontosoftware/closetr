@@ -99,50 +99,45 @@ function register_new_user(req, res, next) {
           };
           res.json(result_json);
         } else {
-          createNewUser();
+          // new user path
+          newItem['_id'] = mongoose.Types.ObjectId();
+          // create new clothing from clothes schema
+          users.findOneAndUpdate(
+            {_id: newItem._id},
+            newItem,
+            {upsert: true, new: true, runValidators: true},
+            function (err, doc) {
+              if (err) {
+                const result_json = {
+                  status: 'failed',
+                  message: err.message
+                };
+                res.json(result_json);
+              } else {
+                const token = jwt.sign({id: doc._id}, 'secret', {
+                  expiresIn: 86400
+                });
+                const user = {
+                  userID: doc.userID,
+                  userName: doc.userName,
+                  id: doc._id,
+                  token: token
+                }
+                const result_json = {
+                  data: user,
+                  status: 'success',
+                  auth: true,
+                  token: token
+                };
+                console.log(result_json);
+                res.json(result_json);
+              }
+            }
+          );
         }
       }
     }
   );
-
-  function createNewUser () {
-    // new user path
-    newItem['_id'] = mongoose.Types.ObjectId();
-    // create new clothing from clothes schema
-    users.findOneAndUpdate(
-      {_id: newItem._id},
-      newItem,
-      {upsert: true, new: true, runValidators: true},
-      function (err, doc) {
-        if (err) {
-          const result_json = {
-            status: 'failed',
-            message: err.message
-          };
-          res.json(result_json);
-        } else {
-          const token = jwt.sign({id: doc._id}, 'secret', {
-            expiresIn: 86400
-          });
-          const user = {
-            userID: doc.userID,
-            userName: doc.userName,
-            id: doc._id,
-            token: token
-          }
-          const result_json = {
-            data: user,
-            status: 'success',
-            auth: true,
-            token: token
-          };
-          console.log(result_json);
-          res.json(result_json);
-        }
-      }
-    );
-  }
-
 }
 
 /* API returns true if passed user and password
