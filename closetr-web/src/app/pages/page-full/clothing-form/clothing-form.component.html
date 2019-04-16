@@ -9,7 +9,7 @@
                 id="back-button"
                 [url]="'/closet-manage'"
               ></ui-back-button>
-              <h3>edit clothing</h3>
+              <h3>{{pageTitle}}</h3>
             </div>
             <div class="col-4">
               <ui-text-button
@@ -17,7 +17,7 @@
                 [labelText]="'save'"
                 [type]="'top-right'"
                 [disabled]="!checkSubmit()"
-                (click)="save()"
+                (click)="this.save.emit($event)"
               ></ui-text-button>
             </div>
           </div>

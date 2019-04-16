@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { ClosetService } from '../../../services/closet.service';
-import { AuthenticationService } from '../../../services/authentication.service';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { Clothing } from '../../../models/clothing.model';
-import { User } from '../../../models/user.model';
 
 @Component({
   selector: 'app-edit-clothing',
@@ -13,12 +11,9 @@ import { User } from '../../../models/user.model';
 })
 export class EditClothingComponent implements OnInit {
   clothing: Clothing = new Clothing();
-  clothingCategories: Array<string>;
-  currentUser: User;
 
   constructor(private closetService: ClosetService,
-              private router: Router,
-              private authenticationService: AuthenticationService) { }
+              private router: Router) { }
 
   ngOnInit() {
     let clothingForEdit;
@@ -27,16 +22,7 @@ export class EditClothingComponent implements OnInit {
     } else {
       this.router.navigate(['/closet-manage']);
     }
-
-    ({ clothingCategories: this.clothingCategories } = Clothing);
-
-    this.currentUser = this.authenticationService.currentUserValue;
   }
-
-  /*
-  Go back to the previous page.
-  */
-  back = (): Promise<boolean> => this.router.navigate(['/closet-manage']);
 
   /*
   Save the edit clothing item via POST request (future). On successful update of
@@ -46,10 +32,8 @@ export class EditClothingComponent implements OnInit {
     .subscribe((data: any) => this.back());
 
   /*
-  Called every time user changes any one of the input fields. Ensures that
-  none of the fields are empty.
+  Go back to the previous page.
   */
-  checkSubmit = (): boolean =>
-    (this.clothing ? this.clothing.enableClothingSave() : false);
+  back = (): Promise<boolean> => this.router.navigate(['/closet-manage']);
 
 }

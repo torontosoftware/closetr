@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { ClosetService } from '../../../services/closet.service';
 import { AuthenticationService } from '../../../services/authentication.service';
@@ -12,7 +12,9 @@ import { User } from '../../../models/user.model';
   styleUrls: ['./clothing-form.component.scss']
 })
 export class ClothingFormComponent implements OnInit {
-  clothing: Clothing = new Clothing();
+  @Input() pageTitle: string;
+  @Input() clothing: Clothing = new Clothing();
+  @Output() save: EventEmitter<any> = new EventEmitter<any>();
   clothingCategories: Array<string>;
   currentUser: User;
 
@@ -21,29 +23,9 @@ export class ClothingFormComponent implements OnInit {
               private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    let clothingForEdit;
-    if (clothingForEdit = this.closetService.getClothingForEdit()) {
-      this.clothing = clothingForEdit;
-    } else {
-      this.router.navigate(['/closet-manage']);
-    }
-
     ({ clothingCategories: this.clothingCategories } = Clothing);
-
     this.currentUser = this.authenticationService.currentUserValue;
   }
-
-  /*
-  Go back to the previous page.
-  */
-  back = (): Promise<boolean> => this.router.navigate(['/closet-manage']);
-
-  /*
-  Save the edit clothing item via POST request (future). On successful update of
-  clothing item, navigate back to the previous page.
-  */
-  save = (): Observable<any> => this.closetService.editClothing(this.clothing)
-    .subscribe((data: any) => this.back());
 
   /*
   Called every time user changes any one of the input fields. Ensures that
