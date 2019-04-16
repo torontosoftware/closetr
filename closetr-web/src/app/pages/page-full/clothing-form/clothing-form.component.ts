@@ -31,7 +31,20 @@ export class ClothingFormComponent implements OnInit {
   Called every time user changes any one of the input fields. Ensures that
   none of the fields are empty.
   */
-  checkSubmit = (): boolean =>
-    (this.clothing ? this.clothing.enableClothingSave() : false);
+  checkSubmit = ():void => {
+    let {
+      clothingName,
+      clothingCost,
+      clothingCategory,
+      clothingWorn,
+      clothingPurchaseDate
+    } = this.clothing;
+    let result = !(clothingName.length === 0
+        || clothingCost === null
+        || clothingCategory.length === 0
+        || !clothingWorn === null
+        || clothingPurchaseDate.length === 0);
+    this.enableSave = result;
+  }
 
 }

@@ -18,9 +18,7 @@ import { User } from '../../../models/user.model';
 export class AddClothingComponent implements OnInit {
   clothing: Clothing = new Clothing();
   prevUrl: String;
-  clothingCategories: Array<string>;
   currentUser: User;
-  enableSave: boolean;
 
   constructor(private closetService: ClosetService,
               private logOutfitService: LogOutfitService,
@@ -34,13 +32,10 @@ export class AddClothingComponent implements OnInit {
     this.currentUser = this.authenticationService.currentUserValue;
     this.clothing = new Clothing({ userID: this.currentUser.id });
 
-    ({ clothingCategories: this.clothingCategories } = Clothing);
-
     if (!(this.prevUrl = this.routesService.getPrevUrl())) {
       this.prevUrl = "/closet-manage";
     }
     this.routesService.setPrevUrl('');
-    this.checkSubmit();
   }
 
   /*
@@ -69,26 +64,6 @@ export class AddClothingComponent implements OnInit {
         }
       }
     );
-  }
-
-  /*
-  Called every time user changes any one of the input fields. Ensures that
-  none of the fields are empty.
-  */
-  checkSubmit(): void {
-    let {
-      clothingName,
-      clothingCost,
-      clothingCategory,
-      clothingWorn,
-      clothingPurchaseDate
-    } = this.clothing;
-    let result = !(clothingName.length === 0
-        || clothingCost === null
-        || clothingCategory.length === 0
-        || !clothingWorn === null
-        || clothingPurchaseDate.length === 0);
-    this.enableSave = result;
   }
 
 }

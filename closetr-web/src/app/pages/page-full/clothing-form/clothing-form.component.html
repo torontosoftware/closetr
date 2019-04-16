@@ -16,7 +16,7 @@
                 id="save-button"
                 [labelText]="'save'"
                 [type]="'top-right'"
-                [disabled]="!checkSubmit()"
+                [disabled]="!enableSave"
                 (click)="this.save.emit($event)"
               ></ui-text-button>
             </div>
