@@ -25,6 +25,8 @@ clothingCategories: Clothing categories to be displayed as options in the
 clothingCategory selector.
 
 currentUser: the User currently logged in.
+
+enableSave: boolean reflecting whether form is valid or not.
 */
 @Component({
   selector: 'app-clothing-form',
@@ -37,6 +39,7 @@ export class ClothingFormComponent implements OnInit {
   @Output() save: EventEmitter<any> = new EventEmitter<any>();
   clothingCategories: Array<string>;
   currentUser: User;
+  enableSave: boolean;
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService) { }
