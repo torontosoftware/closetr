@@ -9,6 +9,16 @@ import { DateFormatService } from '../../../services/utils/date-format.service';
 import { Clothing } from '../../../models/clothing.model';
 import { User } from '../../../models/user.model';
 
+/*
+Form for adding a new clothing item. Uses ClothingFormComponent as a template,
+and for form validation.
+
+clothing: Clothing object that is to be created with this form.
+
+prevUrl: The previous url before navigating to this page.
+
+currentUser: The User currently logged in.
+*/
 @Component({
   selector: 'app-add-clothing',
   templateUrl: './add-clothing.component.html',
@@ -28,6 +38,12 @@ export class AddClothingComponent implements OnInit {
               private router: Router,
               private location: Location) { }
 
+  /*
+  Initial data loading: retrieve current user from authentication service.
+  Then, create the instance of Clothing and set the userID for that clothing
+  with the currentUser. Then, check previous url from routes service,
+  and set prevUrl appropriately.
+  */
   ngOnInit() {
     this.currentUser = this.authenticationService.currentUserValue;
     this.clothing = new Clothing({ userID: this.currentUser.id });
@@ -44,8 +60,11 @@ export class AddClothingComponent implements OnInit {
   back = (): Promise<any> => this.router.navigate([this.prevUrl]);
 
   /*
-  Save the new clothing item via POST request. On successful addition of
-  clothing item, navigate back to the previous page.
+  Saves the newly created clothing item and saves it in the database.
+  It calls closet service's addClothing method with the clothing object. Then,
+  if the previous page is the log outfit component, it also logs that new
+  clothing in the outfit for today (via log outfit service). After data
+  processing, navigates back to previous page. 
   */
   save(): void {
     this.closetService.addClothing(this.clothing).subscribe(
