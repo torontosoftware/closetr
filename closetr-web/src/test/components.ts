@@ -34,6 +34,12 @@ export class MockClosetManageComponent {}
 export class MockDashboardComponent {}
 
 @Component({
+  selector: 'app-clothing-form',
+  template: '<p>Mock Clothing Form Component</p>'
+})
+export class MockClothingFormComponent {}
+
+@Component({
   selector: 'app-edit-clothing',
   template: '<p>Mock Edit Clothing Component</p>'
 })
