@@ -92,26 +92,24 @@ describe('ClothingFormComponent', () => {
         })
       });
     });
-    describe(`when clicked,`, () => {
+    describe(`when all fields are filled,`, () => {
       beforeEach(() => {
-        component.clothing = mockClothingOne;
+        multInputDispatchAndChange([
+          { input: nameInput, value: 't-shirt' },
+          { input: costInput, value: 10 },
+          { input: categoryInput, value: 'Top' },
+          { input: wornInput, value: 10 },
+          { input: purchaseDateInput, value: '2019-02-02' }
+        ], fixture);
+      });
+      it(`should be enabled when all fields are filled.`, () => {
+        expect(saveButton.disabled).toBeFalsy();
+      });
+      it(`when clicked, should call the save function.`, () => {
         saveButton.click();
         fixture.detectChanges();
-      })
-      it(`should call the save function`, () => {
         expect(component.save.emit).toHaveBeenCalled();
-      })
-    });
-    it(`should be enabled when all fields are filled.`, () => {
-      component.clothing = mockClothingOne;
-      multInputDispatchAndChange([
-        { input: nameInput, value: 't-shirt' },
-        { input: costInput, value: 10 },
-        { input: categoryInput, value: 'Top' },
-        { input: wornInput, value: 10 },
-        { input: purchaseDateInput, value: '2019-02-02' }
-      ], fixture);
-      expect(saveButton.disabled).toBeFalsy();
+      });
     });
   });
 

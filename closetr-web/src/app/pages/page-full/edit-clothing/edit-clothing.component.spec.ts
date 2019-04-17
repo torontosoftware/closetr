@@ -23,7 +23,6 @@ import {
   mockClothingEmpty
 } from '../../../../test/objects';
 import {
-  AuthenticationServiceMock,
   ClosetServiceMock
 } from '../../../../test/services';
 import {
@@ -36,7 +35,6 @@ const currentUser = mockUserOne;
 describe('EditClothingComponent', () => {
   let component: EditClothingComponent;
   let fixture: ComponentFixture<EditClothingComponent>;
-  let authenticationService: AuthenticationServiceMock;
   let closetService: ClosetServiceMock;
   let router;
 
@@ -63,8 +61,7 @@ describe('EditClothingComponent', () => {
       ],
       providers: [
         EditClothingComponent,
-        { provide: ClosetService, useClass: ClosetServiceMock },
-        { provide: AuthenticationService, useClass: AuthenticationServiceMock }
+        { provide: ClosetService, useClass: ClosetServiceMock }
       ]
     })
     .compileComponents();
@@ -74,7 +71,6 @@ describe('EditClothingComponent', () => {
     fixture = TestBed.createComponent(EditClothingComponent);
     component = fixture.debugElement.componentInstance;
     router = TestBed.get(Router);
-    authenticationService = TestBed.get(AuthenticationService);
     closetService = TestBed.get(ClosetService);
     spyOn(router, 'navigate');
     spyOn(closetService, 'getClothingForEdit').and.callThrough();
@@ -120,14 +116,6 @@ describe('EditClothingComponent', () => {
         (if it exists).`, () => {
         expect(closetService.getClothingForEdit).toHaveBeenCalled();
         expect(component.clothing).toEqual(clothingForEdit);
-      });
-      it(`should retrieve the current user from the authentication
-        service.`, () => {
-        expect(component.currentUser).toEqual(currentUser);
-      });
-      it(`should retrieve clothing categories from clothing model,
-        and render the options in the category selector.`, () => {
-        expect(component.clothingCategories).toEqual(Clothing.clothingCategories);
       });
     });
     describe(`if there is no clothing for edit,`, () => {
