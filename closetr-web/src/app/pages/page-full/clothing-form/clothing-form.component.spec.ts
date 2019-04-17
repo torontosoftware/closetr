@@ -9,15 +9,11 @@ import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
 import { UiInputSelectComponent } from '../../../shared/ui-input-select/ui-input-select.component';
 import { ClothingFormComponent } from './clothing-form.component';
 import {
-  RoutesServiceMock,
-  AuthenticationServiceMock,
-  ClosetServiceMock,
-  LogOutfitServiceMock
-} from '../../../../test/services';
-import {
-  mockClothingOne
+  mockClothingOne,
+  mockClothingEmpty
 } from '../../../../test/objects';
 import {
+  multInputDispatchAndChange,
   inputDispatch
 } from '../../../../test/utils';
 
@@ -61,6 +57,7 @@ describe('ClothingFormComponent', () => {
     categoryInput = hostElement.querySelector('#category-input select');
     wornInput = hostElement.querySelector('#worn-input input');
     purchaseDateInput = hostElement.querySelector('#purchase-date-input input');
+    spyOn(component.save, 'emit').and.callThrough();
   });
 
   it('should create', () => {
@@ -97,24 +94,23 @@ describe('ClothingFormComponent', () => {
     });
     describe(`when clicked,`, () => {
       beforeEach(() => {
-        component.clothing = clothingForEdit;
+        component.clothing = mockClothingOne;
         saveButton.click();
         fixture.detectChanges();
       })
       it(`should call the save function`, () => {
-        expect(component.save).toHaveBeenCalled();
+        expect(component.save.emit).toHaveBeenCalled();
       })
-      it(`should call closetService's editClothing method with
-        the clothing for edit.`, () => {
-        expect(closetService.editClothing).toHaveBeenCalledWith(clothingForEdit);
-      });
-      it(`should call the back function.`, () => {
-        expect(component.back).toHaveBeenCalled();
-      });
     });
     it(`should be enabled when all fields are filled.`, () => {
-      component.clothing = clothingForEdit;
-      fixture.detectChanges();
+      component.clothing = mockClothingOne;
+      multInputDispatchAndChange([
+        { input: nameInput, value: 't-shirt' },
+        { input: costInput, value: 10 },
+        { input: categoryInput, value: 'Top' },
+        { input: wornInput, value: 10 },
+        { input: purchaseDateInput, value: '2019-02-02' }
+      ], fixture);
       expect(saveButton.disabled).toBeFalsy();
     });
   });

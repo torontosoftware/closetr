@@ -26,6 +26,7 @@ import {
   LogOutfitServiceMock
 } from '../../../../test/services';
 import {
+  mockClothingEmpty,
   mockClothingOne
 } from '../../../../test/objects';
 import {
@@ -97,7 +98,7 @@ describe('AddClothingComponent', () => {
       component.ngOnInit();
       fixture.detectChanges();
       fixture.whenStable().then(() => {
-        expect(component.clothing).toEqual(mockClothingOne);
+        expect(component.clothing).toEqual(mockClothingEmpty);
       });
     });
     describe('for prevUrl,', () => {
@@ -132,7 +133,7 @@ describe('AddClothingComponent', () => {
     describe(`when save function is called with correct data,`, () => {
       beforeEach(() => {
         clothing.clothingName = 'name';
-        clothing.purchaseDateInput = '2019-01-02';
+        clothing.clothingPurchaseDate = '2019-01-02';
         component.save();
         fixture.detectChanges();
       });

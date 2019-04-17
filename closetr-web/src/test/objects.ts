@@ -22,7 +22,7 @@ export const sortOptions = [
   "most worn"
 ];
 
-export const mockClothingEmpty = new Clothing();
+export const mockClothingEmpty = new Clothing({userID: "1"});
 
 export const mockClothingID = 'clothingID';
 
@@ -32,7 +32,8 @@ export const mockClothingOne = new Clothing({
   clothingWorn: 4,
   clothingCost: 10,
   clothingCategory: "Top",
-  clothingPurchaseDate: "2019-02-03"
+  clothingPurchaseDate: "2019-02-03",
+  userID: "1"
 });
 
 export const mockClothingTwo = new Clothing({
@@ -41,13 +42,14 @@ export const mockClothingTwo = new Clothing({
   clothingWorn: 12,
   clothingCost: 45,
   clothingCategory: "Top",
-  clothingPurchaseDate: '2018-03-14'
+  clothingPurchaseDate: '2018-03-14',
+  userID: "1"
 });
 
 export const mockClosetList = [
-  new Clothing({clothingID: '1', clothingName: 'tshirt'}),
-  new Clothing({clothingID: '2', clothingName: 'jeans'}),
-  new Clothing({clothingID: '3', clothingName: 'shoes'})
+  new Clothing({clothingID: '1', clothingName: 'tshirt', userID: '1'}),
+  new Clothing({clothingID: '2', clothingName: 'jeans', userID: '1'}),
+  new Clothing({clothingID: '3', clothingName: 'shoes', userID: '1'})
 ];
 
 export const mockClosetListRenderedTable = mockClosetList.map((clothing) => {
