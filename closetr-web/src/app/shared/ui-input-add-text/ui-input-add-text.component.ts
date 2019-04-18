@@ -2,8 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'ui-input-add-text',
-  templateUrl: './ui-input-add-text.component.html',
-  styleUrls: ['./ui-input-add-text.component.scss']
+  templateUrl: './ui-input-add-text.component.html'
 })
 export class UiInputAddTextComponent implements OnInit {
   @Input() type: string = "text";

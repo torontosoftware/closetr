@@ -30,8 +30,7 @@ enableSave: boolean reflecting whether form is valid or not.
 */
 @Component({
   selector: 'app-clothing-form',
-  templateUrl: './clothing-form.component.html',
-  styleUrls: ['./clothing-form.component.scss']
+  templateUrl: './clothing-form.component.html'
 })
 export class ClothingFormComponent implements OnInit {
   @Input() pageTitle: string;

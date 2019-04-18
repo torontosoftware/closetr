@@ -5,8 +5,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-today-widget',
-  templateUrl: './today-widget.component.html',
-  styleUrls: ['./today-widget.component.scss']
+  templateUrl: './today-widget.component.html'
 })
 export class TodayWidgetComponent implements OnInit {
   currentUser: User = new User();

@@ -3,8 +3,7 @@ import { RouterModule, Routes, Router } from '@angular/router';
 
 @Component({
   selector: 'ui-edit-button',
-  templateUrl: './ui-edit-button.component.html',
-  styleUrls: ['./ui-edit-button.component.scss']
+  templateUrl: './ui-edit-button.component.html'
 })
 export class UiEditButtonComponent implements OnInit {
   @Input() type: string = 'button';

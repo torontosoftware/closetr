@@ -3,8 +3,7 @@ import { RouterModule, Routes, Router } from '@angular/router';
 
 @Component({
   selector: 'ui-text-button',
-  templateUrl: './ui-text-button.component.html',
-  styleUrls: ['./ui-text-button.component.scss']
+  templateUrl: './ui-text-button.component.html'
 })
 export class UiTextButtonComponent implements OnInit {
   @Input() type: string = 'full-width';

@@ -8,8 +8,7 @@ import { ClosetFactory } from '../../../factories/closet.factory';
 
 @Component({
   selector: 'app-closet-widget',
-  templateUrl: './closet-widget.component.html',
-  styleUrls: ['./closet-widget.component.scss']
+  templateUrl: './closet-widget.component.html'
 })
 export class ClosetWidgetComponent implements OnInit {
   closetList: Array<Clothing>;

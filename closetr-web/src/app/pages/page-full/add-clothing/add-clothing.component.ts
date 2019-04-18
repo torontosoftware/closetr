@@ -21,8 +21,7 @@ currentUser: The User currently logged in.
 */
 @Component({
   selector: 'app-add-clothing',
-  templateUrl: './add-clothing.component.html',
-  styleUrls: ['./add-clothing.component.scss'],
+  templateUrl: './add-clothing.component.html'
 })
 
 export class AddClothingComponent implements OnInit {
@@ -64,7 +63,7 @@ export class AddClothingComponent implements OnInit {
   It calls closet service's addClothing method with the clothing object. Then,
   if the previous page is the log outfit component, it also logs that new
   clothing in the outfit for today (via log outfit service). After data
-  processing, navigates back to previous page. 
+  processing, navigates back to previous page.
   */
   save(): void {
     this.closetService.addClothing(this.clothing).subscribe(

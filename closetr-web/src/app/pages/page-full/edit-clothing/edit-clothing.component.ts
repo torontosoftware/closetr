@@ -12,8 +12,7 @@ clothing: Clothing object to be edited.
 */
 @Component({
   selector: 'app-edit-clothing',
-  templateUrl: './edit-clothing.component.html',
-  styleUrls: ['./edit-clothing.component.scss']
+  templateUrl: './edit-clothing.component.html'
 })
 export class EditClothingComponent implements OnInit {
   clothing: Clothing = new Clothing();
