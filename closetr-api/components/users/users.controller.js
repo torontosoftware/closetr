@@ -3,84 +3,80 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const users = require('./users.model');
 
-function extract_user_payload_from_user_obj_update (user_obj) {
-  const newItem = {
-    'userID': user_obj.userID,
-    'userName':user_obj.userName,
-    'userDesc':user_obj.userDesc
-  };
-  return newItem
-}
-
 /* API updates one user */
 function update_user_info (req, res, next) {
   // gather attributes from request
-  const user = req.body.user;
-  const newItem = extract_user_payload_from_user_obj_update(user);
+  var user = req.body.user;
 
-  jwt.verify(
-    user.token,
-    'secret',
-    function(err, decoded) {
-      if (err) {
-        const result_json = {
-          status: 'failed',
-          message: 'Failed to authenticate token.'
-        };
-        console.log("failed authenticate token");
-        res.json(result_json);
-      } else {
-        req.decoded = decoded;
-        console.log("path to call update user", newItem);
-        users.findOneAndUpdate(
-        {userID: newItem.userID},
-        { $set:
-          {
-            userName: newItem.userName,
-            userDesc: newItem.userDesc
-          }
-        },
-        {upsert: true, new: true, runValidators: true},
-        function (err, doc) {
-          if (err) {
-            const result_json = {
-              status: 'failed',
-              message: err.message
-            };
-            console.log("failed to find user");
-            res.json(result_json);
-          } else {
-            const user = {
-              userName: doc.userName,
-              userDesc: doc.userDesc
-            }
-            const result_json = {
-              status: 'success',
-              data: user
-            };
-            console.log("found a user");
-            res.json(result_json);
-          }
-        }
-      );
+  const newItem = {
+    'userID': user.userID,
+    'userName':user.userName,
+    'userDesc':user.userDesc
+  };
+
+  jwt.verify(user.token, 'secret', function(err, decoded) {
+    if (err) {
+      const result_json = {
+        status: 'failed',
+        message: 'Failed to authenticate token.'
+      };
+      console.log("failed authenticate token");
+      res.json(result_json);
+    } else {
+      req.decoded = decoded;
+      console.log("path to call update user", newItem);
+      //next();
+      updateUser();
     }
   });
-}
 
-function extract_user_payload_from_user_obj_register (user_obj) {
-  const newItem = {
-    userID: user_obj.userID,
-    userName: user_obj.userName,
-    userPassword: bcrypt.hashSync(user_obj.userPassword, 8)
-  };
-  return newItem;
+  // create new clothing from clothes schema
+  function updateUser() {
+    users.findOneAndUpdate(
+      {userID: newItem.userID},
+      { $set:
+        {
+          userName: newItem.userName,
+          userDesc: newItem.userDesc
+        }
+      },
+      {upsert: true, new: true, runValidators: true},
+      function (err, doc) {
+        if (err) {
+          const result_json = {
+            status: 'failed',
+            message: err.message
+          };
+          console.log("failed to find user");
+          res.json(result_json);
+        } else {
+          const user = {
+            userName: doc.userName,
+            userDesc: doc.userDesc
+          }
+          const result_json = {
+            status: 'success',
+            data: user
+          };
+          console.log("found a user");
+          res.json(result_json);
+        }
+      }
+    );
+  }
 }
 
 /* API sets one new user clothing */
 function register_new_user(req, res, next) {
   // gather attributes from request
-  const user = req.body.user;
-  const newItem = extract_user_payload_from_user_obj_register(user);
+  var user = req.body.user;
+  const newItem = {
+    userID: user.userID,
+    userName: user.userName,
+    userPassword: bcrypt.hashSync(user.userPassword, 8)
+  };
+
+  var error = '', status = '';
 
   users.find(
     {userID: user.userID},
