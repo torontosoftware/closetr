@@ -39,7 +39,8 @@ import {
 import {
   clickBackAndTestNavigate,
   inputDispatch,
-  inputDispatchAndCount
+  inputDispatchAndCount,
+  inputDispatchAndCheckArgs
 } from '../../../../test/utils';
 
 const closetList = mockClosetList;
@@ -264,9 +265,8 @@ describe('LogOutfitComponent', () => {
     it(`should call search filter with searchText and
       the clothingName string as property.`, () => {
       searchFilterPipe = spyOn(SearchFilterPipeMock.prototype, 'transform');
-      inputDispatch(searchInput, "shirt");
-      fixture.detectChanges();
-      expect(searchFilterPipe.calls.allArgs()).toEqual(mockSearchFilterPipeParams);
+      inputDispatchAndCheckArgs(searchInput, 'shirt',
+        mockSearchFilterPipeParams, searchFilterPipe, fixture);
     });
     it(`should render results into closet-search-box components
       (shirt input)`, () => {

@@ -32,6 +32,7 @@ import {
 import {
   inputDispatch,
   inputDispatchAndCount,
+  inputDispatchAndCheckArgs,
   clickBackAndTestNavigate
 } from '../../../../test/utils';
 
@@ -132,9 +133,8 @@ describe('ClosetManageComponent', () => {
     it(`should call search filter with searchText and
       the clothingName string as property.`, () => {
       searchFilterPipe = spyOn(SearchFilterPipeMock.prototype, 'transform');
-      inputDispatch(searchInput, 'shirt');
-      fixture.detectChanges();
-      expect(searchFilterPipe.calls.allArgs()).toEqual(mockSearchFilterPipeParams);
+      inputDispatchAndCheckArgs(searchInput, 'shirt',
+        mockSearchFilterPipeParams, searchFilterPipe, fixture);
     });
     it(`should render changed results into closet card
       components.`, () => {

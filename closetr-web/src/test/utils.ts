@@ -18,10 +18,23 @@ export const inputDispatchAndCount = (
   fixture: any,
   dispatch: string = 'input'
 ) => {
-  inputDispatch(input, value);
+  inputDispatch(input, value, dispatch);
   fixture.detectChanges();
   let elementList = hostElement.querySelectorAll(queryElement);
   expect(elementList.length).toEqual(expectedCount);
+}
+
+export const inputDispatchAndCheckArgs = (
+  input: HTMLInputElement,
+  value: any,
+  expectedValue: any,
+  spySubject: any,
+  fixture: any,
+  dispatch: string = 'input'
+) => {
+  inputDispatch(input, value, dispatch);
+  fixture.detectChanges();
+  expect(spySubject.calls.allArgs()).toEqual(expectedValue);
 }
 
 export const multTestCompare = (
