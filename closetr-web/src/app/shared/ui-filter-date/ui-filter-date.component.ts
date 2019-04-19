@@ -2,8 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'ui-filter-date',
-  templateUrl: './ui-filter-date.component.html',
-  styleUrls: ['./ui-filter-date.component.scss']
+  templateUrl: './ui-filter-date.component.html'
 })
 export class UiFilterDateComponent implements OnInit {
   @Input() labelText: string;

@@ -9,8 +9,7 @@ import { ClosetFactory } from '../../../factories/closet.factory';
 
 @Component({
   selector: 'app-budget-widget',
-  templateUrl: './budget-widget.component.html',
-  styleUrls: ['./budget-widget.component.scss']
+  templateUrl: './budget-widget.component.html'
 })
 export class BudgetWidgetComponent implements OnInit {
   dateOptions: Array<string> = [];

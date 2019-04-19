@@ -4,8 +4,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 
 @Component({
   selector: 'app-user-menu',
-  templateUrl: './user-menu.component.html',
-  styleUrls: ['./user-menu.component.scss']
+  templateUrl: './user-menu.component.html'
 })
 export class UserMenuComponent implements OnInit {
   @Output() closeUserMenuEmit: EventEmitter<Object> = new EventEmitter<Object>();

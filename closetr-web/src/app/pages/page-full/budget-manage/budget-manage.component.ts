@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-budget-manage',
-  templateUrl: './budget-manage.component.html',
-  styleUrls: ['./budget-manage.component.scss']
+  templateUrl: './budget-manage.component.html'
 })
 export class BudgetManageComponent implements OnInit {
   availableBudgetSpans: Array<string>;

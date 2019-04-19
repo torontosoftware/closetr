@@ -18,8 +18,8 @@ export class AuthenticationService {
 
   public get currentUserValue(): User {
     let currentUser;
-    if (currentUser = JSON.parse(localStorage.getItem('currentUser'))) {
-      return new User(currentUser.value);
+    if (currentUser = localStorage.getItem('currentUser')) {
+      return new User(JSON.parse(currentUser));
     }
     return null;
   };
@@ -33,7 +33,7 @@ export class AuthenticationService {
       .pipe(map(user => {
           if (user && user.token) {
             currUser = new User(user.data);
-            localStorage.setItem('currentUser', currUser);
+            localStorage.setItem('currentUser', JSON.stringify(currUser));
             return currUser;
           } else {
             console.log('error on login', user);

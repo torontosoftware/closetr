@@ -10,8 +10,7 @@ import { ClosetFactory } from '../../../factories/closet.factory';
 
 @Component({
   selector: 'app-spending-manage',
-  templateUrl: './spending-manage.component.html',
-  styleUrls: ['./spending-manage.component.scss']
+  templateUrl: './spending-manage.component.html'
 })
 export class SpendingManageComponent implements OnInit {
   closetList: Array<Clothing>;

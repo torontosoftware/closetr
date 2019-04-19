@@ -57,6 +57,7 @@ import { UiPopupMenuItemComponent } from './shared/ui-popup-menu-item/ui-popup-m
 
 //test
 import { TestModule } from '../test/test.module';
+import { ClothingFormComponent } from './pages/page-full/clothing-form/clothing-form.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { TestModule } from '../test/test.module';
     UiTableComponent,
     ClosetStatsWidgetComponent,
     UiFilterDateComponent,
-    UiPopupMenuItemComponent
+    UiPopupMenuItemComponent,
+    ClothingFormComponent
   ],
   imports: [
     BrowserModule,

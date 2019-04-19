@@ -2,8 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'ui-select-add-button',
-  templateUrl: './ui-select-add-button.component.html',
-  styleUrls: ['./ui-select-add-button.component.scss']
+  templateUrl: './ui-select-add-button.component.html'
 })
 export class UiSelectAddButtonComponent implements OnInit {
   @Input() addon: string;

@@ -7,6 +7,7 @@ import { LogOutfitService } from '../../../services/log-outfit.service';
 import { ClosetService } from '../../../services/closet.service';
 import { RoutesService } from '../../../services/routes.service';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { ClothingFormComponent } from '../clothing-form/clothing-form.component';
 import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
 import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
@@ -25,6 +26,7 @@ import {
   LogOutfitServiceMock
 } from '../../../../test/services';
 import {
+  mockClothingEmpty,
   mockClothingOne
 } from '../../../../test/objects';
 import {
@@ -41,7 +43,6 @@ describe('AddClothingComponent', () => {
   let closetService: ClosetServiceMock;
   let logOutfitService: LogOutfitServiceMock;
   let router: Router;
-  let hostElement;
 
   const routes = [
     { path: 'login', component: MockLoginComponent },
@@ -58,6 +59,7 @@ describe('AddClothingComponent', () => {
         RouterTestingModule,
       ],
       declarations: [
+        ClothingFormComponent,
         MockLoginComponent,
         MockClosetManageComponent,
         MockLogOutfitComponent,
@@ -88,44 +90,22 @@ describe('AddClothingComponent', () => {
     spyOn(router, 'navigate').and.callThrough();
     spyOn(closetService, 'addClothing').and.callThrough();
     spyOn(logOutfitService, 'addOutfitClothing').and.callThrough();
-    hostElement = fixture.nativeElement;
     fixture.detectChanges();
   });
 
   describe('when there is a user logged in,', () => {
-    let nameInput: HTMLInputElement;
-    let costInput: HTMLInputElement;
-    let categoryInput: HTMLInputElement;
-    let wornInput: HTMLInputElement;
-    let purchaseDateInput: HTMLInputElement;
-    let saveButton: any;
-    let backButton: any;
-
-    beforeEach(() => {
-      nameInput = hostElement.querySelector('#name-input input');
-      costInput = hostElement.querySelector('#cost-input input');
-      categoryInput = hostElement.querySelector('#category-input select');
-      wornInput = hostElement.querySelector('#worn-input input');
-      purchaseDateInput = hostElement.querySelector('#purchase-date-input input');
-      saveButton = hostElement.querySelector('#save-button button');
-      backButton = hostElement.querySelector('#back-button button');
-    })
-    it('should set proper default values on fields', () => {
+    it('should create new Clothing with userID of currentUser.', () => {
       component.ngOnInit();
       fixture.detectChanges();
       fixture.whenStable().then(() => {
-        expect(nameInput.value).toEqual('');
-        expect(costInput.value).toEqual('0');
-        expect(categoryInput.value).toEqual('Top');
-        expect(wornInput.value).toEqual('0');
-        expect(purchaseDateInput.value).toEqual('');
+        expect(component.clothing).toEqual(mockClothingEmpty);
       });
     });
     describe('for prevUrl,', () => {
       it(`should retrieve the prevUrl as /log-outfit
         if the previous component was log outfit`, () => {
           expect(component.prevUrl).toEqual('/log-outfit');
-          backButton.click();
+          component.back();
           expect(router.navigate).toHaveBeenCalledWith(['/log-outfit']);
       });
 
@@ -135,7 +115,7 @@ describe('AddClothingComponent', () => {
           component.ngOnInit();
           fixture.detectChanges();
           expect(component.prevUrl).toEqual('/closet-manage');
-          backButton.click();
+          component.back();
           expect(router.navigate).toHaveBeenCalledWith(['/closet-manage']);
       });
 
@@ -145,60 +125,47 @@ describe('AddClothingComponent', () => {
           component.ngOnInit();
           fixture.detectChanges();
           expect(component.prevUrl).toEqual('/closet-manage');
-          backButton.click();
+          component.back();
           expect(router.navigate).toHaveBeenCalledWith(['/closet-manage']);
       });
     });
 
-    describe('when user is trying to submit,', () => {
-      it(`should disable submit if not all required fields
-        are filled.`, () => {
-        expect(saveButton.disabled).toBeTruthy();
+    describe(`when save function is called with correct data,`, () => {
+      beforeEach(() => {
+        clothing.clothingName = 'name';
+        clothing.clothingPurchaseDate = '2019-01-02';
+        component.save();
+        fixture.detectChanges();
       });
-      describe(`and the user attempts to click save with
-        all fields filled,`, () => {
-        beforeEach(() => {
-          inputDispatch(nameInput, 'name');
-          inputDispatch(purchaseDateInput, '2019-01-02');
-          fixture.detectChanges();
-        });
-        it(`should enable submit.`, () => {
-          expect(saveButton.disabled).toBeFalsy();
-        });
-        describe(`and after the click,`, () => {
-          it('should call closetService.addClothing.', () => {
-            saveButton.click();
+      it('should call closetService.addClothing.', () => {
+        expect(closetService.addClothing).toHaveBeenCalled();
+      });
+      describe(`when data comes back,`, () => {
+        describe(`and the prev page was log outfit,`, () => {
+          beforeEach(() => {
+            component.save();
             fixture.detectChanges();
-            expect(closetService.addClothing).toHaveBeenCalled();
+          })
+          it(`should call logOutfitService.addOutfitClothing with
+            the proper params`, () => {
+            expect(logOutfitService.addOutfitClothing).toHaveBeenCalled();
           });
-          describe(`when data comes back,`, () => {
-            describe(`and the prev page was log outfit,`, () => {
-              beforeEach(() => {
-                saveButton.click();
-                fixture.detectChanges();
-              })
-              it(`should call logOutfitService.addOutfitClothing with
-                the proper params`, () => {
-                expect(logOutfitService.addOutfitClothing).toHaveBeenCalled();
-              });
-              it(`after calling logOutfitService.addOutfitClothing,
-                go back to the log outfit page.`, () => {
-                expect(router.navigate).toHaveBeenCalledWith(['/log-outfit']);
-              });
-            });
-            describe(`and the prev page was closet manage`, () => {
-              it(`should go back to the closet manage page.`, () => {
-                component.prevUrl = '/closet-manage';
-                fixture.detectChanges();
-                saveButton.click();
-                expect(router.navigate).toHaveBeenCalledWith(['/closet-manage']);
-              });
-            })
+          it(`after calling logOutfitService.addOutfitClothing,
+            go back to the log outfit page.`, () => {
+            expect(router.navigate).toHaveBeenCalledWith(['/log-outfit']);
+          });
+        });
+        describe(`and the prev page was closet manage`, () => {
+          it(`should go back to the closet manage page.`, () => {
+            component.prevUrl = '/closet-manage';
+            fixture.detectChanges();
+            component.save();
+            expect(router.navigate).toHaveBeenCalledWith(['/closet-manage']);
           });
         });
       });
     });
-  })
+  });
   it('should create', () => {
     expect(component).toBeTruthy();
   });

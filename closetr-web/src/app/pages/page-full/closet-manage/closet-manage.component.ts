@@ -11,8 +11,7 @@ import { ClosetFactory } from '../../../factories/closet.factory';
 
 @Component({
   selector: 'app-closet-manage',
-  templateUrl: './closet-manage.component.html',
-  styleUrls: ['./closet-manage.component.scss'],
+  templateUrl: './closet-manage.component.html'
 })
 
 export class ClosetManageComponent implements OnInit {

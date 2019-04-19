@@ -24,28 +24,28 @@ import {
 import {
   mockOutfitClothingList,
   mockClosetList,
-  mockUserOne
+  mockUserOne,
+  mockSearchFilterPipeParams
 } from '../../../../test/objects';
+import {
+  SearchFilterPipeMock
+} from '../../../../test/pipes';
 import {
   ClosetServiceMock,
   LogOutfitServiceMock,
   RoutesServiceMock,
   AuthenticationServiceMock
 } from '../../../../test/services';
+import {
+  clickBackAndTestNavigate,
+  inputDispatch,
+  inputDispatchAndCount,
+  inputDispatchAndCheckArgs
+} from '../../../../test/utils';
 
 const closetList = mockClosetList;
 const outfitClothingList = mockOutfitClothingList;
 const currentUser = mockUserOne;
-
-@Pipe({name: 'filter'})
-class SearchFilterPipeMock implements PipeTransform{
- transform(items: any, searchText: String, property: string) {
-  if (searchText == 'shirt') {
-    return [items[0]];
-  }
-  return items;
- }
-}
 
 describe('LogOutfitComponent', () => {
   let component: LogOutfitComponent;
@@ -128,11 +128,7 @@ describe('LogOutfitComponent', () => {
 
   it(`should navigate to dashboard component when
     back button is clicked`, () => {
-    component.ngOnInit();
-    let backButton = hostElement.querySelector('#back-button button');
-    backButton.click();
-    fixture.detectChanges();
-    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+    clickBackAndTestNavigate(hostElement, router, '/dashboard', fixture);
   });
 
   describe(`from the init method`, () => {
@@ -268,30 +264,19 @@ describe('LogOutfitComponent', () => {
     });
     it(`should call search filter with searchText and
       the clothingName string as property.`, () => {
-      params = [[
-        closetList, 'shirt', 'clothingName'
-      ]];
       searchFilterPipe = spyOn(SearchFilterPipeMock.prototype, 'transform');
-      searchInput.value = "shirt";
-      searchInput.dispatchEvent(new Event('input'));
-      fixture.detectChanges();
-      expect(searchFilterPipe.calls.allArgs()).toEqual(params);
+      inputDispatchAndCheckArgs(searchInput, 'shirt',
+        mockSearchFilterPipeParams, searchFilterPipe, fixture);
     });
     it(`should render results into closet-search-box components
       (shirt input)`, () => {
-      searchInput.value = "shirt";
-      searchInput.dispatchEvent(new Event('input'));
-      fixture.detectChanges();
-      let outfitSearchList = hostElement.querySelectorAll('.closet-search-box');
-      expect(outfitSearchList.length).toEqual(1);
+      inputDispatchAndCount(searchInput, 'shirt', hostElement,
+        '.closet-search-box', 1, fixture);
     });
     it(`should render results into closet-search-box components
       (blank input)`, () => {
-      searchInput.value = "";
-      searchInput.dispatchEvent(new Event('input'));
-      fixture.detectChanges();
-      let outfitSearchList = hostElement.querySelectorAll('.closet-search-box');
-      expect(outfitSearchList.length).toEqual(3);
+      inputDispatchAndCount(searchInput, '', hostElement,
+        '.closet-search-box', 3, fixture);
     });
     describe(`and user clicks a search result,`, () => {
       let searchResultButton;

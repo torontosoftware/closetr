@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-closet-stats-widget',
-  templateUrl: './closet-stats-widget.component.html',
-  styleUrls: ['./closet-stats-widget.component.scss']
+  templateUrl: './closet-stats-widget.component.html'
 })
 export class ClosetStatsWidgetComponent implements OnInit {
   dateOptions: Array<string>;

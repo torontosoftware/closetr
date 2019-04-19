@@ -14,8 +14,7 @@ import { ClosetFactory } from '../../../factories/closet.factory';
 
 @Component({
   selector: 'app-log-outfit',
-  templateUrl: './log-outfit.component.html',
-  styleUrls: ['./log-outfit.component.scss'],
+  templateUrl: './log-outfit.component.html'
 })
 
 export class LogOutfitComponent implements OnInit {

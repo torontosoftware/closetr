@@ -5,8 +5,7 @@ import { Clothing } from '../../../models/clothing.model';
 
 @Component({
   selector: 'app-closet-card',
-  templateUrl: './closet-card.component.html',
-  styleUrls: ['./closet-card.component.scss']
+  templateUrl: './closet-card.component.html'
 })
 export class ClosetCardComponent implements OnInit {
 

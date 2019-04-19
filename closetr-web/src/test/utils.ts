@@ -9,6 +9,34 @@ export const inputDispatch = (
   input.dispatchEvent(new Event(dispatch));
 }
 
+export const inputDispatchAndCount = (
+  input: HTMLInputElement,
+  value: any,
+  hostElement: any,
+  queryElement: string,
+  expectedCount: number,
+  fixture: any,
+  dispatch: string = 'input'
+) => {
+  inputDispatch(input, value, dispatch);
+  fixture.detectChanges();
+  let elementList = hostElement.querySelectorAll(queryElement);
+  expect(elementList.length).toEqual(expectedCount);
+}
+
+export const inputDispatchAndCheckArgs = (
+  input: HTMLInputElement,
+  value: any,
+  expectedValue: any,
+  spySubject: any,
+  fixture: any,
+  dispatch: string = 'input'
+) => {
+  inputDispatch(input, value, dispatch);
+  fixture.detectChanges();
+  expect(spySubject.calls.allArgs()).toEqual(expectedValue);
+}
+
 export const multTestCompare = (
   subjects: Array<any>,
   property,
@@ -29,6 +57,16 @@ export const multInputDispatchAndChange = (
   }
   fixture.detectChanges();
 };
+
+export const clickBackAndTestNavigate = (
+  hostElement: any,
+  router: any,
+  result: any,
+  fixture: any
+) => {
+  let backButton = hostElement.querySelector('#back-button button');
+  clickAndTestNavigate(backButton, router, result, fixture);
+}
 
 export const clickAndTestNavigate = (
   button: any,

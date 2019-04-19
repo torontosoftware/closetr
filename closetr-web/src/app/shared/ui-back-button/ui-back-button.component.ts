@@ -3,8 +3,7 @@ import { RouterModule, Routes, Router } from '@angular/router';
 
 @Component({
   selector: 'ui-back-button',
-  templateUrl: './ui-back-button.component.html',
-  styleUrls: ['./ui-back-button.component.scss']
+  templateUrl: './ui-back-button.component.html'
 })
 export class UiBackButtonComponent implements OnInit {
   @Input() url: string = "/";

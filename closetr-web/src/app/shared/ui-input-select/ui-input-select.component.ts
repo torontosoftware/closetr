@@ -2,8 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'ui-input-select',
-  templateUrl: './ui-input-select.component.html',
-  styleUrls: ['./ui-input-select.component.scss']
+  templateUrl: './ui-input-select.component.html'
 })
 export class UiInputSelectComponent implements OnInit {
   @Input() labelText: string;

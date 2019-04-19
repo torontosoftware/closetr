@@ -3,8 +3,7 @@ import { DateRangeFilterPipe } from '../../pipes/date-range-filter.pipe';
 
 @Component({
   selector: 'ui-table',
-  templateUrl: './ui-table.component.html',
-  styleUrls: ['./ui-table.component.scss']
+  templateUrl: './ui-table.component.html'
 })
 export class UiTableComponent implements OnInit {
   @Input() items: Array<any> = [];
