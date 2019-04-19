@@ -23,13 +23,15 @@ import {
 } from '../../../../test/services';
 import {
   mockUserOne,
-  mockClosetList
+  mockClosetList,
+  mockSearchFilterPipeParams
 } from '../../../../test/objects';
 import {
   SearchFilterPipeMock
 } from '../../../../test/pipes';
 import {
   inputDispatch,
+  inputDispatchAndCount,
   clickBackAndTestNavigate
 } from '../../../../test/utils';
 
@@ -129,20 +131,15 @@ describe('ClosetManageComponent', () => {
     });
     it(`should call search filter with searchText and
       the clothingName string as property.`, () => {
-      params = [[
-        closetList, 'shirt', 'clothingName'
-      ]];
       searchFilterPipe = spyOn(SearchFilterPipeMock.prototype, 'transform');
       inputDispatch(searchInput, 'shirt');
       fixture.detectChanges();
-      expect(searchFilterPipe.calls.allArgs()).toEqual(params);
+      expect(searchFilterPipe.calls.allArgs()).toEqual(mockSearchFilterPipeParams);
     });
     it(`should render changed results into closet card
       components.`, () => {
-      inputDispatch(searchInput, 'shirt');
-      fixture.detectChanges();
-      let closetCardList = hostElement.querySelectorAll('.closet-card-item');
-      expect(closetCardList.length).toEqual(1);
+      inputDispatchAndCount(searchInput, 'shirt', hostElement,
+        '.closet-card-item', 1, fixture);
     });
   });
 

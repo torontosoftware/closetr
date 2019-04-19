@@ -9,6 +9,21 @@ export const inputDispatch = (
   input.dispatchEvent(new Event(dispatch));
 }
 
+export const inputDispatchAndCount = (
+  input: HTMLInputElement,
+  value: any,
+  hostElement: any,
+  queryElement: string,
+  expectedCount: number,
+  fixture: any,
+  dispatch: string = 'input'
+) => {
+  inputDispatch(input, value);
+  fixture.detectChanges();
+  let elementList = hostElement.querySelectorAll(queryElement);
+  expect(elementList.length).toEqual(expectedCount);
+}
+
 export const multTestCompare = (
   subjects: Array<any>,
   property,

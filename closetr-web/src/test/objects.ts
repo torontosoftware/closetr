@@ -96,3 +96,7 @@ export const mockOutfitEntryCriteria = {
 }
 
 export const mockOutfitEntryList = mockClosetList;
+
+export const mockSearchFilterPipeParams = [[
+  mockClosetList, 'shirt', 'clothingName'
+]];
