@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const clothes_model = require('./clothes.model');
-const error_handling = require('../common/error_handling');
 
 /**
  * @desc Add a new clothing to the database given a clothing object in the
@@ -17,7 +16,7 @@ function add_new_clothing(req, res, next) {
     {_id: newItem._id},
     newItem,
     {upsert: true, new: true, runValidators: true},
-    (err, doc) => error_handling.generic_error_handling(err, doc, res)
+    (err, doc) => generic_error_handling(err, doc, res)
   );
 }
 
@@ -30,7 +29,7 @@ function delete_clothing(req, res, next) {
   // create new clothing from clothes schema
   clothes_model.remove(
     {_id: clothingID},
-    (err, doc) => error_handling.generic_error_handling(err, doc, res)
+    (err, doc) => generic_error_handling(err, doc, res)
   );
 }
 
@@ -64,26 +63,67 @@ function extract_clothing_payload_from_clothing_object(clothing) {
 
 function get_all_clothing_error_handling(err, doc, res) {
   clothing_loading_wrapper = function(){ return get_all_clothing_loading(doc); };
-  result_json = error_handling.generic_callback_error_handling(err, clothing_loading_wrapper);
+  success_callback_error_handling(err, clothing_loading_wrapper);
   res.json(result_json);
 }
 
-function get_all_clothing_loading(clothing_from_db) {
-  const payload = clothing_from_db.map(db_clothing_to_obj_clothing)
-  const result_json = error_handling.generic_success(payload);
+function get_all_clothing_loading(doc) {
+  var result = [];
+  doc.forEach(function(clothing) {
+    var clothingResult = {
+      clothingID: clothing._id,
+      clothingName: clothing.clothingName,
+      clothingCategory: clothing.clothingCategory,
+      clothingWorn: clothing.clothingWorn,
+      clothingCost: clothing.clothingCost,
+      clothingPurchaseDate: clothing.clothingPurchaseDate
+    }
+    result.push(clothingResult);
+  });
+  const result_json = generic_success(result);
+
   return result_json
 }
 
-function db_clothing_to_obj_clothing(db_clothing) {
-  const obj_clothing = {
-    clothingID: db_clothing._id,
-    clothingName: db_clothing.clothingName,
-    clothingCategory: db_clothing.clothingCategory,
-    clothingWorn: db_clothing.clothingWorn,
-    clothingCost: db_clothing.clothingCost,
-    clothingPurchaseDate: db_clothing.clothingPurchaseDate
+function generic_error_handling(err, payload, res) {
+  generic_success_wrapper = function(){ return generic_success(payload); };
+  result_json = success_callback_error_handling(err, generic_success_wrapper)
+  res.json(result_json);
+}
+
+function generic_success(payload) {
+  const result_json = {
+    status: 200,
+    data: payload
+  };
+  return result_json
+}
+
+/**
+ *
+ */
+function generic_fail(){
+  const result_json = {
+    status: 500,
+    message: err.message,
+  };
+  return result_json;
+}
+
+/**
+ * @desc Returns the resulting json of a generic fail if there is an error, or
+ * calls a callback_function with no arguments otherwise.
+ * @returns the result as a json
+ * @param err error that determines success or failure
+ * @param callback_function function that is called if no error is found
+ */
+function success_callback_error_handling(err, callback_function) {
+  if (err) {
+    result_json = generic_fail()
+  } else {
+    result_json = callback_function();
   }
-  return obj_clothing
+  return result_json
 }
 
 var clothing_module = {
