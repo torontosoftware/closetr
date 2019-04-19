@@ -30,6 +30,16 @@ export const multInputDispatchAndChange = (
   fixture.detectChanges();
 };
 
+export const clickBackAndTestNavigate = (
+  hostElement: any,
+  router: any,
+  result: any,
+  fixture: any
+) => {
+  let backButton = hostElement.querySelector('#back-button button');
+  clickAndTestNavigate(backButton, router, result, fixture);
+}
+
 export const clickAndTestNavigate = (
   button: any,
   router: any,

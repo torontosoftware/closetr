@@ -30,7 +30,7 @@ import {
 } from '../../../../test/pipes';
 import {
   inputDispatch,
-  clickAndTestNavigate
+  clickBackAndTestNavigate
 } from '../../../../test/utils';
 
 const closetList = mockClosetList;
@@ -102,9 +102,7 @@ describe('ClosetManageComponent', () => {
 
   it(`should navigate to dashboard component when
     back button is clicked`, () => {
-    component.ngOnInit();
-    let backButton = hostElement.querySelector('#back-button button');
-    clickAndTestNavigate(backButton, router, '/dashboard', fixture);
+    clickBackAndTestNavigate(hostElement, router, '/dashboard', fixture);
   });
 
   describe(`when removeClothing function is called`, () => {

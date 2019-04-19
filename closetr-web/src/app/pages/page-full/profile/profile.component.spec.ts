@@ -25,7 +25,8 @@ import {
   UserServiceMock
 } from '../../../../test/services';
 import {
-  multTestCompare
+  multTestCompare,
+  clickBackAndTestNavigate
 } from '../../../../test/utils';
 
 const currentUser = mockUserOne;
@@ -100,11 +101,7 @@ describe('ProfileComponent', () => {
 
   it(`should navigate to dashboard component when
     back button is clicked`, () => {
-    component.ngOnInit();
-    let backButton = hostElement.querySelector('#back-button button');
-    backButton.click();
-    fixture.detectChanges();
-    expect(router.navigate).toHaveBeenCalledWith(['/dashboard']);
+    clickBackAndTestNavigate(hostElement, router, '/dashboard', fixture);
   });
 
   describe(`from the init method`, () => {
