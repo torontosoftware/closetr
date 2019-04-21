@@ -16,6 +16,7 @@ import { ClosetWidgetComponent } from './pages/page-partial/closet-widget/closet
 import { ClosetCardComponent } from './pages/page-partial/closet-card/closet-card.component';
 import { LogOutfitComponent } from './pages/page-full/log-outfit/log-outfit.component';
 import { DashboardComponent } from './pages/page-full/dashboard/dashboard.component';
+import { ClothingFormComponent } from './pages/page-full/clothing-form/clothing-form.component';
 import { AddClothingComponent } from './pages/page-full/add-clothing/add-clothing.component';
 import { ClosetManageComponent } from './pages/page-full/closet-manage/closet-manage.component';
 import { EditClothingComponent } from './pages/page-full/edit-clothing/edit-clothing.component';
@@ -54,10 +55,10 @@ import { UiTableComponent } from './shared/ui-table/ui-table.component';
 import { ClosetStatsWidgetComponent } from './pages/page-partial/closet-stats-widget/closet-stats-widget.component';
 import { UiFilterDateComponent } from './shared/ui-filter-date/ui-filter-date.component';
 import { UiPopupMenuItemComponent } from './shared/ui-popup-menu-item/ui-popup-menu-item.component';
+import { UiWidgetFullComponent } from './shared/ui-widget-full/ui-widget-full.component';
 
 //test
 import { TestModule } from '../test/test.module';
-import { ClothingFormComponent } from './pages/page-full/clothing-form/clothing-form.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { ClothingFormComponent } from './pages/page-full/clothing-form/clothing-
     ClosetStatsWidgetComponent,
     UiFilterDateComponent,
     UiPopupMenuItemComponent,
-    ClothingFormComponent
+    ClothingFormComponent,
+    UiWidgetFullComponent
   ],
   imports: [
     BrowserModule,
