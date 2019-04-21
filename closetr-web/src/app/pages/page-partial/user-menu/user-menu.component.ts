@@ -13,16 +13,14 @@ export class UserMenuComponent implements OnInit {
               private authenticationService: AuthenticationService) {
   }
 
-  close(): void {
-    this.closeUserMenuEmit.emit();
-  }
+  close = (): void => this.closeUserMenuEmit.emit();
 
-  logout(): void {
+  logout = (): void => {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
   }
 
-  navClick(url: string): void {
+  navClick = (url: string): void => {
     switch (url) {
       case '/profile':
       //case '/settings':
