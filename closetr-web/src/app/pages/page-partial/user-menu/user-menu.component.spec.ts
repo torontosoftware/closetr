@@ -13,6 +13,9 @@ import {
 import {
   AuthenticationServiceMock
 } from '../../../../test/services';
+import {
+  clickAndTestCalledWith
+} from '../../../../test/utils';
 
 describe('UserMenuComponent', () => {
   let component: UserMenuComponent;
@@ -65,6 +68,21 @@ describe('UserMenuComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  const clickAndTestCalledWithHelper = (
+    button: any,
+    result: any
+  ) => {
+    clickAndTestCalledWith(button, component.navClick, result, fixture);
+  }
+
+  const renderLabelTextTest = (
+    subject: any,
+    result: any
+  ) => {
+    expect(subject).toBeTruthy();
+    expect(subject.labelText).toEqual(result);
+  }
+
   describe(`the ui-popup-menu-item`, () => {
     describe(`for my-profile link,`, () => {
       let profileMenuItem;
@@ -74,15 +92,14 @@ describe('UserMenuComponent', () => {
         ).componentInstance;
       });
       it(`should render.`, () => {
-        expect(profileMenuItem).toBeTruthy();
-        expect(profileMenuItem.labelText).toEqual('My Profile');
+        renderLabelTextTest(profileMenuItem, 'My Profile');
       });
       it(`should call navClick() with '/profile' when
         clicked.`, () => {
-        let profileMenuItemButton = hostElement.querySelector('#profile-menu-item button');
-        profileMenuItemButton.click();
-        fixture.detectChanges();
-        expect(component.navClick).toHaveBeenCalledWith('/profile');
+        clickAndTestCalledWithHelper(
+          hostElement.querySelector('#profile-menu-item button'),
+          '/profile'
+        );
       });
     });
     describe(`for settings link,`, () => {
@@ -93,15 +110,14 @@ describe('UserMenuComponent', () => {
         ).componentInstance;
       })
       it(`should render.`, () => {
-        expect(settingsMenuItem).toBeTruthy();
-        expect(settingsMenuItem.labelText).toEqual('Settings');
+        renderLabelTextTest(settingsMenuItem, 'Settings');
       });
       it(`should call navClick() with '/settings' when
         clicked.`, () => {
-        let settingsMenuItemButton = hostElement.querySelector('#settings-menu-item button');
-        settingsMenuItemButton.click();
-        fixture.detectChanges();
-        expect(component.navClick).toHaveBeenCalledWith('/settings');
+        clickAndTestCalledWithHelper(
+          hostElement.querySelector('#settings-menu-item button'),
+          '/settings'
+        );
       });
     });
     describe(`for sign-out link,`, () => {
@@ -112,24 +128,15 @@ describe('UserMenuComponent', () => {
         ).componentInstance;
       });
       it(`should render.`, () => {
-        expect(signoutMenuItem).toBeTruthy();
-        expect(signoutMenuItem.labelText).toEqual('Sign Out');
+        renderLabelTextTest(signoutMenuItem, 'Sign Out');
       });
       it(`should call navClick() with '/sign-out' when
         clicked.`, () => {
-        let signoutMenuItemButton = hostElement.querySelector('#signout-menu-item button');
-        signoutMenuItemButton.click();
-        fixture.detectChanges();
-        expect(component.navClick).toHaveBeenCalledWith('/sign-out');
+        clickAndTestCalledWithHelper(
+          hostElement.querySelector('#signout-menu-item button'),
+          '/sign-out'
+        );
       });
-    });
-
-    it(`should render from sign-out link.`, () => {
-      let signoutMenuItem = fixture.debugElement.query(
-        By.css('#signout-menu-item')
-      ).componentInstance;
-      expect(signoutMenuItem).toBeTruthy();
-      expect(signoutMenuItem.labelText).toEqual('Sign Out');
     });
   });
 
@@ -161,14 +168,10 @@ describe('UserMenuComponent', () => {
     });
   });
 
-  describe(`the close() function`, () => {
-    beforeEach(() => {
-      component.close();
-    });
-    it(`should call closeUserMenuEmit's
-      emit function,`, () => {
-      expect(component.closeUserMenuEmit.emit).toHaveBeenCalled();
-    });
+  it(`the close() function should call closeUserMenuEmit's
+    emit function,`, () => {
+    component.close();
+    expect(component.closeUserMenuEmit.emit).toHaveBeenCalled();
   });
 
 });

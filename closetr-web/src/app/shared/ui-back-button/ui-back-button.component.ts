@@ -12,8 +12,4 @@ export class UiBackButtonComponent implements OnInit {
   ngOnInit() {
   }
 
-  back(): void {
-    this.router.navigate([this.url]);
-  }
-
 }

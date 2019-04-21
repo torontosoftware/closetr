@@ -1,4 +1,4 @@
-import { Input, Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Input, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ui-popup-menu-item',
@@ -6,8 +6,6 @@ import { Input, Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class UiPopupMenuItemComponent implements OnInit {
   @Input() labelText: string = '';
-  @Output() click: EventEmitter<void> = new EventEmitter<void>();
-
   constructor() { }
 
   ngOnInit() {
