@@ -15,8 +15,7 @@ export class DateRangeFilterPipe implements PipeTransform {
     if (!dateFrom || !dateTo) {
       return items;
     }
-    let itemCount = 0;
-    let filteredItems = {};
+    let itemCount = 0, filteredItems = {};
     for (let itemID in items) {
       let item = items[itemID];
       let itemDateProperty = this.dateFormatService.formatStringDate(item[property]);
