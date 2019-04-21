@@ -12,6 +12,7 @@ import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-bu
 import { UiInputAddButtonComponent } from '../../../shared/ui-input-add-button/ui-input-add-button.component';
 import { UiFilterSelectComponent } from '../../../shared/ui-filter-select/ui-filter-select.component';
 import { UiCloseButtonComponent } from '../../../shared/ui-close-button/ui-close-button.component';
+import { UiWidgetFullComponent } from '../../../shared/ui-widget-full/ui-widget-full.component';
 import { ClosetCardComponent } from '../../page-partial/closet-card/closet-card.component';
 import { ClosetManageComponent } from './closet-manage.component';
 import {
@@ -67,6 +68,7 @@ describe('ClosetManageComponent', () => {
         UiInputAddButtonComponent,
         UiFilterSelectComponent,
         UiCloseButtonComponent,
+        UiWidgetFullComponent,
         ClosetCardComponent,
         ClosetManageComponent,
         SearchFilterPipeMock,

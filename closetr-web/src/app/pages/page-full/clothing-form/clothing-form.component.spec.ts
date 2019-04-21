@@ -7,6 +7,7 @@ import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-bu
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
 import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
 import { UiInputSelectComponent } from '../../../shared/ui-input-select/ui-input-select.component';
+import { UiWidgetFullComponent } from '../../../shared/ui-widget-full/ui-widget-full.component';
 import { ClothingFormComponent } from './clothing-form.component';
 import {
   mockClothingOne,
@@ -40,7 +41,8 @@ describe('ClothingFormComponent', () => {
         UiBackButtonComponent,
         UiTextButtonComponent,
         UiInputComponent,
-        UiInputSelectComponent
+        UiInputSelectComponent,
+        UiWidgetFullComponent
       ]
     })
     .compileComponents();

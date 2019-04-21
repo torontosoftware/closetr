@@ -6,6 +6,7 @@ import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-bu
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
 import { UiSelectAddButtonComponent } from '../../../shared/ui-select-add-button/ui-select-add-button.component';
 import { UiInputAddTextComponent } from '../../../shared/ui-input-add-text/ui-input-add-text.component';
+import { UiWidgetFullComponent } from '../../../shared/ui-widget-full/ui-widget-full.component';
 import { BudgetManageComponent } from './budget-manage.component';
 
 describe('BudgetManageComponent', () => {
@@ -24,6 +25,7 @@ describe('BudgetManageComponent', () => {
         UiTextButtonComponent,
         UiSelectAddButtonComponent,
         UiInputAddTextComponent,
+        UiWidgetFullComponent,
         BudgetManageComponent
       ]
     })

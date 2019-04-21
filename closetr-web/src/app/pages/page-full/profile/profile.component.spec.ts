@@ -11,6 +11,7 @@ import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-bu
 import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-button.component';
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
 import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
+import { UiWidgetFullComponent } from '../../../shared/ui-widget-full/ui-widget-full.component';
 import { User } from '../../../models/user.model';
 import { ProfileComponent } from './profile.component';
 import {
@@ -63,6 +64,7 @@ describe('ProfileComponent', () => {
         UiEditButtonComponent,
         UiTextButtonComponent,
         UiInputComponent,
+        UiWidgetFullComponent,
         ProfileComponent
       ],
       providers: [

@@ -11,7 +11,9 @@ import { ClothingFormComponent } from '../clothing-form/clothing-form.component'
 import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
 import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
+import { UiWidgetFullComponent } from '../../../shared/ui-widget-full/ui-widget-full.component';
 import { UiInputSelectComponent } from '../../../shared/ui-input-select/ui-input-select.component';
+
 import { Clothing } from '../../../models/clothing.model';
 import { AddClothingComponent } from './add-clothing.component';
 import {
@@ -68,6 +70,7 @@ describe('AddClothingComponent', () => {
         UiTextButtonComponent,
         UiInputComponent,
         UiInputSelectComponent,
+        UiWidgetFullComponent
       ],
       providers: [
         AddClothingComponent,
