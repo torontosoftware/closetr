@@ -7,13 +7,12 @@ import { RouterModule, Routes, Router } from '@angular/router';
 })
 export class UiBackButtonComponent implements OnInit {
   @Input() url: string = "/";
+
   constructor(private router: Router) { }
 
-  ngOnInit() {
-  }
+  back = (): Promise<boolean> => this.router.navigate([this.url]);
 
-  back(): void {
-    this.router.navigate([this.url]);
+  ngOnInit() {
   }
 
 }

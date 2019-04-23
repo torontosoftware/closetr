@@ -1,65 +1,57 @@
-<div class="container-fluid">
+<ui-widget-full *ngIf="currentUser">
   <div class="row">
-    <div class="col-12">
-      <div class="widget-full">
-        <div class="container-fluid" *ngIf="currentUser">
-          <div class="row">
-            <div class="col-6">
-              <ui-back-button
-                id="back-button"
-                [url]="'/dashboard'"
-              ></ui-back-button>
-              <h3>my profile</h3>
-            </div>
-            <div class="col-6">
-              <ui-edit-button
-                id="edit-button"
-                (click)="toggleEditMode()"
-              ></ui-edit-button>
-              <ui-text-button
-                id="save-button"
-                [labelText]="'save'"
-                [type]="'top-right'"
-                [hidden]="!editMode"
-                (click)="save()"
-              ></ui-text-button>
-            </div>
-          </div>
-          <ui-input
-            id="username-input"
-            [labelText]="'username'"
-            [type]="'username'"
-            [(inputModel)]="currentUser.userID"
-            (inputModelChange)="checkSubmit()"
-            [disabled]="true"
-          ></ui-input>
-          <ui-input
-            id="name-input"
-            [labelText]="'name'"
-            [type]="'text'"
-            [(inputModel)]="currentUser.userName"
-            (inputModelChange)="checkSubmit()"
-            [disabled]="!editMode"
-          ></ui-input>
-          <ui-input
-            id="description-input"
-            [labelText]="'description'"
-            [type]="'textarea'"
-            [rows]="5"
-            [(inputModel)]="currentUser.userDesc"
-            (inputModelChange)="checkSubmit()"
-            [disabled]="!editMode"
-          ></ui-input>
-          <ui-input
-            id="password-input"
-            [labelText]="'password'"
-            [type]="'password'"
-            [(inputModel)]="currentUser.userPassword"
-            (inputModelChange)="checkSubmit()"
-            [disabled]="true"
-          ></ui-input>
-        </div>
-      </div>
+    <div class="col-6">
+      <ui-back-button
+        id="back-button"
+        [url]="'/dashboard'"
+      ></ui-back-button>
+      <h3>my profile</h3>
+    </div>
+    <div class="col-6">
+      <ui-edit-button
+        id="edit-button"
+        (click)="toggleEditMode()"
+      ></ui-edit-button>
+      <ui-text-button
+        id="save-button"
+        [labelText]="'save'"
+        [type]="'top-right'"
+        [hidden]="!editMode"
+        (click)="save()"
+      ></ui-text-button>
     </div>
   </div>
-</div>
+  <ui-input
+    id="username-input"
+    [labelText]="'username'"
+    [type]="'username'"
+    [(inputModel)]="currentUser.userID"
+    (inputModelChange)="checkSubmit()"
+    [disabled]="true"
+  ></ui-input>
+  <ui-input
+    id="name-input"
+    [labelText]="'name'"
+    [type]="'text'"
+    [(inputModel)]="currentUser.userName"
+    (inputModelChange)="checkSubmit()"
+    [disabled]="!editMode"
+  ></ui-input>
+  <ui-input
+    id="description-input"
+    [labelText]="'description'"
+    [type]="'textarea'"
+    [rows]="5"
+    [(inputModel)]="currentUser.userDesc"
+    (inputModelChange)="checkSubmit()"
+    [disabled]="!editMode"
+  ></ui-input>
+  <ui-input
+    id="password-input"
+    [labelText]="'password'"
+    [type]="'password'"
+    [(inputModel)]="currentUser.userPassword"
+    (inputModelChange)="checkSubmit()"
+    [disabled]="true"
+  ></ui-input>
+</ui-widget-full>

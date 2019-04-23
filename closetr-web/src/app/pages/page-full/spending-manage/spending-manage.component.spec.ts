@@ -15,6 +15,7 @@ import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-bu
 import { UiFilterSelectComponent } from '../../../shared/ui-filter-select/ui-filter-select.component';
 import { UiFilterDateComponent } from '../../../shared/ui-filter-date/ui-filter-date.component';
 import { UiTableComponent } from '../../../shared/ui-table/ui-table.component';
+import { UiWidgetFullComponent } from '../../../shared/ui-widget-full/ui-widget-full.component';
 import { SpendingManageComponent } from './spending-manage.component';
 import { DateRangeFilterPipe } from '../../../pipes/date-range-filter.pipe';
 import {
@@ -72,6 +73,7 @@ describe('SpendingManageComponent', () => {
         UiFilterSelectComponent,
         UiFilterDateComponent,
         UiTableComponent,
+        UiWidgetFullComponent,
         SpendingManageComponent,
         DateRangeFilterPipeMock
       ],

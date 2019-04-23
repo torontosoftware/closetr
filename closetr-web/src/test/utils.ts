@@ -74,10 +74,19 @@ export const clickAndTestNavigate = (
   result: any,
   fixture: any
 ) => {
+  clickAndTestCalledWith(button, router.navigate, [result], fixture);
+};
+
+export const clickAndTestCalledWith = (
+  button: any,
+  func: any,
+  result: any,
+  fixture: any
+) => {
   button.click();
   fixture.detectChanges();
-  expect(router.navigate).toHaveBeenCalledWith([result]);
-};
+  expect(func).toHaveBeenCalledWith(result);
+}
 
 export const httpTestHelper = (
   httpTestingController: HttpTestingController

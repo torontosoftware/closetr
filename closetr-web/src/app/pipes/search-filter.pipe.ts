@@ -10,12 +10,11 @@ export class SearchFilterPipe implements PipeTransform {
       return items;
     }
 
-    var itemCount = 0;
-    var filteredItems = {};
+    let itemCount = 0, filteredItems = {};
     for (let itemID in items) {
-      var item = items[itemID];
-      var itemProperty = item[property].toLowerCase();
-      var searchProperty = searchText.toLowerCase();
+      let item = items[itemID];
+      let itemProperty = item[property].toLowerCase();
+      let searchProperty = searchText.toLowerCase();
       if (itemProperty.startsWith(searchProperty)) {
         filteredItems[itemCount] = item;
         itemCount++;

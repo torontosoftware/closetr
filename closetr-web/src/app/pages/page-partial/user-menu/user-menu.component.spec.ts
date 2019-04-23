@@ -13,6 +13,9 @@ import {
 import {
   AuthenticationServiceMock
 } from '../../../../test/services';
+import {
+  clickAndTestCalledWith
+} from '../../../../test/utils';
 
 describe('UserMenuComponent', () => {
   let component: UserMenuComponent;
@@ -65,73 +68,19 @@ describe('UserMenuComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe(`the ui-popup-menu-item`, () => {
-    describe(`for my-profile link,`, () => {
-      let profileMenuItem;
-      beforeEach(() => {
-        profileMenuItem = fixture.debugElement.query(
-          By.css('#profile-menu-item')
-        ).componentInstance;
-      });
-      it(`should render.`, () => {
-        expect(profileMenuItem).toBeTruthy();
-        expect(profileMenuItem.labelText).toEqual('My Profile');
-      });
-      it(`should call navClick() with '/profile' when
-        clicked.`, () => {
-        let profileMenuItemButton = hostElement.querySelector('#profile-menu-item button');
-        profileMenuItemButton.click();
-        fixture.detectChanges();
-        expect(component.navClick).toHaveBeenCalledWith('/profile');
-      });
-    });
-    describe(`for settings link,`, () => {
-      let settingsMenuItem;
-      beforeEach(() => {
-        settingsMenuItem = fixture.debugElement.query(
-          By.css('#settings-menu-item')
-        ).componentInstance;
-      })
-      it(`should render.`, () => {
-        expect(settingsMenuItem).toBeTruthy();
-        expect(settingsMenuItem.labelText).toEqual('Settings');
-      });
-      it(`should call navClick() with '/settings' when
-        clicked.`, () => {
-        let settingsMenuItemButton = hostElement.querySelector('#settings-menu-item button');
-        settingsMenuItemButton.click();
-        fixture.detectChanges();
-        expect(component.navClick).toHaveBeenCalledWith('/settings');
-      });
-    });
-    describe(`for sign-out link,`, () => {
-      let signoutMenuItem;
-      beforeEach(() => {
-        signoutMenuItem = fixture.debugElement.query(
-          By.css('#signout-menu-item')
-        ).componentInstance;
-      });
-      it(`should render.`, () => {
-        expect(signoutMenuItem).toBeTruthy();
-        expect(signoutMenuItem.labelText).toEqual('Sign Out');
-      });
-      it(`should call navClick() with '/sign-out' when
-        clicked.`, () => {
-        let signoutMenuItemButton = hostElement.querySelector('#signout-menu-item button');
-        signoutMenuItemButton.click();
-        fixture.detectChanges();
-        expect(component.navClick).toHaveBeenCalledWith('/sign-out');
-      });
-    });
+  const clickAndTestCalledWithHelper = (button: any, result: any) =>
+    clickAndTestCalledWith(button, component.navClick, result, fixture);
 
-    it(`should render from sign-out link.`, () => {
-      let signoutMenuItem = fixture.debugElement.query(
-        By.css('#signout-menu-item')
-      ).componentInstance;
-      expect(signoutMenuItem).toBeTruthy();
-      expect(signoutMenuItem.labelText).toEqual('Sign Out');
-    });
-  });
+  const renderLabelTextTest = (subject: any, result: any) => {
+    expect(subject).toBeTruthy();
+    expect(subject.labelText).toEqual(result);
+  };
+
+  const menuItemTestItems = [
+    { id: '#profile-menu-item', labelText: 'My Profile', url: '/profile' },
+    { id: '#settings-menu-item', labelText: 'Settings', url: '/settings' },
+    { id: '#signout-menu-item', labelText: 'Sign Out', url: '/sign-out' }
+  ];
 
   describe(`the navClick() function,`, () => {
     it(`should navigate to /profile and call close(),
@@ -149,9 +98,7 @@ describe('UserMenuComponent', () => {
   });
 
   describe(`the logout() function,`, () => {
-    beforeEach(() => {
-      component.logout();
-    });
+    beforeEach(() => component.logout());
     it(`should call authentication service's
       logout function.`, () => {
       expect(authenticationService.logout).toHaveBeenCalled();
@@ -161,14 +108,30 @@ describe('UserMenuComponent', () => {
     });
   });
 
-  describe(`the close() function`, () => {
-    beforeEach(() => {
-      component.close();
-    });
-    it(`should call closeUserMenuEmit's
-      emit function,`, () => {
-      expect(component.closeUserMenuEmit.emit).toHaveBeenCalled();
+  it(`the close() function should call closeUserMenuEmit's
+    emit function,`, () => {
+    component.close();
+    expect(component.closeUserMenuEmit.emit).toHaveBeenCalled();
+  });
+
+  describe(`the ui-popup-menu-item`, () => {
+    menuItemTestItems.forEach(({id, labelText, url}) => {
+      console.log(component);
+      describe(`for the ${labelText} link,`, () => {
+        console.log(component, fixture);
+        let menuItem;
+        beforeEach(() => {
+          menuItem = fixture.debugElement.query(By.css(id)).componentInstance;
+        });
+        it(`should render.`, () => renderLabelTextTest(menuItem, labelText));
+        it(`should call navClick() with '${url}' when clicked.`, () => {
+          clickAndTestCalledWithHelper(
+            hostElement.querySelector(`${id} button`), url
+          );
+        });
+      });
     });
   });
+
 
 });

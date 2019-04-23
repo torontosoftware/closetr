@@ -12,6 +12,7 @@ import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-bu
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
 import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
 import { UiInputSelectComponent } from '../../../shared/ui-input-select/ui-input-select.component';
+import { UiWidgetFullComponent } from '../../../shared/ui-widget-full/ui-widget-full.component';
 import { EditClothingComponent } from './edit-clothing.component';
 import {
   MockClosetManageComponent,
@@ -56,6 +57,7 @@ describe('EditClothingComponent', () => {
         UiTextButtonComponent,
         UiInputComponent,
         UiInputSelectComponent,
+        UiWidgetFullComponent,
         EditClothingComponent,
         MockClosetManageComponent
       ],

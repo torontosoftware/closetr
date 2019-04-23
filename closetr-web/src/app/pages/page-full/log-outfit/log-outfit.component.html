@@ -1,83 +1,75 @@
-<div class="container-fluid">
+<ui-widget-full>
+  <div class="row">
+      <div class="col-6">
+        <ui-back-button
+          id="back-button"
+          [url]="'/dashboard'"
+        ></ui-back-button>
+        <h3>log outfit</h3>
+      </div>
+      <div class="col-6">
+        <ui-edit-button
+          id="edit-button"
+          (click)="toggleEditMode()"
+        ></ui-edit-button>
+        <ui-text-button
+          id="save-button"
+          [labelText]="'save'"
+          [type]="'top-right'"
+          [hidden]="!editMode"
+          (click)="save()"
+        ></ui-text-button>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-12">
+        <h4>WED, NOV 6</h4>
+      </div>
+  </div>
+  <div class="row mtb-10">
+      <div class="col-12">
+        <ui-input-add-button
+          id="search-input"
+          [addon]="'search'"
+          [(inputModel)]="searchText"
+          [placeholder]="'Search your closet...'"
+        ></ui-input-add-button>
+      </div>
+  </div>
+  <div class="row mtb-4">
+    <div class="col-12" *ngFor="let clothing of closetList | filter:searchText:'clothingName' | keyvalue" [hidden]="!searchText">
+      <button class="btn closet-search-box" (click)="addSearchResult(clothing.value)">
+        <span class="closet-search-box-text f-med-blue-xs">{{clothing.value.clothingName}}
+        <span class="f-light-blue-xs"> | </span> cost: <span class="f-light-blue-xs">{{clothing.value.clothingCost}}</span>
+        <span class="f-light-blue-xs"> | </span> worn: <span class="f-light-blue-xs">{{clothing.value.clothingWorn}} times</span>
+        </span>
+        <button class="btn btn-transparent pull-right">
+          <span class="icon icon-add">
+            <i class="fas fa-plus"></i>
+          </span>
+        </button>
+      </button>
+    </div>
+  </div>
   <div class="row">
     <div class="col-12">
-      <div class="widget-full">
-        <div class="container-fluid">
-          <div class="row">
-              <div class="col-6">
-                <ui-back-button
-                  id="back-button"
-                  [url]="'/dashboard'"
-                ></ui-back-button>
-                <h3>log outfit</h3>
-              </div>
-              <div class="col-6">
-                <ui-edit-button
-                  id="edit-button"
-                  (click)="toggleEditMode()"
-                ></ui-edit-button>
-                <ui-text-button
-                  id="save-button"
-                  [labelText]="'save'"
-                  [type]="'top-right'"
-                  [hidden]="!editMode"
-                  (click)="save()"
-                > </ui-text-button>
-              </div>
-          </div>
-          <div class="row">
-              <div class="col-12">
-                <h4>WED, NOV 6</h4>
-              </div>
-          </div>
-          <div class="row mtb-10">
-              <div class="col-12">
-                <ui-input-add-button
-                  id="search-input"
-                  [addon]="'search'"
-                  [(inputModel)]="searchText"
-                  [placeholder]="'Search your closet...'"
-                ></ui-input-add-button>
-              </div>
-          </div>
-          <div class="row mtb-4">
-            <div class="col-12" *ngFor="let clothing of closetList | filter:searchText:'clothingName' | keyvalue" [hidden]="!searchText">
-              <button class="btn closet-search-box" (click)="addSearchResult(clothing.value)">
-                <span class="closet-search-box-text f-med-blue-xs">{{clothing.value.clothingName}}
-                <span class="f-light-blue-xs"> | </span> cost: <span class="f-light-blue-xs">{{clothing.value.clothingCost}}</span>
-                <span class="f-light-blue-xs"> | </span> worn: <span class="f-light-blue-xs">{{clothing.value.clothingWorn}} times</span>
-                </span>
-                <button class="btn btn-transparent pull-right">
-                  <span class="icon icon-add">
-                    <i class="fas fa-plus"></i>
-                  </span>
-                </button>
-              </button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <ui-text-button
-                id="add-manually-button"
-                [labelText]="'add manually'"
-                (click)="navTo()"
-              ></ui-text-button>
-            </div>
-          </div>
-          <div class="row mtb-10">
-            <div class="col-6 col-sm-4 col-lg-3" *ngFor="let clothing of outfitClothingList | keyvalue">
-              <div class="closet-card mtb-10">
-                <app-closet-card
-                  class="closet-card-item"
-                  [clothing]="clothing.value.clothing"
-                  [editMode]="editMode"
-                  (removeCardEmit)="removeCard(clothing.value)"
-                ></app-closet-card>
-              </div>
-            </div>
-          </div>
-        </div>
+      <ui-text-button
+        id="add-manually-button"
+        [labelText]="'add manually'"
+        (click)="navTo()"
+      ></ui-text-button>
+    </div>
+  </div>
+  <div class="row mtb-10">
+    <div class="col-6 col-sm-4 col-lg-3" *ngFor="let clothing of outfitClothingList | keyvalue">
+      <div class="closet-card mtb-10">
+        <app-closet-card
+          class="closet-card-item"
+          [clothing]="clothing.value.clothing"
+          [editMode]="editMode"
+          (removeCardEmit)="removeCard(clothing.value)"
+        ></app-closet-card>
       </div>
     </div>
   </div>
-</div>
+</ui-widget-full>

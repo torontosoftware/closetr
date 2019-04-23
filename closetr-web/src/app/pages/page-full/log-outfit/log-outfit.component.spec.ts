@@ -14,6 +14,7 @@ import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-bu
 import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
 import { UiInputAddButtonComponent } from '../../../shared/ui-input-add-button/ui-input-add-button.component';
 import { UiCloseButtonComponent } from '../../../shared/ui-close-button/ui-close-button.component';
+import { UiWidgetFullComponent } from '../../../shared/ui-widget-full/ui-widget-full.component';
 import { ClosetCardComponent } from '../../page-partial/closet-card/closet-card.component';
 import { SearchFilterPipe } from '../../../pipes/search-filter.pipe';
 import { LogOutfitComponent } from './log-outfit.component';
@@ -77,6 +78,7 @@ describe('LogOutfitComponent', () => {
         UiTextButtonComponent,
         UiInputAddButtonComponent,
         UiCloseButtonComponent,
+        UiWidgetFullComponent,
         ClosetCardComponent,
         LogOutfitComponent,
         MockDashboardComponent,
