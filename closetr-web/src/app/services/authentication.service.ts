@@ -21,7 +21,7 @@ export class AuthenticationService {
     return null;
   };
 
-  login(loginData: any) {
+  login = (loginData: any) => {
     let params = {
       user: loginData
     };
