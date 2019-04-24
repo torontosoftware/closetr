@@ -16,7 +16,7 @@ export class UserService {
     this.baseUrl = `${environment.baseUrl}/users`;
   }
 
-  helper = (user: User, type: string): Observable<any> =>
+  private helper = (user: User, type: string): Observable<any> =>
     httpPostHandlerDefault(this, `${this.baseUrl}/${type}`, {user: user});
 
   register = (user: User): Observable<any> => this.helper(user, 'register');

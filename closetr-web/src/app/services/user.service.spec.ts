@@ -5,6 +5,12 @@ import {
 } from '@angular/common/http/testing';
 import { UserService } from './user.service';
 import { environment } from '../../environments/environment';
+import {
+  httpTestHelper
+} from '../../test/utils';
+import {
+  mockUserTwo
+} from '../../test/objects';
 
 describe('UserService', () => {
   let httpTestingController: HttpTestingController;
@@ -24,4 +30,28 @@ describe('UserService', () => {
   it('should be created', () => {
     expect(userService).toBeTruthy();
   });
+
+  describe(`when creating http requests,`, () => {
+    let httpTestHelperController;
+    beforeEach(() => {
+      httpTestHelperController = httpTestHelper(httpTestingController);
+    });
+    it(`calling register() should make a POST request.`, () => {
+      httpTestHelperController(
+        userService.register,
+        {auth: true},
+        `${baseUrl}/register`,
+        'POST'
+      );
+    });
+    it(`calling update() should make a POST request.`, () => {
+      httpTestHelperController(
+        userService.update,
+        mockUserTwo,
+        `${baseUrl}/update`,
+        'POST'
+      );
+    });
+  });
+
 });
