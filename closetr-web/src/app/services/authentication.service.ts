@@ -5,6 +5,13 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { User } from '../models/user.model';
 
+/*
+Service for handling user authentication functions, including logging in,
+and logging out. Allows components to get access to current user that is
+logged in, if any.
+
+baseUrl: route for api that handles user login requests.
+*/
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +20,11 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) { }
 
+  /*
+  Retrieves the currently logged user from localStorage, if such a user exists,
+  and returns it as a User object. If there is not user logged in, returns
+  null.
+  */
   public get currentUserValue(): User {
     let currentUser = localStorage.getItem('currentUser');
     if (currentUser) {
@@ -21,6 +33,15 @@ export class AuthenticationService {
     return null;
   };
 
+  /*
+  Takes login data as input (which contains user id, and password), and makes
+  a POST request to the login API. If login data was valid, then a token is
+  recieved, and the user requested for log in is returned. If login data was
+  invalid, then logs an error.
+
+  @param loginData: object that has userID and userPassword, which will be
+  validated against login API.
+  */
   login = (loginData: any) => {
     let params = {
       user: loginData
@@ -38,6 +59,10 @@ export class AuthenticationService {
       }));
   }
 
+  /*
+  Removes current user object from localStorage, effectively logging out
+  the user.
+  */
   logout() {
     localStorage.removeItem('currentUser');
   }
