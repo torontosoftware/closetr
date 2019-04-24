@@ -9,16 +9,13 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  baseUrl: string;
-  private currentUserSubject: User = new User();
+  baseUrl: string = `${environment.baseUrl}/users/login`;
 
-  constructor(private http: HttpClient) {
-    this.baseUrl = `${environment.baseUrl}/users/login`;
-  }
+  constructor(private http: HttpClient) { }
 
   public get currentUserValue(): User {
-    let currentUser;
-    if (currentUser = localStorage.getItem('currentUser')) {
+    let currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
       return new User(JSON.parse(currentUser));
     }
     return null;
@@ -43,7 +40,6 @@ export class AuthenticationService {
 
   logout() {
     localStorage.removeItem('currentUser');
-    this.currentUserSubject = null;
   }
 
 }
