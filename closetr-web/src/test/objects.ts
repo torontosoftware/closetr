@@ -58,21 +58,30 @@ export const mockClosetListRenderedTable = mockClosetList.map((clothing) => {
   return clothing;
 });
 
-export const mockUserOne = new User({
+export const mockUserOneObject = {
   id: '1',
   userID: 'fideslinga',
   userName: 'Fides Linga',
   userDesc: 'description',
   userPassword: 'password'
-});
+};
 
-export const mockUserTwo = new User({
+export const mockUserTwoObject = {
   id: '1',
   userID: 'fideslinga',
   userName: 'Fidessa Linga',
   userDesc: 'a big chungus',
   userPassword: 'password'
-});
+};
+
+export const mockUserCallbackWithToken = {
+  data: mockUserTwoObject,
+  token: 'token'
+};
+
+export const mockUserOne = new User(mockUserOneObject);
+
+export const mockUserTwo = new User(mockUserTwoObject);
 
 export const mockOutfitClothingList = mockClosetList.map((clothing) => {
   return {
@@ -100,3 +109,8 @@ export const mockOutfitEntryList = mockClosetList;
 export const mockSearchFilterPipeParams = [[
   mockClosetList, 'shirt', 'clothingName'
 ]];
+
+export const mockLoginData = {
+  userID: 'fides',
+  userPassword: 'password'
+};
