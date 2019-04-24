@@ -5,6 +5,7 @@ import {
  } from '@angular/common/http/testing';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
+import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
 import {
    mockUserTwo,
@@ -68,12 +69,20 @@ describe('AuthenticationService', () => {
         mockLoginData,
         subjectFlush
       );
-    it(`and should return a user if callback data is valid.`, () => {
+    it(`and should return a user, and set localStorage if callback
+      data is valid.`, () => {
       httpTestHelperController(mockUserTwo, mockUserCallbackWithToken);
+      expect(new User(JSON.parse(localStorage.getItem('currentUser'))))
+        .toEqual(mockUserTwo);
     });
-
     it(`and should return undefined if callback data is invalid.`, () => {
       httpTestHelperController(undefined, null);
     });
+  });
+
+  it(`calling logout() should remove currentUser from localStorage`, () => {
+    localStorage.setItem('currentUser', JSON.stringify(mockUserTwo));
+    authenticationService.logout();
+    expect(localStorage.getItem('currentUser')).toEqual(null);
   });
 });
