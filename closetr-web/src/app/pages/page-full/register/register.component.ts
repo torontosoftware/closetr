@@ -119,7 +119,7 @@ export class RegisterComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  register(): void {
+  register = (): void => {
     this.userExists = false;
     var params = {
       userName: this.name,
