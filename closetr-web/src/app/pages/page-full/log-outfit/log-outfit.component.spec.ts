@@ -42,7 +42,8 @@ import {
   inputDispatch,
   inputDispatchAndCount,
   inputDispatchAndCheckArgs,
-  clickAndTestCalledWithMult
+  clickAndTestCalledWithMult,
+  clickTest
 } from '../../../../test/utils';
 
 const closetList = mockClosetList;
@@ -60,6 +61,7 @@ describe('LogOutfitComponent', () => {
   let routesService: RoutesServiceMock;
   let searchFilterPipe;
   let hostElement;
+  let params;
 
   const routes = [
     { path: 'dashboard', component: MockDashboardComponent },
@@ -122,6 +124,14 @@ describe('LogOutfitComponent', () => {
     spyOn(logOutfitService, 'getAllOutfitClothes').and.callThrough();
     spyOn(logOutfitService, 'addOutfitClothing').and.callThrough();
     spyOn(logOutfitService, 'deleteOutfitClothing').and.callThrough();
+
+    params = {
+      userID: currentUser.id,
+      date: dateFormatService.formatDateString(new Date())
+    };
+    
+    console.log("params", params);
+
     fixture.detectChanges();
   });
 
@@ -135,15 +145,6 @@ describe('LogOutfitComponent', () => {
   });
 
   describe(`from the init method`, () => {
-    let params;
-    beforeEach(() => {
-      params = {
-        userID: currentUser.id,
-        date: dateFormatService.formatDateString(new Date())
-      };
-      component.ngOnInit();
-      fixture.detectChanges();
-    });
     it(`should retrieve the currentuser from the
       authentication service.`, () => {
       expect(component.currentUser).toEqual(currentUser);
@@ -184,12 +185,7 @@ describe('LogOutfitComponent', () => {
   });
 
   describe(`the getAllOutfitClothes method`, () => {
-    let params;
     beforeEach(() => {
-      params = {
-        userID: currentUser.id,
-        date: dateFormatService.formatDateString(new Date())
-      };
       component.getAllOutfitClothes(params);
       fixture.detectChanges();
     });
@@ -226,26 +222,19 @@ describe('LogOutfitComponent', () => {
     beforeEach(() => {
       editButton = hostElement.querySelector('#edit-button button');
       saveButton = hostElement.querySelector('#save-button button');
-      editButton.click();
-      fixture.detectChanges();
+      clickTest(editButton, fixture);
     });
     it(`should call toggleEditMode method, and
       change the editMode variable (multiple toggles)`, () => {
-      expect(component.toggleEditMode).toHaveBeenCalledTimes(1);
-      expect(component.editMode).toBeTruthy();
-      editButton.click();
-      fixture.detectChanges();
-      expect(component.toggleEditMode).toHaveBeenCalledTimes(2);
-      expect(component.editMode).toBeFalsy();
-      editButton.click();
-      fixture.detectChanges();
-      expect(component.toggleEditMode).toHaveBeenCalledTimes(3);
-      expect(component.editMode).toBeTruthy();
+      [1, 2, 3].forEach((i) => {
+        clickTest(editButton, fixture)
+        expect(component.toggleEditMode).toHaveBeenCalledTimes(i + 1);
+        expect(component.editMode).toEqual(i % 2 === 0);
+      });
     });
     it(`should hide save button when editMode is off.`, () => {
       expect(saveButton.hidden).toBeFalsy();
-      editButton.click();
-      fixture.detectChanges();
+      clickTest(saveButton, fixture);
       expect(saveButton.hidden).toBeTruthy();
     });
     it(`should call save, and toggleEditMode functions
@@ -262,7 +251,6 @@ describe('LogOutfitComponent', () => {
     let searchInput: HTMLInputElement;
     let params: any;
     beforeEach(() => {
-      component.ngOnInit();
       searchInput = hostElement.querySelector('#search-input input');
     });
     it(`should call search filter with searchText and
@@ -285,26 +273,21 @@ describe('LogOutfitComponent', () => {
       let searchResultButton;
       beforeEach(() => {
         searchResultButton = hostElement.querySelector('.closet-search-box');
-        searchResultButton.click();
-        fixture.detectChanges();
+        clickTest(searchResultButton, fixture);
       });
       it(`should call the addSearchResult function with clothing`, () => {
         expect(component.addSearchResult).toHaveBeenCalledWith(closetList[0]);
       });
       describe(`the addSearchResult function`, () => {
         it(`should call addOutfitClothing with correct params`, () => {
-          const params = {
-            clothingID: closetList[0].clothingID,
-            userID: currentUser.id,
-            date: dateFormatService.formatDateString(new Date())
+          const customParams = {
+            ...params,
+            clothingID: closetList[0].clothingID
           };
-          expect(component.addOutfitClothing).toHaveBeenCalledWith(params);
+          console.log(customParams, params);
+          expect(component.addOutfitClothing).toHaveBeenCalledWith(customParams);
         });
         it(`should call getAllOutfitClothes with global params`, () => {
-          const params = {
-            userID: currentUser.id,
-            date: dateFormatService.formatDateString(new Date())
-          };
           expect(component.getAllOutfitClothes).toHaveBeenCalledWith(params);
         });
       });
