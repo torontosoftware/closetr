@@ -5,7 +5,19 @@ const clothes_model = require('./clothes.model');
 function add_new_clothing(req, res, next) {
   // gather attributes from request
   const clothing = req.body.clothing;
-  const newItem = {
+  const clothing_payload = create_clothing_payload_from_request(clothing);
+
+  // create new clothing from clothes schema
+  clothes_model.findOneAndUpdate(
+    {_id: clothing_payload._id},
+    clothing_payload,
+    {upsert: true, new: true, runValidators: true},
+    (err, doc) => generic_error_handling(err, doc, res)
+  );
+}
+
+function create_clothing_payload_from_request(clothing) {
+  let clothing_payload = {
     clothingName: clothing.clothingName,
     clothingCost: clothing.clothingCost,
     clothingCategory: clothing.clothingCategory,
@@ -15,18 +27,12 @@ function add_new_clothing(req, res, next) {
   };
 
   if (clothing.clothingID == null) {
-    newItem['_id'] = mongoose.Types.ObjectId();
+    clothing_payload['_id'] = mongoose.Types.ObjectId();
   } else {
-    newItem['_id'] = clothing.clothingID;
+    clothing_payload['_id'] = clothing.clothingID;
   }
 
-  // create new clothing from clothes schema
-  clothes_model.findOneAndUpdate(
-    {_id: newItem._id},
-    newItem,
-    {upsert: true, new: true, runValidators: true},
-    (err, doc) => generic_error_handling(err, doc, res)
-  );
+  return clothing_payload
 }
 
 function delete_clothing(req, res, next) {
@@ -68,10 +74,7 @@ function get_all_clothing_error_handling(err, doc, res) {
       }
       result.push(clothingResult);
     });
-    const result_json = {
-      status: 'success',
-      data: result
-    };
+    const result_json = return_success(result);
     res.json(result_json);
   }
 }
@@ -84,12 +87,17 @@ function generic_error_handling(err, doc, res) {
     };
     res.json(result_json);
   } else {
-    const result_json = {
-      status: 'success',
-      data: doc
-    };
+    const result_json = return_success(doc);
     res.json(result_json);
   }
+}
+
+function return_success(payload) {
+  const result_json = {
+    status: 200,
+    data: payload
+  };
+  return result_json
 }
 
 var clothing_module = {
