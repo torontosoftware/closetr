@@ -34,8 +34,13 @@ import {
   inputDispatch,
   inputDispatchAndCount,
   inputDispatchAndCheckArgs,
-  clickBackAndTestNavigate
+  clickBackAndTestNavigate,
+  clickAndTestCalledWithMult,
+  clickTest
 } from '../../../../test/utils';
+import {
+  toggleEditModeShouldToggle
+} from '../../../../test/common-tests';
 
 const closetList = mockClosetList;
 const currentUser = mockUserOne;
@@ -147,39 +152,32 @@ describe('ClosetManageComponent', () => {
 
   describe(`when edit button is clicked,`, () => {
     let editButton;
-    let saveButton;
     beforeEach(() => {
       editButton = hostElement.querySelector('#edit-button button');
-      saveButton = hostElement.querySelector('#save-button button');
-      component.ngOnInit();
-      editButton.click();
-      fixture.detectChanges();
+      clickTest(editButton, fixture);
     });
     it(`should call toggleEditMode method, and
       change the editMode variable (multiple toggles)`, () => {
-      expect(component.toggleEditMode).toHaveBeenCalledTimes(1);
-      expect(component.editMode).toBeTruthy();
-      editButton.click();
-      fixture.detectChanges();
-      expect(component.toggleEditMode).toHaveBeenCalledTimes(2);
-      expect(component.editMode).toBeFalsy();
-      editButton.click();
-      fixture.detectChanges();
-      expect(component.toggleEditMode).toHaveBeenCalledTimes(3);
-      expect(component.editMode).toBeTruthy();
+      toggleEditModeShouldToggle(component, fixture, editButton);
     });
-    it(`should hide save button when editMode is off`, () => {
-      expect(saveButton.hidden).toBeFalsy();
-      editButton.click();
-      fixture.detectChanges();
-      expect(saveButton.hidden).toBeTruthy();
-    });
-    it(`should call save, and toggleEditMode functions
-      when save button is clicked`, () => {
-      saveButton.click();
-      fixture.detectChanges();
-      expect(component.save).toHaveBeenCalled();
-      expect(component.toggleEditMode).toHaveBeenCalled();
+    describe(`the save button`, () => {
+      let saveButton;
+      beforeEach(() => {
+        saveButton = hostElement.querySelector('#save-button button');
+      });
+      it(`should hide save button when editMode is off`, () => {
+        expect(saveButton.hidden).toBeFalsy();
+        clickTest(editButton, fixture);
+        expect(saveButton.hidden).toBeTruthy();
+      });
+      it(`should call save, and toggleEditMode functions
+        when save button is clicked`, () => {
+        clickAndTestCalledWithMult(
+          saveButton,
+          fixture,
+          [{func: component.save}, {func: component.toggleEditMode}]
+        );
+      });
     });
   });
 

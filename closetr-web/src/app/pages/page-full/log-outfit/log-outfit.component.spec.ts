@@ -45,6 +45,9 @@ import {
   clickAndTestCalledWithMult,
   clickTest
 } from '../../../../test/utils';
+import {
+  toggleEditModeShouldToggle
+} from '../../../../test/common-tests';
 
 const closetList = mockClosetList;
 const outfitClothingList = mockOutfitClothingList;
@@ -129,7 +132,7 @@ describe('LogOutfitComponent', () => {
       userID: currentUser.id,
       date: dateFormatService.formatDateString(new Date())
     };
-    
+
     console.log("params", params);
 
     fixture.detectChanges();
@@ -206,12 +209,14 @@ describe('LogOutfitComponent', () => {
     });
     it(`should call deleteOutfitClothing with the correct
       outfitEntry.`, () => {
-      expect(component.deleteOutfitClothing).toHaveBeenCalledWith(outfitClothingList[0].outfitEntryID);
+      expect(component.deleteOutfitClothing)
+        .toHaveBeenCalledWith(outfitClothingList[0].outfitEntryID);
     });
     it(`should call logOutfitService's deleteOutfitClothing
       method, and call getAllOutfitClothes after data is
       recieved.`, () => {
-      expect(logOutfitService.deleteOutfitClothing).toHaveBeenCalledWith(outfitClothingList[0].outfitEntryID);
+      expect(logOutfitService.deleteOutfitClothing)
+        .toHaveBeenCalledWith(outfitClothingList[0].outfitEntryID);
       expect(component.getAllOutfitClothes).toHaveBeenCalledTimes(2);
     });
   });
@@ -226,11 +231,7 @@ describe('LogOutfitComponent', () => {
     });
     it(`should call toggleEditMode method, and
       change the editMode variable (multiple toggles)`, () => {
-      [1, 2, 3].forEach((i) => {
-        clickTest(editButton, fixture)
-        expect(component.toggleEditMode).toHaveBeenCalledTimes(i + 1);
-        expect(component.editMode).toEqual(i % 2 === 0);
-      });
+      toggleEditModeShouldToggle(component, fixture, editButton);
     });
     it(`should hide save button when editMode is off.`, () => {
       expect(saveButton.hidden).toBeFalsy();
@@ -249,7 +250,7 @@ describe('LogOutfitComponent', () => {
 
   describe(`when the user types input in the search bar,`, () => {
     let searchInput: HTMLInputElement;
-    let params: any;
+    console.log("params from user type input in search bar", params);
     beforeEach(() => {
       searchInput = hostElement.querySelector('#search-input input');
     });
@@ -284,7 +285,6 @@ describe('LogOutfitComponent', () => {
             ...params,
             clothingID: closetList[0].clothingID
           };
-          console.log(customParams, params);
           expect(component.addOutfitClothing).toHaveBeenCalledWith(customParams);
         });
         it(`should call getAllOutfitClothes with global params`, () => {
