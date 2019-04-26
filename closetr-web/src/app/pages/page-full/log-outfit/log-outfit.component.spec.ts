@@ -41,7 +41,8 @@ import {
   clickBackAndTestNavigate,
   inputDispatch,
   inputDispatchAndCount,
-  inputDispatchAndCheckArgs
+  inputDispatchAndCheckArgs,
+  clickAndTestCalledWithMult
 } from '../../../../test/utils';
 
 const closetList = mockClosetList;
@@ -225,7 +226,6 @@ describe('LogOutfitComponent', () => {
     beforeEach(() => {
       editButton = hostElement.querySelector('#edit-button button');
       saveButton = hostElement.querySelector('#save-button button');
-      component.ngOnInit();
       editButton.click();
       fixture.detectChanges();
     });
@@ -250,10 +250,11 @@ describe('LogOutfitComponent', () => {
     });
     it(`should call save, and toggleEditMode functions
       when save button is clicked.`, () => {
-      saveButton.click();
-      fixture.detectChanges();
-      expect(component.save).toHaveBeenCalled();
-      expect(component.toggleEditMode).toHaveBeenCalled();
+      clickAndTestCalledWithMult(
+        saveButton,
+        fixture,
+        [{func: component.save}, {func: component.toggleEditMode}]
+      );
     });
   });
 
@@ -310,21 +311,15 @@ describe('LogOutfitComponent', () => {
     });
   });
 
-  describe(`when the user clicks the 'add manually' button,`, () => {
-    let addManuallyButton;
-    beforeEach(() => {
-      addManuallyButton = hostElement.querySelector('#add-manually-button button');
-      addManuallyButton.click();
-      fixture.detectChanges();
-    });
-    it(`should call navTo() function`, () => {
-      expect(component.navTo).toHaveBeenCalled();
-    });
-    it(`should set prevUrl to log-outfit, and navigate
-      to the add-clothing page.`, () => {
-      expect(routesService.setPrevUrl).toHaveBeenCalledWith('/log-outfit');
-      expect(router.navigate).toHaveBeenCalledWith(['/add-clothing']);
-    });
+  it(`when the user clicks the 'add manually' button, should set prevUrl to
+  log-outfit, and navigate to the add-clothing page.`, () => {
+    clickAndTestCalledWithMult(
+      hostElement.querySelector('#add-manually-button button'),
+      fixture,
+      [{func: component.navTo},
+       {func: routesService.setPrevUrl, result: '/log-outfit'},
+       {func: router.navigate, result: ['/add-clothing']}]
+    );
   });
 
 });

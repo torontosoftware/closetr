@@ -69,7 +69,7 @@ describe('UserMenuComponent', () => {
   });
 
   const clickAndTestCalledWithHelper = (button: any, result: any) =>
-    clickAndTestCalledWith(button, component.navClick, result, fixture);
+    clickAndTestCalledWith(button, fixture, component.navClick, result);
 
   const renderLabelTextTest = (subject: any, result: any) => {
     expect(subject).toBeTruthy();

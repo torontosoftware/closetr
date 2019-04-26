@@ -74,18 +74,44 @@ export const clickAndTestNavigate = (
   result: any,
   fixture: any
 ) => {
-  clickAndTestCalledWith(button, router.navigate, [result], fixture);
+  clickAndTestCalledWith(button, fixture, router.navigate, [result]);
 };
 
-export const clickAndTestCalledWith = (
+export const clickTest = (
   button: any,
-  func: any,
-  result: any,
   fixture: any
 ) => {
   button.click();
   fixture.detectChanges();
-  expect(func).toHaveBeenCalledWith(result);
+}
+
+const testCalled = (func: any, result: any) => {
+  if (result) {
+    expect(func).toHaveBeenCalledWith(result);
+  } else {
+    expect(func).toHaveBeenCalled();
+  }
+}
+
+export const clickAndTestCalledWith = (
+  button: any,
+  fixture: any,
+  func: any,
+  result: any = undefined
+) => {
+  clickTest(button, fixture);
+  testCalled(func, result);
+}
+
+export const clickAndTestCalledWithMult = (
+  button: any,
+  fixture: any,
+  tests: any
+) => {
+  clickTest(button, fixture);
+  tests.forEach(({func, result}) => {
+    testCalled(func, result);
+  });
 }
 
 export const httpTestHelper = (
