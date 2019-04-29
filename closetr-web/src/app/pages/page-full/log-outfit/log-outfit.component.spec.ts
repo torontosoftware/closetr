@@ -221,36 +221,39 @@ describe('LogOutfitComponent', () => {
     });
   });
 
-  describe(`when edit button is clicked`, () => {
+  describe(`when edit button is clickedn`, () => {
     let editButton;
-    let saveButton;
     beforeEach(() => {
       editButton = hostElement.querySelector('#edit-button button');
-      saveButton = hostElement.querySelector('#save-button button');
       clickTest(editButton, fixture);
     });
     it(`should call toggleEditMode method, and
       change the editMode variable (multiple toggles)`, () => {
       toggleEditModeShouldToggle(component, fixture, editButton);
     });
-    it(`should hide save button when editMode is off.`, () => {
-      expect(saveButton.hidden).toBeFalsy();
-      clickTest(saveButton, fixture);
-      expect(saveButton.hidden).toBeTruthy();
-    });
-    it(`should call save, and toggleEditMode functions
-      when save button is clicked.`, () => {
-      clickAndTestCalledWithMult(
-        saveButton,
-        fixture,
-        [{func: component.save}, {func: component.toggleEditMode}]
-      );
+    describe(`the save button`, () => {
+      let saveButton;
+      beforeEach(() => {
+        saveButton = hostElement.querySelector('#save-button button');
+      });
+      it(`should be hidden when editMode is off.`, () => {
+        expect(saveButton.hidden).toBeFalsy();
+        clickTest(saveButton, fixture);
+        expect(saveButton.hidden).toBeTruthy();
+      });
+      it(`should call save, and toggleEditMode functions
+        when it is clicked.`, () => {
+        clickAndTestCalledWithMult(
+          saveButton,
+          fixture,
+          [{func: component.save}, {func: component.toggleEditMode}]
+        );
+      });
     });
   });
 
   describe(`when the user types input in the search bar,`, () => {
     let searchInput: HTMLInputElement;
-    console.log("params from user type input in search bar", params);
     beforeEach(() => {
       searchInput = hostElement.querySelector('#search-input input');
     });

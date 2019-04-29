@@ -132,7 +132,6 @@ describe('ClosetManageComponent', () => {
 
   describe(`when user types input in the search bar,`, () => {
     let searchInput: HTMLInputElement;
-    let params: any;
     beforeEach(() => {
       component.ngOnInit();
       searchInput = hostElement.querySelector('#search-input input');
