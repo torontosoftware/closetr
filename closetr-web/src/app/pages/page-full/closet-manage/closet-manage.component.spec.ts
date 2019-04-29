@@ -39,7 +39,7 @@ import {
   clickTest
 } from '../../../../test/utils';
 import {
-  toggleEditModeShouldToggle
+  editButtonTests
 } from '../../../../test/common-tests';
 
 const closetList = mockClosetList;
@@ -150,34 +150,7 @@ describe('ClosetManageComponent', () => {
   });
 
   describe(`when edit button is clicked,`, () => {
-    let editButton;
-    beforeEach(() => {
-      editButton = hostElement.querySelector('#edit-button button');
-      clickTest(editButton, fixture);
-    });
-    it(`should call toggleEditMode method, and
-      change the editMode variable (multiple toggles)`, () => {
-      toggleEditModeShouldToggle(component, fixture, editButton);
-    });
-    describe(`the save button`, () => {
-      let saveButton;
-      beforeEach(() => {
-        saveButton = hostElement.querySelector('#save-button button');
-      });
-      it(`should hide save button when editMode is off`, () => {
-        expect(saveButton.hidden).toBeFalsy();
-        clickTest(editButton, fixture);
-        expect(saveButton.hidden).toBeTruthy();
-      });
-      it(`should call save, and toggleEditMode functions
-        when save button is clicked`, () => {
-        clickAndTestCalledWithMult(
-          saveButton,
-          fixture,
-          [{func: component.save}, {func: component.toggleEditMode}]
-        );
-      });
-    });
+    beforeEach(() => editButtonTests(component, fixture, hostElement));
   });
 
   describe(`from the init method,`, () => {
