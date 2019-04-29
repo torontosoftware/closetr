@@ -41,8 +41,13 @@ import {
   clickBackAndTestNavigate,
   inputDispatch,
   inputDispatchAndCount,
-  inputDispatchAndCheckArgs
+  inputDispatchAndCheckArgs,
+  clickAndTestCalledWithMult,
+  clickTest
 } from '../../../../test/utils';
+import {
+  editButtonTests
+} from '../../../../test/common-tests';
 
 const closetList = mockClosetList;
 const outfitClothingList = mockOutfitClothingList;
@@ -59,6 +64,7 @@ describe('LogOutfitComponent', () => {
   let routesService: RoutesServiceMock;
   let searchFilterPipe;
   let hostElement;
+  let params;
 
   const routes = [
     { path: 'dashboard', component: MockDashboardComponent },
@@ -121,6 +127,14 @@ describe('LogOutfitComponent', () => {
     spyOn(logOutfitService, 'getAllOutfitClothes').and.callThrough();
     spyOn(logOutfitService, 'addOutfitClothing').and.callThrough();
     spyOn(logOutfitService, 'deleteOutfitClothing').and.callThrough();
+
+    params = {
+      userID: currentUser.id,
+      date: dateFormatService.formatDateString(new Date())
+    };
+
+    console.log("params", params);
+
     fixture.detectChanges();
   });
 
@@ -134,15 +148,6 @@ describe('LogOutfitComponent', () => {
   });
 
   describe(`from the init method`, () => {
-    let params;
-    beforeEach(() => {
-      params = {
-        userID: currentUser.id,
-        date: dateFormatService.formatDateString(new Date())
-      };
-      component.ngOnInit();
-      fixture.detectChanges();
-    });
     it(`should retrieve the currentuser from the
       authentication service.`, () => {
       expect(component.currentUser).toEqual(currentUser);
@@ -183,12 +188,7 @@ describe('LogOutfitComponent', () => {
   });
 
   describe(`the getAllOutfitClothes method`, () => {
-    let params;
     beforeEach(() => {
-      params = {
-        userID: currentUser.id,
-        date: dateFormatService.formatDateString(new Date())
-      };
       component.getAllOutfitClothes(params);
       fixture.detectChanges();
     });
@@ -209,59 +209,25 @@ describe('LogOutfitComponent', () => {
     });
     it(`should call deleteOutfitClothing with the correct
       outfitEntry.`, () => {
-      expect(component.deleteOutfitClothing).toHaveBeenCalledWith(outfitClothingList[0].outfitEntryID);
+      expect(component.deleteOutfitClothing)
+        .toHaveBeenCalledWith(outfitClothingList[0].outfitEntryID);
     });
     it(`should call logOutfitService's deleteOutfitClothing
       method, and call getAllOutfitClothes after data is
       recieved.`, () => {
-      expect(logOutfitService.deleteOutfitClothing).toHaveBeenCalledWith(outfitClothingList[0].outfitEntryID);
+      expect(logOutfitService.deleteOutfitClothing)
+        .toHaveBeenCalledWith(outfitClothingList[0].outfitEntryID);
       expect(component.getAllOutfitClothes).toHaveBeenCalledTimes(2);
     });
   });
 
-  describe(`when edit button is clicked`, () => {
-    let editButton;
-    let saveButton;
-    beforeEach(() => {
-      editButton = hostElement.querySelector('#edit-button button');
-      saveButton = hostElement.querySelector('#save-button button');
-      component.ngOnInit();
-      editButton.click();
-      fixture.detectChanges();
-    });
-    it(`should call toggleEditMode method, and
-      change the editMode variable (multiple toggles)`, () => {
-      expect(component.toggleEditMode).toHaveBeenCalledTimes(1);
-      expect(component.editMode).toBeTruthy();
-      editButton.click();
-      fixture.detectChanges();
-      expect(component.toggleEditMode).toHaveBeenCalledTimes(2);
-      expect(component.editMode).toBeFalsy();
-      editButton.click();
-      fixture.detectChanges();
-      expect(component.toggleEditMode).toHaveBeenCalledTimes(3);
-      expect(component.editMode).toBeTruthy();
-    });
-    it(`should hide save button when editMode is off.`, () => {
-      expect(saveButton.hidden).toBeFalsy();
-      editButton.click();
-      fixture.detectChanges();
-      expect(saveButton.hidden).toBeTruthy();
-    });
-    it(`should call save, and toggleEditMode functions
-      when save button is clicked.`, () => {
-      saveButton.click();
-      fixture.detectChanges();
-      expect(component.save).toHaveBeenCalled();
-      expect(component.toggleEditMode).toHaveBeenCalled();
-    });
+  describe(`when edit button is clicked,`, () => {
+    beforeEach(() => editButtonTests(component, fixture, hostElement));
   });
 
   describe(`when the user types input in the search bar,`, () => {
     let searchInput: HTMLInputElement;
-    let params: any;
     beforeEach(() => {
-      component.ngOnInit();
       searchInput = hostElement.querySelector('#search-input input');
     });
     it(`should call search filter with searchText and
@@ -284,47 +250,35 @@ describe('LogOutfitComponent', () => {
       let searchResultButton;
       beforeEach(() => {
         searchResultButton = hostElement.querySelector('.closet-search-box');
-        searchResultButton.click();
-        fixture.detectChanges();
+        clickTest(searchResultButton, fixture);
       });
       it(`should call the addSearchResult function with clothing`, () => {
         expect(component.addSearchResult).toHaveBeenCalledWith(closetList[0]);
       });
       describe(`the addSearchResult function`, () => {
         it(`should call addOutfitClothing with correct params`, () => {
-          const params = {
-            clothingID: closetList[0].clothingID,
-            userID: currentUser.id,
-            date: dateFormatService.formatDateString(new Date())
+          const customParams = {
+            ...params,
+            clothingID: closetList[0].clothingID
           };
-          expect(component.addOutfitClothing).toHaveBeenCalledWith(params);
+          expect(component.addOutfitClothing).toHaveBeenCalledWith(customParams);
         });
         it(`should call getAllOutfitClothes with global params`, () => {
-          const params = {
-            userID: currentUser.id,
-            date: dateFormatService.formatDateString(new Date())
-          };
           expect(component.getAllOutfitClothes).toHaveBeenCalledWith(params);
         });
       });
     });
   });
 
-  describe(`when the user clicks the 'add manually' button,`, () => {
-    let addManuallyButton;
-    beforeEach(() => {
-      addManuallyButton = hostElement.querySelector('#add-manually-button button');
-      addManuallyButton.click();
-      fixture.detectChanges();
-    });
-    it(`should call navTo() function`, () => {
-      expect(component.navTo).toHaveBeenCalled();
-    });
-    it(`should set prevUrl to log-outfit, and navigate
-      to the add-clothing page.`, () => {
-      expect(routesService.setPrevUrl).toHaveBeenCalledWith('/log-outfit');
-      expect(router.navigate).toHaveBeenCalledWith(['/add-clothing']);
-    });
+  it(`when the user clicks the 'add manually' button, should set prevUrl to
+  log-outfit, and navigate to the add-clothing page.`, () => {
+    clickAndTestCalledWithMult(
+      hostElement.querySelector('#add-manually-button button'),
+      fixture,
+      [{func: component.navTo},
+       {func: routesService.setPrevUrl, result: '/log-outfit'},
+       {func: router.navigate, result: ['/add-clothing']}]
+    );
   });
 
 });
