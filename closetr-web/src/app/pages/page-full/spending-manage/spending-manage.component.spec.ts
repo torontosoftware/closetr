@@ -36,7 +36,9 @@ import {
 } from '../../../../test/pipes';
 import {
   inputDispatch,
-  clickAndTestNavigate
+  clickAndTestNavigate,
+  searchCriteriaDateRange,
+  searchCriteriaDateRangeFor
 } from '../../../../test/utils';
 import {
   toggleDateRangeShouldToggle
@@ -138,30 +140,11 @@ describe('SpendingManageComponent', () => {
     });
   });
 
-  const searchCriteriaDateRange = (dateRangeFor, dateFrom, dateTo) => {
-    return {
-      property: "clothingPurchaseDate",
-      dateRangeFor: dateRangeFor,
-      dateFrom: dateFormatService.newDate(dateFrom[0], dateFrom[1], dateFrom[2]),
-      dateTo: dateFormatService.newDate(dateTo[0], dateTo[1], dateTo[2]),
-      dateFromFormatted:
-        `${dateFrom[0]}-0${dateFrom[1]}-0${dateFrom[2]}`,
-      dateToFormatted:
-        `${dateTo[0]}-0${dateTo[1]}-0${dateTo[2]}`
-    }
-  }
+  const searchCriteriaDateRangeHelper = (dateRangeFor, dateFrom, dateTo) =>
+    searchCriteriaDateRange(dateFormatService);
 
-  const searchCriteriaDateRangeFor = (dateRangeFor) => {
-    return {
-      property: "clothingPurchaseDate",
-      dateRangeFor: dateRangeFor,
-      dateFrom: dateFormatService.dateRangeForFrom(dateRangeFor),
-      dateTo: dateFormatService.newDate(),
-      dateFromFormatted: dateFormatService.formatDateString(
-        dateFormatService.dateRangeForFrom(dateRangeFor)),
-      dateToFormatted: dateFormatService.formatDateString(new Date())
-    }
-  }
+  const searchCriteriaDateRangeForHelper = (dateRangeFor) =>
+    searchCriteriaDateRangeFor(dateFormatService);
 
   describe(`the selectors`, () => {
     let dateRangeForSelect: HTMLInputElement;
@@ -211,7 +194,7 @@ describe('SpendingManageComponent', () => {
         });
         it(`should set the searchCriteria variable
           respectively.`, () => {
-          let searchCriteria = searchCriteriaDateRange(
+          let searchCriteria = searchCriteriaDateRangeHelper(
             'last month', [2019, 1, 1], [2019, 2, 1]);
           fixture.whenStable().then(() =>
             expect(component.searchCriteria).toEqual(searchCriteria));
@@ -248,7 +231,7 @@ describe('SpendingManageComponent', () => {
         });
         it(`should set the searchCriteria variable
           respectively.`, () => {
-          let searchCriteria = searchCriteriaDateRangeFor("last year");
+          let searchCriteria = searchCriteriaDateRangeForHelper("last year");
           fixture.whenStable().then(() =>
             expect(component.searchCriteria).toEqual(searchCriteria));
         });
@@ -272,7 +255,7 @@ describe('SpendingManageComponent', () => {
       expect(component.isDateRange).toBeFalsy();
     });
     it(`should set the searchCriteria properly.`, () => {
-      let searchCriteria = searchCriteriaDateRangeFor("last month");
+      let searchCriteria = searchCriteriaDateRangeForHelper("last month");
       expect(component.searchCriteria).toEqual(searchCriteria);
     });
     it(`should initialize availableDateRange.`, () => {
@@ -327,7 +310,7 @@ describe('SpendingManageComponent', () => {
     describe(`when isDateRange is true,`, () => {
       let searchCriteriaResult;
       beforeEach(() => {
-        searchCriteriaResult = searchCriteriaDateRange(
+        searchCriteriaResult = searchCriteriaDateRangeHelper(
           'last month', [2018, 2, 9], [2019, 2, 9]);
       });
       it(`should set the dateFrom and dateTo variables
@@ -346,7 +329,7 @@ describe('SpendingManageComponent', () => {
       let searchCriteriaResult;
       beforeEach(() => {
         component.isDateRange = false;
-        searchCriteriaResult = searchCriteriaDateRangeFor("last year");
+        searchCriteriaResult = searchCriteriaDateRangeForHelper("last year");
         spyOn(dateFormatService, 'formatDateString').and.callThrough();
         spyOn(dateFormatService, 'dateRangeForFrom').and.callThrough();
         component.searchCriteria.dateRangeFor = "last year";
@@ -373,7 +356,7 @@ describe('SpendingManageComponent', () => {
     is called,`, () => {
     it(`should set filterCriteria from
       searchCriteria`, () => {
-      let searchCriteria = searchCriteriaDateRange(
+      let searchCriteria = searchCriteriaDateRangeHelper(
         'last month', [2018, 2, 9], [2019, 2, 9]);
       let filterCriteria = {
         dateFrom: dateFormatService.newDate(2018, 2, 9),

@@ -129,3 +129,32 @@ export const httpTestHelper = (
   expect(req.request.method).toEqual(type);
   req.flush(subjectFlush);
 }
+
+export const searchCriteriaDateRange = (dateFormatService) => (
+  dateRangeFor, dateFrom, dateTo
+) => {
+  return {
+    property: "clothingPurchaseDate",
+    dateRangeFor: dateRangeFor,
+    dateFrom: dateFormatService.newDate(dateFrom[0], dateFrom[1], dateFrom[2]),
+    dateTo: dateFormatService.newDate(dateTo[0], dateTo[1], dateTo[2]),
+    dateFromFormatted:
+      `${dateFrom[0]}-0${dateFrom[1]}-0${dateFrom[2]}`,
+    dateToFormatted:
+      `${dateTo[0]}-0${dateTo[1]}-0${dateTo[2]}`
+  };
+}
+
+export const searchCriteriaDateRangeFor = (dateFormatService) => (
+  dateRangeFor
+) => {
+  return {
+    property: "clothingPurchaseDate",
+    dateRangeFor: dateRangeFor,
+    dateFrom: dateFormatService.dateRangeForFrom(dateRangeFor),
+    dateTo: dateFormatService.newDate(),
+    dateFromFormatted: dateFormatService.formatDateString(
+      dateFormatService.dateRangeForFrom(dateRangeFor)),
+    dateToFormatted: dateFormatService.formatDateString(new Date())
+  };
+}
