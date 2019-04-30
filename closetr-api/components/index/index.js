@@ -6,7 +6,7 @@ router.get('/', home_page);
 
 function home_page (req, res, next) {
   const result_json = {
-    status: 'success',
+    status: 200,
     message: 'Welcome to the Closetr API!',
   }
   res.json(result_json);

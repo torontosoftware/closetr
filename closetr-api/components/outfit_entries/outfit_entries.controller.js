@@ -1,23 +1,12 @@
 const outfit_entries_model = require('./outfit_entries.model');
 const clothes_model = require('../clothes/clothes.model');
 const mongoose = require('mongoose');
+const rh = require('../common/result_handling');
 
 function add_new_entry(req, res, next) {
   // gather attributes
-  const req_obj = req.body;
-  const new_entry = {
-    clothing: req_obj.clothingID,
-    user: req_obj.userID,
-    date: req_obj.date,
-    outfitEntryID: req_obj.outfitEntryID
-  };
-
-  // assigning id
-  if(req_obj.outfitEntryID == null){
-    new_entry['_id'] = mongoose.Types.ObjectId();
-  } else {
-    new_entry['_id'] = req_obj.outfitEntryID
-  }
+  const entry_request = req.body;
+  const new_entry = create_entry_from_request(entry_request);
 
   // create new entry from schema
   outfit_entries_model.findOneAndUpdate(
@@ -28,15 +17,35 @@ function add_new_entry(req, res, next) {
   );
 }
 
+function create_entry_from_request(entry_request) {
+  const new_entry = {
+    clothing: entry_request.clothingID,
+    user: entry_request.userID,
+    date: entry_request.date,
+    outfitEntryID: entry_request.outfitEntryID
+  };
+
+  // assigning id
+  if(entry_request.outfitEntryID == null){
+    new_entry['_id'] = mongoose.Types.ObjectId();
+  } else {
+    new_entry['_id'] = entry_request.outfitEntryID;
+  }
+
+  return new_entry;
+}
+
 function delete_entry(req, res, next) {
   const id = req.params.id;
   outfit_entries_model.remove(
     {_id: id},
     (err, doc) => {
       if (err) {
-        error_handler(err, res);
+        const result_json = rh.return_failure(err);
+        res.json(result_json);
       } else {
-        doc_handler(doc, res);
+        const result_json = rh.return_success(doc);
+        res.json(result_json);
       }
     }
   )
@@ -53,27 +62,12 @@ function get_entry(req, res, next) {
   .populate({path: 'user', select: 'userID _id'}).exec(
   (err, clothes) => {
     if (err) {
-      error_handler(err, res);
+      result_json = rh.return_failure(err);
+      res.json(result_json);
     } else {
       outfit_entry_doc_handler(clothes, res);
     }
   });
-}
-
-function error_handler(err, res) {
-  const result_json = {
-    status: 'failed',
-    message: err.message
-  };
-  res.json(result_json);
-}
-
-function doc_handler(doc, res) {
-  const result_json = {
-    status: 'success',
-    data: doc
-  };
-  res.json(result_json);
 }
 
 function outfit_entry_doc_handler(doc, res) {
@@ -87,25 +81,16 @@ function outfit_entry_doc_handler(doc, res) {
     };
     result.push(outfitEntryResult);
   });
-  const result_json = {
-    status: 'success',
-    data: result
-  };
+  const result_json = rh.return_success(result);
   res.json(result_json);
 }
 
 function generic_error_handling(err, doc, res) {
   if (err) {
-    const result_json = {
-      status: 'failed',
-      message: err.message,
-    };
+    const result_json = rh.return_failure(err);
     res.json(result_json);
   } else {
-    const result_json = {
-      status: 'success',
-      data: doc
-    };
+    const result_json = rh.return_success(doc);
     res.json(result_json);
   }
 }
