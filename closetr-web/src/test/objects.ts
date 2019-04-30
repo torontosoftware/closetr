@@ -22,6 +22,14 @@ export const sortOptions = [
   "most worn"
 ];
 
+export const availableDateRange = [
+  'last week',
+  'last two weeks',
+  'last month',
+  'last 6 months',
+  'last year'
+];
+
 export const mockClothingEmpty = new Clothing({userID: "1"});
 
 export const mockClothingID = 'clothingID';

@@ -24,6 +24,16 @@ export const toggleEditModeShouldToggle = (
   });
 }
 
+export const toggleDateRangeShouldToggle = (
+  component, fixture, button
+) => {
+  [1, 2, 3].forEach((i) => {
+    clickTest(button, fixture);
+    expect(button.checked).toEqual(i % 2 === 0);
+    expect(component.isDateRange).toEqual(i % 2 === 0);
+  });
+}
+
 export const editButtonTests = (
   component, fixture, hostElement
 ) => {

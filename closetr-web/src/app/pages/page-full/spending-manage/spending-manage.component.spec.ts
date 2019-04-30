@@ -23,6 +23,7 @@ import {
   MockBudgetManageComponent
 } from '../../../../test/components';
 import {
+  availableDateRange,
   mockClosetList,
   mockUserOne
 } from '../../../../test/objects';
@@ -37,6 +38,9 @@ import {
   inputDispatch,
   clickAndTestNavigate
 } from '../../../../test/utils';
+import {
+  toggleDateRangeShouldToggle
+} from '../../../../test/common-tests';
 
 const closetList = mockClosetList;
 const currentUser = mockUserOne;
@@ -108,43 +112,29 @@ describe('SpendingManageComponent', () => {
 
   it(`should navigate to dashboard component when
     back button is clicked`, () => {
-    let backButton = hostElement.querySelector('#back-button button');
-    clickAndTestNavigate(backButton, router, '/dashboard', fixture);
+    clickAndTestNavigate(
+      hostElement.querySelector('#back-button button'),
+      router, '/dashboard', fixture);
   });
 
   it(`should navigate to budget manage page when
     'manage budget' button is clicked`, () => {
-    let manageBudgetButton = hostElement.querySelector('#manage-budget-button button');
-    clickAndTestNavigate(manageBudgetButton, router, '/budget-manage', fixture);
+    clickAndTestNavigate(
+      hostElement.querySelector('#manage-budget-button button'),
+        router, '/budget-manage', fixture);
   });
 
   it(`should navigate to dashboard when 'add new'
     button is clicked.`, () => {
-    let addNewButton = hostElement.querySelector('#add-new-button button');
-    clickAndTestNavigate(addNewButton, router, '/dashboard', fixture);
+    clickAndTestNavigate(hostElement.querySelector('#add-new-button button'),
+      router, '/dashboard', fixture);
   });
 
-  describe(`when the toggle button,`, () => {
-    let toggleButton;
+  describe(`the toggle button should set isDateRange true or false
+    (multiple toggles)`, () => {
     beforeEach(() => {
-      toggleButton = hostElement.querySelector('#toggle-button input');
-    });
-    it(`should set isDateRange true or false
-      (multiple toggles)`, () => {
-      expect(toggleButton.checked).toBeFalsy();
-      expect(component.isDateRange).toBeFalsy();
-      toggleButton.click();
-      fixture.detectChanges();
-      expect(toggleButton.checked).toBeTruthy();
-      expect(component.isDateRange).toBeTruthy();
-      toggleButton.click();
-      fixture.detectChanges();
-      expect(toggleButton.checked).toBeFalsy();
-      expect(component.isDateRange).toBeFalsy();
-      toggleButton.click();
-      fixture.detectChanges();
-      expect(toggleButton.checked).toBeTruthy();
-      expect(component.isDateRange).toBeTruthy();
+      toggleDateRangeShouldToggle(component, fixture,
+        hostElement.querySelector('#toggle-button input'));
     });
   });
 
@@ -185,17 +175,14 @@ describe('SpendingManageComponent', () => {
         beforeEach(() => {
           component.isDateRange = true;
           inputDispatch(dateRangeFromSelect, dateFormatService.formatDateString(
-            dateFormatService.newDate(2019, 1, 1)
-          ));
-          inputDispatch(dateRangeToSelect, dateRangeToSelect.value = dateFormatService.formatDateString(
-            dateFormatService.newDate(2019, 2, 1)
-          ));
+            dateFormatService.newDate(2019, 1, 1)));
+          inputDispatch(dateRangeToSelect, dateRangeToSelect.value =
+            dateFormatService.formatDateString(dateFormatService.newDate(2019, 2, 1)));
           fixture.detectChanges();
         });
         it(`should call searchCriteriaChangeHandler.`, () => {
-          fixture.whenStable().then(() => {
-            expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(3);
-          });
+          fixture.whenStable().then(() =>
+            expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(3));
         });
         it(`should set the searchCriteria variable
           respectively.`, () => {
@@ -205,15 +192,12 @@ describe('SpendingManageComponent', () => {
             dateFrom: dateFormatService.newDate(2019, 1, 1),
             dateTo: dateFormatService.newDate(2019, 2, 1),
             dateFromFormatted: dateFormatService.formatDateString(
-              dateFormatService.newDate(2019, 1, 1)
-            ),
+              dateFormatService.newDate(2019, 1, 1)),
             dateToFormatted: dateFormatService.formatDateString(
-              dateFormatService.newDate(2019, 2, 1)
-            )
+              dateFormatService.newDate(2019, 2, 1))
           };
-          fixture.whenStable().then(() => {
-            expect(component.searchCriteria).toEqual(searchCriteria);
-          });
+          fixture.whenStable().then(() =>
+            expect(component.searchCriteria).toEqual(searchCriteria));
         });
       });
     });
@@ -225,29 +209,25 @@ describe('SpendingManageComponent', () => {
       it(`should be visible when isDateRange is false.`, () => {
         component.isDateRange = false;
         fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          expect(dateRangeForContainer.hidden).toBeFalsy();
-        });
+        fixture.whenStable().then(() =>
+          expect(dateRangeForContainer.hidden).toBeFalsy());
       });
       it(`should be hidden when isDateRange is true.`, () => {
         component.isDateRange = true;
         fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          expect(dateRangeForContainer.hidden).toBeTruthy();
-        });
+        fixture.whenStable().then(() =>
+          expect(dateRangeForContainer.hidden).toBeTruthy());
       });
       describe(`when the values are changed,`, () => {
         beforeEach(() => {
           component.isDateRange = false;
-          fixture.detectChanges();
           dateRangeForSelect.value = "last year";
           inputDispatch(dateRangeForSelect, 'last year', 'change');
           fixture.detectChanges();
         });
         it(`should call searchCriteriaChangeHandler.`, () => {
-          fixture.whenStable().then(() => {
-            expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(2);
-          });
+          fixture.whenStable().then(() =>
+            expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(2));
         });
         it(`should set the searchCriteria variable
           respectively.`, () => {
@@ -257,23 +237,17 @@ describe('SpendingManageComponent', () => {
             dateFrom: dateFormatService.dateRangeForFrom("last year"),
             dateTo: dateFormatService.newDate(),
             dateFromFormatted: dateFormatService.formatDateString(
-              dateFormatService.dateRangeForFrom("last year")
-            ),
+              dateFormatService.dateRangeForFrom("last year")),
             dateToFormatted: dateFormatService.formatDateString(new Date())
           };
-          fixture.whenStable().then(() => {
-            expect(component.searchCriteria).toEqual(searchCriteria);
-          });
+          fixture.whenStable().then(() =>
+            expect(component.searchCriteria).toEqual(searchCriteria));
         });
       });
     });
   });
 
   describe(`from the init method,`, () => {
-    beforeEach(() => {
-      component.ngOnInit();
-      fixture.detectChanges();
-    });
     it(`should retrieve the current user from
       the authentication service.`, () => {
       expect(component.currentUser).toEqual(currentUser);
@@ -283,7 +257,7 @@ describe('SpendingManageComponent', () => {
     });
     it(`should call the searchCriteriaChangeHandler
       method.`, () => {
-      expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(2);
+      expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(1);
     });
     it(`should have the variable isDateRange as false.`, () => {
       expect(component.isDateRange).toBeFalsy();
@@ -302,13 +276,6 @@ describe('SpendingManageComponent', () => {
       expect(component.searchCriteria).toEqual(searchCriteria);
     });
     it(`should initialize availableDateRange.`, () => {
-      let availableDateRange = [
-        'last week',
-        'last two weeks',
-        'last month',
-        'last 6 months',
-        'last year'
-      ];
       expect(component.availableDateRange).toEqual(availableDateRange);
     });
   });
