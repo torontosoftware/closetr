@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const clothes_model = require('./clothes.model');
+const rh = require('../common/result_handling');
 
 function add_new_clothing(req, res, next) {
   // gather attributes from request
@@ -56,10 +57,7 @@ function get_all_user_clothing(req, res, next) {
 
 function get_all_clothing_error_handling(err, doc, res) {
   if (err) {
-    const result_json = {
-      status: 'failed',
-      message: err.message
-    };
+    const result_json = rh.return_failure(err);
     res.json(result_json);
   } else {
     var result = [];
@@ -74,30 +72,19 @@ function get_all_clothing_error_handling(err, doc, res) {
       }
       result.push(clothingResult);
     });
-    const result_json = return_success(result);
+    const result_json = rh.return_success(result);
     res.json(result_json);
   }
+
 }
 
 function generic_error_handling(err, doc, res) {
   if (err) {
-    const result_json = {
-      status: 'failed',
-      message: err.message,
-    };
-    res.json(result_json);
+    const result_json = rh.return_failure(err);
   } else {
-    const result_json = return_success(doc);
-    res.json(result_json);
+    const result_json = rh.return_success(doc);
   }
-}
-
-function return_success(payload) {
-  const result_json = {
-    status: 200,
-    data: payload
-  };
-  return result_json
+  res.json(result_json);
 }
 
 var clothing_module = {
