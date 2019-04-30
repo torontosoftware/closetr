@@ -141,10 +141,10 @@ describe('SpendingManageComponent', () => {
   });
 
   const searchCriteriaDateRangeHelper = (dateRangeFor, dateFrom, dateTo) =>
-    searchCriteriaDateRange(dateFormatService);
+    searchCriteriaDateRange(dateFormatService)(dateRangeFor, dateFrom, dateTo);
 
   const searchCriteriaDateRangeForHelper = (dateRangeFor) =>
-    searchCriteriaDateRangeFor(dateFormatService);
+    searchCriteriaDateRangeFor(dateFormatService)(dateRangeFor);
 
   describe(`the selectors`, () => {
     let dateRangeForSelect: HTMLInputElement;
