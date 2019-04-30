@@ -166,18 +166,14 @@ describe('SpendingManageComponent', () => {
       it(`should be visible when isDateRange is true.`, () => {
         component.isDateRange = true;
         fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          expect(dateRangeFromContainer.hidden).toBeFalsy();
-          expect(dateRangeToContainer.hidden).toBeFalsy();
-        });
+        expect(dateRangeFromContainer.hidden).toBeFalsy();
+        expect(dateRangeToContainer.hidden).toBeFalsy();
       });
       it(`should be hidden when isDateRange is false.`, () => {
         component.isDateRange = false;
         fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          expect(dateRangeFromContainer.hidden).toBeTruthy();
-          expect(dateRangeToContainer.hidden).toBeTruthy();
-        });
+        expect(dateRangeFromContainer.hidden).toBeTruthy();
+        expect(dateRangeToContainer.hidden).toBeTruthy();
       });
       describe(`when the values are changed,`, () => {
         beforeEach(() => {
@@ -189,15 +185,13 @@ describe('SpendingManageComponent', () => {
           fixture.detectChanges();
         });
         it(`should call searchCriteriaChangeHandler.`, () => {
-          fixture.whenStable().then(() =>
-            expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(3));
+          expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(3));
         });
         it(`should set the searchCriteria variable
           respectively.`, () => {
           let searchCriteria = searchCriteriaDateRangeHelper(
             'last month', [2019, 1, 1], [2019, 2, 1]);
-          fixture.whenStable().then(() =>
-            expect(component.searchCriteria).toEqual(searchCriteria));
+          expect(component.searchCriteria).toEqual(searchCriteria));
         });
       });
     });
@@ -209,14 +203,12 @@ describe('SpendingManageComponent', () => {
       it(`should be visible when isDateRange is false.`, () => {
         component.isDateRange = false;
         fixture.detectChanges();
-        fixture.whenStable().then(() =>
-          expect(dateRangeForContainer.hidden).toBeFalsy());
+        expect(dateRangeForContainer.hidden).toBeFalsy());
       });
       it(`should be hidden when isDateRange is true.`, () => {
         component.isDateRange = true;
         fixture.detectChanges();
-        fixture.whenStable().then(() =>
-          expect(dateRangeForContainer.hidden).toBeTruthy());
+        expect(dateRangeForContainer.hidden).toBeTruthy());
       });
       describe(`when the values are changed,`, () => {
         beforeEach(() => {
@@ -226,14 +218,12 @@ describe('SpendingManageComponent', () => {
           fixture.detectChanges();
         });
         it(`should call searchCriteriaChangeHandler.`, () => {
-          fixture.whenStable().then(() =>
-            expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(2));
+          expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(2));
         });
         it(`should set the searchCriteria variable
           respectively.`, () => {
           let searchCriteria = searchCriteriaDateRangeForHelper("last year");
-          fixture.whenStable().then(() =>
-            expect(component.searchCriteria).toEqual(searchCriteria));
+          expect(component.searchCriteria).toEqual(searchCriteria));
         });
       });
     });
@@ -278,15 +268,13 @@ describe('SpendingManageComponent', () => {
       };
       component.ngOnInit();
       fixture.detectChanges();
-      fixture.whenStable().then(() => {
-        let purchaseTable = fixture.debugElement.query(By.directive(UiTableComponent)).componentInstance;
-        expect(purchaseTable.bindBold).toEqual(mockPurchaseTable.bindBold);
-        expect(purchaseTable.bindRegular).toEqual(mockPurchaseTable.bindRegular);
-        expect(purchaseTable.filter).toEqual(mockPurchaseTable.filter);
-        expect(purchaseTable.filterBy).toEqual(mockPurchaseTable.filterBy);
-        expect(purchaseTable.filterCriteria).toEqual(mockPurchaseTable.filterCriteria);
-        expect(purchaseTable.items).toEqual(mockPurchaseTable.items);
-      });
+      let purchaseTable = fixture.debugElement.query(By.directive(UiTableComponent)).componentInstance;
+      expect(purchaseTable.bindBold).toEqual(mockPurchaseTable.bindBold);
+      expect(purchaseTable.bindRegular).toEqual(mockPurchaseTable.bindRegular);
+      expect(purchaseTable.filter).toEqual(mockPurchaseTable.filter);
+      expect(purchaseTable.filterBy).toEqual(mockPurchaseTable.filterBy);
+      expect(purchaseTable.filterCriteria).toEqual(mockPurchaseTable.filterCriteria);
+      expect(purchaseTable.items).toEqual(mockPurchaseTable.items);
     });
   });
 
