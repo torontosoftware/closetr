@@ -14,10 +14,16 @@ import { ClosetFactory } from '../../../factories/closet.factory';
 })
 export class SpendingManageComponent implements OnInit {
   closetList: Array<Clothing>;
-  isDateRange: boolean;
+  isDateRange: boolean = false;
   searchCriteria: any;
   filterCriteria: any;
-  availableDateRange: any;
+  availableDateRange: any = [
+    'last week',
+    'last two weeks',
+    'last month',
+    'last 6 months',
+    'last year'
+  ];
   currentUser: User;
 
   constructor(private closetService: ClosetService,
@@ -32,17 +38,6 @@ export class SpendingManageComponent implements OnInit {
       dateFromFormatted: this.dateFormatService.formatDateString(new Date()),
       dateToFormatted: this.dateFormatService.formatDateString(new Date())
     };
-
-    this.isDateRange = false;
-
-    this.availableDateRange = [
-      'last week',
-      'last two weeks',
-      'last month',
-      'last 6 months',
-      'last year'
-    ];
-
   }
 
   ngOnInit() {
@@ -54,16 +49,21 @@ export class SpendingManageComponent implements OnInit {
   searchCriteriaChangeHandler(): void {
     if (this.isDateRange) {
       // choosing date range: turn string format to date object.
-      this.searchCriteria.dateFrom = this.dateFormatService.formatStringDate(this.searchCriteria.dateFromFormatted);
-      this.searchCriteria.dateTo = this.dateFormatService.formatStringDate(this.searchCriteria.dateToFormatted);
+      this.searchCriteria.dateFrom = this.dateFormatService
+        .formatStringDate(this.searchCriteria.dateFromFormatted);
+      this.searchCriteria.dateTo = this.dateFormatService
+        .formatStringDate(this.searchCriteria.dateToFormatted);
     } else {
       // choosing date range up to today:
       // set date objects, then set string format from date objects.
-      this.searchCriteria.dateFrom = this.dateFormatService.dateRangeForFrom(this.searchCriteria.dateRangeFor);
+      this.searchCriteria.dateFrom = this.dateFormatService
+        .dateRangeForFrom(this.searchCriteria.dateRangeFor);
       this.searchCriteria.dateTo = this.dateFormatService.newDate();
 
-      this.searchCriteria.dateFromFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateFrom);
-      this.searchCriteria.dateToFormatted = this.dateFormatService.formatDateString(this.searchCriteria.dateTo);
+      this.searchCriteria.dateFromFormatted = this.dateFormatService
+        .formatDateString(this.searchCriteria.dateFrom);
+      this.searchCriteria.dateToFormatted = this.dateFormatService
+        .formatDateString(this.searchCriteria.dateTo);
 
     }
     this.updateFilterCriteria();
