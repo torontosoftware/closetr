@@ -164,18 +164,19 @@ describe('SpendingManageComponent', () => {
         dateRangeFromContainer = hostElement.querySelector('#date-range-from-select');
         dateRangeToContainer = hostElement.querySelector('#date-range-to-select');
       });
-      it(`should be visible when isDateRange is true.`, () => {
-        component.isDateRange = true;
-        fixture.detectChanges();
-        expect(dateRangeFromContainer.hidden).toBeFalsy();
-        expect(dateRangeToContainer.hidden).toBeFalsy();
+
+      it(`should be visible when isDateRange is true, and not
+        otherwise`, () => {
+        const dateRangeContainerVisible = (isDateRange) => {
+          component.isDateRange = isDateRange;
+          fixture.detectChanges();
+          expect(dateRangeFromContainer.hidden).toEqual(!isDateRange);
+          expect(dateRangeToContainer.hidden).toEqual(!isDateRange);
+        }
+        dateRangeContainerVisible(true);
+        dateRangeContainerVisible(false);
       });
-      it(`should be hidden when isDateRange is false.`, () => {
-        component.isDateRange = false;
-        fixture.detectChanges();
-        expect(dateRangeFromContainer.hidden).toBeTruthy();
-        expect(dateRangeToContainer.hidden).toBeTruthy();
-      });
+
       describe(`when the values are changed,`, () => {
         beforeEach(() => {
           component.isDateRange = true;
@@ -230,28 +231,14 @@ describe('SpendingManageComponent', () => {
     });
   });
 
-  describe(`from the init method,`, () => {
-    it(`should retrieve the current user from
-      the authentication service.`, () => {
-      expect(component.currentUser).toEqual(currentUser);
-    });
-    it(`should call getAllClothes() method.`, () => {
-      expect(component.getAllClothes).toHaveBeenCalled();
-    });
-    it(`should call the searchCriteriaChangeHandler
-      method.`, () => {
-      expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(1);
-    });
-    it(`should have the variable isDateRange as false.`, () => {
-      expect(component.isDateRange).toBeFalsy();
-    });
-    it(`should set the searchCriteria properly.`, () => {
-      let searchCriteria = searchCriteriaDateRangeForHelper("last month");
-      expect(component.searchCriteria).toEqual(searchCriteria);
-    });
-    it(`should initialize availableDateRange.`, () => {
-      expect(component.availableDateRange).toEqual(availableDateRange);
-    });
+  it(`the init method should initialize variables.`, () => {
+    let searchCriteria = searchCriteriaDateRangeForHelper("last month");
+    expect(component.currentUser).toEqual(currentUser);
+    expect(component.getAllClothes).toHaveBeenCalled();
+    expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(1);
+    expect(component.isDateRange).toBeFalsy();
+    expect(component.searchCriteria).toEqual(searchCriteria);
+    expect(component.availableDateRange).toEqual(availableDateRange);
   });
 
   describe(`the table of purchases,`, () => {
