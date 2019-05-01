@@ -13,7 +13,7 @@ function add_new_entry(req, res, next) {
     {_id: new_entry._id},
     new_entry,
     {upsert: true, new: true, runValidators: true},
-    (err, doc) => generic_error_handling(err, doc, res)
+    (err, doc) => rh.generic_payload_conditional(err, doc, res)
   );
 }
 
@@ -39,15 +39,7 @@ function delete_entry(req, res, next) {
   const id = req.params.id;
   outfit_entries_model.remove(
     {_id: id},
-    (err, doc) => {
-      if (err) {
-        const result_json = rh.return_failure(err);
-        res.json(result_json);
-      } else {
-        const result_json = rh.return_success(doc);
-        res.json(result_json);
-      }
-    }
+    (err, doc) => rh.generic_payload_conditional(err, doc, res)
   )
 }
 
@@ -83,16 +75,6 @@ function outfit_entry_doc_handler(doc, res) {
   });
   const result_json = rh.return_success(result);
   res.json(result_json);
-}
-
-function generic_error_handling(err, doc, res) {
-  if (err) {
-    const result_json = rh.return_failure(err);
-    res.json(result_json);
-  } else {
-    const result_json = rh.return_success(doc);
-    res.json(result_json);
-  }
 }
 
 var outfit_entries_module = {

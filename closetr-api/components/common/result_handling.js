@@ -14,6 +14,16 @@ function return_failure(err) {
   return result_json
 }
 
+function generic_payload_conditional(err, payload, res) {
+  if (err) {
+    const result_json = rh.return_failure(err);
+    res.json(result_json);
+  } else {
+    const result_json = rh.return_success(payload);
+    res.json(result_json);
+  }
+}
+
 var result_handling_module = {
   return_success: return_success,
   return_failure: return_failure
