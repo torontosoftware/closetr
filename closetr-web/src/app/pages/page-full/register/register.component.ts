@@ -25,11 +25,9 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.resetErrors();
-    if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/dashboard']);
-    } else {
-      this.show = true;
-    }
+    this.show = true;
+    (this.authenticationService.currentUserValue
+      && this.router.navigate(['/dashboard']));
   }
 
   checkEnableRegister(): boolean {

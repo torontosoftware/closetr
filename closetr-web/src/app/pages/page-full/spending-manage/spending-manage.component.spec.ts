@@ -185,13 +185,13 @@ describe('SpendingManageComponent', () => {
           fixture.detectChanges();
         });
         it(`should call searchCriteriaChangeHandler.`, () => {
-          expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(3));
+          expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(3);
         });
         it(`should set the searchCriteria variable
           respectively.`, () => {
           let searchCriteria = searchCriteriaDateRangeHelper(
             'last month', [2019, 1, 1], [2019, 2, 1]);
-          expect(component.searchCriteria).toEqual(searchCriteria));
+          expect(component.searchCriteria).toEqual(searchCriteria);
         });
       });
     });
@@ -203,12 +203,12 @@ describe('SpendingManageComponent', () => {
       it(`should be visible when isDateRange is false.`, () => {
         component.isDateRange = false;
         fixture.detectChanges();
-        expect(dateRangeForContainer.hidden).toBeFalsy());
+        expect(dateRangeForContainer.hidden).toBeFalsy();
       });
       it(`should be hidden when isDateRange is true.`, () => {
         component.isDateRange = true;
         fixture.detectChanges();
-        expect(dateRangeForContainer.hidden).toBeTruthy());
+        expect(dateRangeForContainer.hidden).toBeTruthy();
       });
       describe(`when the values are changed,`, () => {
         beforeEach(() => {
@@ -218,12 +218,12 @@ describe('SpendingManageComponent', () => {
           fixture.detectChanges();
         });
         it(`should call searchCriteriaChangeHandler.`, () => {
-          expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(2));
+          expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(2);
         });
         it(`should set the searchCriteria variable
           respectively.`, () => {
           let searchCriteria = searchCriteriaDateRangeForHelper("last year");
-          expect(component.searchCriteria).toEqual(searchCriteria));
+          expect(component.searchCriteria).toEqual(searchCriteria);
         });
       });
     });

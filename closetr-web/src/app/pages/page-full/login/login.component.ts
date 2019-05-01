@@ -19,11 +19,9 @@ export class LoginComponent implements OnInit {
               private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/dashboard']);
-    } else {
-      this.show = true;
-    }
+    this.show = true;
+    (this.authenticationService.currentUserValue
+      && this.router.navigate(['/dashboard']));
   }
 
   checkEnableLogin = (): boolean =>
