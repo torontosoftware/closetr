@@ -99,7 +99,7 @@ export const purchaseTableShouldRender = (
     items: mockClosetListRenderedTable
   };
   (isBudgetWidget &&
-    (mockPurchaseTable.filterCriteria.dateRangeFor = "last month"));
+    (mockPurchaseTable.filterCriteria['dateRangeFor'] = "last month"));
   let purchaseTable = fixture.debugElement.query(
     By.css('#purchase-table')
   ).componentInstance;

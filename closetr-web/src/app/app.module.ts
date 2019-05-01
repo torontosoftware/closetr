@@ -41,21 +41,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { DateFormatService } from './services/utils/date-format.service';
 
 //ui-library
-import { UiInputComponent } from './shared/ui-input/ui-input.component';
-import { UiTextButtonComponent } from './shared/ui-text-button/ui-text-button.component';
-import { UiInputSelectComponent } from './shared/ui-input-select/ui-input-select.component';
-import { UiInputAddButtonComponent } from './shared/ui-input-add-button/ui-input-add-button.component';
-import { UiInputAddTextComponent } from './shared/ui-input-add-text/ui-input-add-text.component';
-import { UiSelectAddButtonComponent } from './shared/ui-select-add-button/ui-select-add-button.component';
-import { UiBackButtonComponent } from './shared/ui-back-button/ui-back-button.component';
-import { UiEditButtonComponent } from './shared/ui-edit-button/ui-edit-button.component';
-import { UiCloseButtonComponent } from './shared/ui-close-button/ui-close-button.component';
-import { UiFilterSelectComponent } from './shared/ui-filter-select/ui-filter-select.component';
-import { UiTableComponent } from './shared/ui-table/ui-table.component';
-import { ClosetStatsWidgetComponent } from './pages/page-partial/closet-stats-widget/closet-stats-widget.component';
-import { UiFilterDateComponent } from './shared/ui-filter-date/ui-filter-date.component';
-import { UiPopupMenuItemComponent } from './shared/ui-popup-menu-item/ui-popup-menu-item.component';
-import { UiWidgetFullComponent } from './shared/ui-widget-full/ui-widget-full.component';
+import { SharedModule } from './shared/shared.module';
 
 //test
 import { TestModule } from '../test/test.module';
@@ -72,31 +58,14 @@ import { TestModule } from '../test/test.module';
     AddClothingComponent,
     ClosetManageComponent,
     EditClothingComponent,
-    SearchFilterPipe,
     SpendingManageComponent,
     BudgetManageComponent,
     LoginComponent,
     HeaderComponent,
     RegisterComponent,
-    DateRangeFilterPipe,
     UserMenuComponent,
     ProfileComponent,
-    UiInputComponent,
-    UiTextButtonComponent,
-    UiInputSelectComponent,
-    UiInputAddButtonComponent,
-    UiInputAddTextComponent,
-    UiSelectAddButtonComponent,
-    UiBackButtonComponent,
-    UiEditButtonComponent,
-    UiCloseButtonComponent,
-    UiFilterSelectComponent,
-    UiTableComponent,
-    ClosetStatsWidgetComponent,
-    UiFilterDateComponent,
-    UiPopupMenuItemComponent,
     ClothingFormComponent,
-    UiWidgetFullComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +73,8 @@ import { TestModule } from '../test/test.module';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    TestModule
+    TestModule,
+    SharedModule
   ],
   providers: [
     ClosetService,
