@@ -1,5 +1,12 @@
 import { of } from 'rxjs';
-import { clickTest, clickAndTestCalledWithMult } from './utils';
+import {
+  clickTest,
+  clickAndTestCalledWithMult
+} from './utils';
+import {
+  mockUserOne,
+  mockClosetListRenderedTable
+} from './objects';
 
 export const loggedUserRedirectDashboard = (
   service, component, fixture, router
@@ -65,4 +72,13 @@ export const editButtonTests = (
       );
     });
   });
+}
+
+export const getAllClothesComponent = (
+  component, fixture, closetService
+) => {
+  component.getAllClothes();
+  fixture.detectChanges();
+  expect(closetService.getAllClothes).toHaveBeenCalledWith(mockUserOne);
+  expect(component.closetList).toEqual(mockClosetListRenderedTable);
 }

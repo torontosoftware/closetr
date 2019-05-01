@@ -41,7 +41,8 @@ import {
   searchCriteriaDateRangeFor
 } from '../../../../test/utils';
 import {
-  toggleDateRangeShouldToggle
+  toggleDateRangeShouldToggle,
+  getAllClothesComponent
 } from '../../../../test/common-tests';
 
 const closetList = mockClosetList;
@@ -278,19 +279,8 @@ describe('SpendingManageComponent', () => {
     });
   });
 
-  describe(`when the getAllClothes() method is called,`, () => {
-    beforeEach(() => {
-      component.getAllClothes();
-      fixture.detectChanges();
-    })
-    it(`should call closetService's getAllClothes
-      method with the currentUser.`, () => {
-      expect(closetService.getAllClothes).toHaveBeenCalledWith(currentUser);
-    });
-    it(`should set closetList to the returned data
-      from closetService.`, () => {
-      expect(component.closetList).toEqual(closetList);
-    });
+  it(`the getAllClothes() method should set closetList.`, () => {
+    getAllClothesComponent(component, fixture, closetService);
   });
 
   describe(`when the searchCriteriaChangeHandler()

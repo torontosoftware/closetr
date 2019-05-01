@@ -21,7 +21,6 @@ import {
 } from '../../../../test/components';
 import {
   mockClosetListRenderedTable,
-  mockClosetList,
   mockUserOne
 } from '../../../../test/objects';
 import {
@@ -31,10 +30,9 @@ import {
 import {
   DateRangeFilterPipeMock
 } from '../../../../test/pipes';
-
-const closetList = mockClosetList;
-const closetListRenderedTable = mockClosetListRenderedTable;
-const currentUser = mockUserOne;
+import {
+  getAllClothesComponent
+} from '../../../../test/common-tests';
 
 describe('BudgetWidgetComponent', () => {
   let component: BudgetWidgetComponent;
@@ -118,7 +116,7 @@ describe('BudgetWidgetComponent', () => {
     });
     it(`should retrieve the current user from
       the authentication service.`, () => {
-      expect(component.currentUser).toEqual(currentUser);
+      expect(component.currentUser).toEqual(mockUserOne);
     });
     it(`should call getAllClothes() method.`, () => {
       expect(component.getAllClothes).toHaveBeenCalled();
@@ -152,19 +150,8 @@ describe('BudgetWidgetComponent', () => {
     });
   });
 
-  describe(`the getAllClothes() method,`, () => {
-    beforeEach(() => {
-      component.getAllClothes();
-      fixture.detectChanges();
-    });
-    it(`should call closet service's getAllClothes()
-      method`, () => {
-      expect(closetService.getAllClothes).toHaveBeenCalledWith(currentUser);
-    });
-    it(`should set closetList to the returned
-      data from closetService`, () => {
-      expect(component.closetList).toEqual(closetListRenderedTable);
-    });
+  it(`the getAllClothes() method should set closetList.`, () => {
+    getAllClothesComponent(component, fixture, closetService);
   });
 
   describe(`the date range selector,`, () => {
@@ -192,7 +179,7 @@ describe('BudgetWidgetComponent', () => {
           dateFrom: dateFormatService.dateRangeForFrom("last month"),
           dateTo: dateFormatService.newDate()
         },
-        items: closetListRenderedTable
+        items: mockClosetListRenderedTable
       };
       let purchaseTable = fixture.debugElement.query(
         By.css('#purchase-table')
