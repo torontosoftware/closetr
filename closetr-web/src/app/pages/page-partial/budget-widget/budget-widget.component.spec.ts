@@ -163,6 +163,6 @@ describe('BudgetWidgetComponent', () => {
   });
 
   it(`the table of purchases should render each item in closetList.`, () => {
-    purchaseTableShouldRender(component, fixture, dateFormatService);
+    purchaseTableShouldRender(component, fixture, dateFormatService, true);
   });
 });

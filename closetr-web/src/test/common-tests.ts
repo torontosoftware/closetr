@@ -85,7 +85,7 @@ export const getAllClothesComponent = (
 }
 
 export const purchaseTableShouldRender = (
-  component, fixture, dateFormatService
+  component, fixture, dateFormatService, isBudgetWidget = false
 ) => {
   let mockPurchaseTable = {
     bindBold: "clothingCost",
@@ -93,12 +93,13 @@ export const purchaseTableShouldRender = (
     filter: "date",
     filterBy: "clothingPurchaseDate",
     filterCriteria: {
-      dateRangeFor: "last month",
       dateFrom: dateFormatService.dateRangeForFrom("last month"),
       dateTo: dateFormatService.newDate()
     },
     items: mockClosetListRenderedTable
   };
+  (isBudgetWidget &&
+    (mockPurchaseTable.filterCriteria.dateRangeFor = "last month"));
   let purchaseTable = fixture.debugElement.query(
     By.css('#purchase-table')
   ).componentInstance;

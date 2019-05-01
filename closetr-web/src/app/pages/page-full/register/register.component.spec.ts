@@ -4,12 +4,10 @@ import { Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { User } from '../../../models/user.model';
+import { SharedModule } from '../../../shared/shared.module';
 import { UserService } from '../../../services/user.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
-import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
 import { RegisterComponent } from './register.component';
 import {
   MockLoginComponent,
@@ -48,11 +46,10 @@ describe('RegisterComponent', () => {
       imports: [
         RouterTestingModule.withRoutes(routes),
         HttpClientTestingModule,
-        FormsModule
+        FormsModule,
+        SharedModule
       ],
       declarations: [
-        UiInputComponent,
-        UiTextButtonComponent,
         RegisterComponent,
         MockLoginComponent,
         MockDashboardComponent
@@ -63,7 +60,6 @@ describe('RegisterComponent', () => {
         { provide: UserService, useClass: UserServiceMock }
       ]
     });
-
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.debugElement.componentInstance;
     authenticationService = TestBed.get(AuthenticationService);

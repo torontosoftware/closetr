@@ -5,14 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SharedModule } from '../../../shared/shared.module';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { UserService } from '../../../services/user.service';
-import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
-import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-button.component';
-import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
-import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
-import { UiWidgetFullComponent } from '../../../shared/ui-widget-full/ui-widget-full.component';
-import { User } from '../../../models/user.model';
 import { ProfileComponent } from './profile.component';
 import {
   MockDashboardComponent
@@ -29,6 +24,9 @@ import {
   multTestCompare,
   clickBackAndTestNavigate
 } from '../../../../test/utils';
+import {
+  toggleEditModeShouldToggle
+} from '../../../../test/common-tests';
 
 const currentUser = mockUserOne;
 const updatedUser = mockUserTwo;
@@ -56,15 +54,11 @@ describe('ProfileComponent', () => {
       imports: [
         FormsModule,
         RouterTestingModule.withRoutes(routes),
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        SharedModule
       ],
       declarations: [
         MockDashboardComponent,
-        UiBackButtonComponent,
-        UiEditButtonComponent,
-        UiTextButtonComponent,
-        UiInputComponent,
-        UiWidgetFullComponent,
         ProfileComponent
       ],
       providers: [
@@ -149,16 +143,7 @@ describe('ProfileComponent', () => {
     });
     it(`should call toggleEditMode method, and change the
       editMode variable (multiple toggles).`, () => {
-      expect(component.toggleEditMode).toHaveBeenCalledTimes(1);
-      expect(component.editMode).toBeTruthy();
-      editButton.click();
-      fixture.detectChanges();
-      expect(component.toggleEditMode).toHaveBeenCalledTimes(2);
-      expect(component.editMode).toBeFalsy();
-      editButton.click();
-      fixture.detectChanges();
-      expect(component.toggleEditMode).toHaveBeenCalledTimes(3);
-      expect(component.editMode).toBeTruthy();
+      toggleEditModeShouldToggle(component, fixture, editButton);
     });
     it(`should hide the save button when
       editMode is false.`, () => {
