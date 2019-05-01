@@ -8,8 +8,6 @@ import { SharedModule } from '../../../shared/shared.module';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { ClosetService } from '../../../services/closet.service';
 import { DateFormatService } from '../../../services/utils/date-format.service';
-import { User } from '../../../models/user.model';
-import { Clothing } from '../../../models/clothing.model';
 import { DateRangeFilterPipe } from '../../../pipes/date-range-filter.pipe';
 import { BudgetWidgetComponent } from './budget-widget.component';
 import {

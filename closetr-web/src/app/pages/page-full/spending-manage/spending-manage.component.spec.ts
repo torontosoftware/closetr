@@ -7,7 +7,6 @@ import { SharedModule } from '../../../shared/shared.module';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { DateFormatService } from '../../../services/utils/date-format.service';
 import { ClosetService } from '../../../services/closet.service';
-import { UiTableComponent } from '../../../shared/ui-table/ui-table.component';
 import { SpendingManageComponent } from './spending-manage.component';
 import { DateRangeFilterPipe } from '../../../pipes/date-range-filter.pipe';
 import {

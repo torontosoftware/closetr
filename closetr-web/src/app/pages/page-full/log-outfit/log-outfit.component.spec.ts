@@ -4,17 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SharedModule } from '../../../shared/shared.module';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { ClosetService } from '../../../services/closet.service';
 import { LogOutfitService } from  '../../../services/log-outfit.service';
 import { DateFormatService } from '../../../services/utils/date-format.service';
 import { RoutesService } from '../../../services/routes.service';
-import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
-import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-button.component';
-import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
-import { UiInputAddButtonComponent } from '../../../shared/ui-input-add-button/ui-input-add-button.component';
-import { UiCloseButtonComponent } from '../../../shared/ui-close-button/ui-close-button.component';
-import { UiWidgetFullComponent } from '../../../shared/ui-widget-full/ui-widget-full.component';
 import { ClosetCardComponent } from '../../page-partial/closet-card/closet-card.component';
 import { SearchFilterPipe } from '../../../pipes/search-filter.pipe';
 import { LogOutfitComponent } from './log-outfit.component';
@@ -76,15 +71,10 @@ describe('LogOutfitComponent', () => {
       imports: [
         FormsModule,
         RouterTestingModule.withRoutes(routes),
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        SharedModule
       ],
       declarations: [
-        UiBackButtonComponent,
-        UiEditButtonComponent,
-        UiTextButtonComponent,
-        UiInputAddButtonComponent,
-        UiCloseButtonComponent,
-        UiWidgetFullComponent,
         ClosetCardComponent,
         LogOutfitComponent,
         MockDashboardComponent,
@@ -132,8 +122,6 @@ describe('LogOutfitComponent', () => {
       userID: currentUser.id,
       date: dateFormatService.formatDateString(new Date())
     };
-
-    console.log("params", params);
 
     fixture.detectChanges();
   });

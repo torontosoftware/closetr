@@ -3,16 +3,11 @@ import { OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Clothing } from '../../../models/clothing.model';
+import { SharedModule } from '../../../shared/shared.module';
 import { ClosetService } from '../../../services/closet.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { ClothingFormComponent } from '../clothing-form/clothing-form.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
-import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
-import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
-import { UiInputSelectComponent } from '../../../shared/ui-input-select/ui-input-select.component';
-import { UiWidgetFullComponent } from '../../../shared/ui-widget-full/ui-widget-full.component';
 import { EditClothingComponent } from './edit-clothing.component';
 import {
   MockClosetManageComponent,
@@ -49,15 +44,11 @@ describe('EditClothingComponent', () => {
       imports: [
         FormsModule,
         RouterTestingModule.withRoutes(routes),
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        SharedModule
       ],
       declarations: [
         ClothingFormComponent,
-        UiBackButtonComponent,
-        UiTextButtonComponent,
-        UiInputComponent,
-        UiInputSelectComponent,
-        UiWidgetFullComponent,
         EditClothingComponent,
         MockClosetManageComponent
       ],
