@@ -4,12 +4,10 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../../../shared/shared.module';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { ClosetService } from '../../../services/closet.service';
-import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-button.component';
-import { UiFilterSelectComponent } from '../../../shared/ui-filter-select/ui-filter-select.component';
 import { ClosetCardComponent } from '../closet-card/closet-card.component';
-import { UiCloseButtonComponent } from '../../../shared/ui-close-button/ui-close-button.component';
 import { ClosetWidgetComponent } from './closet-widget.component';
 import {
   MockClosetManageComponent
@@ -45,14 +43,12 @@ describe('ClosetWidgetComponent', () => {
       imports: [
         RouterTestingModule.withRoutes(routes),
         HttpClientTestingModule,
-        FormsModule
+        FormsModule,
+        SharedModule
       ],
       declarations: [
         MockClosetManageComponent,
-        UiEditButtonComponent,
-        UiFilterSelectComponent,
         ClosetCardComponent,
-        UiCloseButtonComponent,
         ClosetWidgetComponent
       ],
       providers: [
@@ -144,6 +140,5 @@ describe('ClosetWidgetComponent', () => {
       expect(component.closetList).toEqual(closetList);
     });
   });
-
 
 });

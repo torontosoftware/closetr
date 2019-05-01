@@ -4,16 +4,11 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../../../shared/shared.module';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { ClosetService } from '../../../services/closet.service';
 import { DateFormatService } from '../../../services/utils/date-format.service';
-import { User } from '../../../models/user.model';
-import { Clothing } from '../../../models/clothing.model';
 import { DateRangeFilterPipe } from '../../../pipes/date-range-filter.pipe';
-import { UiTableComponent } from '../../../shared/ui-table/ui-table.component';
-import { UiFilterSelectComponent } from '../../../shared/ui-filter-select/ui-filter-select.component';
-import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
-import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-button.component';
 import { BudgetWidgetComponent } from './budget-widget.component';
 import {
   MockSpendingManageComponent,
@@ -21,7 +16,6 @@ import {
 } from '../../../../test/components';
 import {
   mockClosetListRenderedTable,
-  mockClosetList,
   mockUserOne
 } from '../../../../test/objects';
 import {
@@ -31,10 +25,10 @@ import {
 import {
   DateRangeFilterPipeMock
 } from '../../../../test/pipes';
-
-const closetList = mockClosetList;
-const closetListRenderedTable = mockClosetListRenderedTable;
-const currentUser = mockUserOne;
+import {
+  getAllClothesComponent,
+  purchaseTableShouldRender
+} from '../../../../test/common-tests';
 
 describe('BudgetWidgetComponent', () => {
   let component: BudgetWidgetComponent;
@@ -56,16 +50,13 @@ describe('BudgetWidgetComponent', () => {
         RouterTestingModule.withRoutes(routes),
         HttpClientTestingModule,
         RouterTestingModule,
-        FormsModule
+        FormsModule,
+        SharedModule
       ],
       declarations: [
         MockBudgetManageComponent,
         MockSpendingManageComponent,
         DateRangeFilterPipeMock,
-        UiTableComponent,
-        UiFilterSelectComponent,
-        UiTextButtonComponent,
-        UiEditButtonComponent,
         BudgetWidgetComponent
       ],
       providers: [
@@ -118,7 +109,7 @@ describe('BudgetWidgetComponent', () => {
     });
     it(`should retrieve the current user from
       the authentication service.`, () => {
-      expect(component.currentUser).toEqual(currentUser);
+      expect(component.currentUser).toEqual(mockUserOne);
     });
     it(`should call getAllClothes() method.`, () => {
       expect(component.getAllClothes).toHaveBeenCalled();
@@ -152,19 +143,8 @@ describe('BudgetWidgetComponent', () => {
     });
   });
 
-  describe(`the getAllClothes() method,`, () => {
-    beforeEach(() => {
-      component.getAllClothes();
-      fixture.detectChanges();
-    });
-    it(`should call closet service's getAllClothes()
-      method`, () => {
-      expect(closetService.getAllClothes).toHaveBeenCalledWith(currentUser);
-    });
-    it(`should set closetList to the returned
-      data from closetService`, () => {
-      expect(component.closetList).toEqual(closetListRenderedTable);
-    });
+  it(`the getAllClothes() method should set closetList.`, () => {
+    getAllClothesComponent(component, fixture, closetService);
   });
 
   describe(`the date range selector,`, () => {
@@ -180,31 +160,7 @@ describe('BudgetWidgetComponent', () => {
     });
   });
 
-  describe(`the table of purchases,`, () => {
-    it(`should render each item in closetList.`, () => {
-      let mockPurchaseTable = {
-        bindBold: "clothingCost",
-        bindRegular: "clothingName",
-        filter: "date",
-        filterBy: "clothingPurchaseDate",
-        filterCriteria: {
-          dateRangeFor: "last month",
-          dateFrom: dateFormatService.dateRangeForFrom("last month"),
-          dateTo: dateFormatService.newDate()
-        },
-        items: closetListRenderedTable
-      };
-      let purchaseTable = fixture.debugElement.query(
-        By.css('#purchase-table')
-      ).componentInstance;
-      component.ngOnInit();
-      fixture.detectChanges();
-      expect(purchaseTable.bindBold).toEqual(mockPurchaseTable.bindBold);
-      expect(purchaseTable.bindRegular).toEqual(mockPurchaseTable.bindRegular);
-      expect(purchaseTable.filter).toEqual(mockPurchaseTable.filter);
-      expect(purchaseTable.filterBy).toEqual(mockPurchaseTable.filterBy);
-      expect(purchaseTable.filterCriteria).toEqual(mockPurchaseTable.filterCriteria);
-      expect(purchaseTable.items).toEqual(mockPurchaseTable.items);
-    });
+  it(`the table of purchases should render each item in closetList.`, () => {
+    purchaseTableShouldRender(component, fixture, dateFormatService, true);
   });
 });

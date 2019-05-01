@@ -2,9 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SharedModule } from '../../../shared/shared.module';
 import { ClosetService } from '../../../services/closet.service';
-import { UiCloseButtonComponent } from '../../../shared/ui-close-button/ui-close-button.component';
-import { UiEditButtonComponent } from '../../../shared/ui-edit-button/ui-edit-button.component';
 import { ClosetCardComponent } from './closet-card.component';
 import { Clothing } from '../../../models/clothing.model';
 import {
@@ -35,12 +34,11 @@ describe('ClosetCardComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes(routes),
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        SharedModule
       ],
       declarations: [
         MockEditClothingComponent,
-        UiCloseButtonComponent,
-        UiEditButtonComponent,
         ClosetCardComponent
       ],
       providers: [

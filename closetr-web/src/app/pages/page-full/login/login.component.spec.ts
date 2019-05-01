@@ -5,10 +5,9 @@ import { Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SharedModule } from '../../../shared/shared.module';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
-import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
 import { LoginComponent } from './login.component';
 import {
   MockDashboardComponent
@@ -48,12 +47,11 @@ describe('LoginComponent', () => {
       imports: [
         FormsModule,
         RouterTestingModule.withRoutes(routes),
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        SharedModule
       ],
       declarations: [
         MockDashboardComponent,
-        UiInputComponent,
-        UiTextButtonComponent,
         LoginComponent
       ],
       providers: [

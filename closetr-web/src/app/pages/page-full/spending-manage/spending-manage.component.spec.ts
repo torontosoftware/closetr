@@ -1,21 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SharedModule } from '../../../shared/shared.module';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { DateFormatService } from '../../../services/utils/date-format.service';
 import { ClosetService } from '../../../services/closet.service';
-import { User } from '../../../models/user.model';
-import { Clothing } from '../../../models/clothing.model';
-import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
-import { UiInputAddButtonComponent } from '../../../shared/ui-input-add-button/ui-input-add-button.component';
-import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
-import { UiFilterSelectComponent } from '../../../shared/ui-filter-select/ui-filter-select.component';
-import { UiFilterDateComponent } from '../../../shared/ui-filter-date/ui-filter-date.component';
-import { UiTableComponent } from '../../../shared/ui-table/ui-table.component';
-import { UiWidgetFullComponent } from '../../../shared/ui-widget-full/ui-widget-full.component';
 import { SpendingManageComponent } from './spending-manage.component';
 import { DateRangeFilterPipe } from '../../../pipes/date-range-filter.pipe';
 import {
@@ -41,7 +32,9 @@ import {
   searchCriteriaDateRangeFor
 } from '../../../../test/utils';
 import {
-  toggleDateRangeShouldToggle
+  toggleDateRangeShouldToggle,
+  getAllClothesComponent,
+  purchaseTableShouldRender
 } from '../../../../test/common-tests';
 
 const closetList = mockClosetList;
@@ -68,18 +61,12 @@ describe('SpendingManageComponent', () => {
       imports: [
         RouterTestingModule.withRoutes(routes),
         HttpClientTestingModule,
-        FormsModule
+        FormsModule,
+        SharedModule
       ],
       declarations: [
         MockDashboardComponent,
         MockBudgetManageComponent,
-        UiBackButtonComponent,
-        UiInputAddButtonComponent,
-        UiTextButtonComponent,
-        UiFilterSelectComponent,
-        UiFilterDateComponent,
-        UiTableComponent,
-        UiWidgetFullComponent,
         SpendingManageComponent,
         DateRangeFilterPipeMock
       ],
@@ -163,36 +150,28 @@ describe('SpendingManageComponent', () => {
         dateRangeFromContainer = hostElement.querySelector('#date-range-from-select');
         dateRangeToContainer = hostElement.querySelector('#date-range-to-select');
       });
-      it(`should be visible when isDateRange is true.`, () => {
-        component.isDateRange = true;
-        fixture.detectChanges();
-        expect(dateRangeFromContainer.hidden).toBeFalsy();
-        expect(dateRangeToContainer.hidden).toBeFalsy();
-      });
-      it(`should be hidden when isDateRange is false.`, () => {
-        component.isDateRange = false;
-        fixture.detectChanges();
-        expect(dateRangeFromContainer.hidden).toBeTruthy();
-        expect(dateRangeToContainer.hidden).toBeTruthy();
-      });
-      describe(`when the values are changed,`, () => {
-        beforeEach(() => {
-          component.isDateRange = true;
-          inputDispatch(dateRangeFromSelect, dateFormatService.formatDateString(
-            dateFormatService.newDate(2019, 1, 1)));
-          inputDispatch(dateRangeToSelect, dateRangeToSelect.value =
-            dateFormatService.formatDateString(dateFormatService.newDate(2019, 2, 1)));
+      it(`should be visible when isDateRange is true, and not
+        otherwise`, () => {
+        const dateRangeContainerVisible = (isDateRange) => {
+          component.isDateRange = isDateRange;
           fixture.detectChanges();
-        });
-        it(`should call searchCriteriaChangeHandler.`, () => {
-          expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(3));
-        });
-        it(`should set the searchCriteria variable
-          respectively.`, () => {
-          let searchCriteria = searchCriteriaDateRangeHelper(
-            'last month', [2019, 1, 1], [2019, 2, 1]);
-          expect(component.searchCriteria).toEqual(searchCriteria));
-        });
+          expect(dateRangeFromContainer.hidden).toEqual(!isDateRange);
+          expect(dateRangeToContainer.hidden).toEqual(!isDateRange);
+        }
+        dateRangeContainerVisible(true);
+        dateRangeContainerVisible(false);
+      });
+      it(`when the values are changed, should set the searchCriteria
+        variable respectively.`, () => {
+        let searchCriteria = searchCriteriaDateRangeHelper(
+          'last month', [2019, 1, 1], [2019, 2, 1]);
+        component.isDateRange = true;
+        inputDispatch(dateRangeFromSelect, dateFormatService.formatDateString(
+          dateFormatService.newDate(2019, 1, 1)));
+        inputDispatch(dateRangeToSelect, dateRangeToSelect.value =
+          dateFormatService.formatDateString(dateFormatService.newDate(2019, 2, 1)));
+        fixture.detectChanges();
+        expect(component.searchCriteria).toEqual(searchCriteria);
       });
     });
     describe(`for date range for,`, () => {
@@ -200,138 +179,66 @@ describe('SpendingManageComponent', () => {
       beforeEach(() => {
         dateRangeForContainer = hostElement.querySelector('#date-range-for-select');
       });
-      it(`should be visible when isDateRange is false.`, () => {
-        component.isDateRange = false;
-        fixture.detectChanges();
-        expect(dateRangeForContainer.hidden).toBeFalsy());
-      });
-      it(`should be hidden when isDateRange is true.`, () => {
-        component.isDateRange = true;
-        fixture.detectChanges();
-        expect(dateRangeForContainer.hidden).toBeTruthy());
-      });
-      describe(`when the values are changed,`, () => {
-        beforeEach(() => {
-          component.isDateRange = false;
-          dateRangeForSelect.value = "last year";
-          inputDispatch(dateRangeForSelect, 'last year', 'change');
+      it(`should be hidden when isDateRange is true, and not
+        otherwise`, () => {
+        const dateRangeForContainerVisible = (isDateRange) => {
+          component.isDateRange = isDateRange;
           fixture.detectChanges();
-        });
-        it(`should call searchCriteriaChangeHandler.`, () => {
-          expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(2));
-        });
-        it(`should set the searchCriteria variable
-          respectively.`, () => {
-          let searchCriteria = searchCriteriaDateRangeForHelper("last year");
-          expect(component.searchCriteria).toEqual(searchCriteria));
-        });
+          expect(dateRangeForContainer.hidden).toEqual(isDateRange);
+        }
+        dateRangeForContainerVisible(true);
+        dateRangeForContainerVisible(false);
+      });
+      it(`when the values are changed, should set the searchCriteria variable
+        respectively.`, () => {
+        let searchCriteria = searchCriteriaDateRangeForHelper("last year");
+        component.isDateRange = false;
+        dateRangeForSelect.value = "last year";
+        inputDispatch(dateRangeForSelect, 'last year', 'change');
+        fixture.detectChanges();
+        expect(component.searchCriteria).toEqual(searchCriteria);
       });
     });
   });
 
-  describe(`from the init method,`, () => {
-    it(`should retrieve the current user from
-      the authentication service.`, () => {
-      expect(component.currentUser).toEqual(currentUser);
-    });
-    it(`should call getAllClothes() method.`, () => {
-      expect(component.getAllClothes).toHaveBeenCalled();
-    });
-    it(`should call the searchCriteriaChangeHandler
-      method.`, () => {
-      expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(1);
-    });
-    it(`should have the variable isDateRange as false.`, () => {
-      expect(component.isDateRange).toBeFalsy();
-    });
-    it(`should set the searchCriteria properly.`, () => {
-      let searchCriteria = searchCriteriaDateRangeForHelper("last month");
-      expect(component.searchCriteria).toEqual(searchCriteria);
-    });
-    it(`should initialize availableDateRange.`, () => {
-      expect(component.availableDateRange).toEqual(availableDateRange);
-    });
+  it(`the init method should initialize variables.`, () => {
+    let searchCriteria = searchCriteriaDateRangeForHelper("last month");
+    expect(component.currentUser).toEqual(currentUser);
+    expect(component.getAllClothes).toHaveBeenCalled();
+    expect(component.searchCriteriaChangeHandler).toHaveBeenCalledTimes(1);
+    expect(component.isDateRange).toBeFalsy();
+    expect(component.searchCriteria).toEqual(searchCriteria);
+    expect(component.availableDateRange).toEqual(availableDateRange);
   });
 
-  describe(`the table of purchases,`, () => {
-    it(`should render each item in closetList.`, () => {
-      let mockPurchaseTable = {
-        bindBold: "clothingCost",
-        bindRegular: "clothingName",
-        filter: "date",
-        filterBy: "clothingPurchaseDate",
-        filterCriteria: {
-          dateFrom: dateFormatService.dateRangeForFrom("last month"),
-          dateTo: dateFormatService.newDate()
-        },
-        items: closetList
-      };
-      component.ngOnInit();
-      fixture.detectChanges();
-      let purchaseTable = fixture.debugElement.query(By.directive(UiTableComponent)).componentInstance;
-      expect(purchaseTable.bindBold).toEqual(mockPurchaseTable.bindBold);
-      expect(purchaseTable.bindRegular).toEqual(mockPurchaseTable.bindRegular);
-      expect(purchaseTable.filter).toEqual(mockPurchaseTable.filter);
-      expect(purchaseTable.filterBy).toEqual(mockPurchaseTable.filterBy);
-      expect(purchaseTable.filterCriteria).toEqual(mockPurchaseTable.filterCriteria);
-      expect(purchaseTable.items).toEqual(mockPurchaseTable.items);
-    });
+  it(`the table of purchases should render each item in closetList.`, () => {
+    purchaseTableShouldRender(component, fixture, dateFormatService);
   });
 
-  describe(`when the getAllClothes() method is called,`, () => {
-    beforeEach(() => {
-      component.getAllClothes();
-      fixture.detectChanges();
-    })
-    it(`should call closetService's getAllClothes
-      method with the currentUser.`, () => {
-      expect(closetService.getAllClothes).toHaveBeenCalledWith(currentUser);
-    });
-    it(`should set closetList to the returned data
-      from closetService.`, () => {
-      expect(component.closetList).toEqual(closetList);
-    });
+  it(`the getAllClothes() method should set closetList.`, () => {
+    getAllClothesComponent(component, fixture, closetService);
   });
 
   describe(`when the searchCriteriaChangeHandler()
     method is called,`, () => {
-    describe(`when isDateRange is true,`, () => {
-      let searchCriteriaResult;
-      beforeEach(() => {
-        searchCriteriaResult = searchCriteriaDateRangeHelper(
+    it(`when isDateRange is true, should set the dateFrom and dateTo
+      variables to the a formatted date using dateFormatService's
+      formatStringDate method.`, () => {
+      component.isDateRange = true;
+      let searchCriteriaResult = searchCriteriaDateRangeHelper(
           'last month', [2018, 2, 9], [2019, 2, 9]);
-      });
-      it(`should set the dateFrom and dateTo variables
-        to the a formatted date using dateFormatService's
-        formatStringDate method.`, () => {
-        spyOn(dateFormatService, 'formatStringDate').and.callThrough();
-        component.isDateRange = true;
-        component.searchCriteria.dateFromFormatted = '2018-02-09';
-        component.searchCriteria.dateToFormatted = '2019-02-09';
-        component.searchCriteriaChangeHandler();
-        expect(dateFormatService.formatStringDate).toHaveBeenCalledTimes(2);
-        expect(component.searchCriteria).toEqual(searchCriteriaResult);
-      });
+      component.searchCriteria.dateFromFormatted = '2018-02-09';
+      component.searchCriteria.dateToFormatted = '2019-02-09';
+      component.searchCriteriaChangeHandler();
+      expect(component.searchCriteria).toEqual(searchCriteriaResult);
     });
-    describe(`when isDateRange is false,`, () => {
-      let searchCriteriaResult;
-      beforeEach(() => {
-        component.isDateRange = false;
-        searchCriteriaResult = searchCriteriaDateRangeForHelper("last year");
-        spyOn(dateFormatService, 'formatDateString').and.callThrough();
-        spyOn(dateFormatService, 'dateRangeForFrom').and.callThrough();
-        component.searchCriteria.dateRangeFor = "last year";
-        component.searchCriteriaChangeHandler();
-      });
-      it(`should call dateFormatService's dateRangeForFrom,
-        and formatDateString methods.`, () => {
-        expect(dateFormatService.formatDateString).toHaveBeenCalledTimes(2);
-        expect(dateFormatService.dateRangeForFrom).toHaveBeenCalledTimes(1);
-      });
-      it(`should set the searchCriteria variable
-        appropriately`, () => {
-        expect(component.searchCriteria).toEqual(searchCriteriaResult);
-      });
+    it(`when isDateRange is false, should set the searchCriteria variable
+      appropriately`, () => {
+      component.isDateRange = false;
+      let searchCriteriaResult = searchCriteriaDateRangeForHelper("last year");
+      component.searchCriteria.dateRangeFor = "last year";
+      component.searchCriteriaChangeHandler();
+      expect(component.searchCriteria).toEqual(searchCriteriaResult);
     });
     it(`should call to updateFilterCriteria method`, () => {
       spyOn(component, 'updateFilterCriteria').and.callThrough();
@@ -340,19 +247,16 @@ describe('SpendingManageComponent', () => {
     });
   });
 
-  describe(`when the updateFilterCriteria()
-    is called,`, () => {
-    it(`should set filterCriteria from
-      searchCriteria`, () => {
-      let searchCriteria = searchCriteriaDateRangeHelper(
-        'last month', [2018, 2, 9], [2019, 2, 9]);
-      let filterCriteria = {
-        dateFrom: dateFormatService.newDate(2018, 2, 9),
-        dateTo: dateFormatService.newDate(2019, 2, 9)
-      };
-      component.searchCriteria = searchCriteria;
-      component.updateFilterCriteria();
-      expect(component.filterCriteria).toEqual(filterCriteria);
-    });
+  it(`when the updateFilterCriteria() is called, should set filterCriteria from
+    searchCriteria`, () => {
+    let searchCriteria = searchCriteriaDateRangeHelper(
+      'last month', [2018, 2, 9], [2019, 2, 9]);
+    let filterCriteria = {
+      dateFrom: dateFormatService.newDate(2018, 2, 9),
+      dateTo: dateFormatService.newDate(2019, 2, 9)
+    };
+    component.searchCriteria = searchCriteria;
+    component.updateFilterCriteria();
+    expect(component.filterCriteria).toEqual(filterCriteria);
   });
 });

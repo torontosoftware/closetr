@@ -1,5 +1,13 @@
 import { of } from 'rxjs';
-import { clickTest, clickAndTestCalledWithMult } from './utils';
+import { By } from '@angular/platform-browser';
+import {
+  clickTest,
+  clickAndTestCalledWithMult
+} from './utils';
+import {
+  mockUserOne,
+  mockClosetListRenderedTable
+} from './objects';
 
 export const loggedUserRedirectDashboard = (
   service, component, fixture, router
@@ -65,4 +73,42 @@ export const editButtonTests = (
       );
     });
   });
+}
+
+export const getAllClothesComponent = (
+  component, fixture, closetService
+) => {
+  component.getAllClothes();
+  fixture.detectChanges();
+  expect(closetService.getAllClothes).toHaveBeenCalledWith(mockUserOne);
+  expect(component.closetList).toEqual(mockClosetListRenderedTable);
+}
+
+export const purchaseTableShouldRender = (
+  component, fixture, dateFormatService, isBudgetWidget = false
+) => {
+  let mockPurchaseTable = {
+    bindBold: "clothingCost",
+    bindRegular: "clothingName",
+    filter: "date",
+    filterBy: "clothingPurchaseDate",
+    filterCriteria: {
+      dateFrom: dateFormatService.dateRangeForFrom("last month"),
+      dateTo: dateFormatService.newDate()
+    },
+    items: mockClosetListRenderedTable
+  };
+  (isBudgetWidget &&
+    (mockPurchaseTable.filterCriteria['dateRangeFor'] = "last month"));
+  let purchaseTable = fixture.debugElement.query(
+    By.css('#purchase-table')
+  ).componentInstance;
+  component.ngOnInit();
+  fixture.detectChanges();
+  expect(purchaseTable.bindBold).toEqual(mockPurchaseTable.bindBold);
+  expect(purchaseTable.bindRegular).toEqual(mockPurchaseTable.bindRegular);
+  expect(purchaseTable.filter).toEqual(mockPurchaseTable.filter);
+  expect(purchaseTable.filterBy).toEqual(mockPurchaseTable.filterBy);
+  expect(purchaseTable.filterCriteria).toEqual(mockPurchaseTable.filterCriteria);
+  expect(purchaseTable.items).toEqual(mockPurchaseTable.items);
 }
