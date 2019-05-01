@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const users = require('./users.model');
+const rh = require('../common/result_handling');
 
 /* API updates one user */
 function update_user_info (req, res, next) {
@@ -43,10 +44,7 @@ function update_user_info (req, res, next) {
       {upsert: true, new: true, runValidators: true},
       function (err, doc) {
         if (err) {
-          const result_json = {
-            status: 'failed',
-            message: err.message
-          };
+          const result_json = rh.return_failure(err);
           console.log("failed to find user");
           res.json(result_json);
         } else {
@@ -54,10 +52,7 @@ function update_user_info (req, res, next) {
             userName: doc.userName,
             userDesc: doc.userDesc
           }
-          const result_json = {
-            status: 'success',
-            data: user
-          };
+          const result_json = rh.return_success(user);
           console.log("found a user");
           res.json(result_json);
         }
@@ -82,10 +77,7 @@ function register_new_user(req, res, next) {
     {userID: user.userID},
     function (err, doc) {
       if (err) {
-        const result_json = {
-          status: 'failed',
-          message: error
-        };
+        const result_json = rh.return_failure(err);
         res.json(result_json);
       } else {
         if (doc.length != 0) {
@@ -111,10 +103,7 @@ function register_new_user(req, res, next) {
       {upsert: true, new: true, runValidators: true},
       function (err, doc) {
         if (err) {
-          const result_json = {
-            status: 'failed',
-            message: err.message
-          };
+          const result_json = rh.return_failure(err);
           res.json(result_json);
         } else {
           const token = jwt.sign({id: doc._id}, 'secret', {
@@ -150,10 +139,7 @@ function check_login_credentials(req, res, next) {
     {userID: user.userID},
     function (err, doc) {
       if (err) {
-        const result_json = {
-          status: 500,
-          message: err.message
-        };
+        const result_json = rh.return_failure(err);
         res.json(result_json);
       } else {
         var result = false;
