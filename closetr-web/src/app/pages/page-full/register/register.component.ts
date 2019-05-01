@@ -9,43 +9,22 @@ import { AuthenticationService } from '../../../services/authentication.service'
   templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnInit {
-  name: string;
-  username: string;
-  password: string;
-  passwordConfirm: string;
-  enableLogin: boolean;
-  userExists: boolean;
-  errorMessage: any;
-  error: any;
-  show: boolean;
+  name: string = "";
+  username: string = "";
+  password: string = "";
+  passwordConfirm: string ="";
+  enableLogin: boolean = false;
+  userExists: boolean = false;
+  show: boolean = false;
+  errorMessage: any = {};
+  error: any = { };
 
   constructor(private router: Router,
               private userService: UserService,
-              private authenticationService: AuthenticationService) {
-    this.name = "";
-    this.username = "";
-    this.password = "";
-    this.passwordConfirm = "";
-    this.userExists = false;
-    this.show = false;
-
-    this.errorMessage = {
-      'name':'',
-      'username':'',
-      'password':'',
-      'passwordConfirm':''
-    };
-
-    this.error = {
-      'name': false,
-      'username': false,
-      'password': false,
-      'passwordConfirm': false
-    };
-
-  }
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+    this.resetErrors();
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/dashboard']);
     } else {
@@ -67,21 +46,23 @@ export class RegisterComponent implements OnInit {
     this.checkError();
   }
 
-  checkError(): void {
+  resetErrors(): void {
     this.errorMessage = {
       'name':'',
       'username':'',
       'password':'',
       'passwordConfirm':''
     };
-
     this.error = {
       'name': false,
       'username': false,
       'password': false,
       'passwordConfirm': false
     };
+  }
 
+  checkError(): void {
+    this.resetErrors();
     if (this.password.length != 0
         && this.passwordConfirm.length != 0
         && this.password != this.passwordConfirm) {
