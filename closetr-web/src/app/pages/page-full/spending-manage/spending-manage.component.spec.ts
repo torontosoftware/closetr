@@ -1,19 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SharedModule } from '../../../shared/shared.module';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { DateFormatService } from '../../../services/utils/date-format.service';
 import { ClosetService } from '../../../services/closet.service';
-import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
-import { UiInputAddButtonComponent } from '../../../shared/ui-input-add-button/ui-input-add-button.component';
-import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
-import { UiFilterSelectComponent } from '../../../shared/ui-filter-select/ui-filter-select.component';
-import { UiFilterDateComponent } from '../../../shared/ui-filter-date/ui-filter-date.component';
 import { UiTableComponent } from '../../../shared/ui-table/ui-table.component';
-import { UiWidgetFullComponent } from '../../../shared/ui-widget-full/ui-widget-full.component';
 import { SpendingManageComponent } from './spending-manage.component';
 import { DateRangeFilterPipe } from '../../../pipes/date-range-filter.pipe';
 import {
@@ -40,9 +34,9 @@ import {
 } from '../../../../test/utils';
 import {
   toggleDateRangeShouldToggle,
-  getAllClothesComponent
+  getAllClothesComponent,
+  purchaseTableShouldRender
 } from '../../../../test/common-tests';
-import { SharedModule } from '../../../shared/shared.module';
 
 const closetList = mockClosetList;
 const currentUser = mockUserOne;
@@ -218,29 +212,8 @@ describe('SpendingManageComponent', () => {
     expect(component.availableDateRange).toEqual(availableDateRange);
   });
 
-  describe(`the table of purchases,`, () => {
-    it(`should render each item in closetList.`, () => {
-      let mockPurchaseTable = {
-        bindBold: "clothingCost",
-        bindRegular: "clothingName",
-        filter: "date",
-        filterBy: "clothingPurchaseDate",
-        filterCriteria: {
-          dateFrom: dateFormatService.dateRangeForFrom("last month"),
-          dateTo: dateFormatService.newDate()
-        },
-        items: closetList
-      };
-      component.ngOnInit();
-      fixture.detectChanges();
-      let purchaseTable = fixture.debugElement.query(By.directive(UiTableComponent)).componentInstance;
-      expect(purchaseTable.bindBold).toEqual(mockPurchaseTable.bindBold);
-      expect(purchaseTable.bindRegular).toEqual(mockPurchaseTable.bindRegular);
-      expect(purchaseTable.filter).toEqual(mockPurchaseTable.filter);
-      expect(purchaseTable.filterBy).toEqual(mockPurchaseTable.filterBy);
-      expect(purchaseTable.filterCriteria).toEqual(mockPurchaseTable.filterCriteria);
-      expect(purchaseTable.items).toEqual(mockPurchaseTable.items);
-    });
+  it(`the table of purchases should render each item in closetList.`, () => {
+    purchaseTableShouldRender(component, fixture, dateFormatService);
   });
 
   it(`the getAllClothes() method should set closetList.`, () => {
