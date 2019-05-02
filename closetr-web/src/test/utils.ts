@@ -1,4 +1,5 @@
 import { HttpTestingController } from '@angular/common/http/testing';
+import { By } from '@angular/platform-browser';
 
 export const inputDispatch = (
   input: HTMLInputElement,
@@ -167,4 +168,11 @@ export const inputChangeTestClassname = (
   component[inputType] = inputValue;
   fixture.detectChanges();
   expect(subject.className.includes(className)).toBeTruthy();
+}
+
+export const uiIconSizedTest = ( fixture, size, className ) => {
+  let iconSized = fixture.debugElement.query(
+    By.css('i')).componentInstance;
+  expect(iconSized.className).toEqual(className);
+  expect(iconSized.size).toEqual(size);
 }

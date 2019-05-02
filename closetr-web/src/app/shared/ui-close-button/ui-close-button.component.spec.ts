@@ -1,8 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { UiCloseButtonComponent } from './ui-close-button.component';
 import { UiIconSizedComponent } from '../ui-icon-sized/ui-icon-sized.component';
-import { inputChangeTestClassname } from '../../../test/utils';
+import {
+  inputChangeTestClassname,
+  uiIconSizedTest
+} from '../../../test/utils';
 
 describe('UiCloseButtonComponent', () => {
   let component: UiCloseButtonComponent;
@@ -58,9 +60,6 @@ describe('UiCloseButtonComponent', () => {
   });
 
   it(`ui-icon-sized should be given correct parameters.`, () => {
-    let iconSized = fixture.debugElement.query(
-      By.css('i')).componentInstance;
-    expect(iconSized.className).toEqual('material-icons icon-white icon-close');
-    expect(iconSized.size).toEqual('lg');
+    uiIconSizedTest(fixture, 'lg', 'material-icons icon-white icon-close');
   });
 });
