@@ -5,6 +5,9 @@ import {
   inputChangeTestClassname,
   uiIconSizedTest
 } from '../../../test/utils';
+import {
+  iconButtonDefaults
+} from '../../../test/common-tests';
 
 describe('UiCloseButtonComponent', () => {
   let component: UiCloseButtonComponent;
@@ -34,21 +37,18 @@ describe('UiCloseButtonComponent', () => {
 
   it(`should have default type, buttonLink, hidden (state), and size
     when not specified.`, () => {
-    expect(component.type).toEqual('button');
-    expect(component.buttonLink).toEqual('/');
-    expect(component.hidden).toEqual(false);
-    expect(component.size).toEqual('lg');
+    iconButtonDefaults(component);
   });
 
   const inputClassnameTest = (subject, inputType, inputValue, className) =>
     inputChangeTestClassname(component, fixture);
 
-  describe(`for inputs affecting button class,`, () => {
+  describe(`for button,`, () => {
     let button;
     beforeEach(() => {
       button = hostElement.querySelector('button.btn-close');
     });
-    it(`when hidden is true, should be disabled, and have 'display-none'
+    it(`when hidden is true, should have 'display-none'
       class applied to button.`, () => {
       inputClassnameTest(button, 'hidden', true, 'display-none');
     });
