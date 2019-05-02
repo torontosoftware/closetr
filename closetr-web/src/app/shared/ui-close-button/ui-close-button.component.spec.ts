@@ -1,5 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { UiCloseButtonComponent } from './ui-close-button.component';
+import { UiIconSizedComponent } from '../ui-icon-sized/ui-icon-sized.component';
+import { inputChangeTestClassname } from '../../../test/utils';
 
 describe('UiCloseButtonComponent', () => {
   let component: UiCloseButtonComponent;
@@ -7,7 +10,12 @@ describe('UiCloseButtonComponent', () => {
   let hostElement;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({ declarations: [ UiCloseButtonComponent ]})
+    TestBed.configureTestingModule({
+      declarations: [
+        UiIconSizedComponent,
+        UiCloseButtonComponent
+      ]
+    })
     .compileComponents();
   }));
 
@@ -30,11 +38,8 @@ describe('UiCloseButtonComponent', () => {
     expect(component.size).toEqual('lg');
   });
 
-  const inputClassnameTest = (subject, inputType, inputValue, className) => {
-    component[inputType] = inputValue;
-    fixture.detectChanges();
-    expect(subject.className.includes(className)).toBeTruthy();
-  }
+  const inputClassnameTest = (subject, inputType, inputValue, className) =>
+    inputChangeTestClassname(component, fixture);
 
   describe(`for inputs affecting button class,`, () => {
     let button;
@@ -47,20 +52,15 @@ describe('UiCloseButtonComponent', () => {
     });
     it(`when type is 'closet-card', should have 'closet-card-icon-close' class
       applied to button.`, () => {
-      inputClassnameTest(button, 'type', 'closet-card', 'closet-card-icon-close');
+      inputClassnameTest(button, 'type', 'closet-card',
+        'closet-card-icon-close');
     });
   });
 
-  describe(`for inputs affecting icon class,`, () => {
-    let icon;
-    beforeEach(() => {
-      icon = hostElement.querySelector('i.icon-close');
-    });
-    it(`icon should have 'icon-lg' class when size is 'lg.'`, () => {
-      inputClassnameTest(icon, 'size', 'lg', 'icon-lg');
-    });
-    it(`icon should have 'icon-md' class when size is 'md.'`, () => {
-      inputClassnameTest(icon, 'size', 'md', 'icon-md');
-    });
+  it(`ui-icon-sized should be given correct parameters.`, () => {
+    let iconSized = fixture.debugElement.query(
+      By.css('i')).componentInstance;
+    expect(iconSized.className).toEqual('material-icons icon-white icon-close');
+    expect(iconSized.size).toEqual('lg');
   });
 });

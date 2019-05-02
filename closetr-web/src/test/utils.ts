@@ -158,3 +158,13 @@ export const searchCriteriaDateRangeFor = (dateFormatService) => (
     dateToFormatted: dateFormatService.formatDateString(new Date())
   };
 }
+
+export const inputChangeTestClassname = (
+  component, fixture
+) => (
+  subject, inputType, inputValue, className
+) => {
+  component[inputType] = inputValue;
+  fixture.detectChanges();
+  expect(subject.className.includes(className)).toBeTruthy();
+}
