@@ -33,67 +33,50 @@ async function update_user_info (req, res, next) {
 }
 
 /* API sets one new user clothing */
-function register_new_user(req, res, next) {
+async function register_new_user(req, res, next) {
   // gather attributes from request
-  var user = req.body.user;
+  let user = req.body.user;
   const newItem = {
     userID: user.userID,
     userName: user.userName,
     userPassword: bcrypt.hashSync(user.userPassword, 8)
   };
+  let error = '', status = '';
 
-  var error = '', status = '';
-
-  users.find(
-    {userID: user.userID},
-    function (err, doc) {
-      if (err) {
-        const result_json = rh.return_failure(err);
-        res.json(result_json);
-      } else {
-        if (doc.length != 0) {
-          const result_json = {
-            status: 'failed',
-            message: 'user already exists.'
-          };
-          res.json(result_json);
-        } else {
-          // new user path
-          newItem['_id'] = mongoose.Types.ObjectId();
-          // create new clothing from clothes schema
-          users.findOneAndUpdate(
-            {_id: newItem._id},
-            newItem,
-            {upsert: true, new: true, runValidators: true},
-            function (err, doc) {
-              if (err) {
-                const result_json = rh.return_failure(err);
-                res.json(result_json);
-              } else {
-                const token = jwt.sign({id: doc._id}, 'secret', {
-                  expiresIn: 86400
-                });
-                const user = {
-                  userID: doc.userID,
-                  userName: doc.userName,
-                  id: doc._id,
-                  token: token
-                }
-                const result_json = {
-                  data: user,
-                  status: 'success',
-                  auth: true,
-                  token: token
-                };
-                console.log(result_json);
-                res.json(result_json);
-              }
-            }
-          );
-        }
-      }
+  try {
+    let user_list = await users.find({userID: user.userID});
+    // check if the user already exists
+    if (user_list.length != 0) {
+      const result_json = {
+        status: 'failed',
+        message: 'user already exists.'
+      };
+      res.json(result_json);
     }
-  );
+
+    // add new if if user did not already exist
+    newItem['_id'] = mongoose.Types.ObjectId();
+    let new_user = await users.findOneAndUpdate({_id: newItem._id}, newItem,
+      {upsert: true, new: true, runValidators: true});
+    const token = jwt.sign({id: doc._id}, 'secret', {expiresIn: 86400});
+    const user_payload = {
+      userID: new_user.userID,
+      userName: new_user.userName,
+      id: new_user._id,
+      token: token
+    }
+    const result_json = {
+      data: user,
+      status: 'success',
+      auth: true,
+      token: token
+    };
+    res.json(result_json);
+
+  } catch (err) {
+    const result_json = rh.return_failure(err);
+    res.json(result_json);
+  }
 }
 
 /* API returns true if passed user and password
