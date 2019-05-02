@@ -15,11 +15,37 @@ describe('UiCloseButtonComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UiCloseButtonComponent);
-    component = fixture.componentInstance;
+    component = fixture.debugElement.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it(`should have default type, buttonLink, hidden (state), and size
+    when not specified.`, () => {
+    expect(component.type).toEqual('button');
+    expect(component.buttonLink).toEqual('/');
+    expect(component.hidden).toEqual(false);
+    expect(component.size).toEqual('lg');
+  });
+
+  it(`when hidden is true, should be disabled, and have 'display-none'
+    class applied to button.`, () => {
+
+  });
+
+  it(`when type is 'closet-card', should have 'closet-card-icon-close' class
+    applied to button.`, () => {
+
+  });
+
+  it(`icon should have 'icon-lg' class when size is 'lg.'`, () => {
+
+  });
+
+  it(`icon should have 'icon-md' class when size is 'md.'`, () => {
+
   });
 });
