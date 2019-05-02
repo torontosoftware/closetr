@@ -112,3 +112,10 @@ export const purchaseTableShouldRender = (
   expect(purchaseTable.filterCriteria).toEqual(mockPurchaseTable.filterCriteria);
   expect(purchaseTable.items).toEqual(mockPurchaseTable.items);
 }
+
+export const iconButtonDefaults = ( component ) => {
+  expect(component.type).toEqual('button');
+  expect(component.buttonLink).toEqual('/');
+  expect(component.hidden).toEqual(false);
+  expect(component.size).toEqual('lg');
+}

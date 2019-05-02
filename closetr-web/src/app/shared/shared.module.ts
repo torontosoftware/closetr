@@ -18,10 +18,10 @@ import { UiEditButtonComponent } from './ui-edit-button/ui-edit-button.component
 import { UiCloseButtonComponent } from './ui-close-button/ui-close-button.component';
 import { UiFilterSelectComponent } from './ui-filter-select/ui-filter-select.component';
 import { UiTableComponent } from './ui-table/ui-table.component';
-import { ClosetStatsWidgetComponent } from '../pages/page-partial/closet-stats-widget/closet-stats-widget.component';
 import { UiFilterDateComponent } from './ui-filter-date/ui-filter-date.component';
 import { UiPopupMenuItemComponent } from './ui-popup-menu-item/ui-popup-menu-item.component';
 import { UiWidgetFullComponent } from './ui-widget-full/ui-widget-full.component';
+import { UiIconSizedComponent } from './ui-icon-sized/ui-icon-sized.component';
 
 @NgModule({
   imports: [
@@ -40,12 +40,12 @@ import { UiWidgetFullComponent } from './ui-widget-full/ui-widget-full.component
     UiCloseButtonComponent,
     UiFilterSelectComponent,
     UiTableComponent,
-    ClosetStatsWidgetComponent,
     UiFilterDateComponent,
     UiPopupMenuItemComponent,
     UiWidgetFullComponent,
     DateRangeFilterPipe,
-    SearchFilterPipe
+    SearchFilterPipe,
+    UiIconSizedComponent
   ],
   exports: [
     UiInputComponent,
@@ -59,12 +59,12 @@ import { UiWidgetFullComponent } from './ui-widget-full/ui-widget-full.component
     UiCloseButtonComponent,
     UiFilterSelectComponent,
     UiTableComponent,
-    ClosetStatsWidgetComponent,
     UiFilterDateComponent,
     UiPopupMenuItemComponent,
     UiWidgetFullComponent,
     DateRangeFilterPipe,
-    SearchFilterPipe
+    SearchFilterPipe,
+    UiIconSizedComponent
   ]
 })
 export class SharedModule { }

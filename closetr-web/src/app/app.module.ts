@@ -27,6 +27,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import { RegisterComponent } from './pages/page-full/register/register.component';
 import { ProfileComponent } from './pages/page-full/profile/profile.component';
 import { UserMenuComponent } from './pages/page-partial/user-menu/user-menu.component';
+import { ClosetStatsWidgetComponent } from './pages/page-partial/closet-stats-widget/closet-stats-widget.component';
 
 //pipes
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
@@ -66,6 +67,7 @@ import { TestModule } from '../test/test.module';
     UserMenuComponent,
     ProfileComponent,
     ClothingFormComponent,
+    ClosetStatsWidgetComponent
   ],
   imports: [
     BrowserModule,

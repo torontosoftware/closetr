@@ -1,18 +1,14 @@
 <button
-  class="btn btn-transparent closet-card-icon-close disabled-none"
+  class="btn btn-transparent closet-card-icon-close disabled-none btn-close"
   [disabled]="hidden"
   [ngClass]="{
     'display-none': hidden,
     'closet-card-icon-close': (type == 'closet-card')
   }">
   <span>
-    <i
-      class="material-icons icon-white"
-      [ngClass]="{
-        'icon-lg': (size == 'lg'),
-        'icon-md': (size == 'md')
-      }">
-      close
-    </i>
+    <ui-icon-sized
+      className="material-icons icon-white icon-close"
+      [size]="size"
+    >close</ui-icon-sized>
   </span>
 </button>
