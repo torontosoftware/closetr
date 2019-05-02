@@ -2,12 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SharedModule } from '../../../shared/shared.module';
 import { FormsModule } from '@angular/forms';
-import { UiBackButtonComponent } from '../../../shared/ui-back-button/ui-back-button.component';
-import { UiTextButtonComponent } from '../../../shared/ui-text-button/ui-text-button.component';
-import { UiInputComponent } from '../../../shared/ui-input/ui-input.component';
-import { UiInputSelectComponent } from '../../../shared/ui-input-select/ui-input-select.component';
-import { UiWidgetFullComponent } from '../../../shared/ui-widget-full/ui-widget-full.component';
 import { ClothingFormComponent } from './clothing-form.component';
 import {
   mockClothingOne,
@@ -34,16 +30,10 @@ describe('ClothingFormComponent', () => {
       imports: [
         FormsModule,
         RouterTestingModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        SharedModule
       ],
-      declarations: [
-        ClothingFormComponent,
-        UiBackButtonComponent,
-        UiTextButtonComponent,
-        UiInputComponent,
-        UiInputSelectComponent,
-        UiWidgetFullComponent
-      ]
+      declarations: [ ClothingFormComponent ]
     })
     .compileComponents();
   }));
