@@ -22,6 +22,7 @@ import { ClosetStatsWidgetComponent } from '../pages/page-partial/closet-stats-w
 import { UiFilterDateComponent } from './ui-filter-date/ui-filter-date.component';
 import { UiPopupMenuItemComponent } from './ui-popup-menu-item/ui-popup-menu-item.component';
 import { UiWidgetFullComponent } from './ui-widget-full/ui-widget-full.component';
+import { UiIconSizedComponent } from './ui-icon-sized/ui-icon-sized.component';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import { UiWidgetFullComponent } from './ui-widget-full/ui-widget-full.component
     UiPopupMenuItemComponent,
     UiWidgetFullComponent,
     DateRangeFilterPipe,
-    SearchFilterPipe
+    SearchFilterPipe,
+    UiIconSizedComponent
   ],
   exports: [
     UiInputComponent,
@@ -64,7 +66,8 @@ import { UiWidgetFullComponent } from './ui-widget-full/ui-widget-full.component
     UiPopupMenuItemComponent,
     UiWidgetFullComponent,
     DateRangeFilterPipe,
-    SearchFilterPipe
+    SearchFilterPipe,
+    UiIconSizedComponent
   ]
 })
 export class SharedModule { }
