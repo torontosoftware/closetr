@@ -3,18 +3,20 @@ const clothes_model = require('../clothes/clothes.model');
 const mongoose = require('mongoose');
 const rh = require('../common/result_handling');
 
-function add_new_entry(req, res, next) {
+async function add_new_entry(req, res, next) {
   // gather attributes
   const entry_request = req.body;
   const new_entry = create_entry_from_request(entry_request);
 
-  // create new entry from schema
-  outfit_entries_model.findOneAndUpdate(
-    {_id: new_entry._id},
-    new_entry,
-    {upsert: true, new: true, runValidators: true},
-    (err, doc) => rh.generic_error_conditional(err, doc, res)
-  );
+  try {
+    let payload = await outfit_entries_model.findOneAndUpdate({_id: new_entry._id},
+      new_entry, {upsert: true, new: true, runValidators: true});
+      const result_json = rh.return_success(payload);
+      res.json(result_json);
+  } catch (err) {
+    const result_json = rh.return_failure(err);
+    res.json(result_json);
+  }
 }
 
 function create_entry_from_request(entry_request) {
@@ -35,46 +37,42 @@ function create_entry_from_request(entry_request) {
   return new_entry;
 }
 
-function delete_entry(req, res, next) {
+async function delete_entry(req, res, next) {
   const id = req.params.id;
-  outfit_entries_model.remove(
-    {_id: id},
-    (err, doc) => rh.generic_error_conditional(err, doc, res)
-  )
+  try {
+    let payload = await outfit_entries_model.remove({_id: id});
+    const result_json = rh.return_success(payload);
+    res.json(result_json);
+  } catch (err) {
+    const result_json = rh.return_failure(err);
+    res.json(result_json);
+  }
 }
 
-function get_entry(req, res, next) {
+async function get_entry(req, res, next) {
   const criteria = req.query;
   let clothes;
-  outfit_entries_model.find({
-    user: criteria.userID,
-    date: criteria.date
-  })
-  .populate('clothing')
-  .populate({path: 'user', select: 'userID _id'}).exec(
-  (err, clothes) => {
-    if (err) {
-      result_json = rh.return_failure(err);
-      res.json(result_json);
-    } else {
-      outfit_entry_doc_handler(clothes, res);
-    }
-  });
+  try {
+    let outfit_entries = await outfit_entries_model.find({user: criteria.userID, date: criteria.date})
+      .populate('clothing')
+      .populate({path: 'user', select: 'userID _id'}).exec();
+    let outfit_entries_payload = clothes.map(db_to_payload_entries);
+    const result_json = rh.return_success(outfit_entries_payload);
+    res.json(result_json);
+  } catch (err) {
+    result_json = rh.return_failure(err);
+    res.json(result_json);
+  }
 }
 
-function outfit_entry_doc_handler(doc, res) {
-  let result = [];
-  doc.forEach((outfitEntry) => {
-    let outfitEntryResult = {
-      outfitEntryID: outfitEntry._id,
-      user: outfitEntry.user,
-      clothing: outfitEntry.clothing,
-      date: outfitEntry.date
-    };
-    result.push(outfitEntryResult);
-  });
-  const result_json = rh.return_success(result);
-  res.json(result_json);
+function db_to_payload_entries(outfit_entries) {
+  let outfit_entry_payload = {
+    outfitEntryID: outfit_entries._id,
+    user: outfit_entries.user,
+    clothing: outfit_entries.clothing,
+    date: outfit_entries.date
+  };
+  return outfit_entry_payload;
 }
 
 var outfit_entries_module = {
