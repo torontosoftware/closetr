@@ -2,19 +2,21 @@ const express = require('express');
 const mongoose = require('mongoose');
 const clothes_model = require('./clothes.model');
 const rh = require('../common/result_handling');
+const async_mongo = require('../common/async_mongo');
 
-function add_new_clothing(req, res, next) {
+async function add_new_clothing(req, res, next) {
   // gather attributes from request
   const clothing = req.body.clothing;
   const clothing_payload = create_clothing_payload_from_request(clothing);
 
-  // create new clothing from clothes schema
-  clothes_model.findOneAndUpdate(
-    {_id: clothing_payload._id},
-    clothing_payload,
-    {upsert: true, new: true, runValidators: true},
-    (err, doc) => generic_error_handling(err, doc, res)
-  );
+  try {
+    let payload = await async_mongo.findOneAndUpdate(clothes_model, clothing_payload);
+    const result_json = return_success(payload);
+    res.json(result_json);
+  } catch (err) {
+    const result_json = rh.return_failure(err);
+    res.json(result_json);
+  }
 }
 
 function create_clothing_payload_from_request(clothing) {
@@ -36,55 +38,41 @@ function create_clothing_payload_from_request(clothing) {
   return clothing_payload
 }
 
-function delete_clothing(req, res, next) {
-  // gather attributes from request
-  const clothingID = req.params.clothing_id;
-  // create new clothing from clothes schema
-  clothes_model.remove(
-    {_id: clothingID},
-    (err, doc) => generic_error_handling(err, doc, res)
-  );
-}
-
-function get_all_user_clothing(req, res, next) {
-  // query all clothes in the database
-  const userID = req.query.userID;
-  clothes_model.find(
-    {user: userID},
-    (err, doc) => get_all_clothing_error_handling(err, doc, res)
-  );
-}
-
-function get_all_clothing_error_handling(err, doc, res) {
-  if (err) {
+async function delete_clothing(req, res, next) {
+  try {
+    const clothingID = req.params.clothing_id;
+    let clothing_payload = await clothes_model.remove({_id: clothingID});
+    const result_json = rh.return_success(clothing_payload);
+    res.json(result_json);
+  } catch (err) {
     const result_json = rh.return_failure(err);
     res.json(result_json);
-  } else {
-    var result = [];
-    doc.forEach(function(clothing) {
-      var clothingResult = {
-        clothingID: clothing._id,
-        clothingName: clothing.clothingName,
-        clothingCategory: clothing.clothingCategory,
-        clothingWorn: clothing.clothingWorn,
-        clothingCost: clothing.clothingCost,
-        clothingPurchaseDate: clothing.clothingPurchaseDate
-      }
-      result.push(clothingResult);
-    });
+  }
+}
+
+async function get_all_user_clothing(req, res, next) {
+  try {
+    const userID = req.query.userID;
+    let all_user_clothing = await clothes_model.find({user: userID});
+    let result = all_user_clothing.map(db_to_payload);
     const result_json = rh.return_success(result);
     res.json(result_json);
+  } catch (err) {
+    const result_json = rh.return_failure(err);
+    res.json(result_json);
   }
-
 }
 
-function generic_error_handling(err, doc, res) {
-  if (err) {
-    const result_json = rh.return_failure(err);
-  } else {
-    const result_json = rh.return_success(doc);
+function db_to_payload_object(clothing) {
+  const payload = {
+    clothingID: clothing._id,
+    clothingName: clothing.clothingName,
+    clothingCategory: clothing.clothingCategory,
+    clothingWorn: clothing.clothingWorn,
+    clothingCost: clothing.clothingCost,
+    clothingPurchaseDate: clothing.clothingPurchaseDate
   }
-  res.json(result_json);
+  return payload;
 }
 
 var clothing_module = {
