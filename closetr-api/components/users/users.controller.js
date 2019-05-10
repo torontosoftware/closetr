@@ -13,7 +13,6 @@ async function update_user_info (req, res, next) {
   try {
     let decoded = await wt.verify(user.token, 'secret');
     req.decoded = decoded;
-
     let user_from_db = await users_model.findOneAndUpdate({userID: req_user.userID},
       { $set: {userName: req_user.userName, userDesc: req_user.userDesc}},
       {upsert: true, new: true, runValidators: true});
@@ -35,7 +34,6 @@ async function update_user_info (req, res, next) {
 
 /* API sets one new user clothing */
 async function register_new_user(req, res, next) {
-  // gather attributes from request
   let user = req.body.user;
   const newItem = {
     userID: user.userID,
@@ -59,18 +57,7 @@ async function register_new_user(req, res, next) {
     newItem['_id'] = mongoose.Types.ObjectId();
     let new_user = await async_mongo.findOneAndUpdate(users_model, newItem);
     const token = jwt.sign({id: doc._id}, 'secret', {expiresIn: 86400});
-    const user_payload = {
-      userID: new_user.userID,
-      userName: new_user.userName,
-      id: new_user._id,
-      token: token
-    }
-    const result_json = {
-      data: user,
-      status: 'success',
-      auth: true,
-      token: token
-    };
+    const result_json = register_get_success_json(new_user, token)
     res.json(result_json);
 
   } catch (err) {
@@ -79,33 +66,37 @@ async function register_new_user(req, res, next) {
   }
 }
 
+function register_get_user_payload(new_user, token) {
+  const user_payload = {
+    userID: new_user.userID,
+    userName: new_user.userName,
+    id: new_user._id,
+    token: token
+  }
+  return user_payload
+}
+
+function register_get_success_json(new_user, token) {
+  const user_payload = register_get_user_payload(new_user, token)
+  const result_json = {
+    data: user_payload,
+    status: 'success',
+    auth: true,
+    token: token
+  };
+  return result_json;
+}
+
 /* API returns true if passed user and password
 matches a pair in the database. */
 async function check_login_credentials(req, res, next) {
   let user = req.body.user;
-  // query all clothes in the database
   try {
     let users_from_db = await users_model.find({userID: user.userID})
 
-    let password_is_valid = false;
-    if(user_from_db != {}) {
-      users_from_db.forEach(function(dbUser) {
-        if (dbUser.userID == user.userID) {
-          let passwordValidate = bcrypt.compareSync(
-            user.userPassword, dbUser.userPassword);
-          password_is_valid = passwordValidate;
-        }
-      });
-    }
-    if(password_is_valid) {
-      const token_payload = jwt.sign({id: doc._id}, 'secret', { expiresIn: 86400 });
-      const user_payload = create_user_payload(doc[0], token_payload);
-      const result_json = {
-        data: user_payload,
-        status: 200,
-        auth: true,
-        token: token_payload
-      };
+    if(password_is_valid(users_from_db)) {
+      const user_obj = users_from_db[0]
+      const result_json = login_success_json(user_obj)
       res.json(result_json);
     } else {
       const result_json = {
@@ -119,6 +110,31 @@ async function check_login_credentials(req, res, next) {
     const result_json = rh.return_failure(err);
     res.json(result_json);
   }
+}
+
+function login_success_json(user_obj) {
+  const token_payload = jwt.sign({id: user_obj._id}, 'secret', { expiresIn: 86400 });
+  const user_payload = create_user_payload(user_obj, token_payload);
+  const result_json = {
+    data: user_payload,
+    status: 200,
+    auth: true,
+    token: token_payload
+  };
+  return result_json
+}
+
+function password_is_valid(users_from_db) {
+  let password_is_valid = false;
+  if(users_from_db != {}) {
+    users_from_db.forEach(function(dbUser) {
+      if (dbUser.userID == user.userID) {
+        let passwordValidate = bcrypt.compareSync(user.userPassword, dbUser.userPassword);
+        password_is_valid = passwordValidate;
+      }
+    });
+  }
+  return password_is_valid;
 }
 
 function create_user_payload(user_document, token_payload) {
