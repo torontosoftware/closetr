@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const clothes_model = require('./clothes.model');
 const rh = require('../common/result_handling');
+const async_mongo = require('../common/async_mongo');
 
 async function add_new_clothing(req, res, next) {
   // gather attributes from request
@@ -9,11 +10,7 @@ async function add_new_clothing(req, res, next) {
   const clothing_payload = create_clothing_payload_from_request(clothing);
 
   try {
-    let payload = await clothes_model.findOneAndUpdate(
-      {_id: clothing_payload._id},
-      clothing_payload,
-      {upsert: true, new: true, runValidators: true}
-    );
+    let payload = await async_mongo.findOneAndUpdate(clothes_model, clothing_payload);
     const result_json = return_success(payload);
     res.json(result_json);
   } catch (err) {

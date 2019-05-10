@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const users_model = require('./users.model');
 const rh = require('../common/result_handling');
+const async_mongo = require('../common/async_mongo');
 
 /* API updates one user */
 async function update_user_info (req, res, next) {
@@ -56,8 +57,7 @@ async function register_new_user(req, res, next) {
 
     // add new if if user did not already exist
     newItem['_id'] = mongoose.Types.ObjectId();
-    let new_user = await users_model.findOneAndUpdate({_id: newItem._id}, newItem,
-      {upsert: true, new: true, runValidators: true});
+    let new_user = await async_mongo.findOneAndUpdate(users_model, newItem);
     const token = jwt.sign({id: doc._id}, 'secret', {expiresIn: 86400});
     const user_payload = {
       userID: new_user.userID,
