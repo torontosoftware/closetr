@@ -44,7 +44,7 @@ jobs:
             cd closetr-web
             npm rebuild node-sass
             npm run-script build
-      
+
       - save_cache:
           name: Cache the dist folder for the deploy job
           key: angular-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
@@ -83,20 +83,19 @@ jobs:
     steps:
       - checkout
       ### ANGULAR PORTION ###
+      - checkout
       - restore_cache:
           name: Restoring dist folder
-          keys: 
+          keys:
             - angular-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
             # fallback to using the latest cache if no exact match is found
             - angular-dist-
       - add_ssh_keys:
           fingerprints:
-            - "00:9b:cf:af:a9:51:89:f5:c0:7e:9e:9a:2e:de:fe:1b"
+            - $SSH_FINGERPRINT
       - run:
           name: Add SSH Host
           command: |
-            mkdir $SSH_HOST_DIR
-            touch $SSH_HOST_FILE
             ssh-keyscan $SSH_HOST >> $SSH_HOST_FILE
       - run:
           name: Cleanup Build Files from Target Directory
@@ -106,7 +105,7 @@ jobs:
             rm ./*.js
             rm ./*.css
             rm ./*.html
-      
+
       - run:
           name: SCP Deploying Angular files
           command: |

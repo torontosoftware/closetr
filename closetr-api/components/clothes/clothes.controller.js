@@ -20,21 +20,13 @@ async function add_new_clothing(req, res, next) {
 }
 
 function create_clothing_payload_from_request(clothing) {
-  let clothing_payload = {
-    clothingName: clothing.clothingName,
-    clothingCost: clothing.clothingCost,
-    clothingCategory: clothing.clothingCategory,
-    clothingWorn: clothing.clothingWorn,
-    clothingPurchaseDate: clothing.clothingPurchaseDate,
-    user: clothing.userID
-  };
-
+  let clothing_payload = create_payload_from_clothing_common(clothing);
+  clothing_payload.user = clothing.userID
   if (clothing.clothingID == null) {
     clothing_payload['_id'] = mongoose.Types.ObjectId();
   } else {
     clothing_payload['_id'] = clothing.clothingID;
   }
-
   return clothing_payload
 }
 
@@ -64,15 +56,20 @@ async function get_all_user_clothing(req, res, next) {
 }
 
 function db_to_payload_object(clothing) {
-  const payload = {
-    clothingID: clothing._id,
+  let payload = create_payload_from_clothing_common(clothing);
+  payload.clothingID = clothing._id;
+  return payload;
+}
+
+function create_payload_from_clothing_common (clothing) {
+  let payload = {
     clothingName: clothing.clothingName,
     clothingCategory: clothing.clothingCategory,
     clothingWorn: clothing.clothingWorn,
     clothingCost: clothing.clothingCost,
     clothingPurchaseDate: clothing.clothingPurchaseDate
   }
-  return payload;
+  return payload
 }
 
 var clothing_module = {
