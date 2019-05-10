@@ -20,8 +20,6 @@ async function add_new_clothing(req, res, next) {
     const result_json = rh.return_failure(err);
     res.json(result_json);
   }
-
-  // (err, doc) => rh.generic_error_conditional(err, doc, res)
 }
 
 function create_clothing_payload_from_request(clothing) {
@@ -53,8 +51,6 @@ async function delete_clothing(req, res, next) {
     const result_json = rh.return_failure(err);
     res.json(result_json);
   }
-
-  // (err, doc) => rh.generic_error_conditional(err, doc, res)
 }
 
 async function get_all_user_clothing(req, res, next) {

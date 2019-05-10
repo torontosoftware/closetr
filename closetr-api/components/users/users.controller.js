@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const users = require('./users.model');
+const users_model = require('./users.model');
 const rh = require('../common/result_handling');
 
 /* API updates one user */
@@ -13,7 +13,7 @@ async function update_user_info (req, res, next) {
     let decoded = await wt.verify(user.token, 'secret');
     req.decoded = decoded;
 
-    let user_from_db = await users.findOneAndUpdate({userID: req_user.userID},
+    let user_from_db = await users_model.findOneAndUpdate({userID: req_user.userID},
       { $set: {userName: req_user.userName, userDesc: req_user.userDesc}},
       {upsert: true, new: true, runValidators: true});
     const user_payload = {
@@ -44,7 +44,7 @@ async function register_new_user(req, res, next) {
   let error = '', status = '';
 
   try {
-    let user_list = await users.find({userID: user.userID});
+    let user_list = await users_model.find({userID: user.userID});
     // check if the user already exists
     if (user_list.length != 0) {
       const result_json = {
@@ -56,7 +56,7 @@ async function register_new_user(req, res, next) {
 
     // add new if if user did not already exist
     newItem['_id'] = mongoose.Types.ObjectId();
-    let new_user = await users.findOneAndUpdate({_id: newItem._id}, newItem,
+    let new_user = await users_model.findOneAndUpdate({_id: newItem._id}, newItem,
       {upsert: true, new: true, runValidators: true});
     const token = jwt.sign({id: doc._id}, 'secret', {expiresIn: 86400});
     const user_payload = {
@@ -85,7 +85,7 @@ async function check_login_credentials(req, res, next) {
   let user = req.body.user;
   // query all clothes in the database
   try {
-    let users_from_db = await users.find({userID: user.userID})
+    let users_from_db = await users_model.find({userID: user.userID})
 
     let password_is_valid = false;
     if(user_from_db != {}) {
