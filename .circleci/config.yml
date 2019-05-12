@@ -96,9 +96,7 @@ jobs:
             - angular-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
             # fallback to using the latest cache if no exact match is found
             - angular-dist-
-      - add_ssh_keys:
-          fingerprints:
-            - "00:9b:cf:af:a9:51:89:f5:c0:7e:9e:9a:2e:de:fe:1b"
+      - add_ssh_keys
       - run:
           name: Add SSH Host
           command: |
