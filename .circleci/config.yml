@@ -76,14 +76,20 @@ jobs:
             - closetr-api
           key: express-manifest-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
 
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - closetr-web
+
   deploy:
     docker:
       - image: buildpack-deps:trusty
     working_directory: ~/repo
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/repo
       ### ANGULAR PORTION ###
-      - checkout
       - restore_cache:
           name: Restoring dist folder
           keys:
