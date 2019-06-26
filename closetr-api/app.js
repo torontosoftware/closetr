@@ -1,3 +1,6 @@
+// aliases
+require('./config/aliases');
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -7,10 +10,10 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 // routers from route folder
-const indexRouter = require('./components/index/index');
-const clothesRouter = require('./components/clothes/clothes');
-const usersRouter = require('./components/users/users');
-const outfitEntriesRouter = require('./components/outfit_entries/outfit_entries');
+const indexRouter = require('@components/index/index');
+const clothesRouter = require('@components/clothes/clothes');
+const usersRouter = require('@components/users/users');
+const outfitEntriesRouter = require('@components/outfit_entries/outfit_entries');
 
 // the express app
 var app = express();

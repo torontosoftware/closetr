@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const clothes_model = require('./clothes.model');
-const rh = require('../common/result_handling');
-const async_mongo = require('../common/async_mongo');
+const rh = require('@common/result_handling');
+const async_mongo = require('@common/async_mongo');
 
 async function add_new_clothing(req, res, next) {
   // gather attributes from request

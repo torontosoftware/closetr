@@ -1,8 +1,8 @@
 const outfit_entries_model = require('./outfit_entries.model');
 const clothes_model = require('../clothes/clothes.model');
 const mongoose = require('mongoose');
-const rh = require('../common/result_handling');
-const async_mongo = require('../common/async_mongo');
+const rh = require('@common/result_handling');
+const async_mongo = require('@common/async_mongo');
 
 async function add_new_entry(req, res, next) {
   // gather attributes
