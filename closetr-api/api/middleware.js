@@ -2,19 +2,17 @@ const express = require('express');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const indexRouter = require('@components/index/index');
-const clothesRouter = require('@components/clothes/clothes');
-const usersRouter = require('@components/users/users');
-const outfitEntriesRouter = require('@components/outfit_entries/outfit_entries');
+const routes = require('@routes');
+const db = require('@db')
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
 
 function get_express_app() {
   const app = express();
   app = apply_misc_middleware(app)
-  app = apply_routes(app)
+  app = routes.apply_routes(app)
   app = apply_body_parser(app)
-  app = apply_db_connection(app)
+  app = db.apply_db_connection(app)
   app = apply_error_handling(app)
   return app
 }
@@ -29,26 +27,11 @@ function apply_misc_middleware (app) {
   return app
 }
 
-function apply_routes (app) {
-  app.use('/', indexRouter);
-  app.use('/api/clothes/', clothesRouter);
-  app.use('/api/users/', usersRouter);
-  app.use('/api/outfitEntries/', outfitEntriesRouter);
-  return app
-}
-
 function apply_body_parser (app) {
   app.use(bodyParser.urlencoded({
      extended: true
   }));
   app.use(bodyParser.json());
-  return app
-}
-
-function apply_db_connection (app) {
-  mongo_connect_string = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASS + '@' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME
-  mongoose.connect(mongo_connect_string, { useNewUrlParser: true });
-  var db = mongoose.connection;
   return app
 }
 

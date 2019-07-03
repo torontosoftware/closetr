@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const users = require('./users.model');
-
 const users_controller = require('./users.controller');
 
 router.post('/login', users_controller.check_login_credentials);
