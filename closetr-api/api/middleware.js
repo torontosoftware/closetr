@@ -3,12 +3,13 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const routes = require('@routes');
-const db = require('@db')
+const db = require('@db/index')
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
+const path = require('path');
 
 function get_express_app() {
-  const app = express();
+  let app = express();
   app = apply_misc_middleware(app)
   app = routes.apply_routes(app)
   app = apply_body_parser(app)

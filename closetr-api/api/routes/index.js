@@ -11,4 +11,4 @@ function apply_routes (app) {
   return app
 }
 
-module.exports = apply_routes;
+module.exports = {apply_routes};

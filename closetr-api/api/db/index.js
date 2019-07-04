@@ -16,4 +16,4 @@ function create_mongo_str_from_env() {
   return 'mongodb://' + user + ':' + pass + '@' + host + ':' + port + '/' + name
 }
 
-module.exports = apply_db_connection
+module.exports = {apply_db_connection}
