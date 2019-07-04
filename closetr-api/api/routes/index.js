@@ -1,13 +1,20 @@
-const indexRouter = require('./index/index');
-const usersRouter = require('./users/users');
-const clothesRouter = require('./clothes/clothes');
-const outfitEntriesRouter = require('./outfit_entries/outfit_entries');
+const index_router = require('./index');
+const users_router = require('./users');
+const clothes_router = require('./clothes');
+const outfit_entries_router = require('./outfit_entries');
+
+const endpoints = {
+  index: '/',
+  clothes: '/api/clothes/',
+  users: '/api/users/',
+  outfit_entries: '/api/outfitEntries/',
+}
 
 function apply_routes (app) {
-  app.use('/', indexRouter);
-  app.use('/api/clothes/', clothesRouter);
-  app.use('/api/users/', usersRouter);
-  app.use('/api/outfitEntries/', outfitEntriesRouter);
+  app.use(endpoints.index, indexRouter);
+  app.use(endpoints.clothes, clothesRouter);
+  app.use(endpoints.users, usersRouter);
+  app.use(endpoints.outfit_entries, outfitEntriesRouter);
   return app
 }
 
