@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const users_model = require('./users.model');
-const rh = require('../common/result_handling');
-const async_mongo = require('../common/async_mongo');
+const rh = require('@common/result_handling');
+const async_mongo = require('@common/async_mongo');
 
 /* API updates one user */
 async function update_user_info (req, res, next) {
