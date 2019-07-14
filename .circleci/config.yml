@@ -1,7 +1,5 @@
 # Javascript Node CircleCI 2.0 configuration file
 #
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
 jobs:
   build:
@@ -100,7 +98,7 @@ jobs:
       - run:
           name: Add SSH Host
           command: |
-            ssh-keyscan $SSH_HOST >> $SSH_HOST_FILE
+            for ip in $(dig $AUTHORITY $SSH_HOST +short); do ssh-keyscan $SSH_HOST,$ip; ssh-keyscan $ip; done 2>/dev/null >> $SSH_HOST_FILE
       - run:
           name: Cleanup Build Files from Target Directory
           command: |
