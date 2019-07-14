@@ -75,9 +75,11 @@ jobs:
           key: express-manifest-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
 
       - persist_to_workspace:
-          root: ~/repo
+          root: ~
           paths:
-            - closetr-web
+            - repo/closetr-web
+            - .ssh
+      - 
 
   deploy:
     docker:
