@@ -97,9 +97,9 @@ needs are leaning towards NoSQL.
 
 ### Contribute
 
-If you're interested in contributing, first: get in touch with
+If you're interested in contributing, Get in touch with
 [Fides](mailto:fides.linga@mail.utoronto.ca), and with what ideas you have to
-offer for Closetr.
+offer for Closetr. You may also make an issue and/or a pullrequest to this repository.
 
 Later on, we will provide instructions on how we integrate new features that
 you may have.
