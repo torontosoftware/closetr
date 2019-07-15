@@ -88,8 +88,6 @@ jobs:
       - attach_workspace:
           at: ~/repo
       - add_ssh_keys
-           fingerprints:
-              - "00:9b:cf:af:a9:51:89:f5:c0:7e:9e:9a:2e:de:fe:1b"
       ### ANGULAR PORTION ###
       - restore_cache:
           name: Restoring dist folder
