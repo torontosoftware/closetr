@@ -78,7 +78,6 @@ jobs:
           root: ~/repo
           paths:
             - closetr-web
-            - /../.ssh
 
   deploy:
     docker:
@@ -88,6 +87,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/repo
+      - add_ssh_keys
       ### ANGULAR PORTION ###
       - restore_cache:
           name: Restoring dist folder
@@ -95,7 +95,7 @@ jobs:
             - angular-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
             # fallback to using the latest cache if no exact match is found
             - angular-dist-
-      - add_ssh_keys
+      
       - run:
           name: Add SSH Host
           command: |
