@@ -103,11 +103,11 @@ jobs:
             mkdir -p ~/.ssh
             touch ~/.ssh
             touch ~/.ssh/known_hosts
-            for ip in $(dig $AUTHORITY $SSH_HOST +short); do ssh-keyscan $SSH_HOST,$ip; ssh-keyscan $ip; done 2>/dev/null >> $SSH_HOST_FILE
+            ssh-keygen -H $SSH_HOST >> ~/.ssh/known_hosts
       - run:
           name: Cleanup Build Files from Target Directory
           command: |
-            ssh $SSH_USER@$SSH_HOST
+            ssh -o $SSH_USER@$SSH_HOST
             cd $SSH_DEPLOY_PATH
             rm ./*.js
             rm ./*.css
