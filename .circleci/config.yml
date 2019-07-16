@@ -100,7 +100,6 @@ jobs:
           name: Add SSH Host
           command: |
             echo "PubkeyAuthentication yes" >> /etc/ssh/ssh_config
-            service sshd restart
             mkdir -p ~/.ssh
             touch ~/.ssh
             touch ~/.ssh/known_hosts
