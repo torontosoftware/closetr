@@ -16,14 +16,8 @@ import {
   StatusBar,
 } from "react-native";
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
-import Section from './components/section';
+import { Header, Colors } from "react-native/Libraries/NewAppScreen";
+import Content from './components/content';
 
 const App = () => {
   return (
@@ -40,22 +34,7 @@ const App = () => {
               <Text style={styles.footer}>Engine: Hermes</Text>
             </View>
           )}
-          <View style={styles.body}>
-            <Section title='Step One'>
-              Edit <Text style={styles.highlight}>App.js</Text> to change this
-              screen and then come back to see your edits.
-            </Section>
-            <Section title='See Your Changes'>
-              <ReloadInstructions />
-            </Section>
-            <Section title='Debug'>
-              <DebugInstructions />
-            </Section>
-            <Section title='Learn More'>
-              Read the docs to discover what to do next:
-            </Section>
-            <LearnMoreLinks />
-          </View>
+          <Content />
         </ScrollView>
       </SafeAreaView>
     </Fragment>
@@ -69,12 +48,6 @@ const styles = StyleSheet.create({
   engine: {
     position: "absolute",
     right: 0
-  },
-  body: {
-    backgroundColor: Colors.white
-  },
-  highlight: {
-    fontWeight: "700"
   },
   footer: {
     color: Colors.dark,
