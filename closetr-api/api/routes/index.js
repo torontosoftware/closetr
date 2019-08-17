@@ -10,12 +10,10 @@ const endpoints = {
   outfit_entries: '/api/outfitEntries/',
 }
 
-function apply_routes (app) {
+module.exports = (app) => {
   app.use(endpoints.main, mainRouter);
   app.use(endpoints.clothes, clothesRouter);
   app.use(endpoints.users, usersRouter);
   app.use(endpoints.outfit_entries, outfitEntriesRouter);
   return app;
 }
-
-module.exports = apply_routes;

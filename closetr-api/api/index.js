@@ -1,11 +1,10 @@
-const get_express_app = require('./middleware');
+const getApp = require('./getApp');
+const { getExpressPort } = require('@config')
 
-function run_app () {
-  let app = get_express_app();
-  const port = process.env.PORT || 8080;
-  app.listen(port, function () {
+module.exports = () => {
+  let app = getApp();
+  const port = getExpressPort();
+  app.listen(port, () => {
        console.log("listening on port " + port);
   });
-}
-
-module.exports = {run_app}
+};
