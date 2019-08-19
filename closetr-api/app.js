@@ -1,3 +1,3 @@
-require('./config/aliases');
-const api = require('@api');
-api();
+require('./config/aliases')
+const api = require('@api')
+api()

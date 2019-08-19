@@ -1,7 +1,5 @@
 # Javascript Node CircleCI 2.0 configuration file
 #
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
 jobs:
   build:
@@ -100,11 +98,15 @@ jobs:
       - run:
           name: Add SSH Host
           command: |
-            ssh-keyscan $SSH_HOST >> $SSH_HOST_FILE
+            echo "PubkeyAuthentication yes" >> /etc/ssh/ssh_config
+            mkdir -p ~/.ssh
+            touch ~/.ssh
+            touch ~/.ssh/known_hosts
+            ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
       - run:
           name: Cleanup Build Files from Target Directory
           command: |
-            ssh $SSH_USER@$SSH_HOST
+            ssh $SSH_USER@$SSH_HOST -vvv
             cd $SSH_DEPLOY_PATH
             rm ./*.js
             rm ./*.css
