@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "npm run build && node server.js"
+    "deploy": "node server.js"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +26,7 @@
     "core-js": "3",
     "express": "4.17.1",
     "jquery": "3.4.1",
+    "morgan": "^1.9.1",
     "node-sass": "4.11.0",
     "nyc": "13.3.0",
     "path": "0.12.7",
