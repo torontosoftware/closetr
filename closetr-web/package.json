@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "deploy": "node server.js",
-    "start": "npm run build && npm run deploy"
+    "start": "npm run deploy"
   },
   "private": true,
   "dependencies": {
