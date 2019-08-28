@@ -99,9 +99,9 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - angular-dist-
       - run:
-          name: git pulling to resolve heroku issues
+          name: git pulling to resolve heroku issues for Front-End
           command: |
-            git pull
+            git subtree pull --prefix closetr-web https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_FRONTEND_NAME.git master
       - run:
           name: Deploying Front-End to Heroku
           command: |
@@ -114,6 +114,10 @@ jobs:
             - express-manifest-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
             # fallback to using the latest cache if no exact match is found
             - express-manifest-
+      - run:
+          name: git pulling to resolve heroku issues for Front-End
+          command: |
+            git subtree pull --prefix closetr-api https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_BACKEND_NAME.git master
       - run:
           name: Deploying API to Heroku
           command: |
