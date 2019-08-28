@@ -101,8 +101,8 @@ jobs:
       - run:
           name: Deploying Front-End to Heroku
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_FRONTEND_NAME.git `git subtree split --prefix closetr-web master`:master --force
-
+            git subtree push --prefix closetr-web https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_FRONTEND_NAME.git master
+      
       ### NODE/EXPRESS PORTION ###
       - restore_cache:
           name: Restoring API manifest from the build job
