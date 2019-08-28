@@ -18,11 +18,9 @@ jobs:
       - checkout
       ### ANGULAR PORTION ###
 
-      # Download and cache dependencies
       - restore_cache:
           keys:
             - angular-dependencies-{{ checksum "closetr-web/package.json" }}
-            # fallback to using the latest cache if no exact match is found
             - angular-dependencies-
 
       - run:
@@ -89,34 +87,21 @@ jobs:
           at: ~/repo
       ### ANGULAR PORTION ###
       - restore_cache:
-          name: Restoring dist folder
+          name: Restoring node_modules for web
+          keys:
+            - angular-dependencies-{{ checksum "closetr-web/package.json" }}
+            - angular-dependencies-
+
+      - restore_cache:
+          name: Restoring web dist folder
           keys:
             - angular-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
             # fallback to using the latest cache if no exact match is found
             - angular-dist-
-      - add_ssh_keys
       - run:
-          name: Add SSH Host
+          name: Deploying Front-End to Heroku
           command: |
-            echo "PubkeyAuthentication yes" >> /etc/ssh/ssh_config
-            mkdir -p ~/.ssh
-            touch ~/.ssh
-            touch ~/.ssh/known_hosts
-            ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
-      - run:
-          name: Cleanup Build Files from Target Directory
-          command: |
-            ssh $SSH_USER@$SSH_HOST -vvv
-            cd $SSH_DEPLOY_PATH
-            rm ./*.js
-            rm ./*.css
-            rm ./*.html
-
-      - run:
-          name: SCP Deploying Angular files
-          command: |
-            cd closetr-web
-            scp -r ./dist/closeter/* $SSH_USER@$SSH_HOST:$SSH_DEPLOY_PATH
+            git subtree push --prefix closetr-web https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_FRONTEND_NAME.git master
       ### NODE/EXPRESS PORTION ###
       - restore_cache:
           name: Restoring API manifest from the build job
@@ -127,7 +112,7 @@ jobs:
       - run:
           name: Deploying API to Heroku
           command: |
-            git subtree push --prefix closetr-api https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+            git subtree push --prefix closetr-api https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_BACKEND_NAME.git master
 
 workflows:
   version: 2
