@@ -1,6 +1,6 @@
 # Closetr
 
-[LIVE PROJECT](http://fideslinga.com/closeter/)
+[LIVE PROJECT](https://closetr-frontend.herokuapp.com/)
 
 [![CircleCI](https://circleci.com/gh/wafffly/closetr.svg?style=svg)](https://circleci.com/gh/wafffly/closetr)
 [![Maintainability](https://api.codeclimate.com/v1/badges/88f324bc577c2fc63241/maintainability)](https://codeclimate.com/github/wafffly/closetr/maintainability)
