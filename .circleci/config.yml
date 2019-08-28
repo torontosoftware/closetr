@@ -101,7 +101,7 @@ jobs:
       - run:
           name: Deploying Front-End to Heroku
           command: |
-            git subtree push --prefix closetr-web https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_FRONTEND_NAME.git master
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_FRONTEND_NAME.git `git subtree split --prefix closetr-web master`:master --force
       
       ### NODE/EXPRESS PORTION ###
       - restore_cache:
