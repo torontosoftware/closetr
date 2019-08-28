@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "dev": "ng serve",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "node server.js"
+    "deploy": "node server.js",
+    "start": "npm run build && npm run deploy"
   },
   "private": true,
   "dependencies": {
