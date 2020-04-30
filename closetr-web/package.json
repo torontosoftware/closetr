@@ -26,7 +26,7 @@
     "bootstrap-toggle": "2.2.2",
     "core-js": "3",
     "express": "4.17.1",
-    "jquery": "3.4.1",
+    "jquery": "3.5.0",
     "morgan": "^1.9.1",
     "node-sass": "4.11.0",
     "nyc": "13.3.0",
